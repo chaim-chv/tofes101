@@ -33,6 +33,7 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
   const saving = useState<boolean>("form-saving", () => false)
   const lastSavedAt = useState<string | null>("form-last-saved", () => null)
   const conflict = useState<boolean>("form-conflict", () => false)
+  const dirty = useState<boolean>("form-dirty", () => false)
 
   const store = import.meta.client ? createDraftStore() : null
 
@@ -76,6 +77,7 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
   }
 
   function touch() {
+    dirty.value = true
     if (!import.meta.client) return
     if (saveTimer) clearTimeout(saveTimer)
     saving.value = true
@@ -229,6 +231,7 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
     saving,
     lastSavedAt,
     conflict,
+    dirty,
     issues,
     steps,
     progress,

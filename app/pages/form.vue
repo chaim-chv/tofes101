@@ -199,7 +199,7 @@ const printHref = computed(() => path("/print/"))
         />
         <p class="text-xs text-muted">
           <span v-if="form.saving.value">{{ t("common.saving") }}</span>
-          <span v-else-if="form.lastSavedAt.value">{{ t("common.saved") }}</span>
+          <span v-else-if="form.dirty.value && form.lastSavedAt.value">{{ t("common.saved") }}</span>
         </p>
       </div>
 
