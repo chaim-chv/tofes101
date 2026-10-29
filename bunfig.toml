@@ -1,0 +1,4 @@
+[test]
+# Only the product test suite. `research/spikes/**` contains one-off harnesses
+# (vitest fixtures, Playwright probes) that are evidence, not CI tests.
+root = "./tests"
