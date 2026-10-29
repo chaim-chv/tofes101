@@ -1,0 +1,40 @@
+<!doctype html><html ng-controller="tpCtrl" ng-app="tepez" ng-strict-di><head ng-controller="tpHeadCtrl as headCtrl"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta property="fb:app_id" content="408773909274841"><base href="/"><meta name="referrer" content="strict-origin-when-cross-origin"><link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"><link rel="manifest" href="manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><style>#tp-angular-root {
+    display: none;
+}</style><title ng-bind="headCtrl.title"></title><link rel="stylesheet" ng-repeat="url in headCtrl.getCssFiles()" ng-href="{{url}}"><script defer="defer" src="assets/js/dexie-f89eae2065.js"></script><script defer="defer" src="assets/js/pdf-94c9a1097c.js"></script><script defer="defer" src="assets/js/ckeditor-52f61aec7a.js"></script><script defer="defer" src="assets/js/vendors~tepez-front-core-dbee50a7ed.js"></script><script defer="defer" src="assets/js/tepez-front-core-838c548d67.js"></script></head><body ng-class="bodyClass()" ng-style="bodyStyle()" tp-detect-file-drag tp-disable-file-drag-default><style>@keyframes spinner-line-fade-more {
+  0%, 100% {
+    opacity: 0; /* minimum opacity */
+  }
+  1% {
+    opacity: 1;
+  }
+}
+
+@keyframes spinner-line-fade-quick {
+  0%, 39%, 100% {
+    opacity: 0.25; /* minimum opacity */
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@keyframes spinner-line-fade-default {
+  0%, 100% {
+    opacity: 0.22; /* minimum opacity */
+  }
+  1% {
+    opacity: 1;
+  }
+}
+
+@keyframes spinner-line-shrink {
+  0%, 25%, 100% {
+    /* minimum scale and opacity */
+    transform: scale(0.5);
+    opacity: 0.25;
+  }
+  26% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}</style><div id="tp-angular-root" ui-view></div><div id="tp-pre-angular-overlay" tabindex="-1" style="background:rgba(0,0,0,0.15);width:100%;height:100%;top:0;left:0;position:fixed;z-index:9999;text-align: center;cursor:wait;"><div id="tp-pre-angular-spinner" style="position: 'fixed',top: '50%',left: '50%'"></div></div><script>window.tpConfig = {"baseHref":"/","version":{"rev":"2a5a5292362de445f8f6873bc623538a3dbf982c","date":"2026-10-28T14:13:11.000Z"},"ckeditor":{"basePath":"/ckeditor-1.2.0/"},"pdfjs":{"version":"4.10.38"},"apiPrefix":"https://api.tepez.co.il/v1.0/","contribApiBaseUrl":"https://validators.tepez.co.il","googleClientId":"957334334640-s24igcpi1a3b4obvqjkhv2ttpkro6gbl.apps.googleusercontent.com","adSense":{"test":true},"debug":false,"gtmContainerId":"GTM-WBBV7DQ","sentry":{"dsn":"https://92856610b4d24e38877bf3ef5c1ccbf8@o10531.ingest.us.sentry.io/34900","environment":"production","release":"2a5a5292362de445f8f6873bc623538a3dbf982c"},"helpSiteUrl":"https://help.tepez.co.il","revManifest":{"bs3":{"builder":{"ltr":"364995b526","rtl":"9e03817f4d"},"admin":{"ltr":"df5c2db958","rtl":"eba617dddb"},"ckEditor":"9447df39da","form":{"ltr":"6967e29509","rtl":"8aaf06239b"},"core":{"ltr":"147293773d","rtl":"b17b832733"}},"bs-accessible":{"builder":{"ltr":"b7425f94c3","rtl":"adc3f5371d"},"admin":{"ltr":"80e85cc1a8","rtl":"bcc1827e0f"},"ckEditor":"9447df39da","form":{"ltr":"5984243f04","rtl":"118fe234bb"},"core":{"ltr":"6e2b764485","rtl":"087cf28a3b"}},"bw-cerulean":{"builder":{"ltr":"a1de3cc3ee","rtl":"be52e67a67"},"admin":{"ltr":"d1ce532c85","rtl":"9b528743c7"},"ckEditor":"9447df39da","form":{"ltr":"8797eeb013","rtl":"a512d26af6"},"core":{"ltr":"3019b8620c","rtl":"649fe78872"}},"bw-cosmo":{"builder":{"ltr":"1135ae0695","rtl":"f528c1eead"},"admin":{"ltr":"6deba8c4f0","rtl":"8891ca8cd7"},"ckEditor":"9447df39da","form":{"ltr":"ebd8a524f6","rtl":"43b3cf2d38"},"core":{"ltr":"0e7c3b9f61","rtl":"5fd51cd51e"}},"bw-cyborg":{"builder":{"ltr":"1b7786fbc7","rtl":"0d49472082"},"admin":{"ltr":"6bbe07bb40","rtl":"50d9c3c099"},"ckEditor":"9447df39da","form":{"ltr":"bc2c3d95c6","rtl":"d347ba7472"},"core":{"ltr":"7e4f4a6423","rtl":"6cda9faf63"}},"bw-darkly":{"builder":{"ltr":"0027e51ae1","rtl":"c651d626ab"},"admin":{"ltr":"c05d35774f","rtl":"e4b0a40b31"},"ckEditor":"9447df39da","form":{"ltr":"c9ad27a43e","rtl":"a740a0f5b7"},"core":{"ltr":"8dbcdd47b3","rtl":"422a8a093a"}},"bw-flatly":{"builder":{"ltr":"8e7f4a71ee","rtl":"ff665020c5"},"admin":{"ltr":"04e89dee10","rtl":"be3dc69489"},"ckEditor":"9447df39da","form":{"ltr":"d4908ee8cd","rtl":"7567a876c0"},"core":{"ltr":"d78c880333","rtl":"307b7033ef"}},"bw-journal":{"builder":{"ltr":"1a57109434","rtl":"33e29ae900"},"admin":{"ltr":"dd4d762418","rtl":"fe787da396"},"ckEditor":"9447df39da","form":{"ltr":"c579e30377","rtl":"ce18b2d2d9"},"core":{"ltr":"f709454c97","rtl":"a83c70ca6e"}},"bw-lumen":{"builder":{"ltr":"eea11d3a91","rtl":"6f7dfc3dab"},"admin":{"ltr":"007301b4a0","rtl":"0556c03aac"},"ckEditor":"9447df39da","form":{"ltr":"aaf918803b","rtl":"64dcd5c6f1"},"core":{"ltr":"878d721744","rtl":"77d5e38738"}},"bw-sandstone":{"builder":{"ltr":"9a3ac4831f","rtl":"733fbf6865"},"admin":{"ltr":"62c49bb1d3","rtl":"ab047b55d4"},"ckEditor":"9447df39da","form":{"ltr":"ecc5ba4040","rtl":"3ffbeb6a87"},"core":{"ltr":"b5fcb229aa","rtl":"cf2205c408"}},"bw-superhero":{"builder":{"ltr":"4f1d53b7f1","rtl":"6e49c574df"},"admin":{"ltr":"90bc5a1252","rtl":"4f4b7d01e7"},"ckEditor":"9447df39da","form":{"ltr":"91f59c577d","rtl":"a21e83f4a3"},"core":{"ltr":"e380122ca5","rtl":"58dd2638e1"}},"bw-united":{"builder":{"ltr":"f37902b3f7","rtl":"5c8d7ebbb1"},"admin":{"ltr":"b3ef3ff236","rtl":"3d71c8af5a"},"ckEditor":"9447df39da","form":{"ltr":"e35c199a5f","rtl":"eaac5f55e4"},"core":{"ltr":"f2491bc885","rtl":"c6f55c8c7e"}},"bw-readable":{"builder":{"ltr":"ffc67af3fb","rtl":"d7ce33ab81"},"admin":{"ltr":"b95fc82cf3","rtl":"640e7eedeb"},"ckEditor":"9447df39da","form":{"ltr":"e1826ccf91","rtl":"1ba2ba626a"},"core":{"ltr":"73f3315c6a","rtl":"51bd87734a"}},"bw-simplex":{"builder":{"ltr":"24364bfe66","rtl":"2c13049e0a"},"admin":{"ltr":"ee04c0f36f","rtl":"3f8d87d665"},"ckEditor":"9447df39da","form":{"ltr":"96d999a9d0","rtl":"23c42cac0a"},"core":{"ltr":"abeabd8a18","rtl":"20ca630625"}},"bw-slate":{"builder":{"ltr":"03d39f113e","rtl":"5407ad6c51"},"admin":{"ltr":"6685e36f50","rtl":"566a7797a4"},"ckEditor":"9447df39da","form":{"ltr":"816c84c5a5","rtl":"354eb69725"},"core":{"ltr":"ce23a55e6e","rtl":"0e57e92c10"}},"bw-spacelab":{"builder":{"ltr":"2f42abc24f","rtl":"17d2211794"},"admin":{"ltr":"850591cdfc","rtl":"498d588c4c"},"ckEditor":"9447df39da","form":{"ltr":"f556e973ce","rtl":"2c2ffcd0dc"},"core":{"ltr":"3d7f142d39","rtl":"8dccca61cf"}},"bw-yeti":{"builder":{"ltr":"470cabee4e","rtl":"5ce5e1ab78"},"admin":{"ltr":"e6e1a1c09a","rtl":"42e621ec12"},"ckEditor":"9447df39da","form":{"ltr":"f0376a5f9e","rtl":"ae9ea00a3b"},"core":{"ltr":"c5c122d13c","rtl":"5c9b36b756"}},"bw-paper":{"builder":{"ltr":"01bf1ee442","rtl":"b5828b2c88"},"admin":{"ltr":"a2bafa2f9d","rtl":"27ef944ef9"},"ckEditor":"9447df39da","form":{"ltr":"3a6bb630b0","rtl":"51debf4b3c"},"core":{"ltr":"68f492f387","rtl":"9b0951f145"}}}};</script></body></html>

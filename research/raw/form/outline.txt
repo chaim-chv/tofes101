@@ -1,0 +1,702 @@
+cSection  root
+  cSection  adWrapTop
+    cSection  debugWrap
+      fBool  debug  «מצב debug»
+      eAlert  alert1  ?=!model.ad.options.id
+      eHtml  content6
+      cSection  ad  ?=data.isClient
+        cRow  row8
+          fSelect  segment  «מזהה סגמנט»
+          cSection  advertiser
+            fSelect  id  «מזהה מפרסם»
+          cSection  options
+            fSelect  id  «מזהה מודעה»
+    cSection  ad  «פרטי מודעה - מצב debug»
+      eEq  __isCollapsed  ?=model.debug  =true
+      fBool  campaignActive  «האם הקמפיין פעיל»
+      eEq  campaignActive  =auxData._vars.active
+      cRow  row7
+        fInput  source  «מקור»
+      cSection  ad  «פילוח»
+        eEq  _segments  =_allAds = auxData.ads;
+_segments = [];
+
+_baseRelevant = model.employee.healthFundMember !=
+        cRow  row6
+          fInput  lastAsId  «מודעה אחרונה שהוצגה»
+          fInput  interactedAdId  «מזהה מודעה שמשתמש תקשר איתה»
+          eEq  interactedAdId  =model.ad.interactedAdId || (
+    model.ad.interested == null
+        ? null
+        : mode
+        fInput  segment  «סגמנט»
+        fInput  forceSegment  «סגמנט»
+        fCheckbox  langs  «שפות נתמכות»  opts:3
+      cSection  options  «הגדרות מודעה»
+        cRow  row1
+          fInput  advertiserId  «מזהה מפרסם»
+          fInput  id  «מזהה גרסה»
+          fInput  heading  «כותרת»
+          fDoc  mainText  «טקסט ראשי»
+          fDoc  subText  «טקסט משני»
+          fInput  interestedMale  «מעוניין - זכר»
+          fInput  headingFemale  «כותרת - נקבה»
+          fDoc  mainTextFemale  «טקסט ראשי - נקבה»
+          fDoc  subTextFemale  «טקסט משני - נקבה»
+          fInput  interestedFemale  «מעוניין - נקבה»
+          fBool  showLogo  «הצג תמונת לוגו»
+          fInput  nextStep  «השלב הבא»
+        eEq  id  =_allAds = model.ad.interactedAdId
+    ? fn.filter(
+        auxData.ads,
+        {
+        
+      cSection  advertiser  «פרטי המפרסם»
+        fInput  id  «מזהה המפרסם»
+        cRow  row5
+          fInput  logoImageUrl  «כתובת תמונת לוגו»
+          fInput  logoImageWidth  «רוחב תמונת לוגו - מסך קטן (XS)»
+          fInput  logoImageWidthXs  «רוחב תמונת לוגו - מסך קטן (XS)»
+          fInput  name  «שם המפרסם»
+          fInput  shortName  «שם קצר»
+          fInput  legalName  «שם ישות משפטית»
+          fInput  databaseNum  «מספר מאגר מידע»
+          fInput  licenseNum  «מספר רישיון»
+          fInput  privacyFormId  «מזהה טופס מדיניות פרטיות»
+          fInput  phoneNum  «מספר טלפון להצגה»
+          fInput  email  «דוא"ל»
+          fInput  email1  «דוא"ל 1»
+          fInput  email2  «דוא"ל 2»
+          fInput  email3  «דוא"ל 3»
+          fInput  email4  «דוא"ל 4»
+          fInput  email5  «דוא"ל 5»
+          fInput  publicEmail  «דוא"ל להצגה»
+          fInput  pensionType  «סוג גורם פנסיוני»
+      eEq  updateAdAndAdvertiser  =_ad = fn.find(
+    auxData.ads,
+    {
+        id: model.ad.options.id
+    }
+);
+
+_advertise
+      eEq  _heading  =model.employee.sex === 'female'
+    ? (model.ad.options.headingFemale || model.ad.options.
+      eEq  _interested  =_lang = model.lang || 'he';
+
+model.employee.sex === 'female'
+    ? (model.ad.options.inter
+      eEq  _mainText  ='<div class="alert alert-info" style="font-size:16px; margin-top: 5px;">'
++ (
+model.employ
+      eEq  _subText  ='<div style="margin-bottom: 15px">'
++ (
+model.employee.sex === 'female'
+  ? (model.ad.opti
+  eHtml  logo
+  eEq  unlockAWhenNoEmail  ?=data.action === 'fill'  =model.lockA = model.lockA && model.employer.email
+  cSection  freeSettingsWrap
+    eHtml  content8
+    eAlert  alert8
+    eAlert  alert8
+    eEq  expression1  ?=data.action === 'preFill' || data.entry.status === 'template'  =model.customizedA = true;
+model.lockA = true;
+    fBool  customizedA  «טופס מותאם לארגון»
+    fBool  lockA  «נעל עריכה של פרטי המעסיק»
+    cSection  employer  «פרטי המעסיק»  ?=container.customizedA
+      cRow  employerRow
+        fInput  name  «שם»  [required]
+        fInput  address  «כתובת»  [required]
+        fInput  phoneNum  «מספר טלפון»  [required]  v:legacy
+        fInput  deductionsFileNum  «מספר תיק ניכויים»  [required]  v:function,num/digitsNum,int,luhn
+      fInput  email  «כתובת אימייל שאליה יישלחו הטפסים»  [required]  v:legacy
+      cRow  row3
+        fInput  email2  «כתובת אימייל 2»  v:legacy
+        fInput  email3  «כתובת אימייל 3»  v:legacy
+      cSection  ovdimio
+        eHtml  content9
+        eHtml  content4
+        cSection  section1
+          fRadio  ovdimioNotify  «רוצים לשמוע עוד על עובדים.IO?»  opts:2
+          eEq  expression2  ?=data.action !== 'preFill' && data.entry.status !== 'template'
+&& !container.ovdimioNotify  =container.ovdimioNotify = false
+        eAlert  alert4  ?=container.ovdimioNotify === false
+        cSection  ovdimioContact  ?=container.ovdimioNotify
+          cRow  row2
+            fInput  name  «שם»
+            fInput  phoneNum  «מספר טלפון»  v:legacy
+            fInput  email  «כתובת אימייל»  v:legacy
+          fLngTxt  comments  «איך נוכל לעזור? אילו טפסים או שירותים עשויים לעניין אותך»
+    cRow  row4
+      eBtn  button1
+  cSection  settingsWrap  «הגדרות טופס»
+    cSection  _settings
+      eHtml  displayHeader
+      fBool  showLogo  «הצג לוגו»
+      cRow  logoRow  ?=container.showLogo
+        fInput  logoImageSrc  «כתובת תמונת לוגו»  [required]  ?=container.showLogo  v:legacy
+        fInput  logoImageWidth  «רוחב תמונת לוגו»  [required]  ?=container.showLogo  v:,num/val
+        fInput  logoLinkUrl  «כתובת קישור לתמונת הלוגו»  v:legacy
+      eHtml  validationHeader
+      cRow  employeeAgeRow
+        fInput  minEmployeeAge  «גיל עובד מזערי»  [required]
+        fInput  maxEmployeeAge  «גיל עובד מירבי»  [required]
+      fRadio  employeeEmail  «כתובת הדוא"ל של העובד»  [required]  opts:2
+      fRadio  taxCoordinationWarning  «התראה לעובד החייב תיאום מס»  [required]  opts:3
+      fRadio  teenagerCreditPointNotUtilizedWarning  «התראה אם לא ביקש נקודת זיכוי לנער»  [required]  opts:2
+      eHtml  appendixHeader
+      fRadio  youngEmployeeMedicalCertificate  «אישור רפואי לעבודה לנער»  [required]  opts:2
+      fRadio  inActiveService  «שאל את העובד אם הוא חייל בשירות חובה בצה"ל או מתנדב בשירות לאומי/אזרחי»  [required]  opts:2
+      fRadio  militaryServiceWorkPermitCertificate  «אישור עבודה פרטית לחייל בשירות חובה»  [required]  opts:2
+      fRadio  militaryServicePersonalCertificate  «תעודת חוגר לחייל בשירות חובה»  [required]  opts:2
+      fRadio  nationalServiceWorkPermitCertificate  «אישור עבודה ממסגרת השירות הלאומי/אזרחי»  [required]  opts:2
+      fRadio  bankAccount  «פרטי חשבון בנק»  [required]  opts:3
+      fRadio  bankAccountOwnershipCertificate  «צילום צ'ק או אישור על ניהול החשבון»  [required]  ?=container.bankAccount === 'required' ||
+container.bankAccount === 'optional'  opts:2
+    eHtml  initialDataHeader
+    cSection  thisIncome
+      fCheckbox  types  «סוג הכנסה זו»  v:legacy  opts:6
+    cSection  _settings
+      fBool  thisIncomeTypesReadonly  «נעל שדה סוג הכנסה זו»  ?=model.thisIncome.types.length > 0
+    eHtml  advancedHeder
+    cSection  _settings
+      cRow  advancedRow
+        fSelect  pdfTemplate  «תבנית ליצור PDF»  [required]  opts:4
+        fBool  sendDefaultPostSubmitEmail  «שלח אימייל ברירת מחדל אחרי שליחת הטופס»
+  cSection  form  ?=data.action !== 'preFill' && data.entry.status !== 'template'
+    cSection  texts  «טקסטים ל-PDF»
+      cRow  row
+        fInput  textTopLeft1  «שמאל למעלה 1»
+        fInput  textTopLeft2  «שמאל למעלה 2»
+        fInput  textTopLeft3  «שמאל למעלה 3»
+        fInput  textFooterRight  «למטה ימין»
+        fInput  textFooterLeft  «למטה שמאל»
+    fSelect  store  «חנות»  [required]  ?=auxData.stores
+    fSelect  department  «מחלקה»  [required]  ?=auxData.departments
+    cSection  topCustom
+      eEq  expression1  =model._settings.showLogo = true;
+model._settings.logoImageSrc = 'https://www.tepez.co.il/a
+      cSection  instructions
+        eHtml  title
+        eHtml  instructions
+        eAlert  alert6
+        eAlert  alert3
+        eAlert  tepezDisclaimer
+    cSection  taxYearWrap  ?=data.action !== 'preFill'
+      fInput  taxYear  «שנת המס»  ?=fn.today().getUTCMonth() !== 11 && fn.today().getUTCMonth() !== 0
+      fRadio  taxYear  «שנת המס»  [required]  ?=fn.today().getUTCMonth() === 11
+      fRadio  taxYear  «שנת המס»  [required]  ?=fn.today().getUTCMonth() === 0
+      eEq  clearTaxYear  =_today = fn.today();
+
+container.taxYear = (container.taxYear == null || container.taxYear 
+    cSection  employer  «א. פרטי המעסיק»
+      cRow  row3
+        fInput  email2  «כתובת אימייל 2»  v:legacy
+        fInput  email3  «כתובת אימייל 3»  v:legacy
+      cRow  employerRow
+        fInput  name  «שם»
+        fInput  address  «כתובת»
+        fInput  phoneNum  «מספר טלפון»  v:legacy
+        fInput  deductionsFileNum  «מספר תיק ניכויים»  v:function,num/digitsNum,int,luhn
+    cSection  employee  «ב. פרטי העובד/ת»
+      eEq  str  =str = (container.firstName || '')
+  + ' ' 
+  + (container.lastName || '') 
+  + ' - ' 
+  + 
+      fInput  str  «טקסט מתאר לעובד»
+      cRow  nameRow
+        fInput  firstName  «שם פרטי»  [required]  v:legacy
+        fInput  lastName  «שם משפחה»  [required]  v:legacy
+      cSection  identity
+        fRadio  type  «זיהוי לפי»  [required]  opts:2
+        fInput  idStr  «מספר זיהוי לטופס»
+        eEq  idStr  ={
+idNum: container.idNum ? ('' + container.idNum) : '',
+passport: container.passportNum
+}[
+        cRow  idNumRow  ?=container.type === 'idNum'
+          fInput  idNum  «מספר זהות»  [required]  v:num/digitsNum,int,luhn
+          fFile  idCard  «צילום תעודת זהות וספח»
+        cRow  passportRow  ?=container.type === 'passport'
+          fSelect  passportCountry  «מדינת הדרכון»  [required]  v:legacy
+          fInput  passportNum  «מספר דרכון»  [required]  v:legacy
+          fFile  passportCard  «צילום דרכון»
+      fFile  residencePermit  «אישור / רשיון שהייה בישראל»  ?=container.identity.type === 'passport'
+      cRow  datesRow
+        fDate  dateOfBirth  «תאריך לידה»  [required]  v:function,function
+        fInput  dateOfBirthStr  «תאריך לידה לטופס»
+        eEq  dateOfBirthStr  =trans.date(container.dateOfBirth, 'DDMMYYYY')
+        fInput  age  «גיל (מחושב אוטומטית)»
+        eEq  age  =_today = fn.today();
+_age = _today.getUTCFullYear() - container.dateOfBirth.getUTCFullYear
+        fInput  ageOnTaxYear  «גיל בסוף שנת המס (מחושב אוטומטית)»
+        eEq  ageOnTaxYear  =container.dateOfBirth
+  ? (model.taxYear - container.dateOfBirth.getUTCFullYear())
+  : nul
+        fDate  dateOfAliyah  «תאריך עליה»  ?=container.identity.type !== 'passport'  v:function,function
+        fInput  dateOfAliyahStr  «תאריך עליה לטופס»
+        eEq  dateOfAliyahStr  =trans.date(container.dateOfAliyah, 'DDMMYYYY')
+      cSection  address
+        cRow  addressRow
+          fSelect  city  «ישוב»  [required]
+          fSelect  street  «רחוב»  [required]
+          fInput  houseNum  «מספר בית»  [required]
+          fInput  zipCode  «מיקוד»  v:legacy
+      cRow  phonesRow
+        fInput  mobileNum  «מספר טלפון נייד»  [required]  ?=!container.phoneNum  v:str/regex,str/regex,str/phone
+        fInput  mobileNum  «מספר טלפון נייד»  ?=container.phoneNum  v:str/regex,str/regex,str/phone
+        fInput  phoneNum  «מספר טלפון»  v:legacy
+      fInput  email  «כתובת דואר אלקטרוני»  ?=model._settings.employeeEmail === 'optional'  v:legacy
+      fInput  email  «כתובת דואר אלקטרוני»  [required]  ?=model._settings.employeeEmail !== 'optional'  v:legacy
+      cRow  miscRow
+        fRadio  sex  «מין»  [required]  opts:2
+        eEq  sex_label  ={
+male: 'זכר',
+female: 'נקבה',
+}[container.sex]
+        fInput  sex_label  «מין - תווית»
+        fRadio  maritalStatus  «מצב משפחתי»  [required]  opts:5
+        eEq  maritalStatus_label  ={
+single: 'רווק/ה',
+married: 'נשוי/אה',
+divorced: 'גרוש/ה',
+widowed: 'אלמן/ה',
+separated: 
+        fInput  maritalStatus_label  «מצב משפחתי - תווית»
+        fFile  assessingOfficerSeparatedCertificate  «אישור פקיד שומה»  ?=container.maritalStatus == 'separated'
+        fRadio  ilResident  «תושב ישראל»  [required]  ?=container.identity.type !== 'passport'  v:legacy  opts:2
+        fRadio  kibbutzMember  «חבר קיבוץ / מושב שיתופי»  [required]  ?=container.identity.type !== 'passport'  opts:2
+        fRadio  kibbutzGetsIncome  «הכנסותיי ממעסיק זה מועברות לקיבוץ»  [required]  ?=container.identity.type !== 'passport'
+&& container.kibbutzMember  opts:2
+        fRadio  healthFundMember  «חבר בקופת חולים»  [required]  opts:2
+        fRadio  healthFundName  «שם הקופה»  [required]  ?=container.healthFundMember  opts:4
+        eEq  healthFundName_label  ={
+'clalit': 'כללית',
+'maccabi': 'מכבי',
+'meuhedet': 'מאוחדת',
+'leumit': 'לאומית',
+}[contai
+        fInput  healthFundName_label  «חבר בקופת חולים - תווית»
+    eAdSenseAdUnit  ad1
+    cSection  childrenWrapper  «ג. פרטים על ילדי שבשנת המס טרם מלאו להם 19 שנה»
+      eAlert  foreignAlert  ?=model.employee.identity.type === 'passport'
+      cRepeat  children  ?=model.employee.identity.type !== 'passport'
+        cRow  row1
+          fInput  firstName  «שם»  [required]  v:legacy
+          fInput  idNum  «מספר זהות»  [required]  v:num/digitsNum,int,luhn,function
+          fDate  dateOfBirth  «תאריך לידה»  [required]  v:function,function
+          fInput  dateOfBirthStr  «תאריך לידה לטופס»
+          eEq  dateOfBirthStr  =trans.date(container.dateOfBirth, 'DDMMYYYY')
+          fInput  ageOnTaxYear  «גיל בסוף שנת המס (מחושב אוטומטית)»
+          eEq  ageOnTaxYear  =container.dateOfBirth
+  ? (model.taxYear - container.dateOfBirth.getUTCFullYear())
+  : nul
+        cRow  row2
+          fBool  possession  «הילד נמצא בחזקתי»
+          fBool  childAllowance  «אני מקבל/ת בגינו/ה קצבת ילדים מביטוח לאומי»  v:legacy
+    cSection  thisIncome  «ד. פרטים על הכנסותי ממעסיק זה»
+      fCheckbox  types  «אני מקבל/ת»  [required]  v:function,function  opts:6
+      eAlert  alert1  ?=model._settings.taxCoordinationWarning === 'warn'  
+&& fn.includes(container.types, 'addit
+      fDate  startDate  «תאריך תחילת העבודה בשנת המס»  [required]  v:legacy
+      fInput  startDateStr  «תאריך לידה לטופס»
+      eEq  startDateStr  =trans.date(container.startDate, 'DDMMYYYY')
+    eAdSenseAdUnit  ad1
+    cSection  otherIncomes  «ה. פרטים על הכנסות אחרות»
+      fRadio  hasIncomes  «יש לך הכנסות אחרות?»  [required]  v:legacy  opts:2
+      cSection  hasIncomesWrap  ?=container.hasIncomes
+        fCheckbox  types  «פירוט הכנסות»  [required]  opts:6
+        fInput  typesOther  «פירוט מקור הכנסה אחר»  [required]  ?=fn.includes(container.types, 'other')
+        fRadio  utilizeTaxCreditsElsewhere  «נקודות זיכוי»  [required]  opts:2
+        eAlert  alert1  ?=model._settings.taxCoordinationWarning === 'alert'  
+&& container.utilizeTaxCreditsElsewhe
+        fCheckbox  employerContributions  «הפרשות»  opts:2
+    cSection  spouse  «ו. פרטים על בן/בת הזוג»
+      eAlert  irrelevantAlert  ?=model.employee.maritalStatus !== 'married'
+      cSection  spouseWrapper  ?=model.employee.maritalStatus === 'married'
+        cRow  nameRow
+          fInput  firstName  «שם פרטי»  [required]  v:legacy
+          fInput  lastName  «שם משפחה»  [required]  v:legacy
+        cSection  identity
+          cRow  idRow
+            fRadio  type  «זיהוי לפי»  [required]  opts:2
+            fInput  idNum  «מספר זהות»  [required]  ?=container.type === 'idNum'  v:num/digitsNum,int,luhn
+            fSelect  passportCountry  «מדינת הדרכון»  [required]  ?=container.type === 'passport'
+            fInput  passportNum  «מספר דרכון»  [required]  ?=container.type === 'passport'  v:legacy
+          fInput  idStr  «מספר זיהוי לטופס»
+          eEq  idStr  ={
+idNum: container.idNum ? ('' + container.idNum) : '',
+passport: container.passportNum
+}[
+        cRow  miscRow
+          fDate  dateOfBirth  «תאריך לידה»  [required]  v:legacy
+          fInput  dateOfBirthStr  «תאריך לידה לטופס»
+          eEq  dateOfBirthStr  =trans.date(container.dateOfBirth, 'DDMMYYYY')
+          fInput  age  «גיל (מחושב אוטומטית)»
+          eEq  age  =_today = fn.today();
+_age = _today.getUTCFullYear() - container.dateOfBirth.getUTCFullYear
+          fInput  ageOnTaxYear  «גיל בסוף שנת המס (מחושב אוטומטית)»
+          eEq  ageOnTaxYear  =container.dateOfBirth
+  ? (model.taxYear - container.dateOfBirth.getUTCFullYear())
+  : nul
+          fDate  dateOfAliyah  «תאריך עליה»  ?=container.identity.type !== 'passport'  v:function,function
+          fInput  dateOfAliyahStr  «תאריך עליה לטופס»
+          eEq  dateOfAliyahStr  =trans.date(container.dateOfAliyah, 'DDMMYYYY')
+          fRadio  hasIncome  «הכנסה»  [required]  opts:2
+          fCheckbox  incomeTypes  «סוג הכנסה»  [required]  ?=model.spouse.hasIncome === 'yes'  opts:2
+    eAdSenseAdUnit  ad1
+    cSection  changesWrapper  «ז. שינויים במהלך השנה»
+      eAlert  info
+    cSection  taxCreditRequest  «ח. אני מבקש/ת פטור או זיכוי ממס מהסיבות הבאות»
+      eAlert  cantUtilizeTaxCreditsAlert  ?=model.otherIncomes.hasIncomes && model.otherIncomes.utilizeTaxCreditsElsewhere
+      cSection  wrapper  ?=!(model.otherIncomes.hasIncomes && model.otherIncomes.utilizeTaxCreditsElsewhere )
+        cSection  ilResident
+          fBool  checked  «1. אני תושב/ת ישראל»
+          eEq  checked  =model.employee.ilResident
+        cSection  disabled
+          fBool  checked  «2. אני נכה 100% / עיוור/ת לצמיתות»
+          cSection  wrapper  ?=container.checked
+            fFile  certificate  «אישור משרד הביטחון/האוצר/פקיד השומה/תעודת עיוור שהוצאה לאחר 1/1/94»
+            eAlert  alert2  ?=model.otherIncomes.hasIncomes !== false && !(model.taxCoordinationRequest.isRequesting && 
+            fBool  monthlyCompensation  «2ב. בנוסף, אני מקבל תגמול חודשי לפי חוק הנכים (תגמולים ושיקום) או לפי חוק התגמולים לנפגעי »
+            fFile  monthlyCompensationCertificate  «אישור על קבלת תגמול חודשי»  ?=container.monthlyCompensation
+        cSection  creditedLocality
+          fBool  checked  «3. אני תושב/ת קבוע/ה בישוב מזכה. אני ובני משפחתי מדרגה ראשונה, מתגוררים ביישוב ואין לי "מר»
+          cSection  wrapper  ?=container.checked
+            cRow  row
+              fDate  fromDate  «מתאריך»  [required]
+              fSelect  locality  «הישוב»  [required]
+              fFile  form1312a  «אישור של הרשות ע"ג טופס 1312א»
+        cSection  newImmigrantOrReturningResident
+          fBool  checked  «4. אני עולה חדש/ה»
+          cSection  wrapper  ?=container.checked
+            cRow  row
+              fRadio  type  «סוג»  opts:2
+              eEq  type  ='immigrant'
+              fDate  fromDate  «מתאריך»  [required]  v:legacy
+              fFile  newImmigrantCertificate  «תעודת עולה»  [required]  ?=container.type === 'immigrant'
+              fFile  returningResidentCertificate  «אישור משרד הקליטה (תעודת "תושב חוזר" מעל 6 שנים)»  [required]  ?=container.type === 'returning'
+            fDate  noIncomeUntil  «לא הייתה לי הכנסה בישראל מתחילת שנת המס הנוכחית עד תאריך»  v:legacy
+        cSection  incomelessSpouse
+          fBool  checked  «5. בגין בן/בת זוגי המתגורר/ת עימי ואין לו/לה הכנסות בשנת המס»  v:legacy
+          cSection  wrapper  ?=container.checked
+            fFile  certificate  «אישור נכה או עיוור בגין העובד/ת ו/או בן/בת הזוג»
+        cSection  separatedSingleParent
+          fBool  checked  «6. אני הורה במשפחה חד הורית החי בנפרד»  v:function,function
+        cSection  children
+          fBool  checked  «7. בגין ילדי שבחזקתי המפורטים בחלק ג»  v:function,function,function
+          cRow  row  ?=container.checked
+            fInput  age0Count  «מספר ילדים שנולדו בשנת המס»  [required]
+            fBool  age0Checked  «מסומן»
+            eEq  age0Checked  =container.age0Count > 0
+            fInput  age1To2Count  «מספר ילדים שימלאו להם שנה אחת עד שנתיים בשנת המס»  [required]
+            fBool  age1To2Checked  «מסומן»
+            eEq  age1To2Checked  =container.age1To2Count > 0
+            fInput  age3Count  «מספר ילדים שימלאו להם 3 שנים בשנת המס»  [required]
+            fBool  age3Checked  «מסומן»
+            eEq  age3Checked  =container.age3Count > 0
+            fInput  age4To5Count  «מספר ילדים שימלאו להם 4 שנים עד 5 שנים בשנת המס»  [required]
+            fBool  age4To5Checked  «מסומן»
+            eEq  age4To5Checked  =container.age4To5Count > 0
+            fInput  age6To17Count  «מספר ילדים שימלאו להם 6 שנים עד 17 שנים בשנת המס»  [required]
+            fBool  age6To17Checked  «מסומן»
+            eEq  age6To17Checked  =container.age6To17Count > 0
+            fInput  age18Count  «מספר ילדים שימלאו להם 18 שנים בשנת המס»  [required]
+            fBool  age18Checked  «מסומן»
+            eEq  age18Checked  =container.age18Count > 0
+          cSection  legacy  ?=container.checked
+            eAlert  legacyHelp
+            fInput  age6To12Count  «מספר ילדים שימלאו להם 6 שנים עד 12 שנים בשנת המס»
+            fBool  age6To12Checked  «מסומן»
+            eEq  age6To12Checked  =container.age6To12Count > 0
+            fInput  age13To17Count  «מספר ילדים שימלאו להם 13 שנים עד 17 שנים בשנת המס»
+            fBool  age13To17Checked  «מסומן»
+            eEq  age13To17Checked  =container.age13To17Count > 0
+            fInput  age1To5Count  «מספר ילדים שימלאו להם שנה אחת עד 5 שנים בשנת המס»
+            fBool  age1To5Checked  «מסומן»
+            eEq  age1To5Checked  =container.age1To5Count > 0
+        cSection  toddlers
+          fBool  checked  «8. בגין ילדי»  v:function,function
+          cRow  row  ?=container.checked
+            fInput  age0Count  «מספר ילדים שנולדו בשנת המס»  [required]
+            fBool  age0Checked  «מסומן»
+            eEq  age0Checked  =container.age0Count > 0
+            fInput  age1To2Count  «מספר ילדים שימלאו להם שנה אחת עד שנתיים בשנת המס»  [required]
+            fBool  age1To2Checked  «מסומן»
+            eEq  age1To2Checked  =container.age1To2Count > 0
+            fInput  age3Count  «מספר ילדים שימלאו להם 3 שנים בשנת המס»  [required]
+            fBool  age3Checked  «מסומן»
+            eEq  age3Checked  =container.age3Count > 0
+            fInput  age4To5Count  «מספר ילדים שימלאו להם 4 שנים עד 5 שנים בשנת המס»  [required]
+            fBool  age4To5Checked  «מסומן»
+            eEq  age4To5Checked  =container.age4To5Count > 0
+            fInput  age6To17Count  «מספר ילדים שימלאו להם 6 שנים עד 17 שנים בשנת המס»  [required]
+            fBool  age6To17Checked  «מסומן»
+            eEq  age6To17Checked  =container.age6To17Count > 0
+          cSection  legacy  ?=container.checked
+            eAlert  legacyHelp
+            fInput  age6To12Count  «מספר ילדים שימלאו להם 6 שנים עד 12 שנים בשנת המס»
+            fBool  age6To12Checked  «מסומן»
+            eEq  age6To12Checked  =container.age6To12Count > 0
+            fInput  age1To5Count  «מספר ילדים שימלאו להם שנה אחת עד 5 שנים בשנת המס»
+            fBool  age1To5Checked  «מסומן»
+            eEq  age1To5Checked  =container.age1To5Count > 0
+        cSection  singleParent
+          fBool  checked  «9. אני הורה יחיד לילדי שבחזקתי (המפורטים בסעיף 7 ו-8 לעיל).»
+        cSection  childSupport
+          fBool  checked  «10. בגין ילדי שאינם בחזקתי המפורטים בחלק ג ואני משתתף/ת בכלכלתם.»  v:legacy
+          fFile  judgement  «צילום פסק דין המחייב בתשלום מזונות»  ?=container.checked
+        cSection  disabledChild
+          fBool  checked  «11. אני הורה לילדים עם מוגבלות שטרם מלאו להם 19 שנים, בגינם אני מקבל/ת גמלת ילד נכה מהמוסד»
+          fInput  count  «מספר הילדים עם מוגבלות שטרם מלאו להם 19 שנים, בגינם את/ה מקבל/ת גמלת ילד נכה מהמוסד לביטוח»  [required]  ?=container.checked  v:,num/val
+          fFile  disabledChildBenefitNiiCertificate  «אישור גמלת ילד נכה מהמוסד לביטוח לאומי לשנה נוכחית»  [required]  ?=container.checked
+        cSection  alimony
+          fBool  checked  «12. בגין מזונות לבן/בת זוגי לשעבר.»  v:legacy
+          fFile  judgement  «<span>צילום פסק דין המחייב בתשלום מזונות</span>»  ?=container.checked
+        cSection  youngEmployeeOrSpouse
+          fBool  checked  «13. מלאו לי או לבן/בת זוגי 16 שנים וטרם מלאו לי או לבן/בת זוגי 18 שנים בשנת המס.»  v:function,function,function,function,function
+        cSection  dischargedFromService
+          fBool  checked  «14. אני חייל/ת משוחרר/ת / שרתתי בשירות לאומי.»
+          cSection  wrapper  ?=container.checked
+            cRow  row
+              fDate  serviceStartDate  «תאריך תחילת שירות»  [required]  v:function,function
+              fDate  serviceEndDate  «תאריך סיום שירות»  [required]  v:function,function
+              fFile  dischargeCertificate  «תעודת שחרור/ סיום שירות»
+        cSection  studies
+          fBool  checked  «15. בגין סיום לימודים לתואר אקדמי, סיום התמחות או סיום לימודי מקצוע.»
+          fFile  form119  «הצהרה בטופס 119»  ?=container.checked
+        cSection  combatReserveService
+          fBool  checked  «16. שירתתי כלוחם/לוחמת מילואים בשנת המס הקודמת.»
+          cSection  wrapper  ?=container.checked
+            fInput  days  «סה”כ ימי מילואים בשנת המס הקודמת»  [required]  v:,num/val
+            fFile  eligibilityCertificate  «אישור מצה"ל על זכאות בעד שירות מילואים כלוחם»
+    eAdSenseAdUnit  ad1
+    cSection  taxCoordinationRequest  «ט. תיאום מס »
+      fBool  isRequesting  «צירוף/עריכת תיאום מס»
+      cSection  requestWrapper  ?=container.isRequesting
+        fRadio  type  «סיבת הבקשה»  [required]  opts:3
+        fFile  noPreviousIncomesCertificate  «הוכחות לחוסר הכנסה»  ?=container.type === 'no-previous-incomes'
+        eHtml  content1  ?=container.type === 'other-incomes-list'
+        cRepeat  otherIncomes  ?=container.type === 'other-incomes-list'
+          cRow  row1
+            fInput  name  «שם»  [required]
+            fInput  address  «כתובת»  [required]
+            fInput  deductionsFileNum  «מספר תיק ניכויים»  [required]  v:function,num/digitsNum,int,luhn
+          cRow  row2
+            fRadio  type  «סוג הכנסה»  [required]  opts:4
+            eEq  type_label  ={
+work: 'עבודה',
+allowance:' קיצבה',
+scholarship:' מילגה',
+other:' אחר',
+}[container.type]
+            fInput  type_label  «סוג הכנסה - תווית»
+            fInput  monthlyIncome  «הכנסה חודשית»  [required]
+            fInput  monthlyDeductedTax  «המס שנוכה»  [required]
+          fFile  payslip  «צילום תלוש שכר»
+        fFile  assessingOfficerCertificate  «אישור תיאום מס ע"י פקיד שומה»  ?=container.type === 'assessing-officer-certificate'
+    cSection  _confirmation  «י. הצהרה»
+      eHtml  confirmationText
+      fSign  signature  «חתימת המבקש/ת»  [required]
+      fDate  time  «תאריך»  [required]  ?=container.signature
+    cSection  appendix
+    cSection  bottomCustom
+      cSection  privacy
+        fRadio  acceptTerms  «אני מאשר/ת את <a href="https://tofes101.co.il/privacy" target="_blank">מדיניות הפרטיות</a>»  [required]  v:legacy  opts:2
+        fInput  acceptTermsText  «Accepted terms text»
+        fDate  acceptTermsAt  «Accepted terms time»
+        eEq  acceptTermsRecord  =container.acceptTermsText = container.acceptTerms === 'yes' ? "אני מאשר/ת את <a href=\"htt
+        fRadio  marketingConsent  «אני נותן/ת את הסכמתי המפורשת לכך שטפז תהיה רשאית להעביר את המידע האישי שמסרתי למפרסמים, חב»  [required]  v:legacy  opts:2
+        fInput  marketingConsentText  «Marketing consent text»
+        fDate  marketingConsentAt  «Marketing consent time»
+        eEq  marketingConsentRecord  =container.marketingConsentText = container.marketingConsent === 'yes' ? "אני נותן/ת את הסכ
+        fInput  marketingConsentABTest  «Marketing consent A/B test variant»
+      cSection  adWrap
+        cSection  adPanel  «<span style="font-size:24px">{{ model.ad._heading }}</span>»  ?=model.ad.options.id
+          fRadio  lang  «שפה»  ?=model.ad.langs.length > 1  opts:2
+          cSection  displayWrap
+            eHtml  content1
+            eHtml  content1
+          cSection  ad
+            cSection  old  «שאלות עבר»
+              cSection  clalPension  ?=model.ad.segment === 'clal-pension'
+                fRadio  clal_pension_has_active  «יש לך כבר קרן פנסיה?»  v:legacy  opts:2
+                fRadio  clal_pension_time  «מתי נוח לך שנחזור אליך?»  ?=container.clal_pension_has_active === 'yes'  v:function,function  opts:3
+              cSection  lead  ?=model.ad.interested === 'yes'
+                fRadio  filter_segment2_1  «האם {{ model.employee.sex === 'female' ? 'את משלמת' : 'אתה משלם' }} מעל 250 ש"ח בחודש לביט»  ?=container.advertiser.segment === 'segment2'  v:function,function,function  opts:2
+                fRadio  filter_segments3_and_4_2  «מתי היית רוצה שיחזרו אליך?»  ?=container.advertiser.segment === 'segment3'
+|| container.advertiser.segment === 'segment4'  v:legacy  opts:3
+                fRadio  leumit_time  «מתי נוח לך שנחזור אליך?»  ?=model.ad.advertiser.id === 'leumit'  v:function,function  opts:4
+                fRadio  insane_kosherkravi_fighter  «רוצה לעשות שירות משמעותי?»  v:legacy  opts:2
+                fRadio  excellentisrael_free_lesson  «רוצה להגיע לאימון ניסיון בחינם?»  ?=container.excellentisrael_class  v:function,function  opts:2
+                fRadio  excellentisrael_time  «מתי נוח לך שנחזור אליך?»  v:function,function  opts:2
+                fRadio  excellentisrael_primaryGoal  «מה המטרה שלך?»  ?=container.excellentisrael_class
+&& container.excellentisrael_class !== 'no'  v:function,function  opts:4
+            eEq  setLang  ?=model.ad.langs.length > 1  =_isAr = auxData.arCities.includes(model.employee.address.city)
+    || auxData.arNames.incl
+            fRadio  interested  «{{ model.ad._interested }}»  [required]  v:legacy
+            cSection  lead  ?=container.interested === 'yes'
+              cSection  fin  ?=[
+'selam',
+'elite',
+].includes(model.ad.advertiser.id)
+                fRadio  filter1  «האם צברת מעל 100 אלף ₪ סך הכול בקרנות ההשתלמות והגמל שלך?»  [required]  v:function,function,function  opts:2
+              cSection  clalbit  ?=model.ad.advertiser.id === 'clalbit'
+                fSelect  filter_time1_exact  «מתי נוח לך שנחזור אליך?»  [required]  ?=model.ad.segment === 'ins1'  v:legacy  opts:13
+                fSelect  ins1_day  «באיזה יום?»  [required]  ?=container.filter_time1_exact
+&& container.filter_time1_exact !== 'no'  v:function,function,function
+              fRadio  clal_mortgage_time  «מתי נוח לך שנחזור אליך?»  [required]  ?=model.ad.segment === 'clal-mortgage'  v:function,function  opts:3
+              cSection  leumit  ?=model.ad.advertiser.id === 'leumit'
+                fSelect  leumit_time_range  «מתי נוח לך שנחזור אליך?»  [required]  v:legacy  opts:9
+                fSelect  leumit_day  «באיזה יום?»  [required]  ?=container.leumit_time_range
+&& container.leumit_time_range !== 'no'  v:function,function,function
+              cSection  meuhedet  ?=model.ad.advertiser.id === 'meuhedet'
+                fSelect  meuhedet_time_range  «מתי נוח לך שנחזור אליך?»  [required]  v:legacy  opts:9
+                fSelect  meuhedet_day  «באיזה יום?»  [required]  ?=container.meuhedet_time_range
+&& container.meuhedet_time_range !== 'no'  v:function,function,function
+              cSection  yarinshahaf  ?=model.ad.segment === 'yarinshahaf'
+                fRadio  yarinshahaf_branch  «באיזה סניף היית מעדיפה ללמוד? »  [required]  opts:2
+                fSelect  yarinshahaf_time_range  «מתי נוח לך שנחזור אליך?»  [required]  ?=container.yarinshahaf_branch  v:legacy  opts:9
+                fSelect  yarinshahaf_day  «באיזה יום?»  [required]  ?=container.yarinshahaf_time_range
+&& container.yarinshahaf_time_range !== 'no'  v:function,function,function
+              fRadio  netcraft_ui_branch  «באיזה קמפוס של {{ model.ad.advertiser.shortName }} היית {{ model.employee.sex === 'male' ?»  [required]  ?=model.ad.segment === 'netcraft-ui'  v:legacy  opts:5
+              fRadio  netcraft_ui_time  «מתי נוח לך שנחזור אליך?»  [required]  ?=container.netcraft_ui_branch
+&& container.netcraft_ui_branch !== 'no'
+&& model.ad.segment   v:function,function  opts:4
+              cSection  excellentisrael  ?=model.ad.advertiser.id === 'excellentisrael'
+                fRadio  excellentisrael_class  «באיזה כיתה {{ model.employee.sex === 'female' ? 'את' : 'אתה' }}?»  [required]  v:legacy  opts:6
+                fInput  excellentisrael_verify  «כדי לוודא שאתם מעוניינים בכושר קרבי ורוצים שנתקשר - כתבו "כושר קרבי"<br> <br> אחרת - תשאיר»  ?=container.excellentisrael_class
+&& container.excellentisrael_class !== 'no'
+                fInput  excellentisrael_mobileNum  «לאיזה מספר לחצור אליכם?»  ?=container.excellentisrael_class
+&& container.excellentisrael_class !== 'no'
+&& container.e  v:legacy
+              cSection  insane_kosherkravi  ?=model.ad.advertiser.id === 'insane-kosherkravi'
+                fRadio  insane_kosherkravi_class  «באיזה כיתה {{ model.employee.sex === 'female' ? 'את' : 'אתה' }}?»  [required]  opts:5
+                fRadio  insane_kosherkravi_free_lesson  «רוצה להגיע לאימון ניסיון בחינם?»  [required]  ?=container.insane_kosherkravi_class  v:function,function  opts:2
+          cSection  relevantWrap  ?=model.ad.interestedAndFiltered
+          cSection  logoWrap
+            eHtml  element3  ?=model.ad.options.showLogo
+&& model.ad.advertiser.logoImageUrl
+        cSection  adPanelAr  «<span style="font-size:24px">{{ model.ad._heading }}</span>»  ?=model.ad.options.id
+          fRadio  lang  «שפה»  opts:2
+          cSection  displayWrap
+            eHtml  content1
+            eHtml  content1
+          cSection  ad
+            cSection  old  «שאלות עבר»
+              cSection  clalPension  ?=model.ad.segment === 'clal-pension'
+                fRadio  clal_pension_has_active  «هل لديك صندوق تقاعد بالفعل؟»  v:legacy  opts:2
+                fRadio  clal_pension_time  «متى يناسبك أن نعاود الاتصال بك؟»  ?=container.clal_pension_has_active === 'yes'  v:function,function  opts:3
+              cSection  lead  ?=model.ad.interested === 'yes'
+                fRadio  filter_segment2_1  «האם {{ model.employee.sex === 'female' ? 'את משלמת' : 'אתה משלם' }} מעל 250 ש"ח בחודש לביט»  ?=container.advertiser.segment === 'segment2'  v:function,function,function  opts:2
+                fRadio  filter_segments3_and_4_2  «מתי היית רוצה שיחזרו אליך?»  ?=container.advertiser.segment === 'segment3'
+|| container.advertiser.segment === 'segment4'  v:legacy  opts:3
+                fRadio  leumit_time  «متى يناسبك أن نعاود الاتصال بك؟»  ?=model.ad.advertiser.id === 'leumit'  v:function,function  opts:4
+                fRadio  insane_kosherkravi_fighter  «تريد {{ model.employee.sex === 'female' ? 'أن تقومي' : 'أن تقوم' }} بخدمة عسكرية ذات معنى؟»  v:legacy  opts:2
+                fRadio  excellentisrael_free_lesson  «هل ترغب في حضور تدريب تجريبي مجاني؟»  ?=container.excellentisrael_class  v:function,function  opts:2
+                fRadio  excellentisrael_time  «متى يناسبك أن نعاود الاتصال بك؟»  v:function,function  opts:2
+                fRadio  excellentisrael_primaryGoal  «ما هو هدفك؟»  [required]  ?=container.excellentisrael_class
+&& container.excellentisrael_class !== 'no'  v:function,function  opts:4
+            fRadio  interested  «{{ model.ad._interested }}»  [required]  v:legacy
+            cSection  lead  ?=container.interested === 'yes'
+              cSection  fin  ?=[
+'selam',
+'elite',
+'community-ins',
+].includes(model.ad.advertiser.id)
+                fRadio  filter1  «האם צברת מעל 100 אלף ₪ סך הכול בקרנות ההשתלמות והגמל שלך?»  [required]  v:function,function,function  opts:2
+              cSection  clalbit  ?=model.ad.advertiser.id === 'clalbit'
+                fSelect  filter_time1_exact  «מתי נוח לך שנחזור אליך?»  [required]  ?=model.ad.segment === 'ins1'  v:legacy  opts:13
+                fSelect  ins1_day  «באיזה יום?»  [required]  ?=container.filter_time1_exact
+&& container.filter_time1_exact !== 'no'  v:function,function,function
+              fRadio  clal_mortgage_time  «מתי נוח לך שנחזור אליך?»  [required]  ?=model.ad.segment === 'clal-mortgage'  v:function,function  opts:3
+              cSection  leumit  ?=model.ad.advertiser.id === 'leumit'
+                fSelect  leumit_time_range  «متى يكون من المناسب لك أن نتصل بك؟»  [required]  v:legacy  opts:9
+                fSelect  leumit_day  «في أي يوم؟»  [required]  ?=container.leumit_time_range
+&& container.leumit_time_range !== 'no'  v:function,function,function
+              cSection  meuhedet  ?=model.ad.advertiser.id === 'meuhedet'
+                fSelect  meuhedet_time_range  «متى يكون من المناسب لك أن نتصل بك؟»  [required]  v:legacy  opts:9
+                fSelect  meuhedet_day  «في أي يوم؟»  [required]  ?=container.meuhedet_time_range
+&& container.meuhedet_time_range !== 'no'  v:function,function,function
+              cSection  yarinshahaf  ?=model.ad.segment === 'yarinshahaf'
+                fRadio  yarinshahaf_branch  «ما الفرع الذي تفضل الدراسة فيه؟»  [required]  opts:2
+                fSelect  yarinshahaf_time_range  «متى يكون من المناسب لك أن نتصل بك؟»  [required]  ?=container.yarinshahaf_branch  v:legacy  opts:9
+                fSelect  yarinshahaf_day  «في أي يوم؟»  [required]  ?=container.yarinshahaf_time_range
+&& container.yarinshahaf_time_range !== 'no'  v:function,function,function
+              fRadio  netcraft_ui_branch  «באיזה קמפוס של {{ model.ad.advertiser.shortName }} היית {{ model.employee.sex === 'male' ?»  [required]  ?=model.ad.segment === 'netcraft-ui'  v:legacy  opts:5
+              fRadio  netcraft_ui_time  «מתי נוח לך שנחזור אליך?»  [required]  ?=container.netcraft_ui_branch
+&& container.netcraft_ui_branch !== 'no'
+&& model.ad.segment   v:function,function  opts:4
+              cSection  insane_kosherkravi  ?=model.ad.advertiser.id === 'insane-kosherkravi'
+                fRadio  insane_kosherkravi_class  «في أي صف {{ model.employee.sex === &#39;female&#39; ? &#39;أنتِ&#39; : &#39;أنتَ&#39; }}؟»  [required]  opts:5
+                fRadio  insane_kosherkravi_free_lesson  «هل ترغب في حضور تدريب تجريبي مجاني؟»  [required]  ?=container.insane_kosherkravi_class  v:function,function  opts:2
+          cSection  relevantWrap  ?=model.ad.interestedAndFiltered
+          cSection  logoWrap
+            eHtml  element3  ?=model.ad.options.showLogo
+&& model.ad.advertiser.logoImageUrl
+      cSection  adWrapBottom
+        cSection  ad  «משתני מודעה - מצב debug»
+          cSection  lead  «הליד»
+            fRadio  isTest  «משתמש בדיקה»  opts:2
+            eEq  isTest  =auxData._vars.env === 'dev'
+|| model.employee.firstName.includes('בדיקה')
+          eEq  interestedAndFiltered  =by_advertiser = {
+    clalbit: !!model.ad.filter_time1_exact
+        && model.ad.filter_ti
+          fRadio  interestedAndFiltered  «מעוניין ועונה על הקריטריונים»  opts:2
+          eEq  comments  =[
+    {
+        ins1: [
+            model.employee.maritalStatus,
+            trans.date(m
+          eEq  ins1  ?=model.ad.advertiser.id === 'clalbit'  =date = model.ad.ins1_day;
+start_time_raw = model.ad.filter_time1_exact;
+end_time_raw = mod
+          fInput  comments  «הערות»
+          fDate  callStartTime  «שיחה - זמן התחלה»
+          fDate  callEndTime  «שיחה - זמן סיום»
+          eEq  subject  =_base = [
+    'ליד טפז',
+    model.ad.advertiser.shortName,
+    model.employee.str
+].join(
+          fInput  subject  «נושא למייל»
+          fBool  emailSent  «נשלח כבר ליד»
+          eEq  emailSent  =container.emailSent
+|| model.ad.interestedAndFiltered
+    cRow  buttonsRow
+      eBtn  renderBtn
+      eHtml  content2
+      cSection  employer
+        fInput  email  «כתובת אימייל של המעסיק»  [required]  v:,str/val,str/val,function
+      cSection  employee
+        fInput  email  «כתובת אימייל של העובד»  [required]  v:legacy
+      eBtn  submitBtn
+      eBtn  saveBtn
+      eHtml  content5  ?=data.entry
+      eBtn  saveBtn
+    cSection  footerCustom
+      eHtml  content7
+  cSection  seo  «שיוך קמפיין (SEO) - מצב debug»
+    fInput  sourceType  «sourceType»
+    fInput  landingUrl  «landingUrl»
+    fInput  parentUrl  «parentUrl»
+    fInput  referrer  «referrer»
+    fInput  utmSource  «utmSource»
+    fInput  utmMedium  «utmMedium»
+    fInput  utmCampaign  «utmCampaign»
+    fInput  utmTerm  «utmTerm»
+    fInput  utmContent  «utmContent»
+    fInput  gclid  «gclid»
+    fInput  gbraid  «gbraid»
+    fInput  wbraid  «wbraid»
+    fInput  fbclid  «fbclid»
+    fInput  capturedAt  «capturedAt»
+  eHtml  feedbackRequest
+  cSection  erasureRequest
+    fBool  hasRequested  «התקבלה בקשת מחיקה»
+    fDate  dateReceived  «תאריך קבלת הבקשה»
+    fDate  dateHandled  «תאריך טיפול»
+    fInput  source  «מקור הבקשה»
+    fLngTxt  comments  «הערות»

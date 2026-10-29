@@ -1,0 +1,270 @@
+[
+  {
+    "id": "root",
+    "name": "root",
+    "type": "cSection",
+    "depth": 0,
+    "label": null,
+    "children": 9
+  },
+  {
+    "id": "root/adWrapTop",
+    "name": "adWrapTop",
+    "type": "cSection",
+    "depth": 1,
+    "label": null,
+    "children": 2
+  },
+  {
+    "id": "root/adWrapTop/debugWrap",
+    "name": "debugWrap",
+    "type": "cSection",
+    "depth": 2,
+    "label": null,
+    "show": "model.debug",
+    "secType": "well",
+    "children": 4
+  },
+  {
+    "id": "root/adWrapTop/ad",
+    "name": "ad",
+    "type": "cSection",
+    "depth": 2,
+    "label": "פרטי מודעה - מצב debug",
+    "show": "model.debug",
+    "secType": "panel",
+    "children": 12
+  },
+  {
+    "id": "root/freeSettingsWrap",
+    "name": "freeSettingsWrap",
+    "type": "cSection",
+    "depth": 1,
+    "label": null,
+    "show": "data.action === 'build' \n|| data.action === 'preFill' \n|| data.entry.status === 'template'",
+    "children": 8
+  },
+  {
+    "id": "root/freeSettingsWrap/employer",
+    "name": "employer",
+    "type": "cSection",
+    "depth": 2,
+    "label": "פרטי המעסיק",
+    "relevant": "container.customizedA",
+    "secType": "panel",
+    "children": 4
+  },
+  {
+    "id": "root/settingsWrap",
+    "name": "settingsWrap",
+    "type": "cSection",
+    "depth": 1,
+    "label": "הגדרות טופס",
+    "show": false,
+    "secType": "panel",
+    "children": 6
+  },
+  {
+    "id": "root/settingsWrap/_settings",
+    "name": "_settings",
+    "type": "cSection",
+    "depth": 2,
+    "label": null,
+    "show": "true || data.action === 'preFill' || data.entry.status === 'template'",
+    "children": 16
+  },
+  {
+    "id": "root/settingsWrap/thisIncome",
+    "name": "thisIncome",
+    "type": "cSection",
+    "depth": 2,
+    "label": null,
+    "children": 1
+  },
+  {
+    "id": "root/settingsWrap/_settings",
+    "name": "_settings",
+    "type": "cSection",
+    "depth": 2,
+    "label": null,
+    "children": 1
+  },
+  {
+    "id": "root/settingsWrap/_settings",
+    "name": "_settings",
+    "type": "cSection",
+    "depth": 2,
+    "label": null,
+    "children": 1
+  },
+  {
+    "id": "root/form",
+    "name": "form",
+    "type": "cSection",
+    "depth": 1,
+    "label": null,
+    "relevant": "data.action !== 'preFill' && data.entry.status !== 'template'",
+    "children": 23
+  },
+  {
+    "id": "root/form/texts",
+    "name": "texts",
+    "type": "cSection",
+    "depth": 2,
+    "label": "טקסטים ל-PDF",
+    "show": false,
+    "secType": "panel",
+    "children": 1
+  },
+  {
+    "id": "root/form/topCustom",
+    "name": "topCustom",
+    "type": "cSection",
+    "depth": 2,
+    "label": null,
+    "children": 2
+  },
+  {
+    "id": "root/form/taxYearWrap",
+    "name": "taxYearWrap",
+    "type": "cSection",
+    "depth": 2,
+    "label": null,
+    "relevant": "data.action !== 'preFill'",
+    "children": 4
+  },
+  {
+    "id": "root/form/employer",
+    "name": "employer",
+    "type": "cSection",
+    "depth": 2,
+    "label": "א. פרטי המעסיק",
+    "secType": "panel",
+    "children": 2
+  },
+  {
+    "id": "root/form/employee",
+    "name": "employee",
+    "type": "cSection",
+    "depth": 2,
+    "label": "ב. פרטי העובד/ת",
+    "secType": "panel",
+    "children": 11
+  },
+  {
+    "id": "root/form/childrenWrapper",
+    "name": "childrenWrapper",
+    "type": "cSection",
+    "depth": 2,
+    "label": "ג. פרטים על ילדי שבשנת המס טרם מלאו להם 19 שנה",
+    "secType": "panel",
+    "children": 2
+  },
+  {
+    "id": "root/form/thisIncome",
+    "name": "thisIncome",
+    "type": "cSection",
+    "depth": 2,
+    "label": "ד. פרטים על הכנסותי ממעסיק זה",
+    "secType": "panel",
+    "children": 5
+  },
+  {
+    "id": "root/form/otherIncomes",
+    "name": "otherIncomes",
+    "type": "cSection",
+    "depth": 2,
+    "label": "ה. פרטים על הכנסות אחרות",
+    "secType": "panel",
+    "children": 2
+  },
+  {
+    "id": "root/form/spouse",
+    "name": "spouse",
+    "type": "cSection",
+    "depth": 2,
+    "label": "ו. פרטים על בן/בת הזוג",
+    "secType": "panel",
+    "children": 2
+  },
+  {
+    "id": "root/form/changesWrapper",
+    "name": "changesWrapper",
+    "type": "cSection",
+    "depth": 2,
+    "label": "ז. שינויים במהלך השנה",
+    "secType": "panel",
+    "children": 1
+  },
+  {
+    "id": "root/form/taxCreditRequest",
+    "name": "taxCreditRequest",
+    "type": "cSection",
+    "depth": 2,
+    "label": "ח. אני מבקש/ת פטור או זיכוי ממס מהסיבות הבאות",
+    "secType": "panel",
+    "children": 2
+  },
+  {
+    "id": "root/form/taxCoordinationRequest",
+    "name": "taxCoordinationRequest",
+    "type": "cSection",
+    "depth": 2,
+    "label": "ט. תיאום מס ",
+    "secType": "panel",
+    "children": 2
+  },
+  {
+    "id": "root/form/_confirmation",
+    "name": "_confirmation",
+    "type": "cSection",
+    "depth": 2,
+    "label": "י. הצהרה",
+    "secType": "panel",
+    "children": 3
+  },
+  {
+    "id": "root/form/appendix",
+    "name": "appendix",
+    "type": "cSection",
+    "depth": 2,
+    "label": null,
+    "children": 0
+  },
+  {
+    "id": "root/form/bottomCustom",
+    "name": "bottomCustom",
+    "type": "cSection",
+    "depth": 2,
+    "label": null,
+    "children": 3
+  },
+  {
+    "id": "root/form/footerCustom",
+    "name": "footerCustom",
+    "type": "cSection",
+    "depth": 2,
+    "label": null,
+    "children": 1
+  },
+  {
+    "id": "root/seo",
+    "name": "seo",
+    "type": "cSection",
+    "depth": 1,
+    "label": "שיוך קמפיין (SEO) - מצב debug",
+    "show": "model.debug",
+    "secType": "panel",
+    "children": 14
+  },
+  {
+    "id": "root/erasureRequest",
+    "name": "erasureRequest",
+    "type": "cSection",
+    "depth": 1,
+    "label": null,
+    "show": false,
+    "secType": "well",
+    "children": 5
+  }
+]

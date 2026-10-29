@@ -1,0 +1,1029 @@
+# FORM: 5a704edf239da27488a8cd9c / publicName='טופס 101' locale=he
+# flags: showActionBar=False showFooter=False showTemplateCreateDefaultUi=False
+# rootConfig: {"clearIrrelevant": true, "fileTypes": ["gif", "jpg", "jpeg", "png", "pdf"]}
+# unsavedMessage: True
+# auxData keys: ['_vars', 'ads', 'advertisers', 'arCities', 'arLastNames', 'arNames', 'citiesCenter1', 'citiesFin1Not2', 'citiesFin2', 'citiesNorth1', 'drCities', 'etLastNames', 'etNames', 'excellentisraelCities', 'holidays', 'relCities']
+
+cSection:root
+  cSection:adWrapTop print=false
+    cSection:debugWrap show=(model.debug) secType=well
+      fBool:debug label="מצב debug" show=(False)
+      eAlert:alert1 relevant=(!model.ad.options.id) content="אף מודעה אינה מוצגת כרגע /"
+      eHtml:content6 content="שם קמפיין: {{ auxData._vars.campaignName }} סביבה:&nbsp;{{ auxData._vars.env }}&nbsp;קמפיין פעיל: {{&nbsp;model.ad.campaignActive }} / סגמנטים רלוונטים:&nbsp;{{&nbsp;model.ad._segments.join(', ') }} סגמנט שנבחר: {{&nbsp;model.ad.segment }} / מודעה נכחית: {{&nb…"
+      cSection:ad relevant=(data.isClient)
+        cRow:row8
+    cSection:ad LEGEND="פרטי מודעה - מצב debug" show=(model.debug) secType=panel
+      eEq:__isCollapsed relevant=(model.debug) eq=(true)
+      fBool:campaignActive label="האם הקמפיין פעיל" help="בגרסה ראשית של טופס מודעה תוצג רק אם הקמפיין פעיל, בגרסת פיתוח זה לא תנאי."
+      eEq:campaignActive eq=(auxData._vars.active)
+      cRow:row7
+      cSection:ad LEGEND="פילוח"
+        eEq:_segments eq=(_allAds = auxData.ads;
+_segments = [];
+
+_baseRelevant = model.employee.healthFundMember !== false
+    && model.employee.address.city
+    && (
+        !model.employee.dateOfAliyah
+        || fn.today() - model.employee.dateOfAliyah > 365 * 24 * 60 * 60 * 1000
+    );
+
+_isAr = auxData.arCities.includes(model.employee.address.city)
+    || auxData.arNames.includes(model.employee.firstName)
+    || auxData.arLastNames.includes(model.employee.lastName);
+
+_isDr = auxData.drCities.includes(model.employee.address.city);
+
+_isEt = auxData.etNames.includes(model.employee.firstName)
+    || auxData.etLastNames.includes(model.employee.lastName);
+
+_isRel = auxData.relCities.includes(model.employee.address.city);
+
+_isCitiesFin1Not2 = auxData.citiesFin1Not2.includes(model.employee.address.city);
+_isCitiesFin2 = auxData.citiesFin2.includes(model.employee.address.city);
+
+(_baseRelevant
+    && model.employee.age >= 33
+    && model.employee.identity.type === 'idNum'
+    && (
+        _isCitiesFin1Not2
+        || _isCitiesFin2
+    )
+    && !_isAr
+    && !_isEt
+    && !!fn.find(_allAds, {segment: 'fin1'})
+)
+    ? _segments.push('fin1')
+    : null;
+
+(_baseRelevant
+    && model.employee.age >= 33
+    && model.employee.identity.type === 'idNum'
+    && _isCitiesFin2
+    && !_isAr
+    && !_isEt
+    && !!fn.find(_allAds, {segment: 'fin2'})
+)
+    ? _segments.push('fin2')
+    : null;
+
+
+(_baseRelevant
+    && model.employee.age >= 28
+    && model.employee.age <= 34
+    && model.employee.identity.type === 'idNum'
+    && !_isAr
+    && !_isEt
+    && (
+        _isCitiesFin1Not2
+        || _isCitiesFin2
+    )
+    && !_isAr
+
+    && !!fn.find(_allAds, {segment: 'ins1'})
+)
+    ? _segments.push('ins1')
+    : null;
+
+(model.employee.healthFundMember !== false
+    && model.employee.age >= 20
+    && model.employee.age < 30
+    && model.employee.identity.type === 'idNum'
+    && (
+        _isCitiesFin1Not2
+        || _isCitiesFin2
+    )
+    && !!fn.find(_allAds, {segment: 'netcraft-ui'})
+)
+    ? _segments.push('netcraft-ui')
+    : null;
+
+(model.employee.healthFundMember !== false
+    && model.employee.sex === 'male'
+    && model.employee.age >= 20
+    && model.employee.age < 30
+    && model.employee.identity.type === 'idNum'
+    && (auxData.citiesCenter1.includes(model.employee.address.city))
+    && !!fn.find(_allAds, {segment: 'netcraft-fs-center'})
+)
+    ? _segments.push('netcraft-fs-center')
+    : null;
+
+(model.employee.sex === 'female'
+    && model.employee.age >= 18
+    && model.employee.age < 35
+    && model.employee.identity.type === 'idNum'
+    && (
+        _isCitiesFin1Not2
+        || _isCitiesFin2
+    )
+    && !!fn.find(_allAds, {segment: 'yarinshahaf'})
+)
+    ? _segments.push('yarinshahaf')
+    : null;
+
+
+(model.employee.healthFundName
+    && model.employee.healthFundName !== 'leumit'
+    && !model.children.length
+    && model.employee.age >= 20
+    && model.employee.age < 34
+    && !!fn.find(_allAds, {segment: 'leumit-young'})
+)
+    ? _segments.push('leumit-young')
+    : null;
+
+(model.employee.healthFundName
+    && model.employee.healthFundName !== 'leumit'
+    && model.employee.age >= 18
+    && model.children.length
+    && !(
+        model.employee.age >= 34
+        && (
+            _isCitiesFin1Not2
+            || _isCitiesFin2
+        )
+    )
+    && !!fn.find(_allAds, {segment: 'leumit-parents'})
+)
+    ? _segments.push('leumit-parents')
+    : null;
+
+(model.employee.healthFundName
+    && model.employee.healthFundName !== 'leumit'
+    && !model.children.length
+    && model.employee.age >= 34
+    && !_isCitiesFin1Not2
+    && !_isCitiesFin2
+    && !!fn.find(_allAds, {segment: 'leumit-old'})
+)
+    ? _segments.push('leumit-old')
+    : null;
+
+(model.employee.healthFundName
+    && model.employee.healthFundName !== 'meuhedet'
+    && !model.children.length
+    && (
+        (
+            model.employee.age >= 20
+            && model.employee.age < 34
+        ) || (
+            model.employee.age >= 34 && (_isAr || _isRel)
+        )
+    )
+    && !!fn.find(_allAds, {segment: 'meuhedet-young'})
+)
+    ? _segments.push('meuhedet-young')
+    : null;
+
+(model.employee.healthFundName
+    && model.employee.healthFundName !== 'meuhedet'
+    && model.employee.age >= 18
+    && model.children.length
+    && (
+        (
+            model.employee.age >= 24
+            && model.employee.age < 34
+        ) || (
+            model.employee.age >= 34 && (_isAr || _isRel)
+        )
+    )
+    && !!fn.find(_allAds, {segment: 'meuhedet-parents'})
+)
+    ? _segments.push('meuhedet-parents')
+    : null;
+
+(model.employee.age >= 40
+    && model.employee.age < 65
+    && model.employee.maritalStatus === 'married'
+    && model.employee.identity.type === 'idNum'
+    && !_isAr
+    && !_isEt
+    && (
+        _isCitiesFin1Not2
+        || _isCitiesFin2
+    )
+    && !!fn.find(_allAds, {segment: 'clal-mortgage'})
+)
+    ? _segments.push('clal-mortgage')
+    : null;
+
+(model.employee.age >= 29
+    && model.employee.age <= 35
+    && _isCitiesFin2
+    && !_isAr
+    && !_isEt
+    && fn.includes([0, 2, 4], fn.today().getUTCDay())
+    && !!fn.find(_allAds, {segment: 'clal-pension'})
+)
+    ? _segments.push('clal-pension')
+    : null;
+
+(model.employee.age >= 14
+    && model.employee.age <= 19
+    && !(model.employee.age >= 18
+        && model.employee.age <= 19
+        && model.employee.sex === 'female'
+    )
+    && (
+        !_isAr
+        && !_isDr
+    )
+    && auxData.excellentisraelCities.includes(model.employee.address.city)
+    && !!fn.find(_allAds, {segment: 'excellentisrael'})
+)
+    ? _segments.push('excellentisrael')
+    : null;
+
+_segments;)
+        cRow:row6
+        fInput:segment label="סגמנט"
+        fInput:forceSegment label="סגמנט"
+        fCheckbox:langs label="שפות נתמכות" options=[['he', 'עברית'] | ['ar', 'ערבית'] | ['en', 'אנגלית']]
+      cSection:options LEGEND="הגדרות מודעה"
+        cRow:row1
+        eEq:id eq=(_allAds = model.ad.interactedAdId
+    ? fn.filter(
+        auxData.ads,
+        {
+            id: model.ad.interactedAdId
+        }
+    )
+    : auxData.ads;
+
+_isDev = auxData._vars.env === 'dev';
+
+model.ad.segment = model.ad.forceSegment && model.ad._segments.includes(model.ad.forceSegment)
+    ? model.ad.forceSegment
+    : (
+        (model.ad.segment && model.ad._segments.includes(model.ad.segment))
+            ? model.ad.segment
+            : fn.sample(model.ad._segments)
+    );
+
+_segmentAds = (_isDev || model.ad.campaignActive)
+    ? fn.filter(
+        _allAds,
+        _isDev
+            ? {segment: model.ad.segment}
+            : {segment: model.ad.segment, active: true}
+    )
+    : [];
+
+_advertiserIds = fn.uniq(
+    fn.map(
+        _segmentAds,
+        'advertiserId'
+    )
+);
+
+_advertiserId = model.ad.options.advertiserId &&
+(model.ad.source
+    || _advertiserIds.includes(model.ad.options.advertiserId)
+)
+    ? model.ad.options.advertiserId
+    : fn.sample(_advertiserIds);
+
+_advertiserAds = fn.filter(
+    _segmentAds,
+    {advertiserId: _advertiserId}
+);
+
+model.ad.options.id && _advertiserAds.includes(model.ad.options.id)
+    ? model.ad.options.id
+    : fn.sample(_advertiserAds).id)
+      cSection:advertiser LEGEND="פרטי המפרסם"
+        fInput:id label="מזהה המפרסם"
+        cRow:row5
+      eEq:updateAdAndAdvertiser eq=(_ad = fn.find(
+    auxData.ads,
+    {
+        id: model.ad.options.id
+    }
+);
+
+_advertiser = fn.find(
+    auxData.advertisers,
+    { id: _ad.advertiserId }
+);
+
+model.ad.options = fn.assign(
+    fn.cloneDeep(_ad),
+    fn.cloneDeep(_ad[model.lang])
+);
+
+model.ad.advertiser = fn.assign(
+    fn.cloneDeep(_advertiser),
+    fn.cloneDeep(_advertiser[model.lang]),
+    _ad.advertiser
+);
+
+model.ad.langs = [
+    'he'
+];
+(!!_ad.ar)
+    ? model.ad.langs.push('ar')
+    : null;)
+      eEq:_heading eq=(model.employee.sex === 'female'
+    ? (model.ad.options.headingFemale || model.ad.options.heading)
+    : (model.ad.options.heading || model.ad.options.headingFemale))
+      eEq:_interested eq=(_lang = model.lang || 'he';
+
+model.employee.sex === 'female'
+    ? (model.ad.options.interestedFemale
+        || model.ad.options.interestedMale
+        || {
+            he: 'מעוניינת?',
+            ar: 'معني؟',
+        }[_lang]
+    )
+    : (model.ad.options.interestedMale
+        || model.ad.options.interestedFemale
+        || {
+            he: 'מעוניין?',
+            ar: 'معني؟',
+        }[_lang]
+    ))
+      eEq:_mainText eq=('<div class="alert alert-info" style="font-size:16px; margin-top: 5px;">'
++ (
+model.employee.sex === 'female'
+  ? (model.ad.options.mainTextFemale || model.ad.options.mainText)
+  : (model.ad.options.mainText || model.ad.options.mainTextFemale)
+)
++ '</div>')
+      eEq:_subText eq=('<div style="margin-bottom: 15px">'
++ (
+model.employee.sex === 'female'
+  ? (model.ad.options.subTextFemale || model.ad.options.subText)
+  : (model.ad.options.subText || model.ad.options.subTextFemale)
+)
++ '</div>')
+  eHtml:logo print=false content="/"
+  eEq:unlockAWhenNoEmail relevant=(data.action === 'fill') eq=(model.lockA = model.lockA && model.employer.email)
+  cSection:freeSettingsWrap show=(data.action === 'build' 
+|| data.action === 'preFill' 
+|| data.entry.status === 'template')
+    eHtml:content8 content="צרו קישור לטופס 101 מקוון /"
+    eAlert:alert8 content="ממלאים כאן פעם אחת את פרטי המעסיק – ומקבלים קישור אישי לשליחה לעובדים. לגמרי בחינם 🙂 / 🪄 איך זה עובד? / יוצרים קישור: מזינים כאן את פרטי המעסיק ולוחצים שמירה. מיד תקבלו קישור קבוע שאפשר לשלוח לכל עובד חדש או בתחילת שנה. / העובדים ממלאים: העובדים נכנסים לקישור …"
+    eAlert:alert8 content="👷אם אתם עובדים ורוצים לשלוח טופס 101 למעסיק שלכם - עברו לעמוד זה /"
+    eEq:expression1 relevant=(data.action === 'preFill' || data.entry.status === 'template') eq=(model.customizedA = true;
+model.lockA = true;)
+    fBool:customizedA label="טופס מותאם לארגון" show=(False) init={{ data.action === 'preFill' }} print=false
+    fBool:lockA label="נעל עריכה של פרטי המעסיק" show=(False)
+    cSection:employer LEGEND="פרטי המעסיק" relevant=(container.customizedA) secType=panel
+      cRow:employerRow
+      fInput:email label="כתובת אימייל שאליה יישלחו הטפסים" reqValidator=True help="הטפסים יישלחו גם אליך וגם לעובדים שמילאו אותם. /"
+      cRow:row3 show=(False)
+      cSection:ovdimio secType=well
+        eHtml:content9 content="/"
+        eHtml:content4 content="רוצים לצרף לטופס גם&nbsp;פרטי חשבון הבנק&nbsp;ואת כל שאר הטפסים שלכם? / הכירו את עובדים.IO – המערכת שלנו שתעשה לכם סדר בכל תהליך הקליטה / עם עובדיםIO תוכלו לבנות&nbsp;קיטי קליטה חכמים&nbsp;שמרכזים את כל הטפסים הדרושים לכל אחד מהעובדים שלכם / יתרונות המערכת / ✓…"
+        cSection:section1
+          fRadio:ovdimioNotify label="רוצים לשמוע עוד על עובדים.IO?" reqValidator={'req': 'model.customizedA'} typeValidator=bool options=[[True, '✅ כן, אשמח לפרטים נוספים'] | [False, '🚫 לא כרגע, תודה']]
+          eEq:expression2 relevant=(data.action !== 'preFill' && data.entry.status !== 'template'
+&& !container.ovdimioNotify) eq=(container.ovdimioNotify = false)
+        eAlert:alert4 relevant=(container.ovdimioNotify === false) content="אין בעיה 🙂 הטפסים החינמיים שלנו זמינים עבורכם תמיד /"
+        cSection:ovdimioContact relevant=(container.ovdimioNotify)
+          cRow:row2
+          fLngTxt:comments label="איך נוכל לעזור? אילו טפסים או שירותים עשויים לעניין אותך"
+    cRow:row4
+  cSection:settingsWrap LEGEND="הגדרות טופס" show=(False) print=false secType=panel
+    cSection:_settings show=(true || data.action === 'preFill' || data.entry.status === 'template')
+      eHtml:displayHeader content="תצוגה /"
+      fBool:showLogo label="הצג לוגו"
+      cRow:logoRow relevant=(container.showLogo)
+      eHtml:validationHeader content="בדיקות /"
+      cRow:employeeAgeRow
+      fRadio:employeeEmail label="כתובת הדוא"ל של העובד" reqValidator=True help="כתובת הדואר האלקטרוני של העובד אינה שדה חובה בהתאם לדרישות רשות המסים." options=[['required', 'חובה'] | ['optional', 'רשות']] init=required
+      fRadio:taxCoordinationWarning label="התראה לעובד החייב תיאום מס" reqValidator=True options=[['error', 'הצג שגיאה'] | ['warn', 'התראה - במקרים בהם העובד חייב להגיש תיאום מס, כלומר ללא הגשת תיאום מס תהיה חובה לנכות מס בשיעור מירבי, תוצג לעובד התראה המסבירה לו שעליו להגיש תיאום מס.'] | ['no', 'ללא - ההתראה לא תוצג לעובד.']] init=warn
+      fRadio:teenagerCreditPointNotUtilizedWarning label="התראה אם לא ביקש נקודת זיכוי לנער" reqValidator=True options=[['warn', 'התראה - אם עובד יכול לבקש נקודת זיכוי לנער (הוא או בן זוגו בני פחות מ-18) והוא לא ביקש את נקודת הזיכוי לנער אז תוצג לו אזהרה ליד הסעיף הרלוונטי.<br />\nיש לשים לב שמדובר בהתראה ולא בשגיאה, כך שניתן לשלוח את הטופס בכל זאת. לא ניתן לחייב את העובד לבקש נקודות זיכוי.'] | ['no', 'ללא - ההתראה ל] init=warn
+      eHtml:appendixHeader content="נספח /"
+      fRadio:youngEmployeeMedicalCertificate label="אישור רפואי לעבודה לנער" reqValidator=True options=[['required', 'חובה - אם גיל העובד ביום מילוי הטופס פחות מ-18 אז הוא יתבקש לצרף "אישור עבודה מרופא משפחה".'] | ['no', 'ללא - העובד לא יתבקש לצרף אישור רפואי לעבודה.']] init=no
+      fRadio:inActiveService label="שאל את העובד אם הוא חייל בשירות חובה בצה"ל או מתנדב בשירות לאומי/אזרחי" reqValidator=True options=[['required', 'חובה - שאל את העובד אם הוא בשירות פעיל. אם ענה שכן, הוא יתבקש לצרף את האישורים הדרושים בהתאם.'] | ['no', 'ללא - העובד כלל לא ישאל אם הוא בשירות פעיל.']] init=no
+      fRadio:militaryServiceWorkPermitCertificate label="אישור עבודה פרטית לחייל בשירות חובה" reqValidator=True options=[['required', 'חובה - אם העובד הוא חייל בשירות חובה אז הוא ידרש לצרף אישור עבודה פרטית.'] | ['no', 'ללא - העובד כלל לא ישאל אם הוא בשירות פעיל.']] init=no
+      fRadio:militaryServicePersonalCertificate label="תעודת חוגר לחייל בשירות חובה" reqValidator=True options=[['required', 'חובה - אם העובד הוא חייל בשירות חובה אז הוא ידרש לצרף אישור עבודה פרטית.'] | ['no', 'ללא - העובד כלל לא ישאל אם הוא בשירות פעיל.']] init=no
+      fRadio:nationalServiceWorkPermitCertificate label="אישור עבודה ממסגרת השירות הלאומי/אזרחי" reqValidator=True options=[['required', 'חובה - אם העובד הוא משרת בשירות לאומי/אזרחי אז הוא ידרש לצרף אישור עבודה.'] | ['no', 'ללא - העובד כלל לא ישאל אם הוא בשירות פעיל.']] init=no
+      fRadio:bankAccount label="פרטי חשבון בנק" reqValidator=True options=[['required', 'חובה - העובד יתבקש למלא פרטי חשבון בנק והם יהיו שדות חובה.'] | ['optional', 'רשות - העובד יוכל למלא את פרטי חשבון הבנק, אך לא כחובה. אם העובד התחיל למלא פרט כלשהו אז יהיה עליו להשלים את כל שאר הפרטים (כל השדות יהפכו לשדות חובה).'] | ['no', 'ללא - העובד לא יתבקש למלא פרטי חשבון בנק.']] init=no
+      fRadio:bankAccountOwnershipCertificate label="צילום צ'ק או אישור על ניהול החשבון" relevant=(container.bankAccount === 'required' ||
+container.bankAccount === 'optional') reqValidator=True options=[['required', "חובה - העובד יתבקש לצרף צ'ק או אישור על ניהול החשבון יחד פרטי חשבון הבנק. "] | ['no', 'ללא - העובד לא יתבקש לצרף אישור על ניהול החשבון.']] init=no
+    eHtml:initialDataHeader content="נתונים התחלתיים /"
+    cSection:thisIncome
+      fCheckbox:types label="סוג הכנסה זו" options=[['monthly', 'משכורת חודש'] | ['additional', 'משכורת נוספת'] | ['partial', 'משכורת חלקית'] | ['daily', 'שכר עבודה (עובד יומי)'] | ['allowance', 'קצבה'] | ['scholarship', 'מלגה']]
+    cSection:_settings
+      fBool:thisIncomeTypesReadonly label="נעל שדה סוג הכנסה זו" relevant=(model.thisIncome.types.length > 0)
+    eHtml:advancedHeder content="מתקדם /"
+    cSection:_settings
+      cRow:advancedRow
+  cSection:form relevant=(data.action !== 'preFill' && data.entry.status !== 'template')
+    cSection:texts LEGEND="טקסטים ל-PDF" show=(False) helpBub="שדות שמאל למעלה מופיעים רק בעמוד הראשון. / שדות למטה מופיעים בכל העמודים. /" print=false secType=panel
+      cRow:row
+    fSelect:store label="חנות" relevant=(auxData.stores) reqValidator=True print=false
+    fSelect:department label="מחלקה" relevant=(auxData.departments) reqValidator=True init=א print=false
+    cSection:topCustom
+      eEq:expression1 eq=(model._settings.showLogo = true;
+model._settings.logoImageSrc = 'https://www.tepez.co.il/assets/logo/logo_white_on_blue.png';
+model._settings.logoImageWidth = 250;
+model._settings.logoLinkUrl = 'https://www.tepez.co.il/';)
+      cSection:instructions
+        eHtml:title print=false content="טופס 101 / כרטיס עובד - ובקשה להקלה ולתיאום מס על ידי המעסיק / לפי תקנות מס הכנסה (ניכוי ממשכורת ומשכר עבודה), התשנ"ג - 1993 /"
+        eHtml:instructions print=false content="טופס זה ימולא על-ידי כל עובד עם תחילת עבודתו, וכן בתחילת כל שנת מס (אלא אם כן המנהל אישר אחרת). הטופס מהווה אסמכתא למעסיק למתן הקלות במס ולעריכת תיאומי מס בחישוב משכורת העובד. אם חל שינוי בפרטים - יש להצהיר על כך תוך שבוע ימים."
+        eAlert:alert6 content="English version&nbsp; /"
+        eAlert:alert3 content="הטופס מעודכן לשנת 2026 / מלא את הטופס&nbsp;ובתחתית העמוד&nbsp;תוכל: / להוריד קובץ PDF עם הפרטים&nbsp;שמילאת.&nbsp;הקובץ שתקבל הוא טופס 101 רגיל ותקני. / / לשלוח&nbsp;את הטופס באימייל לך ולמעסיק. / / לשמור טיוטה&nbsp;של הטופס ולהמשיך מאוחר יותר. / / אם יש לך שא…"
+        eAlert:tepezDisclaimer print=false content="שירות חינמי המופעל ע"י חברת Tepez. / השירות ניתן בחינם, ללא כל עלות. מימון הפעילות מבוסס בין היתר על פרסומות וככל שהמשתמש מאשר – שימוש מסחרי בפרטי המשתמש והעברתם לשותפים עסקיים, כמפורט במדיניות הפרטיות. / הטופס אינו מופעל או מקושר עם רשות המסים. / מטרת הטופס ה…"
+    cSection:taxYearWrap relevant=(data.action !== 'preFill') print=false
+      fInput:taxYear label="שנת המס" relevant=(fn.today().getUTCMonth() !== 11 && fn.today().getUTCMonth() !== 0) typeValidator=num helpBub="ניתן למלא את הטופס רק עבור שנת המס הנכחית. / למעט בחודש דצמבר, אז ניתן למלא את הטופס גם עבור שנת המס הבאה ובחודש ינואר אז ניתן למלא את הטופס גם עבור שנת המס הקו…"
+      fRadio:taxYear label="שנת המס" relevant=(fn.today().getUTCMonth() === 11) reqValidator=True typeValidator=num helpBub="בחודש דצמבר ניתן למלא את הטופס עבור השנה הנכחית ועבור השנה הבאה." print=false
+      fRadio:taxYear label="שנת המס" relevant=(fn.today().getUTCMonth() === 0) reqValidator=True typeValidator=num helpBub="בחודש ינואר ניתן למלא את הטופס עבור השנה הנכחית או עבור השנה הקודמת, לטובת עובדים שלא הספיקו למלא את הטופס בזמן. ברירת המחדל היא שנת המס הנכחית." print=false
+      eEq:clearTaxYear eq=(_today = fn.today();
+
+container.taxYear = (container.taxYear == null || container.taxYear < _today.getUTCFullYear()
+  ? _today.getUTCFullYear()
+  : container.taxYear
+))
+    cSection:employer LEGEND="א. פרטי המעסיק" print=false secType=panel
+      cRow:row3 show=(False)
+      cRow:employerRow
+    cSection:employee LEGEND="ב. פרטי העובד/ת" print=false secType=panel
+      eEq:str eq=(str = (container.firstName || '')
+  + ' ' 
+  + (container.lastName || '') 
+  + ' - ' 
+  + (container.identity.idStr);
+
+auxData.stores && (
+  str = str + ' - ' + (model.store || '')
+);
+
+auxData.departments && (
+  str = str + ' - ' + (model.department || '')
+);
+
+str;)
+      fInput:str label="טקסט מתאר לעובד" show=(False)
+      cRow:nameRow
+      cSection:identity
+        fRadio:type label="זיהוי לפי" reqValidator=True options=[['idNum', 'תעודת זהות'] | ['passport', 'דרכון (עבור אזרח זר)']] init=idNum
+        fInput:idStr label="מספר זיהוי לטופס" show=(False)
+        eEq:idStr eq=({
+idNum: container.idNum ? ('' + container.idNum) : '',
+passport: container.passportNum
+}[container.type])
+        cRow:idNumRow relevant=(container.type === 'idNum')
+        cRow:passportRow relevant=(container.type === 'passport')
+      fFile:residencePermit label="אישור / רשיון שהייה בישראל" relevant=(container.identity.type === 'passport') helpBub="שנתנו על ידי רשות האוכלוסין וההגירה."
+      cRow:datesRow
+      cSection:address
+        cRow:addressRow
+      cRow:phonesRow
+      fInput:email label="כתובת דואר אלקטרוני" relevant=(model._settings.employeeEmail === 'optional')
+      fInput:email label="כתובת דואר אלקטרוני" relevant=(model._settings.employeeEmail !== 'optional') reqValidator=True
+      cRow:miscRow
+    eAdSenseAdUnit:ad1 adSlot=8819230191
+    cSection:childrenWrapper LEGEND="ג. פרטים על ילדי שבשנת המס טרם מלאו להם 19 שנה" print=false secType=panel
+      eAlert:foreignAlert relevant=(model.employee.identity.type === 'passport') content="חלק זה אינו רלוונטי משום שהינך מזוהה עם דרכון זר"
+      cRepeat:children relevant=(model.employee.identity.type !== 'passport')
+        cRow:row1
+        cRow:row2
+    cSection:thisIncome LEGEND="ד. פרטים על הכנסותי ממעסיק זה" print=false secType=panel
+      fCheckbox:types label="אני מקבל/ת" reqValidator=True validators=function(ניתן לסמן רק עד <u>אחת</u> מהאפשרויות משכורת חודש, משכורת נוספת, משכורת חלקית ושכר עבודה.); function(יש לצרף תיאום מס בחלק ט' של הטופס. ללא צירוף תיאום מס נהיה חייבים לנכות משכרך מס בשיעור מירבי (48%).) helpBub="משכורת חודש - משכורת בעד עבודה של לא פחות מ - 18 יום בחודש. / משכורת בעד משרה נוספת - משכורת בעד עבודה של יותר מ - 5 שעות ביום, נוסף למשכורת ו/או בנוסף לקצבה הח…" options=[['monthly', 'משכורת חודש'] | ['additional', 'משכורת בעד משרה נוספת'] | ['partial', 'משכורת חלקית'] | ['daily', 'שכר עבודה (עובד יומי)'] | ['allowance', 'קצבה'] | ['scholarship', 'מלגה']]
+      eAlert:alert1 relevant=(model._settings.taxCoordinationWarning === 'warn'  
+&& fn.includes(container.types, 'additional')
+&& !model.taxCoordination.request) content="שים לב! / מכיוון שסימנת שזוהי משכורת נוספת עבורך, עליך לערוך תיאום מס ולהגישו למעסיק, אחרת יורד מהשכר שלך מס בשיעור מירבי (כ-48%). / ניתן לערוך תיאום מס בדרכים אלה: / באינטרנט. / ע"י הגשת טופס 116 לפקיד השומה. / בחלק ט' של טופס זה. / אם כבר יש ברשותך אישור מפק…"
+      fDate:startDate label="תאריך תחילת העבודה בשנת המס" reqValidator=True helpBub="שנת המס היא השנה הקלנדרית, כלומר השנה שמתחילה ב-1 לינואר ומסתיימת ב-31 לדצמבר. / אם אתה עובד באותו המקום ברצף משנה קודמת, אז תאריך תחילת העבודה בשנת המס הוא ה-1…"
+      fInput:startDateStr label="תאריך לידה לטופס" show=(False)
+      eEq:startDateStr eq=(trans.date(container.startDate, 'DDMMYYYY'))
+    eAdSenseAdUnit:ad1 adSlot=8819230191
+    cSection:otherIncomes LEGEND="ה. פרטים על הכנסות אחרות" print=false secType=panel
+      fRadio:hasIncomes label="יש לך הכנסות אחרות?" reqValidator=True typeValidator=bool options=[[False, 'אין לי הכנסות אחרות ממשכורת (משכורת חודש, בעד משרה נוספת, משכורת חלקית, שכר עבודה), מקצבה וממלגה'] | [True, 'יש לי הכנסות נוספות כמפורט להלן']]
+      cSection:hasIncomesWrap relevant=(container.hasIncomes)
+        fCheckbox:types label="פירוט הכנסות" reqValidator=True helpBub="משכורת חודש - משכורת בעד עבודה של לא פחות מ - 18 יום בחודש. / משכורת בעד משרה נוספת - משכורת בעד עבודה של יותר מ - 5 שעות ביום, נוסף למשכורת ו/או בנוסף לקצבה הח…" options=[['monthly', 'משכורת חודש'] | ['additional', 'משכורת בעד משרה נוספת'] | ['partial', ' משכורת חלקית'] | ['daily', ' שכר עבודה (עובד יומי)'] | ['allowance', 'קצבה'] | ['scholarship', 'מלגה']]
+        fInput:typesOther label="פירוט מקור הכנסה אחר" relevant=(fn.includes(container.types, 'other')) reqValidator=True
+        fRadio:utilizeTaxCreditsElsewhere label="נקודות זיכוי" reqValidator=True typeValidator=bool helpBub="משבצת ראשונה / אם העובד לא מילא משבצת זו - המעסיק מנוע מלנכות מס לפי לוח הניכויים ויש לנכות מס מירבי לפי התקנות מכל תשלומי המעסיק. / / משבצת שנייה / אם העובד מי…" options=[[False, 'אבקש לקבל נקודות זיכוי ומדרגות מס כנגד הכנסתי זו (סעיף ד). איני מקבל/ת אותם בהכנסה אחרת.'] | [True, '<span>אני מקבל/ת נקודות זיכוי ומדרגות מס בהכנסה אחרת ועל כן איני זכאי/ת להם כנגד הכנסה זו.</span>']]
+        eAlert:alert1 relevant=(model._settings.taxCoordinationWarning === 'alert'  
+&& container.utilizeTaxCreditsElsewhere
+&& !model.taxCoordination.request) content="שים לב! / מכיוון שסימנת שאתה מקבל נקודות זיכוי ומדרגות מס בהכנסה אחרת, עליך לערוך תיאום מס ולהגישו למעסיק, אחרת יורד מהשכר שלך מס בשיעור מירבי (כ-48%). / ניתן לערוך תיאום מס בדרכים אלה: / באינטרנט. / ע"י הגשת טופס 116 לפקיד השומה. / בחלק ט' של טופס זה. / אם כב…"
+        fCheckbox:employerContributions label="הפרשות" helpBub="משבצת ראשונה / אם העובד לא מילא משבצת זו - על המעסיק לצרף למשכורת את סכומי ההפרשות לקרן השתלמות ולנכות מס לפי התקנות או לפעול לפי אישור תיאום מס מפקיד השומה. / …" options=[['no-study-fund', 'אין מפרישים עבורי לקרן השתלמות בגין הכנסתי האחרת, או שכל הפרשות המעסיק לקרן השתלמות בגין הכנסתי האחרת מצורפות להכנסתי האחרת.'] | ['no-pension', '<span>אין מפרישים עבורי לקצבה/לביטוח אובדן כושר עבודה/פיצויים בגין הכנסתי האחרת, או שכל הפרשות המעסיק לקצבה/לביטוח אובדן כושר עבודה/פיצו]
+    cSection:spouse LEGEND="ו. פרטים על בן/בת הזוג" print=false secType=panel
+      eAlert:irrelevantAlert relevant=(model.employee.maritalStatus !== 'married') content="חלק זה רלוונטי רק אם הינך נשוי/אה"
+      cSection:spouseWrapper relevant=(model.employee.maritalStatus === 'married')
+        cRow:nameRow
+        cSection:identity
+          cRow:idRow
+          fInput:idStr label="מספר זיהוי לטופס" show=(False)
+          eEq:idStr eq=({
+idNum: container.idNum ? ('' + container.idNum) : '',
+passport: container.passportNum
+}[container.type])
+        cRow:miscRow
+    eAdSenseAdUnit:ad1 adSlot=8819230191
+    cSection:changesWrapper LEGEND="ז. שינויים במהלך השנה" print=false secType=panel
+      eAlert:info content="חלק זה, המופיע בטופס 101 המודפס, אינו רלוונטי מכיוון שמדובר בטופס ממוחשב. / על כל שינוי שיחול בפרטים שמילאת בטופס, יש להודיע למעסיק עד שבוע ימים מתאריך השינוי, ע"י מילוי טופס חדש במערכת זו או בכל אמצעי שהמעסיק מאפשר. /"
+    cSection:taxCreditRequest LEGEND="ח. אני מבקש/ת פטור או זיכוי ממס מהסיבות הבאות" helpBub="קרא על נקודות זיכוי ממס הכנסה באתר כל זכות. /" print=false secType=panel
+      eAlert:cantUtilizeTaxCreditsAlert relevant=(model.otherIncomes.hasIncomes && model.otherIncomes.utilizeTaxCreditsElsewhere) content="לא ניתן לבקש פטור או זיכוי ממס משום שסימנת בפרק ה' שהינך מקבל/ת נקודות זיכוי ומדרגות מס בהכנסה אחרת ועל כן אינך זכאי/ת להם כנגד הכנסה זו. /"
+      cSection:wrapper relevant=(!(model.otherIncomes.hasIncomes && model.otherIncomes.utilizeTaxCreditsElsewhere ))
+        cSection:ilResident secType=panel
+          fBool:checked label="1. אני תושב/ת ישראל" helpBub="מסומן אוטומטית אם סימנת שהינך תושב/ת ישראל. / קרא על זיכוי זה. /"
+          eEq:checked eq=(model.employee.ilResident)
+        cSection:disabled secType=panel
+          fBool:checked label="2. אני נכה 100% / עיוור/ת לצמיתות"
+          cSection:wrapper relevant=(container.checked)
+            fFile:certificate label="אישור משרד הביטחון/האוצר/פקיד השומה/תעודת עיוור שהוצאה לאחר 1/1/94"
+            eAlert:alert2 relevant=(model.otherIncomes.hasIncomes !== false && !(model.taxCoordinationRequest.isRequesting && model.taxCoordinationRequest.type === 'assessing-officer')) content="מכיוון שלא סימנת בפרק ה' כי "אין לי הכנסות אחרות לרבות מלגות", עליך לפנות לפקיד השומה לצורך עריכת תיאום מס. / אם יש לך אישור לתיאום מס מפקיד השומה, תוכל לצרף אותו בחלק ט' של הטופס. /"
+            fBool:monthlyCompensation label="2ב. בנוסף, אני מקבל תגמול חודשי לפי חוק הנכים (תגמולים ושיקום) או לפי חוק התגמולים לנפגעי פעולות איבה." display="תגמול חודשי" helpBub="רק אם מסומן - העובד יהיה זכאי לתקרת הפטור הגבוהה."
+            fFile:monthlyCompensationCertificate label="אישור על קבלת תגמול חודשי" relevant=(container.monthlyCompensation)
+        cSection:creditedLocality secType=panel
+          fBool:checked label="3. אני תושב/ת קבוע/ה בישוב מזכה. אני ובני משפחתי מדרגה ראשונה, מתגוררים ביישוב ואין לי "מרכז חיים" נוסף. " helpBub="ישוב מזכה - ישוב שחל עליו סעיף 11 לפקודת מס הכנסה או סעיף 11 לחוק אס"ח, לפי העניין. / קרא על זיכוי זה באתר כל זכות. /"
+          cSection:wrapper relevant=(container.checked)
+            cRow:row
+        cSection:newImmigrantOrReturningResident secType=panel
+          fBool:checked label="4. אני עולה חדש/ה" helpBub="קרא על זיכוי זה באתר כל זכות. /"
+          cSection:wrapper relevant=(container.checked)
+            cRow:row
+            fDate:noIncomeUntil label="לא הייתה לי הכנסה בישראל מתחילת שנת המס הנוכחית עד תאריך" help="מי שתקופת זכאותו אינה רצופה בשל שירות חובה בצה"ל, לימודים על תיכוניים או יציאה לחו"ל יפנה לפקיד השומה."
+        cSection:incomelessSpouse secType=panel
+          fBool:checked label="5. בגין בן/בת זוגי המתגורר/ת עימי ואין לו/לה הכנסות בשנת המס" help="רק אם העובד/ת או בן/בת הזוג הגיע/ה לגיל פרישה או שהוא/היא נכה או עיוור/ת עפ"י סעיף 9(5) לפקודה. /" helpBub="קרא על זיכוי זה באתר כל זכות. /"
+          cSection:wrapper relevant=(container.checked)
+            fFile:certificate label="אישור נכה או עיוור בגין העובד/ת ו/או בן/בת הזוג"
+        cSection:separatedSingleParent secType=panel
+          fBool:checked label="6. אני הורה במשפחה חד הורית החי בנפרד" validators=function(<p><span>לא ניתן לבחור מכיוון שציינת בפרק ב' שהינך נשוי/אה.</span></p>
+); function(לא ניתן לבחור מכיוון שלא ציינת בחלק ג' ילדים בגינם הינך מקבל/ת קצבת ילדים מביטוח לאומי.) help="ימולא רק ע"י הורה כאמור החי בנפרד ומבקש נקודות זיכוי עבור ילדיו, הנמצאים בחזקתו ובגינם מקבל קצבת ילדים מהמוסד לביטוח לאומי (בהתאם לסעיף 7 לה…" helpBub="הורה במשפחה חד הורית הוא אחד מאלה: רווק, גרוש, אלמן, פרוד (עפ"י אישור פקיד שומה בלבד). /"
+        cSection:children secType=panel
+          fBool:checked label="7. בגין ילדי שבחזקתי המפורטים בחלק ג" validators=function(<p><span>ניתן לסמן רק אם </span><span>מתקיימם </span><span>אחד מהתנאים הבאים:</span></p>
+
+<p><span>1. אינך נשוי/אה ודיווחת על ילדים הנמצאים בחזקתך, בגינם הינך מקבל/ת קצבת ילדים מהביטוח הלאומי.</span></p>
+
+<p><span>2. הינך אישה נשואה.</span></p>
+
+<p><s help="ימולא רק ע"י הורה במשפחה חד הורית שמקבל את קצבת הילדים בגינם, או ע"י אשה נשואה או ע"י הורה יחיד." helpBub="הורה יחיד - הורה במשפחה חד הורית שהיה לו ילד שבשנת המס טרם מלאו לו 19 שנים ושההורה השני של הילד נפטר או שהילד רשום במרשם האוכלוסין בלא פרטי ההורה השני. / קרא על…"
+          cRow:row relevant=(container.checked)
+          cSection:legacy relevant=(container.checked) show=(False) print=false secType=well
+            eAlert:legacyHelp content="שדות שהופיעו בעבר בטופס 101 וירדו ממנו, מחלקה זו נועדה לאפשר גישה לנתונים בטפסים ישנים"
+            fInput:age6To12Count label="מספר ילדים שימלאו להם 6 שנים עד 12 שנים בשנת המס" typeValidator=num
+            fBool:age6To12Checked label="מסומן" show=(False)
+            eEq:age6To12Checked eq=(container.age6To12Count > 0)
+            fInput:age13To17Count label="מספר ילדים שימלאו להם 13 שנים עד 17 שנים בשנת המס" typeValidator=num
+            fBool:age13To17Checked label="מסומן" show=(False)
+            eEq:age13To17Checked eq=(container.age13To17Count > 0)
+            fInput:age1To5Count label="מספר ילדים שימלאו להם שנה אחת עד 5 שנים בשנת המס" typeValidator=num
+            fBool:age1To5Checked label="מסומן" show=(False)
+            eEq:age1To5Checked eq=(container.age1To5Count > 0)
+        cSection:toddlers secType=panel
+          fBool:checked label="8. בגין ילדי" validators=function(<p><span>ניתן לסמן רק אם מתקיימם אחד מהתנאים הבאים:</span></p>
+
+<p><span>1. הינך גבר נשוי.</span></p>
+
+<p><span>2. אינך נשוי/אה וסעיף 7 לעיל לא סומן.</span></p>
+
+<p><span>3. הינך אישה, לא נשואה ואחד או יותר מילדיך אינם בחזקתך.</span></p>
+
+<p><span>4.  help="ימולא ע"י הורה (למעט הורה אשר סימן בפסקה 7 לעיל), אשה לא נשואה שילדיה אינם בחזקתה וכן הורה יחיד" helpBub="קרא על זיכוי זה באתר כל זכות. /"
+          cRow:row relevant=(container.checked)
+          cSection:legacy relevant=(container.checked) show=(False) print=false secType=well
+            eAlert:legacyHelp content="שדות שהופיעו בעבר בטופס 101 וירדו ממנו, מחלקה זו נועדה לאפשר גישה לנתונים בטפסים ישנים"
+            fInput:age6To12Count label="מספר ילדים שימלאו להם 6 שנים עד 12 שנים בשנת המס" typeValidator=num
+            fBool:age6To12Checked label="מסומן" show=(False)
+            eEq:age6To12Checked eq=(container.age6To12Count > 0)
+            fInput:age1To5Count label="מספר ילדים שימלאו להם שנה אחת עד 5 שנים בשנת המס" typeValidator=num
+            fBool:age1To5Checked label="מסומן" show=(False)
+            eEq:age1To5Checked eq=(container.age1To5Count > 0)
+        cSection:singleParent secType=panel
+          fBool:checked label="9. אני הורה יחיד לילדי שבחזקתי (המפורטים בסעיף 7 ו-8 לעיל)." helpBub="הורה יחיד - הורה במשפחה חד הורית שהיה לו ילד שבשנת המס טרם מלאו לו 19 שנים ושההורה השני של הילד נפטר או שהילד רשום במרשם האוכלוסין בלא פרטי ההורה השני / קרא על …"
+        cSection:childSupport secType=panel
+          fBool:checked label="10. בגין ילדי שאינם בחזקתי המפורטים בחלק ג ואני משתתף/ת בכלכלתם." help="ימולא ע"י הורה החי בנפרד, שאינו זכאי לנקודות זיכוי בגין ילדיו, אשר המציא פס"ד המחייב אותו בתשלום מזונות." helpBub="קרא על זיכוי זה באתר כל זכות. /"
+          fFile:judgement label="צילום פסק דין המחייב בתשלום מזונות" relevant=(container.checked)
+        cSection:disabledChild secType=panel
+          fBool:checked label="11. אני הורה לילדים עם מוגבלות שטרם מלאו להם 19 שנים, בגינם אני מקבל/ת גמלת ילד נכה מהמוסד לביטוח לאומי." help="בן זוגי אינו מקבל נקודות זיכוי אלה. לילדי, בגינו אני מבקש את נקודות הזיכוי, אין הכנסות בשנה הנוכחית. /" helpBub="קרא על זיכוי זה באתר כל זכות. /"
+          fInput:count label="מספר הילדים עם מוגבלות שטרם מלאו להם 19 שנים, בגינם את/ה מקבל/ת גמלת ילד נכה מהמוסד לביטוח לאומי" relevant=(container.checked) reqValidator=True typeValidator=num validators=int; num/val()
+          fFile:disabledChildBenefitNiiCertificate label="אישור גמלת ילד נכה מהמוסד לביטוח לאומי לשנה נוכחית" relevant=(container.checked) reqValidator=True
+        cSection:alimony secType=panel
+          fBool:checked label="12. בגין מזונות לבן/בת זוגי לשעבר." help="ימולא ע"י מי שנישא בשנית. /" helpBub="קרא על זיכוי זה באתר כל זכות. /"
+          fFile:judgement label="<span>צילום פסק דין המחייב בתשלום מזונות</span>" relevant=(container.checked)
+        cSection:youngEmployeeOrSpouse secType=panel
+          fBool:checked label="13. מלאו לי או לבן/בת זוגי 16 שנים וטרם מלאו לי או לבן/בת זוגי 18 שנים בשנת המס." validators=function(לא ניתן לסמן משום שלא ציינת תאריך לידה בחלק ב'.); function(לא ניתן לסמן משום שלא ציינת בחלק ו' את תאריך הלידה של בן/בת הזו.); function(לא ניתן לסמן משום שימלאו לך {{ model.employee.ageOnTaxYear }} שנים בשנת המס.); function(לא ניתן לסמן משום שימלאו לך  helpBub="קרא על זיכוי זה באתר כל זכות. /"
+        cSection:dischargedFromService secType=panel
+          fBool:checked label="14. אני חייל/ת משוחרר/ת / שרתתי בשירות לאומי." helpBub="קרא על זיכוי זה באתר כל זכות. /"
+          cSection:wrapper relevant=(container.checked)
+            cRow:row
+        cSection:studies secType=panel
+          fBool:checked label="15. בגין סיום לימודים לתואר אקדמי, סיום התמחות או סיום לימודי מקצוע." helpBub="קרא על זיכוי זה באתר כל זכות: / נקודות זיכוי בגין תואר ראשון / נקודות זיכוי בגין תואר שני / נקודות זיכוי בגין תואר שלישי במסלול ישיר / נקודות זיכוי בגין תואר של…"
+          fFile:form119 label="הצהרה בטופס 119" relevant=(container.checked) help="ניתן להיעזר בטופס 119 הממוחשב או להוריד את הטופס מאתר רשות המסים. /"
+        cSection:combatReserveService secType=panel
+          fBool:checked label="16. שירתתי כלוחם/לוחמת מילואים בשנת המס הקודמת."
+          cSection:wrapper relevant=(container.checked)
+            fInput:days label="סה”כ ימי מילואים בשנת המס הקודמת" reqValidator=True typeValidator=num validators=int; num/val()
+            fFile:eligibilityCertificate label="אישור מצה"ל על זכאות בעד שירות מילואים כלוחם"
+    eAdSenseAdUnit:ad1 adSlot=8819230191
+    cSection:taxCoordinationRequest LEGEND="ט. תיאום מס " helpBub="קרא על תיאום מס באתר כל זכות. /" print=false secType=panel
+      fBool:isRequesting label="צירוף/עריכת תיאום מס"
+      cSection:requestWrapper relevant=(container.isRequesting)
+        fRadio:type label="סיבת הבקשה" reqValidator=True options=[['no-previous-incomes', ' לא הייתה לי הכנסה מתחילת שנת המס הנוכחית עד לתחילת עבודתי אצל מעסיק זה.'] | ['other-incomes-list', 'יש לי הכנסות נוספות ממשכורת כמפורט להלן.'] | ['assessing-officer-certificate', ' פקיד השומה אישר תיאום לפי אישור מצורף.']]
+        fFile:noPreviousIncomesCertificate label="הוכחות לחוסר הכנסה" relevant=(container.type === 'no-previous-incomes') help="כגון: אישור משטרת הגבולות בגין שהייה בחו"ל, אישור מחלה וכיו"ב. בהעדר הוכחה יש לפנות לפקיד השומה. / לתשומת לבך: דמי לידה ודמי אבטלה הינם הכנס…"
+        eHtml:content1 relevant=(container.type === 'other-incomes-list') content="פירוט הכנסות נוספות (כלומר, בנוסף להכנסה ממעסיק זה): /"
+        cRepeat:otherIncomes relevant=(container.type === 'other-incomes-list')
+          cRow:row1
+          cRow:row2
+          fFile:payslip label="צילום תלוש שכר"
+        fFile:assessingOfficerCertificate label="אישור תיאום מס ע"י פקיד שומה" relevant=(container.type === 'assessing-officer-certificate')
+    cSection:_confirmation LEGEND="י. הצהרה" print=false secType=panel
+      eHtml:confirmationText content="אני מצהיר/ה כי הפרטים שמסרתי בטופס זה הינם מלאים ונכונים. ידוע לי שהשמטה או מסירת פרטים לא נכונים הינה עבירה על פקודת מס הכנסה. / אני מתחייב/ת להודיע למעסיק על כל שינוי שיחול בפרטיי האישיים ובפרטים דלעיל תוך שבוע ימים מתאריך השינוי. /"
+      fSign:signature label="חתימת המבקש/ת" reqValidator=True help="ניתן לחתום בעזרת העכבר או עם האצבע על מסך מגע."
+      fDate:time label="תאריך" relevant=(container.signature) reqValidator=True init={{ fn.today() }}
+    cSection:appendix
+    cSection:bottomCustom
+      cSection:privacy secType=well
+        fRadio:acceptTerms label="אני מאשר/ת את <a href="https://tofes101.co.il/privacy" target="_blank">מדיניות הפרטיות</a> ו<a href="https://tofes101.co.il/terms" target="_blank">תנאי השימוש</a> באתר" reqValidator=True options=[['yes', 'כן'] | ['no', 'לא']]
+        fInput:acceptTermsText label="Accepted terms text" show=(False) print=false
+        fDate:acceptTermsAt label="Accepted terms time" show=(False) typeValidator={'mode': 'dt', 'type': 'date'} print=false
+        eEq:acceptTermsRecord eq=(container.acceptTermsText = container.acceptTerms === 'yes' ? "אני מאשר/ת את <a href=\"https://tofes101.co.il/privacy\" target=\"_blank\">מדיניות הפרטיות</a> ו<a href=\"https://tofes101.co.il/terms\" target=\"_blank\">תנאי השימוש</a> באתר" : null;
+container.acceptTermsAt = container.acceptTerms === 'yes' ? fn.now() : null)
+        fRadio:marketingConsent label="אני נותן/ת את הסכמתי המפורשת לכך שטפז תהיה רשאית להעביר את המידע האישי שמסרתי למפרסמים, חברות מחקר, חברות סקרים, שותפים עסקיים וגורמים מסחריים נוספים, לצורך יצירת קשר עמי, דיוור ישיר, ביצוע מחקרי שוק, סקרים, פעילויות שיווקיות לרבות קבלת פניות בתחום הביטוח והפיננסים ופעילויות מסחריות נוספות, הכל כמפורט במדיניות הפרטיות." reqValidator=True options=[['yes', 'כן'] | ['no', 'לא']]
+        fInput:marketingConsentText label="Marketing consent text" show=(False) print=false
+        fDate:marketingConsentAt label="Marketing consent time" show=(False) typeValidator={'mode': 'dt', 'type': 'date'} print=false
+        eEq:marketingConsentRecord eq=(container.marketingConsentText = container.marketingConsent === 'yes' ? "אני נותן/ת את הסכמתי המפורשת לכך שטפז תהיה רשאית להעביר את המידע האישי שמסרתי למפרסמים, חברות מחקר, חברות סקרים, שותפים עסקיים וגורמים מסחריים נוספים, לצורך יצירת קשר עמי, דיוור ישיר, ביצוע מחקרי שוק, סקרים, פעילויות שיווקיות לרבות קבלת פניות בתחום הביטוח והפיננסים ופעילויות מסחריות נוספות, הכל כמפורט במדיניות הפרטיות." : null;
+container.marketingConsentAt = container.marketingConsent === 'yes' ? fn.now() : null)
+        fInput:marketingConsentABTest label="Marketing consent A/B test variant" show=(False)
+      cSection:adWrap
+        cSection:adPanel LEGEND="<span style="font-size:24px">{{ model.ad._heading }}</span>" relevant=(model.ad.options.id) show=(!model.lang === 'he'
+|| model.lang === 'he') helpBub="שיתוף פעולה ממומן של חברת טפז עם {{&nbsp;model.ad.advertiser.name }} / בסימון ״כן״ בחלק זה הינך מאשר/ת כי חלק מהמידע שהוזן בטופס זה&nbsp;ישלח ל{{ model.ad.adver…" secType=panel
+          fRadio:lang label="שפה" relevant=(model.ad.langs.length > 1) options=[['he', 'עברית'] | ['ar', 'العربية']] init=he
+          cSection:displayWrap
+            eHtml:content1 content="model.ad._mainText"
+            eHtml:content1 content="model.ad._subText"
+          cSection:ad
+            cSection:old LEGEND="שאלות עבר" secType=well
+              cSection:clalPension relevant=(model.ad.segment === 'clal-pension')
+                fRadio:clal_pension_has_active label="יש לך כבר קרן פנסיה?" options=[['no', "אני {{ model.employee.sex === 'female' ? 'פותחת' : 'פותח' }} קרן פנסיה <u>לראשונה</u>"] | ['yes', '<u>יש לי</u> קרן פנסיה מעבודה קודמת']]
+                fRadio:clal_pension_time label="מתי נוח לך שנחזור אליך?" relevant=(container.clal_pension_has_active === 'yes') validators=function(<p>אין בעיה!</p>
+
+<p>חשוב להדגיש <u><strong>שלעולם</strong></u> לא נעביר את הפרטים שלך אלא אם תבקש/י מאיתנו מפורשות.</p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.advertiser.shortName }}  יחזרו אליך בשעות ה{{value}} עם הפרטים.</strong></p>
+
+<p>ע options=[['בוקר', 'בוקר (09:00-12:00)'] | ['צהריים', 'צהריים (12:00-15:00)'] | ['אחר הצהריים', 'אחר הצהריים (15:00-17:00)']]
+              cSection:lead relevant=(model.ad.interested === 'yes')
+                fRadio:filter_segment2_1 label="האם {{ model.employee.sex === 'female' ? 'את משלמת' : 'אתה משלם' }} מעל 250 ש"ח בחודש לביטוחים פרטיים מעבר לקופת החולים? (תאונות, בריאות, מחלות משכנתא וחיים)" relevant=(container.advertiser.segment === 'segment2') typeValidator=bool validators=function(כדי שהייעוץ יהיה בעל ערך, יש צורך בסכום פוליסות מינימאלי. פרטיך לא יישמרו ולא יועברו ל{{ model.ad.advertiser.shortName }}.); function(מצוין! מומחי {{ model.ad.advertiser.shortName }} יסייעו לך במציאת הביטוחים המשתלמים והמקיפים ביותר! עם שליחת הטופס נע options=[[True, 'כן'] | [False, 'לא']]
+                fRadio:filter_segments3_and_4_2 label="מתי היית רוצה שיחזרו אליך?" relevant=(container.advertiser.segment === 'segment3'
+|| container.advertiser.segment === 'segment4') options=[['בוקר', '10-12 בוקר\xa0'] | ['צהריים', '12-16 צהריים'] | ['ערב', '16-19 ערב']]
+                fRadio:leumit_time label="מתי נוח לך שנחזור אליך?" relevant=(model.ad.advertiser.id === 'leumit') validators=function(<p>אין בעיה!</p>
+
+<p>חשוב להדגיש <u><strong>שלעולם</strong></u> לא נעביר את הפרטים שלך אלא אם תבקש/י מאיתנו מפורשות</p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.advertiser.shortName }}  <u>יחזרו אליך</u> בשעות ה{{value}} עם הפרטים </strong>☎️&# options=[['no', 'אני לא מעוניין לשמוע על הצטרפות ללאומית'] | ['בוקר', 'בוקר (09:00-12:00)'] | ['צהריים', 'צהריים (12:00-15:00)'] | ['אחר הצהריים', 'אחר הצהריים (15:00-17:00)']]
+                fRadio:insane_kosherkravi_fighter label="רוצה לעשות שירות משמעותי?" options=[['yes', 'כן'] | ['no', 'לא']]
+                fRadio:excellentisrael_free_lesson label="רוצה להגיע לאימון ניסיון בחינם?" relevant=(container.excellentisrael_class) validators=function(<p>אין בעיה. לא נעביר את פרטי ההתקשרות שלך ל{{ model.ad.advertiser.shortName }}.</p>
+
+<p> </p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.advertiser.shortName }}  יחזרו אליך בקרוב עם הפרטים.</strong></p>
+
+<p>עם שליחת הטופס נעביר את פרטי ההתקשרות  options=[['yes', 'כן'] | ['no', 'לא']]
+                fRadio:excellentisrael_time label="מתי נוח לך שנחזור אליך?" validators=function(<p>אין בעיה!</p>
+
+<p>חשוב להדגיש <u><strong>שלעולם</strong></u> לא נעביר את הפרטים שלך אלא אם תבקש/י מאיתנו מפורשות.</p>
+); function(<p><span style="font-size:18px;"><strong>מצוין! נציגי {{ model.ad.advertiser.shortName }} &nbsp;יחזרו אליך בשעות ה{{va options=[['בוקר', 'בוקר (08:00-12:00)'] | ['צהריים', 'צהריים (12:00-16:00)']]
+                fRadio:excellentisrael_primaryGoal label="מה המטרה שלך?" relevant=(container.excellentisrael_class
+&& container.excellentisrael_class !== 'no') validators=function(<p>אין בעיה. לא נעביר את פרטי ההתקשרות שלך ל{{ model.ad.advertiser.shortName }}.</p>
+
+<p> </p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.advertiser.shortName }} &nbsp;יחזרו אליך בקרוב עם הפרטים.</strong></p>
+
+<p>עם שליחת הטופס נעביר את פרטי ההתק options=[['no', 'בעצם זה לא בשבילי'] | ['eliteUnit', 'להגיע ליחידה קרבית מובחרת בצה"ל'] | ['improveFitness', 'לשפר כושר גופני כללי'] | ['justCurious', 'סתם סקרן/נית']]
+            eEq:setLang relevant=(model.ad.langs.length > 1) eq=(_isAr = auxData.arCities.includes(model.employee.address.city)
+    || auxData.arNames.includes(model.employee.firstName)
+    || auxData.arLastNames.includes(model.employee.lastName);
+
+model.lang = _isAr
+    ? 'ar'
+    : 'he')
+            fRadio:interested label="{{ model.ad._interested }}" display="מעוניין" reqValidator=True
+            cSection:lead relevant=(container.interested === 'yes')
+              cSection:fin relevant=([
+'selam',
+'elite',
+].includes(model.ad.advertiser.id))
+                fRadio:filter1 label="האם צברת מעל 100 אלף ₪ סך הכול בקרנות ההשתלמות והגמל שלך?" reqValidator=True typeValidator=bool validators=function(<p>כדי שהייעוץ יהיה בעל ערך, יש צורך בכמות הון מסויימת הזמינה להשקעה. פרטיך לא יישמרו ולא יועברו ל{{ model.ad.advertiser.shortName }}.</p>
+); function(מצוין! מומחי {{ model.ad.advertiser.shortName }} יסייעו לך לשפר את ביצועי התשואות ולחסוך בקרנות שלך. options=[[True, 'כן'] | [False, 'לא']]
+              cSection:clalbit relevant=(model.ad.advertiser.id === 'clalbit')
+                fSelect:filter_time1_exact label="מתי נוח לך שנחזור אליך?" relevant=(model.ad.segment === 'ins1') reqValidator=True options=[10:00 | 10:15 | 10:30 | 10:45 | 11:00 | 14:00 | 14:15 | 14:30 | 14:45 | 15:00 | 15:15 | 15:30 | 15:45]
+                fSelect:ins1_day label="באיזה יום?" relevant=(container.filter_time1_exact
+&& container.filter_time1_exact !== 'no') reqValidator=True typeValidator=date validators=function(<p>אין בעיה!</p>
+
+<p>חשוב להדגיש <u><strong>שלעולם</strong></u> לא נעביר את הפרטים שלך אלא אם תבקש/י מאיתנו מפורשות.</p>
+); function(<p>השעה שבחרתם כבר עברה היום. בחרו בשעה או יום מאוחר יותר.</p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.adverti
+              fRadio:clal_mortgage_time label="מתי נוח לך שנחזור אליך?" relevant=(model.ad.segment === 'clal-mortgage') reqValidator=True validators=function(<p>אין בעיה!</p>
+
+<p>חשוב להדגיש <u><strong>שלעולם</strong></u> לא נעביר את הפרטים שלך אלא אם תבקש/י מאיתנו מפורשות.</p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.advertiser.shortName }}  יחזרו אליך בשעות ה{{value}} עם הפרטים.</strong></p>
+
+<p>ע options=[['בוקר', 'בוקר (09:00-12:00)'] | ['צהריים', 'צהריים (12:00-15:00)'] | ['אחר הצהריים', 'אחר הצהריים (15:00-18:00)']]
+              cSection:leumit relevant=(model.ad.advertiser.id === 'leumit')
+                fSelect:leumit_time_range label="מתי נוח לך שנחזור אליך?" reqValidator=True options=[['no', 'אני לא מעוניין לשמוע על הצטרפות ללאומית'] | 9:00-10:00 | 10:00-11:00 | 11:00-12:00 | 12:00-13:00 | 13:00-14:00 | 14:00-15:00 | 15:00-16:00 | 16:00-17:00]
+                fSelect:leumit_day label="באיזה יום?" relevant=(container.leumit_time_range
+&& container.leumit_time_range !== 'no') reqValidator=True typeValidator=date validators=function(<p>אין בעיה!</p>
+
+<p>חשוב להדגיש <u><strong>שלעולם</strong></u> לא נעביר את הפרטים שלך אלא אם תבקש/י מאיתנו מפורשות.</p>
+); function(<p>השעה שבחרתם כבר עברה היום. בחרו בשעה או יום מאוחר יותר.</p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.adverti
+              cSection:meuhedet relevant=(model.ad.advertiser.id === 'meuhedet')
+                fSelect:meuhedet_time_range label="מתי נוח לך שנחזור אליך?" reqValidator=True options=[['no', 'אני לא מעוניין לשמוע על הצטרפות למאוחדת'] | 9:00-10:00 | 10:00-11:00 | 11:00-12:00 | 12:00-13:00 | 13:00-14:00 | 14:00-15:00 | 15:00-16:00 | 16:00-17:00]
+                fSelect:meuhedet_day label="באיזה יום?" relevant=(container.meuhedet_time_range
+&& container.meuhedet_time_range !== 'no') reqValidator=True typeValidator=date validators=function(<p>אין בעיה!</p>
+
+<p>חשוב להדגיש <u><strong>שלעולם</strong></u> לא נעביר את הפרטים שלך אלא אם תבקש/י מאיתנו מפורשות.</p>
+); function(<p>השעה שבחרתם כבר עברה היום. בחרו בשעה או יום מאוחר יותר.</p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.adverti
+              cSection:yarinshahaf relevant=(model.ad.segment === 'yarinshahaf')
+                fRadio:yarinshahaf_branch label="באיזה סניף היית מעדיפה ללמוד? " reqValidator=True options=[תל אביב | חיפה]
+                fSelect:yarinshahaf_time_range label="מתי נוח לך שנחזור אליך?" relevant=(container.yarinshahaf_branch) reqValidator=True options=[['no', 'אני לא מעוניינת לשמוע על לימודי איפור'] | 9:00-10:00 | 10:00-11:00 | 11:00-12:00 | 12:00-13:00 | 13:00-14:00 | 14:00-15:00 | 15:00-16:00 | 16:00-17:00]
+                fSelect:yarinshahaf_day label="באיזה יום?" relevant=(container.yarinshahaf_time_range
+&& container.yarinshahaf_time_range !== 'no') reqValidator=True typeValidator=date validators=function(<p>אין בעיה!</p>
+
+<p>חשוב להדגיש <u><strong>שלעולם</strong></u> לא נעביר את הפרטים שלך אלא אם תבקש/י מאיתנו מפורשות.</p>
+); function(<p>השעה שבחרתם כבר עברה היום. בחרו בשעה או יום מאוחר יותר.</p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.adverti
+              fRadio:netcraft_ui_branch label="באיזה קמפוס של {{ model.ad.advertiser.shortName }} היית {{ model.employee.sex === 'male' ? 'מעדיף' : 'מעדיפה' }} ללמוד?" relevant=(model.ad.segment === 'netcraft-ui') reqValidator=True options=[מרכז | צפון | דרום | אונליין בזום | ['no', "אני לא {{ model.employee.sex === 'male' ? 'מעוניין' : 'מעוניינת' }} בקורס UI/UX"]]
+              fRadio:netcraft_ui_time label="מתי נוח לך שנחזור אליך?" relevant=(container.netcraft_ui_branch
+&& container.netcraft_ui_branch !== 'no'
+&& model.ad.segment === 'netcraft-ui') reqValidator=True validators=function(<p>אין בעיה!</p>
+
+<p>חשוב להדגיש <u><strong>שלעולם</strong></u> לא נעביר את הפרטים שלך אלא אם תבקש/י מאיתנו מפורשות.</p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.advertiser.shortName }}  יחזרו אליך בשעות ה{{value}} עם הפרטים.</strong></p>
+
+<p>ע options=[['בוקר', 'בוקר (09:00-12:00)'] | ['צהריים', 'צהריים (12:00-15:00)'] | ['אחר הצהריים', 'אחר הצהריים (15:00-18:00)'] | ['no', "אני לא {{ model.employee.sex === 'male' ? 'מעוניין' : 'מעוניינת' }} שיפנו אלי"]]
+              cSection:excellentisrael relevant=(model.ad.advertiser.id === 'excellentisrael')
+                fRadio:excellentisrael_class label="באיזה כיתה {{ model.employee.sex === 'female' ? 'את' : 'אתה' }}?" reqValidator=True options=[['no', 'לא מעוניין לשמוע על כושר קרבי'] | ['ט', "ט'"] | ['י', "י'"] | ['יא', 'י"א'] | ['יב', 'י"ב'] | ['סיים יב', "בדיוק סיימתי יב'"]]
+                fInput:excellentisrael_verify label="כדי לוודא שאתם מעוניינים בכושר קרבי ורוצים שנתקשר - כתבו "כושר קרבי"<br>
+<br>
+אחרת - תשאירו ריק" relevant=(container.excellentisrael_class
+&& container.excellentisrael_class !== 'no')
+                fInput:excellentisrael_mobileNum label="לאיזה מספר לחצור אליכם?" relevant=(container.excellentisrael_class
+&& container.excellentisrael_class !== 'no'
+&& container.excellentisrael_verify === 'כושר קרבי')
+              cSection:insane_kosherkravi relevant=(model.ad.advertiser.id === 'insane-kosherkravi')
+                fRadio:insane_kosherkravi_class label="באיזה כיתה {{ model.employee.sex === 'female' ? 'את' : 'אתה' }}?" reqValidator=True options=[['ט', "ט'"] | ['י', "י'"] | ['יא', 'י"א'] | ['יב', 'י"ב'] | ['סיים יב', "בדיוק סיימתי יב'"]]
+                fRadio:insane_kosherkravi_free_lesson label="רוצה להגיע לאימון ניסיון בחינם?" relevant=(container.insane_kosherkravi_class) reqValidator=True validators=function(<p>אין בעיה. לא נעביר את פרטי ההתקשרות שלך ל{{ model.ad.advertiser.shortName }}.</p>
+
+<p> </p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.advertiser.shortName }} &nbsp;יחזרו אליך בקרוב עם הפרטים.</strong></p>
+
+<p>עם שליחת הטופס נעביר את פרטי ההתק options=[['yes', 'כן'] | ['no', 'לא']]
+          cSection:relevantWrap relevant=(model.ad.interestedAndFiltered)
+          cSection:logoWrap
+            eHtml:element3 relevant=(model.ad.options.showLogo
+&& model.ad.advertiser.logoImageUrl) content="/"
+        cSection:adPanelAr LEGEND="<span style="font-size:24px">{{ model.ad._heading }}</span>" relevant=(model.ad.options.id) show=(model.lang === 'ar') helpBub="التعاون الممول مع شركة تيبز (Tepez) {{ model.ad.advertiser.name }} / بتحديد ״نعم״ ضمن هذا الجزء فإنك تقر/ين بإرسال بعض المعلومات التي تم إدخالها في هذه الاستمار…" secType=panel
+          fRadio:lang label="שפה" options=[['he', 'עברית'] | ['ar', 'العربية']] init=he
+          cSection:displayWrap
+            eHtml:content1 content="model.ad._mainText"
+            eHtml:content1 content="model.ad._subText"
+          cSection:ad
+            cSection:old LEGEND="שאלות עבר" secType=well
+              cSection:clalPension relevant=(model.ad.segment === 'clal-pension')
+                fRadio:clal_pension_has_active label="هل لديك صندوق تقاعد بالفعل؟" options=[['no', 'أنا أفتح صندوق معاشات تقاعدية لأول مرة'] | ['yes', 'لدي معاش تقاعدي من وظيفة سابقة']]
+                fRadio:clal_pension_time label="متى يناسبك أن نعاود الاتصال بك؟" relevant=(container.clal_pension_has_active === 'yes') validators=function(<p>لا توجد مشكلة!</p>
+
+<p>من المهم التأكيد على عدم نقل تفاصيلك من قبلنا أبدًا إلا في حال طلبت ذلك منا بشكل صريح.</p>
+); function(<p><strong>ممتاز! سيعاود مندوبو {{ model.ad.advertiser.shortName }} للتأمين الاتصال بك في ساعات {{ { 'בוקר': 'صباحًا', 'צה options=[['בוקר', 'صباحًا (09:00-12:00)'] | ['צהריים', 'ظهرًا (12:00-15:00)'] | ['אחר הצהריים', 'بعد الظهر\xa0(15:00-17:00)']]
+              cSection:lead relevant=(model.ad.interested === 'yes')
+                fRadio:filter_segment2_1 label="האם {{ model.employee.sex === 'female' ? 'את משלמת' : 'אתה משלם' }} מעל 250 ש"ח בחודש לביטוחים פרטיים מעבר לקופת החולים? (תאונות, בריאות, מחלות משכנתא וחיים)" relevant=(container.advertiser.segment === 'segment2') typeValidator=bool validators=function(כדי שהייעוץ יהיה בעל ערך, יש צורך בסכום פוליסות מינימאלי. פרטיך לא יישמרו ולא יועברו ל{{ model.ad.advertiser.shortName }}.); function(מצוין! מומחי {{ model.ad.advertiser.shortName }} יסייעו לך במציאת הביטוחים המשתלמים והמקיפים ביותר! עם שליחת הטופס נע options=[[True, 'כן'] | [False, 'לא']]
+                fRadio:filter_segments3_and_4_2 label="מתי היית רוצה שיחזרו אליך?" relevant=(container.advertiser.segment === 'segment3'
+|| container.advertiser.segment === 'segment4') options=[['בוקר', '10-12 בוקר\xa0'] | ['צהריים', '12-16 צהריים'] | ['ערב', '16-19 ערב']]
+                fRadio:leumit_time label="متى يناسبك أن نعاود الاتصال بك؟" relevant=(model.ad.advertiser.id === 'leumit') validators=function(<p>لا توجد مشكلة!</p>
+
+<p>من المهم التأكيد على عدم نقل تفاصيلك من قبلنا أبدًا إلا في حال طلبت ذلك منا بشكل صريح</p>
+); function(<p><strong>ممتاز! سيعاود مندوبو {{ model.ad.advertiser.shortName }} للتأمين الاتصال بك في ساعات {{ { 'בוקר': 'صباحًا', 'צהר options=[['no', 'لست مهتمًا بمعرفة المزيد عن الانضمام إلى صندوق المرضى لئوميت'] | ['בוקר', 'صباحًا (09:00-12:00)'] | ['צהריים', 'ظهرًا (12:00-15:00)'] | ['אחר הצהריים', 'بعد الظهر \xa0(15:00-17:00)']]
+                fRadio:insane_kosherkravi_fighter label="تريد {{ model.employee.sex === 'female' ? 'أن تقومي' : 'أن تقوم' }} بخدمة عسكرية ذات معنى؟" options=[['yes', 'نعم'] | ['no', 'لا']]
+                fRadio:excellentisrael_free_lesson label="هل ترغب في حضور تدريب تجريبي مجاني؟" relevant=(container.excellentisrael_class) validators=function(<p>لا توجد مشكلة. لن ننقل تفاصيل الاتصال الخاصة بك إلى {{ model.ad.advertiser.shortName }}.</p>
+
+<p> </p>
+); function(<p><strong>رائع! سيقوم ممثلو {{ model.ad.advertiser.shortName }} بالتواصل معك قريبًا مع التفاصيل.</strong></p>
+
+<p>عند إرسال النموذج، options=[['yes', 'نعم'] | ['no', 'لا']]
+                fRadio:excellentisrael_time label="متى يناسبك أن نعاود الاتصال بك؟" validators=function(<p>لا توجد مشكلة!</p>
+
+<p>من المهم أن نوضح أننا <u><strong>لن</strong></u> نشارك معلوماتك أبدًا ما لم تطلب/ي ذلك صراحة.</p>
+); function(<p><span style="font-size:16px;"><strong>رائع! سيعاود ممثلو {{ model.ad.advertiser.shortName }} الاتصال بك خلال فتر options=[['בוקר', 'الصباح (08:00-12:00)'] | ['צהריים', 'الظهر (12:00-16:00)']]
+                fRadio:excellentisrael_primaryGoal label="ما هو هدفك؟" relevant=(container.excellentisrael_class
+&& container.excellentisrael_class !== 'no') reqValidator=True validators=function(<p>لا توجد مشكلة. لن ننقل تفاصيل الاتصال الخاصة بك إلى {{ model.ad.advertiser.shortName }}.</p>
+
+<p> </p>
+); function(<p><strong>رائع! سيقوم ممثلو {{ model.ad.advertiser.shortName }} بالتواصل معك قريبًا مع التفاصيل.</strong></p>
+
+<p>عند إرسال النموذج، options=[['no', 'في الواقع، هذا ليس لي'] | ['eliteUnit', 'الوصول إلى وحدة قتالية خاصة بالجيش'] | ['improveFitness', 'تحسين اللياقة البدنية العامة'] | ['justCurious', 'مجرد فضول']]
+            fRadio:interested label="{{ model.ad._interested }}" display="מעוניין" reqValidator=True
+            cSection:lead relevant=(container.interested === 'yes')
+              cSection:fin relevant=([
+'selam',
+'elite',
+'community-ins',
+].includes(model.ad.advertiser.id))
+                fRadio:filter1 label="האם צברת מעל 100 אלף ₪ סך הכול בקרנות ההשתלמות והגמל שלך?" reqValidator=True typeValidator=bool validators=function(כדי שהייעוץ יהיה בעל ערך, יש צורך בכמות הון מסויימת הזמינה להשקעה. פרטיך לא יישמרו ולא יועברו ל{{ model.ad.advertiser.shortName }}.); function(מצוין! מומחי {{ model.ad.advertiser.shortName }} יסייעו לך לשפר את ביצועי התשואות ולחסוך בקרנות שלך. עם שליח options=[[True, 'כן'] | [False, 'לא']]
+              cSection:clalbit relevant=(model.ad.advertiser.id === 'clalbit')
+                fSelect:filter_time1_exact label="מתי נוח לך שנחזור אליך?" relevant=(model.ad.segment === 'ins1') reqValidator=True options=[10:00 | 10:15 | 10:30 | 10:45 | 11:00 | 14:00 | 14:15 | 14:30 | 14:45 | 15:00 | 15:15 | 15:30 | 15:45]
+                fSelect:ins1_day label="באיזה יום?" relevant=(container.filter_time1_exact
+&& container.filter_time1_exact !== 'no') reqValidator=True typeValidator=date validators=function(<p>אין בעיה!</p>
+
+<p>חשוב להדגיש <u><strong>שלעולם</strong></u> לא נעביר את הפרטים שלך אלא אם תבקש/י מאיתנו מפורשות.</p>
+); function(<p>השעה שבחרתם כבר עברה היום. בחרו בשעה או יום מאוחר יותר.</p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.adverti
+              fRadio:clal_mortgage_time label="מתי נוח לך שנחזור אליך?" relevant=(model.ad.segment === 'clal-mortgage') reqValidator=True validators=function(<p>אין בעיה!</p>
+
+<p>חשוב להדגיש <u><strong>שלעולם</strong></u> לא נעביר את הפרטים שלך אלא אם תבקש/י מאיתנו מפורשות.</p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.advertiser.shortName }}  יחזרו אליך בשעות ה{{value}} עם הפרטים.</strong></p>
+
+<p>ע options=[['בוקר', 'בוקר (09:00-12:00)'] | ['צהריים', 'צהריים (12:00-15:00)'] | ['אחר הצהריים', 'אחר הצהריים (15:00-18:00)']]
+              cSection:leumit relevant=(model.ad.advertiser.id === 'leumit')
+                fSelect:leumit_time_range label="متى يكون من المناسب لك أن نتصل بك؟" reqValidator=True options=[['no', 'لست مهتمًا بمعرفة المزيد عن الانضمام إلى صندوق المرضى لئوميت'] | 9:00-10:00 | 10:00-11:00 | 11:00-12:00 | 12:00-13:00 | 13:00-14:00 | 14:00-15:00 | 15:00-16:00 | 16:00-17:00]
+                fSelect:leumit_day label="في أي يوم؟" relevant=(container.leumit_time_range
+&& container.leumit_time_range !== 'no') reqValidator=True typeValidator=date validators=function(<p>لا توجد مشكلة!</p>
+
+<p>من المهم التأكيد على عدم نقل تفاصيلك من قبلنا أبدًا إلا في حال طلبت ذلك منا بشكل صريح.</p>
+); function(<p>لقد مرت اليوم الساعة التي اخترتها بالفعل. يرجى اختيار ساعة أو يوم لاحق.</p>
+); function(<p style="direction: rtl;"><str
+              cSection:meuhedet relevant=(model.ad.advertiser.id === 'meuhedet')
+                fSelect:meuhedet_time_range label="متى يكون من المناسب لك أن نتصل بك؟" reqValidator=True options=[['no', 'لست مهتمًا بمعرفة المزيد عن الانضمام إلى صندوق المرضى مئوحيديت'] | 9:00-10:00 | 10:00-11:00 | 11:00-12:00 | 12:00-13:00 | 13:00-14:00 | 14:00-15:00 | 15:00-16:00 | 16:00-17:00]
+                fSelect:meuhedet_day label="في أي يوم؟" relevant=(container.meuhedet_time_range
+&& container.meuhedet_time_range !== 'no') reqValidator=True typeValidator=date validators=function(<p>لا توجد مشكلة!</p>
+
+<p>من المهم التأكيد على عدم نقل تفاصيلك من قبلنا أبدًا إلا في حال طلبت ذلك منا بشكل صريح.</p>
+); function(<p>لقد مرت اليوم الساعة التي اخترتها بالفعل. يرجى اختيار ساعة أو يوم لاحق.</p>
+); function(<p style="direction: rtl;"><str
+              cSection:yarinshahaf relevant=(model.ad.segment === 'yarinshahaf')
+                fRadio:yarinshahaf_branch label="ما الفرع الذي تفضل الدراسة فيه؟" reqValidator=True options=[['תל אביב', 'تل أبيب'] | ['חיפה', 'حيفا']]
+                fSelect:yarinshahaf_time_range label="متى يكون من المناسب لك أن نتصل بك؟" relevant=(container.yarinshahaf_branch) reqValidator=True options=[['no', 'لست مهتمًا بالاستماع إلى دراسات المكياج'] | 9:00-10:00 | 10:00-11:00 | 11:00-12:00 | 12:00-13:00 | 13:00-14:00 | 14:00-15:00 | 15:00-16:00 | 16:00-17:00]
+                fSelect:yarinshahaf_day label="في أي يوم؟" relevant=(container.yarinshahaf_time_range
+&& container.yarinshahaf_time_range !== 'no') reqValidator=True typeValidator=date validators=function(<p>لا توجد مشكلة!</p>
+
+<p>من المهم التأكيد على عدم نقل تفاصيلك من قبلنا أبدًا إلا في حال طلبت ذلك منا بشكل صريح.</p>
+); function(<p>لقد مرت اليوم الساعة التي اخترتها بالفعل. يرجى اختيار ساعة أو يوم لاحق.</p>
+); function(<p style="direction: rtl;"><str
+              fRadio:netcraft_ui_branch label="באיזה קמפוס של {{ model.ad.advertiser.shortName }} היית {{ model.employee.sex === 'male' ? 'מעדיף' : 'מעדיפה' }} ללמוד?" relevant=(model.ad.segment === 'netcraft-ui') reqValidator=True options=[מרכז | צפון | דרום | אונליין בזום | ['no', "אני לא {{ model.employee.sex === 'male' ? 'מעוניין' : 'מעוניינת' }} בקורס UI/UX"]]
+              fRadio:netcraft_ui_time label="מתי נוח לך שנחזור אליך?" relevant=(container.netcraft_ui_branch
+&& container.netcraft_ui_branch !== 'no'
+&& model.ad.segment === 'netcraft-ui') reqValidator=True validators=function(<p>אין בעיה!</p>
+
+<p>חשוב להדגיש <u><strong>שלעולם</strong></u> לא נעביר את הפרטים שלך אלא אם תבקש/י מאיתנו מפורשות.</p>
+); function(<p><strong>מצוין! נציגי {{ model.ad.advertiser.shortName }}  יחזרו אליך בשעות ה{{value}} עם הפרטים.</strong></p>
+
+<p>ע options=[['בוקר', 'בוקר (09:00-12:00)'] | ['צהריים', 'צהריים (12:00-15:00)'] | ['אחר הצהריים', 'אחר הצהריים (15:00-18:00)'] | ['no', "אני לא {{ model.employee.sex === 'male' ? 'מעוניין' : 'מעוניינת' }} שיפנו אלי"]]
+              cSection:insane_kosherkravi relevant=(model.ad.advertiser.id === 'insane-kosherkravi')
+                fRadio:insane_kosherkravi_class label="في أي صف {{ model.employee.sex === &#39;female&#39; ? &#39;أنتِ&#39; : &#39;أنتَ&#39; }}؟" reqValidator=True options=[['ט', 'الصف التاسع'] | ['י', 'الصف العاشر'] | ['יא', 'الصف الحادي عشر'] | ['יב', 'الصف الثاني عشر'] | ['סיים יב', 'لقد أنهيتُ الصف الثاني عشر للتو']]
+                fRadio:insane_kosherkravi_free_lesson label="هل ترغب في حضور تدريب تجريبي مجاني؟" relevant=(container.insane_kosherkravi_class) reqValidator=True validators=function(<p>لا توجد مشكلة. لن ننقل تفاصيل الاتصال الخاصة بك إلى {{ model.ad.advertiser.shortName }}.</p>
+
+<p> </p>
+); function(<p><strong>رائع! سيقوم ممثلو {{ model.ad.advertiser.shortName }} بالتواصل معك قريبًا مع التفاصيل.</strong></p>
+
+<p>عند إرسال النموذج، options=[['yes', 'نعم'] | ['no', 'لا']]
+          cSection:relevantWrap relevant=(model.ad.interestedAndFiltered)
+          cSection:logoWrap
+            eHtml:element3 relevant=(model.ad.options.showLogo
+&& model.ad.advertiser.logoImageUrl) content="/"
+      cSection:adWrapBottom
+        cSection:ad LEGEND="משתני מודעה - מצב debug" show=(model.debug) print=false secType=panel
+          cSection:lead LEGEND="הליד" secType=well
+            fRadio:isTest label="משתמש בדיקה" typeValidator=bool options=[[True, 'כן'] | [False, 'לא']]
+            eEq:isTest eq=(auxData._vars.env === 'dev'
+|| model.employee.firstName.includes('בדיקה'))
+          eEq:interestedAndFiltered eq=(by_advertiser = {
+    clalbit: !!model.ad.filter_time1_exact
+        && model.ad.filter_time1_exact !== 'no'
+        && model.ad.ins1_day
+        && model.ad.ins1_day !== 'no',
+    leumit: !!model.ad.leumit_time_range
+        && model.ad.leumit_time_range !== 'no'
+        && !!model.ad.leumit_day
+        && model.ad.leumit_day !== 'no',
+
+    excellentisrael: !!model.ad.excellentisrael_class
+        && model.ad.excellentisrael_class !== 'no'
+        && model.ad.excellentisrael_verify === 'כושר קרבי'
+        && model.ad.excellentisrael_mobileNum.replaceAll(fn.regexp('[^\\d]', 'g'), '') === model.employee.mobileNum.replaceAll(fn.regexp('[^\\d]', 'g'), ''),
+
+    'insane-kosherkravi': !!model.ad.insane_kosherkravi_class
+        && model.ad.insane_kosherkravi_free_lesson === 'yes'
+}[model.ad.advertiser.id];
+
+by_segment = {
+    fin1: !!model.ad.filter1,
+    fin2: !!model.ad.filter1,
+    'clal-mortgage': !!model.ad.clal_mortgage_time,
+    yarinshahaf: !!model.ad.yarinshahaf_branch
+        && model.ad.yarinshahaf_time_range
+        && model.ad.yarinshahaf_time_range !== 'no'
+        && model.ad.yarinshahaf_day
+        && model.ad.yarinshahaf_day !== 'no',
+    'netcraft-ui': (
+        !!model.ad.netcraft_ui_branch
+        && model.ad.netcraft_ui_branch !== 'no'
+        && !!model.ad.netcraft_ui_time
+        && model.ad.netcraft_ui_time !== 'no'
+    ),
+}[model.ad.segment];
+
+model.ad.interested === 'yes'
+&& (!!by_advertiser || by_advertiser === undefined)
+&& (!!by_segment || by_segment === undefined))
+          fRadio:interestedAndFiltered label="מעוניין ועונה על הקריטריונים" typeValidator=bool options=[[True, 'כן'] | [False, 'לא']]
+          eEq:comments eq=([
+    {
+        ins1: [
+            model.employee.maritalStatus,
+            trans.date(model.ad.ins1_day),
+            model.ad.filter_time1_exact
+        ].join(' | '),
+        yarinshahaf: [
+            model.ad.yarinshahaf_branch,
+            trans.date(model.ad.yarinshahaf_day),
+            model.ad.yarinshahaf_time_range
+        ].join(' | '),
+        'netcraft-ui': model.ad.netcraft_ui_branch + ' ' + model.ad.netcraft_ui_time,
+        'clal-mortgage': {
+            'בוקר': 'בוקר (9:00-12:00)',
+            'צהריים': 'צהריים (12:00-15:00)',
+            'אחר הצהריים': 'אחר הצהריים (15:00-18:00)'
+        }[model.ad.clal_mortgage_time]
+    }[model.ad.segment],
+    {
+        leumit: [
+            trans.date(model.ad.leumit_day),
+            model.ad.leumit_time_range
+        ].join(' - '),
+        excellentisrael: [
+            'כיתה: '
+            + model.ad.excellentisrael_class,
+            'טקסט: '
+            + model.ad.excellentisrael_verify,
+[model.ad.excellentisrael_primaryGoal]
+        ].join(' | ')
+    }[model.ad.advertiser.id],
+    model.lang === 'ar'
+        ? ' שפה=ערבית'
+        : ''
+].filter(fn.identity).join(' '))
+          eEq:ins1 relevant=(model.ad.advertiser.id === 'clalbit') eq=(date = model.ad.ins1_day;
+start_time_raw = model.ad.filter_time1_exact;
+end_time_raw = model.ad.filter_time1_exact;
+
+isIsraelDST = (date >= fn.date(2025, 3, 27) && date <= fn.date(2025, 10, 26)) ||
+    (date >= fn.date(2026, 3, 26) && date <= fn.date(2026, 10, 25)) ||
+    (date >= fn.date(2027, 3, 25) && date <= fn.date(2027, 10, 31)) ||
+    (date >= fn.date(2028, 3, 23) && date <= fn.date(2028, 10, 29)) ||
+    (date >= fn.date(2029, 3, 29) && date <= fn.date(2029, 10, 28)) ||
+    (date >= fn.date(2030, 3, 28) && date <= fn.date(2030, 10, 27)) ||
+    (date >= fn.date(2031, 3, 27) && date <= fn.date(2031, 10, 26)) ||
+    (date >= fn.date(2032, 3, 25) && date <= fn.date(2032, 10, 31)) ||
+    (date >= fn.date(2033, 3, 24) && date <= fn.date(2033, 10, 30)) ||
+    (date >= fn.date(2034, 3, 23) && date <= fn.date(2034, 10, 29)) ||
+    (date >= fn.date(2035, 3, 29) && date <= fn.date(2035, 10, 28));
+
+utcOffset = isIsraelDST
+    ? '+0300'
+    : '+0200';
+
+date_str = trans.date(date, 'YYYY-MM-DD');
+
+container.callStartTime = (date_str && start_time_raw && end_time_raw)
+    ? fn.moment(date_str + ' ' + start_time_raw).utcOffset(utcOffset, true).toDate()
+    : null;
+
+container.callEndTime = (date_str && start_time_raw && end_time_raw)
+    ? fn.moment(date_str + ' ' + end_time_raw).utcOffset(utcOffset, true).toDate()
+    : null;)
+          fInput:comments label="הערות"
+          fDate:callStartTime label="שיחה - זמן התחלה" typeValidator={'mode': 'dt', 'type': 'date'}
+          fDate:callEndTime label="שיחה - זמן סיום" typeValidator={'mode': 'dt', 'type': 'date'}
+          eEq:subject eq=(_base = [
+    'ליד טפז',
+    model.ad.advertiser.shortName,
+    model.employee.str
+].join(' - ');
+
+{
+    'netcraft-ui': _base + ' - ' + model.ad.netcraft_ui_branch
+}[model.ad.segment] || _base;)
+          fInput:subject label="נושא למייל"
+          fBool:emailSent label="נשלח כבר ליד"
+          eEq:emailSent eq=(container.emailSent
+|| model.ad.interestedAndFiltered)
+    cRow:buttonsRow
+    cSection:footerCustom
+      eHtml:content7 content="&nbsp; / &nbsp; / &nbsp; /"
+  cSection:seo LEGEND="שיוך קמפיין (SEO) - מצב debug" show=(model.debug) print=false secType=panel
+    fInput:sourceType label="sourceType"
+    fInput:landingUrl label="landingUrl"
+    fInput:parentUrl label="parentUrl"
+    fInput:referrer label="referrer"
+    fInput:utmSource label="utmSource"
+    fInput:utmMedium label="utmMedium"
+    fInput:utmCampaign label="utmCampaign"
+    fInput:utmTerm label="utmTerm"
+    fInput:utmContent label="utmContent"
+    fInput:gclid label="gclid"
+    fInput:gbraid label="gbraid"
+    fInput:wbraid label="wbraid"
+    fInput:fbclid label="fbclid"
+    fInput:capturedAt label="capturedAt"
+  eHtml:feedbackRequest content="&nbsp; / &nbsp; / יש לך רעיון לשיפור? מצאת טעות בטופס? נשמח לקבל ממך משוב. /"
+  cSection:erasureRequest show=(False) print=false secType=well
+    fBool:hasRequested label="התקבלה בקשת מחיקה"
+    fDate:dateReceived label="תאריך קבלת הבקשה"
+    fDate:dateHandled label="תאריך טיפול"
+    fInput:source label="מקור הבקשה"
+    fLngTxt:comments label="הערות"

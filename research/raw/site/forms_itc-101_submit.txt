@@ -1,0 +1,15 @@
+# META {"title": "טופס 101 מקוון - מילוי ושליחה | טופס 101", "viewport": "width=device-width, initial-scale=1", "next-size-adjust": "", "description": "מלאו טופס 101 מהמחשב ומהסמארטפון. אין צורך להדפיס או לסרוק.", "keywords": "טופס 101,מילוי מקוון,כרטיס עובד", "og:title": "טופס 101 מקוון - מילוי ושליחה", "og:description": "מלאו טופס 101 מהמחשב ומהסמארטפון. אין צורך להדפיס או לסרוק.", "og:url": "https://tofes101.co.il/forms/itc-101/submit/", "og:site_name": "טופס101", "og:locale": "he_IL", "og:type": "website", "twitter:card": "summary", "twitter:title": "טופס 101 מקוון - מילוי ושליחה", "twitter:description": "מלאו טופס 101 מהמחשב ומהסמארטפון. אין צורך להדפיס או לסרוק.", "canonical": "https://tofes101.co.il/forms/itc-101/submit/"}
+
+## NAV
+- כל השירותים — לגמרי בחינם
+
+- טפסים
+
+- מחשבונים
+
+- מדריכים
+
+## MAIN
+טוען טופס...
+
+## FOOTER

@@ -1,0 +1,2496 @@
+{
+  "$comment": "Derived from the tofes101.co.il reference implementation (tepez form 5a704edf239da27488a8cd9c). Structural reference only — not legal advice.",
+  "sourceFormId": "5a704edf239da27488a8cd9c",
+  "taxYearNotice": "Reference form is labelled 'מעודכן לשנת 2026'",
+  "sections": [
+    {
+      "id": "taxYearWrap",
+      "letter": "—",
+      "title": "שנת המס (בחירת שנה)",
+      "fields": [
+        {
+          "path": "taxYearWrap/taxYear",
+          "name": "taxYear",
+          "type": "fInput",
+          "label": "שנת המס",
+          "required": false,
+          "visibleWhen": "fn.today().getUTCMonth() !== 11 && fn.today().getUTCMonth() !== 0",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxYearWrap/taxYear",
+          "name": "taxYear",
+          "type": "fRadio",
+          "label": "שנת המס",
+          "required": true,
+          "visibleWhen": "fn.today().getUTCMonth() === 11",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxYearWrap/taxYear",
+          "name": "taxYear",
+          "type": "fRadio",
+          "label": "שנת המס",
+          "required": true,
+          "visibleWhen": "fn.today().getUTCMonth() === 0",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        }
+      ]
+    },
+    {
+      "id": "employer",
+      "letter": "א",
+      "title": "פרטי המעסיק",
+      "fields": [
+        {
+          "path": "employer/row3/email2",
+          "name": "email2",
+          "type": "fInput",
+          "label": "כתובת אימייל 2",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "הטפסים יישלחו גם לכתובת האימייל שהעובד הזין"
+        },
+        {
+          "path": "employer/row3/email3",
+          "name": "email3",
+          "type": "fInput",
+          "label": "כתובת אימייל 3",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "הטפסים יישלחו גם לכתובת האימייל שהעובד הזין"
+        },
+        {
+          "path": "employer/employerRow/name",
+          "name": "name",
+          "type": "fInput",
+          "label": "שם",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employer/employerRow/address",
+          "name": "address",
+          "type": "fInput",
+          "label": "כתובת",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employer/employerRow/phoneNum",
+          "name": "phoneNum",
+          "type": "fInput",
+          "label": "מספר טלפון",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employer/employerRow/deductionsFileNum",
+          "name": "deductionsFileNum",
+          "type": "fInput",
+          "label": "מספר תיק ניכויים",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "function",
+              "message": "המספר חייב להתחיל בספרה 9.",
+              "fn": "(''+value)[0]==='9'"
+            },
+            {
+              "type": "num/digitsNum"
+            },
+            {
+              "type": "int",
+              "message": "יש להכניס ספרות בלבד."
+            },
+            {
+              "type": "luhn",
+              "message": "המספר אינו תקין."
+            }
+          ],
+          "help": null
+        }
+      ]
+    },
+    {
+      "id": "employee",
+      "letter": "ב",
+      "title": "פרטי העובד/ת",
+      "fields": [
+        {
+          "path": "employee/str",
+          "name": "str",
+          "type": "fInput",
+          "label": "טקסט מתאר לעובד",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/nameRow/firstName",
+          "name": "firstName",
+          "type": "fInput",
+          "label": "שם פרטי",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "ע\"פ הרשום {{ container.identity.type === 'passport' ? 'בדרכון' : 'בת.ז.' }}"
+        },
+        {
+          "path": "employee/nameRow/lastName",
+          "name": "lastName",
+          "type": "fInput",
+          "label": "שם משפחה",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "ע\"פ הרשום {{ container.identity.type === 'passport' ? 'בדרכון' : 'בת.ז.' }}"
+        },
+        {
+          "path": "employee/identity/type",
+          "name": "type",
+          "type": "fRadio",
+          "label": "זיהוי לפי",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              "idNum",
+              "תעודת זהות"
+            ],
+            [
+              "passport",
+              "דרכון (עבור אזרח זר)"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/identity/idStr",
+          "name": "idStr",
+          "type": "fInput",
+          "label": "מספר זיהוי לטופס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/identity/idNumRow/idNum",
+          "name": "idNum",
+          "type": "fInput",
+          "label": "מספר זהות",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "num/digitsNum"
+            },
+            {
+              "type": "int",
+              "message": "יש להכניס ספרות בלבד."
+            },
+            {
+              "type": "luhn",
+              "message": "המספר אינו תקין."
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "employee/identity/idNumRow/idCard",
+          "name": "idCard",
+          "type": "fFile",
+          "label": "צילום תעודת זהות וספח",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/identity/passportRow/passportCountry",
+          "name": "passportCountry",
+          "type": "fSelect",
+          "label": "מדינת הדרכון",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/identity/passportRow/passportNum",
+          "name": "passportNum",
+          "type": "fInput",
+          "label": "מספר דרכון",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/identity/passportRow/passportCard",
+          "name": "passportCard",
+          "type": "fFile",
+          "label": "צילום דרכון",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/residencePermit",
+          "name": "residencePermit",
+          "type": "fFile",
+          "label": "אישור / רשיון שהייה בישראל",
+          "required": false,
+          "visibleWhen": "container.identity.type === 'passport'",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/datesRow/dateOfBirth",
+          "name": "dateOfBirth",
+          "type": "fDate",
+          "label": "תאריך לידה",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "function",
+              "message": "לפי תאריך הלידה שציינת גילך הוא {{ container.age }}. הגיל המינימאלי הינו {{ model._settings.minEmployeeAge }}.",
+              "fn": "container.age == null || container.age >= model._settings.minEmployeeAge"
+            },
+            {
+              "type": "function",
+              "message": "לפי תאריך הלידה שציינת גילך הוא {{ container.age }}. נראה שמדובר בשגיאה.",
+              "fn": "container.age == null || container.age <= model._settings.maxEmployeeAge"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "employee/datesRow/dateOfBirthStr",
+          "name": "dateOfBirthStr",
+          "type": "fInput",
+          "label": "תאריך לידה לטופס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/datesRow/age",
+          "name": "age",
+          "type": "fInput",
+          "label": "גיל (מחושב אוטומטית)",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/datesRow/ageOnTaxYear",
+          "name": "ageOnTaxYear",
+          "type": "fInput",
+          "label": "גיל בסוף שנת המס (מחושב אוטומטית)",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/datesRow/dateOfAliyah",
+          "name": "dateOfAliyah",
+          "type": "fDate",
+          "label": "תאריך עליה",
+          "required": false,
+          "visibleWhen": "container.identity.type !== 'passport'",
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "function",
+              "message": "התאריך שהכנסת הוא בעתיד.",
+              "fn": "value <= fn.today()"
+            },
+            {
+              "type": "function",
+              "message": "תאריך העליה לא יכול להיות לפני תאריך הלידה.",
+              "fn": "!container.dateOfBirth ||\nvalue >= container.dateOfBirth"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "employee/datesRow/dateOfAliyahStr",
+          "name": "dateOfAliyahStr",
+          "type": "fInput",
+          "label": "תאריך עליה לטופס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/address/addressRow/city",
+          "name": "city",
+          "type": "fSelect",
+          "label": "ישוב",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/address/addressRow/street",
+          "name": "street",
+          "type": "fSelect",
+          "label": "רחוב",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/address/addressRow/houseNum",
+          "name": "houseNum",
+          "type": "fInput",
+          "label": "מספר בית",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/address/addressRow/zipCode",
+          "name": "zipCode",
+          "type": "fInput",
+          "label": "מיקוד",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "<p>ניתן להיעזר ב<a href=\"http://www.israelpost.co.il/zipcode.nsf/demozip\" target=\"_blank\">אתר הדואר</a></p>"
+        },
+        {
+          "path": "employee/phonesRow/mobileNum",
+          "name": "mobileNum",
+          "type": "fInput",
+          "label": "מספר טלפון נייד",
+          "required": true,
+          "visibleWhen": "!container.phoneNum",
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "str/regex",
+              "message": "<p>נא להשתמש בספרות בלבד</p>\n"
+            },
+            {
+              "type": "str/regex",
+              "message": "<p>חייב להיות מספר טלפון <u>נייד</u> תקין (מתחיל ב-05)</p>\n"
+            },
+            {
+              "type": "str/phone",
+              "message": "<p>חייב להיות מספר טלפון <u>נייד</u> תקין.</p>\n"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "employee/phonesRow/mobileNum",
+          "name": "mobileNum",
+          "type": "fInput",
+          "label": "מספר טלפון נייד",
+          "required": false,
+          "visibleWhen": "container.phoneNum",
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "str/regex",
+              "message": "<p>נא להשתמש בספרות בלבד</p>\n"
+            },
+            {
+              "type": "str/regex",
+              "message": "<p>חייב להיות מספר טלפון <u>נייד</u> תקין (מתחיל ב-05)</p>\n"
+            },
+            {
+              "type": "str/phone",
+              "message": "<p>חייב להיות מספר טלפון <u>נייד</u> תקין.</p>\n"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "employee/phonesRow/phoneNum",
+          "name": "phoneNum",
+          "type": "fInput",
+          "label": "מספר טלפון",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "יש להכניס מספר טלפון נייד או מספר טלפון. במידה ויש לך רק מספר טלפון שאינו נייד, יש לרשום אותו תחת מספר טלפון. לאחר מכן שדה מספר טלפון נייד יהפוך לשדה רשות."
+        },
+        {
+          "path": "employee/email",
+          "name": "email",
+          "type": "fInput",
+          "label": "כתובת דואר אלקטרוני",
+          "required": false,
+          "visibleWhen": "model._settings.employeeEmail === 'optional'",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/email",
+          "name": "email",
+          "type": "fInput",
+          "label": "כתובת דואר אלקטרוני",
+          "required": true,
+          "visibleWhen": "model._settings.employeeEmail !== 'optional'",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/miscRow/sex",
+          "name": "sex",
+          "type": "fRadio",
+          "label": "מין",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              "male",
+              "זכר"
+            ],
+            [
+              "female",
+              "נקבה"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/miscRow/sex_label",
+          "name": "sex_label",
+          "type": "fInput",
+          "label": "מין - תווית",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/miscRow/maritalStatus",
+          "name": "maritalStatus",
+          "type": "fRadio",
+          "label": "מצב משפחתי",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              "single",
+              "רווק/ה"
+            ],
+            [
+              "married",
+              "נשוי/אה"
+            ],
+            [
+              "divorced",
+              "גרוש/ה"
+            ],
+            [
+              "widowed",
+              "אלמן/ה"
+            ],
+            [
+              "separated",
+              "פרוד/ה"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/miscRow/maritalStatus_label",
+          "name": "maritalStatus_label",
+          "type": "fInput",
+          "label": "מצב משפחתי - תווית",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/miscRow/assessingOfficerSeparatedCertificate",
+          "name": "assessingOfficerSeparatedCertificate",
+          "type": "fFile",
+          "label": "אישור פקיד שומה",
+          "required": false,
+          "visibleWhen": "container.maritalStatus == 'separated'",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/miscRow/ilResident",
+          "name": "ilResident",
+          "type": "fRadio",
+          "label": "תושב ישראל",
+          "required": true,
+          "visibleWhen": "container.identity.type !== 'passport'",
+          "computed": null,
+          "options": [
+            [
+              true,
+              "כן"
+            ],
+            [
+              false,
+              "לא"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/miscRow/kibbutzMember",
+          "name": "kibbutzMember",
+          "type": "fRadio",
+          "label": "חבר קיבוץ / מושב שיתופי",
+          "required": true,
+          "visibleWhen": "container.identity.type !== 'passport'",
+          "computed": null,
+          "options": [
+            [
+              true,
+              "כן"
+            ],
+            [
+              false,
+              "לא"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/miscRow/kibbutzGetsIncome",
+          "name": "kibbutzGetsIncome",
+          "type": "fRadio",
+          "label": "הכנסותיי ממעסיק זה מועברות לקיבוץ",
+          "required": true,
+          "visibleWhen": "container.identity.type !== 'passport'\n&& container.kibbutzMember",
+          "computed": null,
+          "options": [
+            [
+              true,
+              "כן"
+            ],
+            [
+              false,
+              "לא"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/miscRow/healthFundMember",
+          "name": "healthFundMember",
+          "type": "fRadio",
+          "label": "חבר בקופת חולים",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              true,
+              "כן"
+            ],
+            [
+              false,
+              "לא"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/miscRow/healthFundName",
+          "name": "healthFundName",
+          "type": "fRadio",
+          "label": "שם הקופה",
+          "required": true,
+          "visibleWhen": "container.healthFundMember",
+          "computed": null,
+          "options": [
+            [
+              "clalit",
+              "כללית"
+            ],
+            [
+              "maccabi",
+              "מכבי"
+            ],
+            [
+              "meuhedet",
+              "מאוחדת"
+            ],
+            [
+              "leumit",
+              "לאומית"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "employee/miscRow/healthFundName_label",
+          "name": "healthFundName_label",
+          "type": "fInput",
+          "label": "חבר בקופת חולים - תווית",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        }
+      ]
+    },
+    {
+      "id": "childrenWrapper",
+      "letter": "ג",
+      "title": "פרטים על הילדים",
+      "fields": [
+        {
+          "path": "childrenWrapper/children/row1/firstName",
+          "name": "firstName",
+          "type": "fInput",
+          "label": "שם",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "childrenWrapper/children/row1/idNum",
+          "name": "idNum",
+          "type": "fInput",
+          "label": "מספר זהות",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "num/digitsNum"
+            },
+            {
+              "type": "int",
+              "message": "יש להכניס ספרות בלבד."
+            },
+            {
+              "type": "luhn",
+              "message": "המספר אינו תקין."
+            },
+            {
+              "type": "function",
+              "message": "מספר זהות זה מופיע אצל יותר מילד אחד.",
+              "fn": "fn.filter(model.children, { idNum: value }).length <= 1"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "childrenWrapper/children/row1/dateOfBirth",
+          "name": "dateOfBirth",
+          "type": "fDate",
+          "label": "תאריך לידה",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "function",
+              "message": "לפי תאריך הלידה שציינת ימלאו לילד/ה {{ container.ageOnTaxYear }} בשנת המס. יש לציין רק ילדים שימלאו להם פחות מ-19 שנים או פחות בשנת המס.",
+              "fn": "container.ageOnTaxYear == null || container.ageOnTaxYear < 19"
+            },
+            {
+              "type": "function",
+              "message": "לפי תאריך הלידה הילד/ה טרם נולד/ה בשנת המס. יש לציין רק ילדים שנולדו בשנת המס או לפניה.",
+              "fn": "container.ageOnTaxYear == null || container.ageOnTaxYear >= 0"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "childrenWrapper/children/row1/dateOfBirthStr",
+          "name": "dateOfBirthStr",
+          "type": "fInput",
+          "label": "תאריך לידה לטופס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "childrenWrapper/children/row1/ageOnTaxYear",
+          "name": "ageOnTaxYear",
+          "type": "fInput",
+          "label": "גיל בסוף שנת המס (מחושב אוטומטית)",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "childrenWrapper/children/row2/possession",
+          "name": "possession",
+          "type": "fBool",
+          "label": "הילד נמצא בחזקתי",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "childrenWrapper/children/row2/childAllowance",
+          "name": "childAllowance",
+          "type": "fBool",
+          "label": "אני מקבל/ת בגינו/ה קצבת ילדים מביטוח לאומי",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        }
+      ]
+    },
+    {
+      "id": "thisIncome",
+      "letter": "ד",
+      "title": "הכנסותיי ממעסיק זה",
+      "fields": [
+        {
+          "path": "thisIncome/types",
+          "name": "types",
+          "type": "fCheckbox",
+          "label": "אני מקבל/ת",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              "monthly",
+              "משכורת חודש"
+            ],
+            [
+              "additional",
+              "משכורת בעד משרה נוספת"
+            ],
+            [
+              "partial",
+              "משכורת חלקית"
+            ],
+            [
+              "daily",
+              "שכר עבודה (עובד יומי)"
+            ],
+            [
+              "allowance",
+              "קצבה"
+            ],
+            [
+              "scholarship",
+              "מלגה"
+            ]
+          ],
+          "validators": [
+            {
+              "type": "function",
+              "message": "ניתן לסמן רק עד <u>אחת</u> מהאפשרויות משכורת חודש, משכורת נוספת, משכורת חלקית ושכר עבודה.",
+              "fn": "fn.intersection(value, ['monthly', 'additional', 'partial', 'daily']).length <= 1"
+            },
+            {
+              "type": "function",
+              "message": "יש לצרף תיאום מס בחלק ט' של הטופס. ללא צירוף תיאום מס נהיה חייבים לנכות משכרך מס בשיעור מירבי (48%).",
+              "fn": "!(\n model._settings.taxCoordinationWarning === 'error'\n  && fn.includes(value, 'additional')\n  && !model.taxCoordinationRequest.isRequesting\n)"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "thisIncome/startDate",
+          "name": "startDate",
+          "type": "fDate",
+          "label": "תאריך תחילת העבודה בשנת המס",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "thisIncome/startDateStr",
+          "name": "startDateStr",
+          "type": "fInput",
+          "label": "תאריך לידה לטופס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        }
+      ]
+    },
+    {
+      "id": "otherIncomes",
+      "letter": "ה",
+      "title": "הכנסות אחרות",
+      "fields": [
+        {
+          "path": "otherIncomes/hasIncomes",
+          "name": "hasIncomes",
+          "type": "fRadio",
+          "label": "יש לך הכנסות אחרות?",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              false,
+              "אין לי הכנסות אחרות ממשכורת (משכורת חודש, בעד משרה נוספת, משכורת חלקית, שכר עבודה), מקצבה וממלגה"
+            ],
+            [
+              true,
+              "יש לי הכנסות נוספות כמפורט להלן"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "otherIncomes/hasIncomesWrap/types",
+          "name": "types",
+          "type": "fCheckbox",
+          "label": "פירוט הכנסות",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              "monthly",
+              "משכורת חודש"
+            ],
+            [
+              "additional",
+              "משכורת בעד משרה נוספת"
+            ],
+            [
+              "partial",
+              " משכורת חלקית"
+            ],
+            [
+              "daily",
+              " שכר עבודה (עובד יומי)"
+            ],
+            [
+              "allowance",
+              "קצבה"
+            ],
+            [
+              "scholarship",
+              "מלגה"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "otherIncomes/hasIncomesWrap/typesOther",
+          "name": "typesOther",
+          "type": "fInput",
+          "label": "פירוט מקור הכנסה אחר",
+          "required": true,
+          "visibleWhen": "fn.includes(container.types, 'other')",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "otherIncomes/hasIncomesWrap/utilizeTaxCreditsElsewhere",
+          "name": "utilizeTaxCreditsElsewhere",
+          "type": "fRadio",
+          "label": "נקודות זיכוי",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              false,
+              "אבקש לקבל נקודות זיכוי ומדרגות מס כנגד הכנסתי זו (סעיף ד). איני מקבל/ת אותם בהכנסה אחרת."
+            ],
+            [
+              true,
+              "<span>אני מקבל/ת נקודות זיכוי ומדרגות מס בהכנסה אחרת ועל כן איני זכאי/ת להם כנגד הכנסה זו.</span>"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "otherIncomes/hasIncomesWrap/employerContributions",
+          "name": "employerContributions",
+          "type": "fCheckbox",
+          "label": "הפרשות",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              "no-study-fund",
+              "אין מפרישים עבורי לקרן השתלמות בגין הכנסתי האחרת, או שכל הפרשות המעסיק לקרן השתלמות בגין הכנסתי האחרת מצורפות להכנסתי האחרת."
+            ],
+            [
+              "no-pension",
+              "<span>אין מפרישים עבורי לקצבה/לביטוח אובדן כושר עבודה/פיצויים בגין הכנסתי האחרת, או שכל הפרשות המעסיק לקצבה/לביטוח אובדן כושר עבודה/פיצויים בגין הכנסתי האחרת מצורפות להכנסתי האחרת.</span>"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        }
+      ]
+    },
+    {
+      "id": "spouse",
+      "letter": "ו",
+      "title": "פרטי בן/בת הזוג",
+      "fields": [
+        {
+          "path": "spouse/spouseWrapper/nameRow/firstName",
+          "name": "firstName",
+          "type": "fInput",
+          "label": "שם פרטי",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/nameRow/lastName",
+          "name": "lastName",
+          "type": "fInput",
+          "label": "שם משפחה",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/identity/idRow/type",
+          "name": "type",
+          "type": "fRadio",
+          "label": "זיהוי לפי",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              "idNum",
+              "תעודת זהות"
+            ],
+            [
+              "passport",
+              "דרכון (עבור אזרח זר)"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/identity/idRow/idNum",
+          "name": "idNum",
+          "type": "fInput",
+          "label": "מספר זהות",
+          "required": true,
+          "visibleWhen": "container.type === 'idNum'",
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "num/digitsNum"
+            },
+            {
+              "type": "int",
+              "message": "יש להכניס ספרות בלבד."
+            },
+            {
+              "type": "luhn",
+              "message": "המספר אינו תקין."
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/identity/idRow/passportCountry",
+          "name": "passportCountry",
+          "type": "fSelect",
+          "label": "מדינת הדרכון",
+          "required": true,
+          "visibleWhen": "container.type === 'passport'",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/identity/idRow/passportNum",
+          "name": "passportNum",
+          "type": "fInput",
+          "label": "מספר דרכון",
+          "required": true,
+          "visibleWhen": "container.type === 'passport'",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/identity/idStr",
+          "name": "idStr",
+          "type": "fInput",
+          "label": "מספר זיהוי לטופס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/miscRow/dateOfBirth",
+          "name": "dateOfBirth",
+          "type": "fDate",
+          "label": "תאריך לידה",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/miscRow/dateOfBirthStr",
+          "name": "dateOfBirthStr",
+          "type": "fInput",
+          "label": "תאריך לידה לטופס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/miscRow/age",
+          "name": "age",
+          "type": "fInput",
+          "label": "גיל (מחושב אוטומטית)",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/miscRow/ageOnTaxYear",
+          "name": "ageOnTaxYear",
+          "type": "fInput",
+          "label": "גיל בסוף שנת המס (מחושב אוטומטית)",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/miscRow/dateOfAliyah",
+          "name": "dateOfAliyah",
+          "type": "fDate",
+          "label": "תאריך עליה",
+          "required": false,
+          "visibleWhen": "container.identity.type !== 'passport'",
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "function",
+              "message": "התאריך שהכנסת הוא בעתיד.",
+              "fn": "value <= fn.today()"
+            },
+            {
+              "type": "function",
+              "message": "תאריך העליה לא יכול להיות לפני תאריך הלידה.",
+              "fn": "!container.dateOfBirth ||\nvalue >= container.dateOfBirth"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/miscRow/dateOfAliyahStr",
+          "name": "dateOfAliyahStr",
+          "type": "fInput",
+          "label": "תאריך עליה לטופס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/miscRow/hasIncome",
+          "name": "hasIncome",
+          "type": "fRadio",
+          "label": "הכנסה",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              "no",
+              "אין לבן/בת הזוג כל הכנסה"
+            ],
+            [
+              "yes",
+              "יש לבן/בת הזוג הכנסה"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "spouse/spouseWrapper/miscRow/incomeTypes",
+          "name": "incomeTypes",
+          "type": "fCheckbox",
+          "label": "סוג הכנסה",
+          "required": true,
+          "visibleWhen": "model.spouse.hasIncome === 'yes'",
+          "computed": null,
+          "options": [
+            [
+              "work-allowance-business",
+              " עבודה/קיצבה/עסק"
+            ],
+            [
+              "other",
+              "הכנסה אחרת"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        }
+      ]
+    },
+    {
+      "id": "changesWrapper",
+      "letter": "ז",
+      "title": "שינויים במהלך השנה",
+      "fields": []
+    },
+    {
+      "id": "taxCreditRequest",
+      "letter": "ח",
+      "title": "בקשה לפטור או זיכוי ממס",
+      "fields": [
+        {
+          "path": "taxCreditRequest/wrapper/ilResident/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "1. אני תושב/ת ישראל",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/disabled/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "2. אני נכה 100% / עיוור/ת לצמיתות",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/disabled/wrapper/certificate",
+          "name": "certificate",
+          "type": "fFile",
+          "label": "אישור משרד הביטחון/האוצר/פקיד השומה/תעודת עיוור שהוצאה לאחר 1/1/94",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/disabled/wrapper/monthlyCompensation",
+          "name": "monthlyCompensation",
+          "type": "fBool",
+          "label": "2ב. בנוסף, אני מקבל תגמול חודשי לפי חוק הנכים (תגמולים ושיקום) או לפי חוק התגמולים לנפגעי פעולות איבה.",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/disabled/wrapper/monthlyCompensationCertificate",
+          "name": "monthlyCompensationCertificate",
+          "type": "fFile",
+          "label": "אישור על קבלת תגמול חודשי",
+          "required": false,
+          "visibleWhen": "container.monthlyCompensation",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/creditedLocality/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "3. אני תושב/ת קבוע/ה בישוב מזכה. אני ובני משפחתי מדרגה ראשונה, מתגוררים ביישוב ואין לי \"מרכז חיים\" נוסף. ",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/creditedLocality/wrapper/row/fromDate",
+          "name": "fromDate",
+          "type": "fDate",
+          "label": "מתאריך",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/creditedLocality/wrapper/row/locality",
+          "name": "locality",
+          "type": "fSelect",
+          "label": "הישוב",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/creditedLocality/wrapper/row/form1312a",
+          "name": "form1312a",
+          "type": "fFile",
+          "label": "אישור של הרשות ע\"ג טופס 1312א",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/newImmigrantOrReturningResident/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "4. אני עולה חדש/ה",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/newImmigrantOrReturningResident/wrapper/row/type",
+          "name": "type",
+          "type": "fRadio",
+          "label": "סוג",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              "immigrant",
+              "עולה חדש/ה"
+            ],
+            [
+              "returning",
+              "תושב/ת חוזר/ת"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/newImmigrantOrReturningResident/wrapper/row/fromDate",
+          "name": "fromDate",
+          "type": "fDate",
+          "label": "מתאריך",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/newImmigrantOrReturningResident/wrapper/row/newImmigrantCertificate",
+          "name": "newImmigrantCertificate",
+          "type": "fFile",
+          "label": "תעודת עולה",
+          "required": true,
+          "visibleWhen": "container.type === 'immigrant'",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/newImmigrantOrReturningResident/wrapper/row/returningResidentCertificate",
+          "name": "returningResidentCertificate",
+          "type": "fFile",
+          "label": "אישור משרד הקליטה (תעודת \"תושב חוזר\" מעל 6 שנים)",
+          "required": true,
+          "visibleWhen": "container.type === 'returning'",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/newImmigrantOrReturningResident/wrapper/noIncomeUntil",
+          "name": "noIncomeUntil",
+          "type": "fDate",
+          "label": "לא הייתה לי הכנסה בישראל מתחילת שנת המס הנוכחית עד תאריך",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "מי שתקופת זכאותו אינה רצופה בשל שירות חובה בצה\"ל, לימודים על תיכוניים או יציאה לחו\"ל יפנה לפקיד השומה."
+        },
+        {
+          "path": "taxCreditRequest/wrapper/incomelessSpouse/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "5. בגין בן/בת זוגי המתגורר/ת עימי ואין לו/לה הכנסות בשנת המס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "<p><span>רק אם העובד/ת או בן/בת הזוג הגיע/ה לגיל פרישה או שהוא/היא נכה או עיוור/ת עפ\"י סעיף 9(5) לפקודה.</span></p>"
+        },
+        {
+          "path": "taxCreditRequest/wrapper/incomelessSpouse/wrapper/certificate",
+          "name": "certificate",
+          "type": "fFile",
+          "label": "אישור נכה או עיוור בגין העובד/ת ו/או בן/בת הזוג",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/separatedSingleParent/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "6. אני הורה במשפחה חד הורית החי בנפרד",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "function",
+              "message": "<p><span>לא ניתן לבחור מכיוון שציינת בפרק ב' שהינך נשוי/אה.</span></p>\n",
+              "fn": "model.employee.maritalStatus !== 'married'"
+            },
+            {
+              "type": "function",
+              "message": "לא ניתן לבחור מכיוון שלא ציינת בחלק ג' ילדים בגינם הינך מקבל/ת קצבת ילדים מביטוח לאומי.",
+              "fn": "fn.filter(model.children, { childAllowance: true }).length > 0"
+            }
+          ],
+          "help": "<p><span>ימולא רק ע\"י הורה כאמור החי בנפרד ומבקש נקודות זיכוי עבור ילדיו, הנמצאים בחזקתו ובגינם מקבל קצבת ילדים מהמוסד לביטוח לאומי (בהתאם לסעיף 7 להלן) ואינו מנהל משק בית משותף עם יחיד/ה אחר/ת.</span></p>"
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "7. בגין ילדי שבחזקתי המפורטים בחלק ג",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "function",
+              "message": "<p><span>ניתן לסמן רק אם </span><span>מתקיימם </span><span>אחד מהתנאים הבאים:</span></p>\n\n<p><span>1. אינך נשוי/אה ודיווחת על ילדים הנמצאים בחזקתך, בגינם הינך מקבל/ת קצבת ילדים מהביטוח הלאומי.</span></p>\n\n<p><span>2. הינך אישה נשואה.</span></p>\n\n<p><span>3. סימנת את שדה 9 - אני הורה יחיד לילדי שבחזקתי.</span></p>",
+              "fn": "!value || (\n(\n  model.employee.maritalStatus !== 'married'\n  && fn.filter(model.children, { childAllowance: true, possession: true }).length > 0\n)\n|| (\n  model.employee.sex === 'female'\n  && model.employee.maritalStatus === 'married'\n)\n|| (\n model.taxCreditRequest.singleParent.checked\n)\n)"
+            },
+            {
+              "type": "function",
+              "message": "חובה לסמן סעיף זה משום שסימת את סעיף 6.",
+              "fn": "!model.taxCreditRequest.separatedSingleParent.checked || value"
+            },
+            {
+              "type": "function",
+              "message": "חובה לסמן סעיף זה או סעיף 8 משום שיסמנת את סעיף 9.",
+              "fn": "!model.taxCreditRequest.singleParent.checked || model.taxCreditRequest.toddlers.checked || \nvalue"
+            }
+          ],
+          "help": "ימולא רק ע\"י הורה במשפחה חד הורית שמקבל את קצבת הילדים בגינם, או ע\"י אשה נשואה או ע\"י הורה יחיד."
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/row/age0Count",
+          "name": "age0Count",
+          "type": "fInput",
+          "label": "מספר ילדים שנולדו בשנת המס",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/row/age0Checked",
+          "name": "age0Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/row/age1To2Count",
+          "name": "age1To2Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם שנה אחת עד שנתיים בשנת המס",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/row/age1To2Checked",
+          "name": "age1To2Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/row/age3Count",
+          "name": "age3Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם 3 שנים בשנת המס",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/row/age3Checked",
+          "name": "age3Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/row/age4To5Count",
+          "name": "age4To5Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם 4 שנים עד 5 שנים בשנת המס",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/row/age4To5Checked",
+          "name": "age4To5Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/row/age6To17Count",
+          "name": "age6To17Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם 6 שנים עד 17 שנים בשנת המס",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/row/age6To17Checked",
+          "name": "age6To17Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/row/age18Count",
+          "name": "age18Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם 18 שנים בשנת המס",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/row/age18Checked",
+          "name": "age18Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/legacy/age6To12Count",
+          "name": "age6To12Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם 6 שנים עד 12 שנים בשנת המס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/legacy/age6To12Checked",
+          "name": "age6To12Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/legacy/age13To17Count",
+          "name": "age13To17Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם 13 שנים עד 17 שנים בשנת המס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/legacy/age13To17Checked",
+          "name": "age13To17Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/legacy/age1To5Count",
+          "name": "age1To5Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם שנה אחת עד 5 שנים בשנת המס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/children/legacy/age1To5Checked",
+          "name": "age1To5Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "8. בגין ילדי",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "function",
+              "message": "<p><span>ניתן לסמן רק אם מתקיימם אחד מהתנאים הבאים:</span></p>\n\n<p><span>1. הינך גבר נשוי.</span></p>\n\n<p><span>2. אינך נשוי/אה וסעיף 7 לעיל לא סומן.</span></p>\n\n<p><span>3. הינך אישה, לא נשואה ואחד או יותר מילדיך אינם בחזקתך.</span></p>\n\n<p><span>4. סימנת את סעיף 9 - אני הורה יחיד לילדי שבחזקתי.</span></p>",
+              "fn": "!value || (\n(\n  model.employee.sex === 'male'\n  && model.employee.maritalStatus === 'married'\n) || (\n  model.employee.sex\n  && model.employee.maritalStatus\n  && model.employee.maritalStatus !== 'married'\n  && !model.taxCreditRequest.children.checked\n) || (\n  model.employee.sex === 'female'\n  && model.employee.maritalStatus\n  && model.employee.maritalStatus !== 'married'\n  && fn.reject(model.children, 'possession').length > 0\n) || (\n model.taxCreditRequest.singleParent.checked\n)\n)"
+            },
+            {
+              "type": "function",
+              "message": "חובה לסמן סעיף זה או סעיף 7 משום שיסמנת את סעיף 9.",
+              "fn": "!model.taxCreditRequest.singleParent.checked || \nmodel.taxCreditRequest.children.checked || \nvalue"
+            }
+          ],
+          "help": "ימולא ע\"י הורה (למעט הורה אשר סימן בפסקה 7 לעיל), אשה לא נשואה שילדיה אינם בחזקתה וכן הורה יחיד"
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/row/age0Count",
+          "name": "age0Count",
+          "type": "fInput",
+          "label": "מספר ילדים שנולדו בשנת המס",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/row/age0Checked",
+          "name": "age0Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/row/age1To2Count",
+          "name": "age1To2Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם שנה אחת עד שנתיים בשנת המס",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/row/age1To2Checked",
+          "name": "age1To2Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/row/age3Count",
+          "name": "age3Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם 3 שנים בשנת המס",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/row/age3Checked",
+          "name": "age3Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/row/age4To5Count",
+          "name": "age4To5Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם 4 שנים עד 5 שנים בשנת המס",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/row/age4To5Checked",
+          "name": "age4To5Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/row/age6To17Count",
+          "name": "age6To17Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם 6 שנים עד 17 שנים בשנת המס",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/row/age6To17Checked",
+          "name": "age6To17Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/legacy/age6To12Count",
+          "name": "age6To12Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם 6 שנים עד 12 שנים בשנת המס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/legacy/age6To12Checked",
+          "name": "age6To12Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/legacy/age1To5Count",
+          "name": "age1To5Count",
+          "type": "fInput",
+          "label": "מספר ילדים שימלאו להם שנה אחת עד 5 שנים בשנת המס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/toddlers/legacy/age1To5Checked",
+          "name": "age1To5Checked",
+          "type": "fBool",
+          "label": "מסומן",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/singleParent/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "9. אני הורה יחיד לילדי שבחזקתי (המפורטים בסעיף 7 ו-8 לעיל).",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/childSupport/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "10. בגין ילדי שאינם בחזקתי המפורטים בחלק ג ואני משתתף/ת בכלכלתם.",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "ימולא ע\"י הורה החי בנפרד, שאינו זכאי לנקודות זיכוי בגין ילדיו, אשר המציא פס\"ד המחייב אותו בתשלום מזונות."
+        },
+        {
+          "path": "taxCreditRequest/wrapper/childSupport/judgement",
+          "name": "judgement",
+          "type": "fFile",
+          "label": "צילום פסק דין המחייב בתשלום מזונות",
+          "required": false,
+          "visibleWhen": "container.checked",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/disabledChild/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "11. אני הורה לילדים עם מוגבלות שטרם מלאו להם 19 שנים, בגינם אני מקבל/ת גמלת ילד נכה מהמוסד לביטוח לאומי.",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "<p><span style=\"line-height: 18.1818180084229px;\">בן זוגי אינו מקבל נקודות זיכוי אלה. לילדי, בגינו אני מבקש את נקודות הזיכוי, אין הכנסות בשנה הנוכחית.</span></p>\n"
+        },
+        {
+          "path": "taxCreditRequest/wrapper/disabledChild/count",
+          "name": "count",
+          "type": "fInput",
+          "label": "מספר הילדים עם מוגבלות שטרם מלאו להם 19 שנים, בגינם את/ה מקבל/ת גמלת ילד נכה מהמוסד לביטוח לאומי",
+          "required": true,
+          "visibleWhen": "container.checked",
+          "computed": null,
+          "options": null,
+          "validators": [
+            {},
+            {
+              "type": "num/val"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/disabledChild/disabledChildBenefitNiiCertificate",
+          "name": "disabledChildBenefitNiiCertificate",
+          "type": "fFile",
+          "label": "אישור גמלת ילד נכה מהמוסד לביטוח לאומי לשנה נוכחית",
+          "required": true,
+          "visibleWhen": "container.checked",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/alimony/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "12. בגין מזונות לבן/בת זוגי לשעבר.",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "<p><span>ימולא ע\"י מי שנישא בשנית. </span></p>"
+        },
+        {
+          "path": "taxCreditRequest/wrapper/alimony/judgement",
+          "name": "judgement",
+          "type": "fFile",
+          "label": "<span>צילום פסק דין המחייב בתשלום מזונות</span>",
+          "required": false,
+          "visibleWhen": "container.checked",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/youngEmployeeOrSpouse/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "13. מלאו לי או לבן/בת זוגי 16 שנים וטרם מלאו לי או לבן/בת זוגי 18 שנים בשנת המס.",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "function",
+              "message": "לא ניתן לסמן משום שלא ציינת תאריך לידה בחלק ב'.",
+              "fn": "!value || model.employee.dateOfBirth"
+            },
+            {
+              "type": "function",
+              "message": "לא ניתן לסמן משום שלא ציינת בחלק ו' את תאריך הלידה של בן/בת הזו.",
+              "fn": "!value || \nmodel.employee.maritalStatus !== 'married' ||\nmodel.spouse.dateOfBirth"
+            },
+            {
+              "type": "function",
+              "message": "לא ניתן לסמן משום שימלאו לך {{ model.employee.ageOnTaxYear }} שנים בשנת המס.",
+              "fn": "!value ||\nmodel.employee.maritalStatus === 'married'\n|| \n(\nmodel.employee.ageOnTaxYear >= 16 && model.employee.ageOnTaxYear < 18\n)"
+            },
+            {
+              "type": "function",
+              "message": "לא ניתן לסמן משום שימלאו לך {{ model.employee.ageOnTaxYear }} ולבן/בת הזוג {{ model.spouse.ageOnTaxYear }} שנים בשנת המס.",
+              "fn": "!value ||\nmodel.employee.maritalStatus !== 'married'\n || (\nmodel.spouse.ageOnTaxYear >= 16 && model.spouse.ageOnTaxYear < 18)\n|| (\nmodel.employee.ageOnTaxYear >= 16 && model.employee.ageOnTaxYear < 18)"
+            },
+            {
+              "type": "function",
+              "message": "שים לב! עליך לסמן סעיף זה כדי לקבל את נקודות הזיכוי המגיעות לך.",
+              "fn": "value || \nmodel._settings.teenagerCreditPointNotUtilizedWarning !== 'warn' ||\n!(\n  (model.employee.ageOnTaxYear >= 16 && model.employee.ageOnTaxYear < 18) ||\n  (model.employee.maritalStatus === 'married' && model.spouse.ageOnTaxYear && model.spouse.ageOnTaxYear >= 16 && model.spouse.ageOnTaxYear < 18)\n)"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/dischargedFromService/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "14. אני חייל/ת משוחרר/ת / שרתתי בשירות לאומי.",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/dischargedFromService/wrapper/row/serviceStartDate",
+          "name": "serviceStartDate",
+          "type": "fDate",
+          "label": "תאריך תחילת שירות",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "function",
+              "message": "התאריך שהכנסת הוא בעתיד.",
+              "fn": "value <= fn.today()"
+            },
+            {
+              "type": "function",
+              "message": "חייב להיות לפני תאריך סיום השירות.",
+              "fn": "!container.serviceEndDate ||\nvalue < container.serviceEndDate"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/dischargedFromService/wrapper/row/serviceEndDate",
+          "name": "serviceEndDate",
+          "type": "fDate",
+          "label": "תאריך סיום שירות",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "function",
+              "message": "התאריך שהכנסת הוא בעתיד.",
+              "fn": "value <= fn.today()"
+            },
+            {
+              "type": "function",
+              "message": "חייב להיות אחרי תאריך תחילת השירות.",
+              "fn": "!container.serviceStartDate ||\nvalue > container.serviceStartDate"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/dischargedFromService/wrapper/row/dischargeCertificate",
+          "name": "dischargeCertificate",
+          "type": "fFile",
+          "label": "תעודת שחרור/ סיום שירות",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/studies/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "15. בגין סיום לימודים לתואר אקדמי, סיום התמחות או סיום לימודי מקצוע.",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/studies/form119",
+          "name": "form119",
+          "type": "fFile",
+          "label": "הצהרה בטופס 119",
+          "required": false,
+          "visibleWhen": "container.checked",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "<p>ניתן להיעזר ב<a href=\"https://tofes101.co.il/fill-form-119/\" target=\"_blank\">טופס 119 הממוחשב</a> או להוריד את הטופס <a href=\"https://taxes.gov.il/TaxesFormsList/itc119_11.pdf\" target=\"_blank\">מאתר רשות המסים</a>.</p>\n"
+        },
+        {
+          "path": "taxCreditRequest/wrapper/combatReserveService/checked",
+          "name": "checked",
+          "type": "fBool",
+          "label": "16. שירתתי כלוחם/לוחמת מילואים בשנת המס הקודמת.",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/combatReserveService/wrapper/days",
+          "name": "days",
+          "type": "fInput",
+          "label": "סה”כ ימי מילואים בשנת המס הקודמת",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {},
+            {
+              "type": "num/val"
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "taxCreditRequest/wrapper/combatReserveService/wrapper/eligibilityCertificate",
+          "name": "eligibilityCertificate",
+          "type": "fFile",
+          "label": "אישור מצה\"ל על זכאות בעד שירות מילואים כלוחם",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        }
+      ]
+    },
+    {
+      "id": "taxCoordinationRequest",
+      "letter": "ט",
+      "title": "תיאום מס",
+      "fields": [
+        {
+          "path": "taxCoordinationRequest/isRequesting",
+          "name": "isRequesting",
+          "type": "fBool",
+          "label": "צירוף/עריכת תיאום מס",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCoordinationRequest/requestWrapper/type",
+          "name": "type",
+          "type": "fRadio",
+          "label": "סיבת הבקשה",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              "no-previous-incomes",
+              " לא הייתה לי הכנסה מתחילת שנת המס הנוכחית עד לתחילת עבודתי אצל מעסיק זה."
+            ],
+            [
+              "other-incomes-list",
+              "יש לי הכנסות נוספות ממשכורת כמפורט להלן."
+            ],
+            [
+              "assessing-officer-certificate",
+              " פקיד השומה אישר תיאום לפי אישור מצורף."
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCoordinationRequest/requestWrapper/noPreviousIncomesCertificate",
+          "name": "noPreviousIncomesCertificate",
+          "type": "fFile",
+          "label": "הוכחות לחוסר הכנסה",
+          "required": false,
+          "visibleWhen": "container.type === 'no-previous-incomes'",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "<p>כגון: אישור משטרת הגבולות בגין שהייה בחו\"ל, אישור מחלה וכיו\"ב. <strong>בהעדר הוכחה יש לפנות לפקיד השומה</strong>.<br>\nלתשומת לבך: דמי לידה ודמי אבטלה הינם הכנסה חייבת.</p>"
+        },
+        {
+          "path": "taxCoordinationRequest/requestWrapper/otherIncomes/row1/name",
+          "name": "name",
+          "type": "fInput",
+          "label": "שם",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCoordinationRequest/requestWrapper/otherIncomes/row1/address",
+          "name": "address",
+          "type": "fInput",
+          "label": "כתובת",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCoordinationRequest/requestWrapper/otherIncomes/row1/deductionsFileNum",
+          "name": "deductionsFileNum",
+          "type": "fInput",
+          "label": "מספר תיק ניכויים",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": [
+            {
+              "type": "function",
+              "message": "המספר חייב להתחיל בספרה 9.",
+              "fn": "(''+value)[0]==='9'"
+            },
+            {
+              "type": "num/digitsNum"
+            },
+            {
+              "type": "int",
+              "message": "יש להכניס ספרות בלבד."
+            },
+            {
+              "type": "luhn",
+              "message": "המספר אינו תקין."
+            }
+          ],
+          "help": null
+        },
+        {
+          "path": "taxCoordinationRequest/requestWrapper/otherIncomes/row2/type",
+          "name": "type",
+          "type": "fRadio",
+          "label": "סוג הכנסה",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": [
+            [
+              "work",
+              "עבודה"
+            ],
+            [
+              "allowance",
+              "קיצבה"
+            ],
+            [
+              "scholarship",
+              "מילגה"
+            ],
+            [
+              "other",
+              "אחר"
+            ]
+          ],
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCoordinationRequest/requestWrapper/otherIncomes/row2/type_label",
+          "name": "type_label",
+          "type": "fInput",
+          "label": "סוג הכנסה - תווית",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCoordinationRequest/requestWrapper/otherIncomes/row2/monthlyIncome",
+          "name": "monthlyIncome",
+          "type": "fInput",
+          "label": "הכנסה חודשית",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "לפי התלושים"
+        },
+        {
+          "path": "taxCoordinationRequest/requestWrapper/otherIncomes/row2/monthlyDeductedTax",
+          "name": "monthlyDeductedTax",
+          "type": "fInput",
+          "label": "המס שנוכה",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "לפי התלושים"
+        },
+        {
+          "path": "taxCoordinationRequest/requestWrapper/otherIncomes/payslip",
+          "name": "payslip",
+          "type": "fFile",
+          "label": "צילום תלוש שכר",
+          "required": false,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        },
+        {
+          "path": "taxCoordinationRequest/requestWrapper/assessingOfficerCertificate",
+          "name": "assessingOfficerCertificate",
+          "type": "fFile",
+          "label": "אישור תיאום מס ע\"י פקיד שומה",
+          "required": false,
+          "visibleWhen": "container.type === 'assessing-officer-certificate'",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        }
+      ]
+    },
+    {
+      "id": "_confirmation",
+      "letter": "י",
+      "title": "הצהרה וחתימה",
+      "fields": [
+        {
+          "path": "_confirmation/signature",
+          "name": "signature",
+          "type": "fSign",
+          "label": "חתימת המבקש/ת",
+          "required": true,
+          "visibleWhen": null,
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": "ניתן לחתום בעזרת העכבר או עם האצבע על מסך מגע."
+        },
+        {
+          "path": "_confirmation/time",
+          "name": "time",
+          "type": "fDate",
+          "label": "תאריך",
+          "required": true,
+          "visibleWhen": "container.signature",
+          "computed": null,
+          "options": null,
+          "validators": null,
+          "help": null
+        }
+      ]
+    },
+    {
+      "id": "appendix",
+      "letter": "—",
+      "title": "נספח – מסמכים",
+      "fields": []
+    }
+  ]
+}

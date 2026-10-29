@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /form-submitted/
+Disallow: /admin-portal-archive
+Disallow: /data-export-legacy
+Sitemap: https://tofes101.co.il/sitemap.xml

@@ -1,0 +1,14 @@
+{
+  "name": "pdf-spike",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
+    "@pdfme/common": "^6.2.8",
+    "@pdfme/generator": "^6.2.8",
+    "bidi-js": "^1.1.0",
+    "jspdf": "^4.2.1",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^6.4.299"
+  }
+}

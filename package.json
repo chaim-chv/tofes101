@@ -1,0 +1,15 @@
+{
+  "name": "tofes101",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "kb": "bun run scripts/kb.ts",
+    "kb:check": "bun run scripts/kb.ts check",
+    "kb:backlinks": "bun run scripts/kb.ts --write",
+    "extract:form": "bun run tools/crawl/extract-form.ts && bun run tools/kb/gen-field-spec.ts",
+    "crawl": "bun run tools/crawl/dump.ts"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
+}

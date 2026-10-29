@@ -1,0 +1,76 @@
+# up-tree (generated)
+
+- How the reference product actually works (tepez form runtime)  `finding/tepez-form-runtime`
+- מפת הידע — tofes101 knowledge base  `index`
+  - Competitor content & SEO strategy (and what we must write ourselves)  `competitor/content-strategy`
+  - Feature parity — what they have, what we build, where we win  `competitor/feature-parity`
+  - Competitor calculators — what exists and what it computes  `competitor/flow-calculators`
+  - Competitor flow — employee fills form 101 (screens, states, copy)  `competitor/flow-employee`
+  - Competitor flow — employer creates a template link  `competitor/flow-employer`
+  - Competitor monetisation, ads and tracking (what we refuse to do)  `competitor/monetization-and-tracking`
+  - tofes101.co.il — site map & information architecture  `competitor/site-map`
+  - Tech recon — stack, chunks, endpoints, and how the runner is embedded  `competitor/tech-recon`
+  - שירות מילוי טופס 101 — end-to-end service flow  `flow/form-101-service`
+    - שדה — חלק ג׳ ילדים (repeat rows)  `field/101-children-block`
+    - שדה — חלק ח׳ מפת 16 פריטי הפטור/זיכוי (UI ↔ rule ↔ document)  `field/101-credit-items-map`
+    - שדה — נספח: המסמכים שנדרשים לפי התשובות  `field/101-documents`
+    - שדה — זהות העובד (ת"ז / דרכון)  `field/101-employee-identity`
+    - שדה — מעמד מס של העובד (תושבות, מצב משפחתי, קופת חולים, קיבוץ)  `field/101-employee-tax-status`
+    - שדה — חלק א׳ פרטי המעסיק  `field/101-employer-block`
+    - שדה — חלק ה׳ הכנסות אחרות (the gate that can block part ח׳)  `field/101-other-incomes`
+    - שדה — חלק י׳ הצהרה וחתימה  `field/101-signature`
+    - שדה — חלק ט׳ תיאום מס  `field/101-tax-coordination`
+    - שדה — שנת המס (tax year selector)  `field/101-tax-year`
+    - מפרט שדות טופס 101 — Field specification (generated)  `flow/form-101-field-spec`
+  - Personas — who fills this form, and where the current product hurts them  `product/personas`
+  - Scope v1 — browser-only 101 (no emailing), derived from parity  `product/scope-v1`
+  - עקרונות UX — 12 כללים שמחייבים כל מסך  `ux/ux-principles`
+    - נגישות בישראל — מה החוק מחייב אתר ציבורי  `ux/a11y-israeli-law`
+      - ת"י 5568 (WCAG 2.0 AA) מול WCAG 2.2 AA — מה מוסיפים ולמה  `ux/a11y-is5568-vs-wcag22`
+      - הצהרת נגישות — מה חייבת להכיל ואיך מנסחים  `ux/a11y-statement`
+    - Autofill — מיפוי autocomplete, inputmode ו-enterkeyhint  `ux/autofill-tokens`
+    - רדיו, צ'קבוקס ומתג ב-RTL — סמנטיקה ובחירות  `ux/choice-controls`
+    - הקלדה בעברית — פריסת מקלדת, סופיות, תיקון אוטומטי  `ux/hebrew-input`
+    - טיפוגרפיה עברית ל-UI — פונטים, גדלים, מספרים  `ux/hebrew-typography`
+    - מסכות קלט ישראליות — ת"ז, טלפון, תאריך, סכום  `ux/israeli-input-masking`
+    - הכרזות ל-aria-live — מה, מתי ואיך לא להציף  `ux/live-announcements`
+    - שדות חובה, רשות ושדות תלויים  `ux/required-optional-conditional`
+    - RTL — תשתית, CSS לוגי ומה נשבר בפועל  `ux/rtl-foundations`
+      - Bidi — תעודת זהות, טלפון, אימייל וטקסט מעורב עברית/אנגלית  `ux/bidi-mixed-content`
+    - ולידציה, סיכום שגיאות וניהול פוקוס  `ux/validation-and-errors`
+    - אשף שלבים מול עמוד ארוך — ההחלטה לטופס 101  `ux/wizard-vs-long-page`
+      - התקדמות, שמירה אוטומטית ו"המשך מאוחר יותר" בלי שרת  `ux/progress-save-resume`
+- gov.il — רשימת רכזי הנגישות במשרדי הממשלה  `source/govil-accessibility-coordinators`
+- gov.il — הצהרת נגישות (דוגמה רשמית של מערך הדיגיטל הלאומי)  `source/govil-accessibility-statement`
+- ת"י 5568 חלק 1 (ספטמבר 2023) — התקן הישראלי לנגישות אתרי אינטרנט  `source/govil-is5568-standard`
+- gov.il — "נגישות אתרי אינטרנט" (מדריך, עדכון 16.03.2026)  `source/govil-website-accessibility-guide`
+- GOV.UK Design System — Addresses pattern  `source/govuk-addresses`
+- GOV.UK Design System — Dates pattern  `source/govuk-dates`
+- GOV.UK Design System — Error summary component  `source/govuk-error-summary`
+- GOV.UK Design System — Names pattern  `source/govuk-names`
+- GOV.UK Design System — Question pages pattern  `source/govuk-question-pages`
+- תקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע״ג-2013 — נוסח מלא  `source/israel-regs-service-accessibility`
+- MDN — HTML autocomplete attribute (token list)  `source/mdn-autocomplete`
+- MDN — HTML enterkeyhint attribute  `source/mdn-enterkeyhint`
+- MDN — HTML inputmode attribute  `source/mdn-inputmode`
+- MDN — VisualViewport API  `source/mdn-visual-viewport`
+- NN/g — Website Forms Usability: Top 10 Recommendations  `source/nng-web-form-design`
+- tofes101.co.il/docs/online-form/custom-form/ — employer template docs  `source/tofes101-docs-custom-form`
+- tofes101.co.il/docs/online-form/faq/ — FAQ (15 questions, 3 answers)  `source/tofes101-docs-faq`
+- tofes101.co.il/docs/online-form/ — how the online form behaves  `source/tofes101-docs-online-form`
+- tofes101.co.il/docs/tax-adjustment/ — תיאום מס guide  `source/tofes101-docs-tax-adjustment`
+- tofes101.co.il/docs/tax-reductions/* — 11-page credit-point cluster  `source/tofes101-docs-tax-reductions`
+- tofes101.co.il Next.js chunks — forms registry + docs tree  `source/tofes101-engine-bundle`
+- Reference form definition API (api.tepez.co.il)  `source/tofes101-form-runner-api`
+- tofes101.co.il/forms/itc-101/organizations/ — employer landing (B2B)  `source/tofes101-itc101-employer-landing`
+- tofes101.co.il/forms/itc-101/ — SEO landing page for form 101  `source/tofes101-itc101-landing`
+- tofes101.co.il — /privacy, /terms, /cookies, /accessibility  `source/tofes101-legal-pages`
+- טופס 101 הרשמי (PDF) + דברי ההסבר  `source/tofes101-official-pdf`
+- forms.tofes101.co.il — the embedded runner shell  `source/tofes101-runner-app`
+- tofes101.co.il — home page (crawled)  `source/tofes101-site-home`
+- tofes101.co.il — sitemap index, sitemap-0, sitemap-pdfs, robots.txt  `source/tofes101-sitemap`
+- W3C i18n — Inline markup and bidirectional text in HTML  `source/w3c-bidi-inline`
+- W3C i18n — Structural markup and right-to-left text in HTML  `source/w3c-bidi-structural`
+- WCAG 2.0 — תרגום עברי רשמי (איגוד האינטרנט הישראלי)  `source/w3c-wcag20-hebrew`
+- WCAG 2.2 — W3C Recommendation (12 Dec 2024)  `source/w3c-wcag22`
+- W3C WAI — "What's New in WCAG 2.2"  `source/w3c-wcag22-whats-new`

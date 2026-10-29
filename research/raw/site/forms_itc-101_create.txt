@@ -1,0 +1,15 @@
+# META {"title": "הכנת טופס 101 לשליחה לעובדים | טופס 101", "viewport": "width=device-width, initial-scale=1", "next-size-adjust": "", "description": "צרו טופס 101 מותאם לארגון שלכם ושלחו לעובדים למילוי מקוון", "keywords": "טופס 101,מעסיק,תבנית,כרטיס עובד", "og:title": "הכנת טופס 101 לשליחה לעובדים", "og:description": "צרו טופס 101 מותאם לארגון שלכם ושלחו לעובדים למילוי מקוון", "og:url": "https://tofes101.co.il/forms/itc-101/create/", "og:site_name": "טופס101", "og:locale": "he_IL", "og:type": "website", "twitter:card": "summary", "twitter:title": "הכנת טופס 101 לשליחה לעובדים", "twitter:description": "צרו טופס 101 מותאם לארגון שלכם ושלחו לעובדים למילוי מקוון", "canonical": "https://tofes101.co.il/forms/itc-101/create/"}
+
+## NAV
+- כל השירותים — לגמרי בחינם
+
+- טפסים
+
+- מחשבונים
+
+- מדריכים
+
+## MAIN
+טוען טופס...
+
+## FOOTER

@@ -1,0 +1,53 @@
+# META {"title": "מחשבון אחוזים - חישוב אחוזים מכל מספר | טופס 101", "viewport": "width=device-width, initial-scale=1", "next-size-adjust": "", "description": "מחשבון אחוזים - חשבו אחוזים מכל מספר בקלות", "keywords": "מחשבון אחוזים,חישוב אחוזים,אחוז", "og:title": "מחשבון אחוזים - חישוב אחוזים מכל מספר", "og:description": "מחשבון אחוזים - חשבו אחוזים מכל מספר בקלות", "og:url": "https://tofes101.co.il/forms/percentage-calculator/", "og:site_name": "טופס101", "og:locale": "he_IL", "og:type": "website", "twitter:card": "summary", "twitter:title": "מחשבון אחוזים - חישוב אחוזים מכל מספר", "twitter:description": "מחשבון אחוזים - חשבו אחוזים מכל מספר בקלות", "canonical": "https://tofes101.co.il/forms/percentage-calculator/"}
+
+## NAV
+- כל השירותים — לגמרי בחינם
+
+- טפסים
+
+- מחשבונים
+
+- מדריכים
+
+## MAIN
+# מחשבון אחוזים
+
+### 1כמה זה X% מתוך Y
+
+אחוז
+
+%
+
+מתוך
+
+תוצאה
+37.5
+
+### 2כמה אחוז זה X מתוך Y
+
+ערך
+
+מתוך
+
+אחוז
+50%
+
+### 3אם X הוא Y% — כמה זה Z%
+
+ערך
+
+הוא אחוז
+
+%
+
+כמה זה אחוז
+
+%
+
+תוצאה
+20
+
+עיגול — ספרות אחרי הנקודה
+2
+
+## FOOTER

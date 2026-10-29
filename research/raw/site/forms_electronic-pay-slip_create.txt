@@ -1,0 +1,15 @@
+# META {"title": "תלוש שכר אלקטרוני - יצירת תבנית למעסיק | טופס 101", "viewport": "width=device-width, initial-scale=1", "next-size-adjust": "", "description": "צרו תבנית טופס הסכמה לתלוש שכר אלקטרוני עבור העובדים שלכם", "keywords": "תלוש שכר,אלקטרוני,מעסיק,תבנית", "og:title": "תלוש שכר אלקטרוני - יצירת תבנית למעסיק", "og:description": "צרו תבנית טופס הסכמה לתלוש שכר אלקטרוני עבור העובדים שלכם", "og:url": "https://tofes101.co.il/forms/electronic-pay-slip/create/", "og:site_name": "טופס101", "og:locale": "he_IL", "og:type": "website", "twitter:card": "summary", "twitter:title": "תלוש שכר אלקטרוני - יצירת תבנית למעסיק", "twitter:description": "צרו תבנית טופס הסכמה לתלוש שכר אלקטרוני עבור העובדים שלכם", "canonical": "https://tofes101.co.il/forms/electronic-pay-slip/create/"}
+
+## NAV
+- כל השירותים — לגמרי בחינם
+
+- טפסים
+
+- מחשבונים
+
+- מדריכים
+
+## MAIN
+טוען טופס...
+
+## FOOTER

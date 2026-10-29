@@ -1,0 +1,15 @@
+# META {"title": "תקנון למניעת הטרדה מינית - יצירת תבנית למעסיק | טופס 101", "viewport": "width=device-width, initial-scale=1", "next-size-adjust": "", "description": "צרו תבנית תקנון למניעת הטרדה מינית עבור העובדים שלכם", "keywords": "תקנון,הטרדה מינית,מעסיק,תבנית", "og:title": "תקנון למניעת הטרדה מינית - יצירת תבנית למעסיק", "og:description": "צרו תבנית תקנון למניעת הטרדה מינית עבור העובדים שלכם", "og:url": "https://tofes101.co.il/forms/anti-sexual-harassment/create/", "og:site_name": "טופס101", "og:locale": "he_IL", "og:type": "website", "twitter:card": "summary", "twitter:title": "תקנון למניעת הטרדה מינית - יצירת תבנית למעסיק", "twitter:description": "צרו תבנית תקנון למניעת הטרדה מינית עבור העובדים שלכם", "canonical": "https://tofes101.co.il/forms/anti-sexual-harassment/create/"}
+
+## NAV
+- כל השירותים — לגמרי בחינם
+
+- טפסים
+
+- מחשבונים
+
+- מדריכים
+
+## MAIN
+טוען טופס...
+
+## FOOTER
