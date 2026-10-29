@@ -96,3 +96,73 @@ then the evidence.
 The form itself is elsewhere: [flow/form-101-service](flow/form-101-service.md),
 [flow/form-101-field-spec](flow/form-101-field-spec.md),
 [finding/tepez-form-runtime](finding/tepez-form-runtime.md).
+
+## UX
+
+The UX + accessibility layer: what every screen must do, and why. The hub is
+[ux/ux-principles](ux/ux-principles.md) — 12 rules, each linking to an implementable node.
+
+**Law & standard**
+
+| Node | What it answers |
+| --- | --- |
+| [ux/a11y-israeli-law](ux/a11y-israeli-law.md) | who is liable, what the 2013 regulations + 2017 amendment require, exemptions, coordinator duties |
+| [ux/a11y-is5568-vs-wcag22](ux/a11y-is5568-vs-wcag22.md) | IS 5568 = WCAG 2.0 AA; the exact 2.2 delta we adopt and what we may claim |
+| [ux/a11y-statement](ux/a11y-statement.md) | required contents, placement, Hebrew template, what not to claim |
+
+**Hebrew, RTL, bidi**
+
+| Node | What it answers |
+| --- | --- |
+| [ux/rtl-foundations](ux/rtl-foundations.md) | `dir="rtl"`, logical CSS, icon mirroring, the traps |
+| [ux/bidi-mixed-content](ux/bidi-mixed-content.md) | IDs, phones, emails, URLs, `<bdi>`, `&lrm;`/`&rlm;` |
+| [ux/hebrew-typography](ux/hebrew-typography.md) | font stack, 18px base, line length, tabular numerals |
+| [ux/hebrew-input](ux/hebrew-input.md) | keyboard layout, final letters, autocorrect, bidi marks on paste |
+| [ux/hebrew-microcopy](ux/hebrew-microcopy.md) | plain Hebrew, gender strategy, terminology table, before/after |
+
+**Form mechanics**
+
+| Node | What it answers |
+| --- | --- |
+| [ux/wizard-vs-long-page](ux/wizard-vs-long-page.md) | 8 steps + review; why not one page or 160 pages |
+| [ux/form-101-screen-map](ux/form-101-screen-map.md) | per-step content, risk, a11y notes |
+| [ux/progress-save-resume](ux/progress-save-resume.md) | progress, autosave, draft file, storage warnings |
+| [ux/autofill-tokens](ux/autofill-tokens.md) | full `autocomplete`/`inputmode`/`enterkeyhint` table |
+| [ux/israeli-input-masking](ux/israeli-input-masking.md) | ID check digit, phone, dates, money, postcode |
+| [ux/validation-and-errors](ux/validation-and-errors.md) | timing, error summary, focus, `aria-invalid`, no data loss |
+| [ux/required-optional-conditional](ux/required-optional-conditional.md) | mark optional, conditional fields, skipped sections |
+| [ux/live-announcements](ux/live-announcements.md) | one status region, what to announce and what not |
+| [ux/choice-controls](ux/choice-controls.md) | radio/checkbox/switch, RTL arrows, "none of the above" |
+| [ux/help-and-glossary](ux/help-and-glossary.md) | progressive disclosure without hiding required info |
+| [ux/signature-accessibility](ux/signature-accessibility.md) | canvas + typed path, declaration, legal caveats |
+
+**Keyboard, mobile, trust, output**
+
+| Node | What it answers |
+| --- | --- |
+| [ux/keyboard-model](ux/keyboard-model.md) | native by default, opt-in quick keys, why no `Ctrl+Alt` |
+| [ux/focus-management](ux/focus-management.md) | focus order, rings, step changes, dialogs, skip links |
+| [ux/speed-patterns](ux/speed-patterns.md) | defaults, copy-from-spouse, chips, review & fix |
+| [ux/mobile-layout](ux/mobile-layout.md) | 44px, sticky action, keyboard, safe areas |
+| [ux/trust-local-privacy](ux/trust-local-privacy.md) | local-only claims, shared device, what never to promise |
+| [ux/print-export](ux/print-export.md) | print CSS, PDF tagging, metadata, signature page |
+
+**Checklists (paste into PRs)**
+
+| Node | Use |
+| --- | --- |
+| [ux/checklists/a11y-pr-checklist](ux/checklists/a11y-pr-checklist.md) | per-PR gate, mapped to WCAG SC |
+| [ux/checklists/keyboard-map](ux/checklists/keyboard-map.md) | the shortcut table, implement verbatim |
+| [ux/checklists/screen-review-checklist](ux/checklists/screen-review-checklist.md) | 15-minute per-screen review |
+
+**Sources** — [gov.il IS 5568](sources/govil-is5568-standard.md),
+[regulations](sources/israel-regs-service-accessibility.md),
+[gov.il guide](sources/govil-website-accessibility-guide.md),
+[statement example](sources/govil-accessibility-statement.md),
+[WCAG 2.2](sources/w3c-wcag22.md), [WCAG 2.0 Hebrew](sources/w3c-wcag20-hebrew.md),
+[bidi structural](sources/w3c-bidi-structural.md), [bidi inline](sources/w3c-bidi-inline.md),
+[GOV.UK question pages](sources/govuk-question-pages.md), [error summary](sources/govuk-error-summary.md),
+[names](sources/govuk-names.md), [addresses](sources/govuk-addresses.md), [dates](sources/govuk-dates.md),
+[MDN autocomplete](sources/mdn-autocomplete.md), [inputmode](sources/mdn-inputmode.md),
+[enterkeyhint](sources/mdn-enterkeyhint.md), [VisualViewport](sources/mdn-visual-viewport.md),
+[NN/g forms](sources/nng-web-form-design.md).

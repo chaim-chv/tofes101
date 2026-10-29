@@ -8,6 +8,7 @@ updated: 2026-10-29
 publisher: gov.il
 url: https://www.gov.il/he/Departments/General/government_accessibility_coordinators_list
 retrieved: 2026-10-29
+verified_via: reader (r.jina.ai); curl gets Cloudflare 403
 tags: [accessibility, israel, coordinator]
 ---
 

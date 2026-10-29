@@ -1,0 +1,18 @@
+import { chromium } from 'playwright'
+const browser = await chromium.launch({ channel: 'chrome' })
+const ctx = await browser.newContext()
+const page = await ctx.newPage()
+page.on('console', m => console.log('PAGE', m.type(), m.text()))
+page.on('pageerror', e => console.log('ERR', String(e)))
+console.log('goto')
+await page.goto('http://localhost:3013/', { waitUntil: 'load', timeout: 20000 })
+console.log('loaded')
+const regs = await page.evaluate(async () => {
+  const rs = await navigator.serviceWorker.getRegistrations()
+  return rs.map(r => ({ scope: r.scope, active: r.active?.state, waiting: r.waiting?.state, installing: r.installing?.state }))
+})
+console.log('regs', JSON.stringify(regs))
+console.log('waiting ready...')
+const ready = await Promise.race([page.evaluate(() => navigator.serviceWorker.ready.then(r => r.scope)), new Promise(r => setTimeout(() => r('TIMEOUT'), 8000))])
+console.log('ready', ready)
+await browser.close()

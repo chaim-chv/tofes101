@@ -1,0 +1,12 @@
+import { chromium } from 'playwright'
+const b = await chromium.launch({ channel: 'chrome' })
+const ctx = await b.newContext()
+const p = await ctx.newPage()
+p.on('request', r => { if (/sw\.js|workbox|Bd17/.test(r.url())) console.log('REQ', r.url()) })
+p.on('response', r => { if (/sw\.js|workbox|Bd17/.test(r.url())) console.log('RES', r.status(), r.url()) })
+p.on('console', m => console.log('CONSOLE', m.type(), m.text()))
+p.on('pageerror', e => console.log('PAGEERR', String(e)))
+await p.goto('http://localhost:3013/', { waitUntil: 'networkidle' })
+await p.waitForTimeout(6000)
+console.log('regs', await p.evaluate(async () => (await navigator.serviceWorker.getRegistrations()).map(r => ({ scope: r.scope, state: r.active?.state }))))
+await b.close()

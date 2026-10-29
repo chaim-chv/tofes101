@@ -8,6 +8,7 @@ updated: 2026-10-29
 publisher: W3C Internationalization
 url: https://www.w3.org/International/articles/inline-bidi-markup/
 retrieved: 2026-10-29
+verified_via: reader (r.jina.ai); curl gets Cloudflare 403
 tags: [rtl, bidi, html, i18n, numbers]
 ---
 

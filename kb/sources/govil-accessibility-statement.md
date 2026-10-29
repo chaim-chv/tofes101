@@ -8,6 +8,7 @@ updated: 2026-10-29
 publisher: מערך הדיגיטל הלאומי (gov.il)
 url: https://www.gov.il/he/pages/accessibility_statement
 retrieved: 2026-10-29
+verified_via: reader (r.jina.ai); curl gets Cloudflare 403
 tags: [accessibility, law, israel, statement, example]
 ---
 

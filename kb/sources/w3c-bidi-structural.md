@@ -8,6 +8,7 @@ updated: 2026-10-29
 publisher: W3C Internationalization
 url: https://www.w3.org/International/questions/qa-html-dir
 retrieved: 2026-10-29
+verified_via: reader (r.jina.ai); curl gets Cloudflare 403
 tags: [rtl, bidi, html, i18n]
 ---
 

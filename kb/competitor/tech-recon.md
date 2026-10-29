@@ -55,7 +55,7 @@ ETag: "091a8ef…"   Cache-Control: public, max-age=0, must-revalidate
 | | site | runner |
 | --- | --- | --- |
 | origin | `tofes101.co.il` | `forms.tofes101.co.il` |
-| stack | Next.js App Router, React 19, Base UI | **AngularJS 1.x** (`ng-app="tepez"`, ui-router `ui-view`) |
+| stack | Next.js App Router (React), Base UI | **AngularJS 1.x** (`ng-app="tepez"`, ui-router `ui-view`) |
 | build | Turbopack | webpack 4, `assets/js/tepez-front-core-838c548d67.js` |
 | state | none (static) | client-side model + **Dexie/IndexedDB** + server drafts |
 | PDF | none | `pdf.js` + a server "render" action |

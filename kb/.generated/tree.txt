@@ -22,39 +22,84 @@
     - שדה — חלק ט׳ תיאום מס  `field/101-tax-coordination`
     - שדה — שנת המס (tax year selector)  `field/101-tax-year`
     - מפרט שדות טופס 101 — Field specification (generated)  `flow/form-101-field-spec`
+  - מונחים — glossary (HE/EN) for form 101  `glossary/terms`
   - Personas — who fills this form, and where the current product hurts them  `product/personas`
   - Scope v1 — browser-only 101 (no emailing), derived from parity  `product/scope-v1`
+    - ADR-0004 — v1 scope, tax year, languages, delivery  `decision/adr-0004-v1-scope`
+    - ADR-0005 — Employer prefill link (no-server template replacement)  `decision/adr-0005-employer-prefill-link`
   - עקרונות UX — 12 כללים שמחייבים כל מסך  `ux/ux-principles`
     - נגישות בישראל — מה החוק מחייב אתר ציבורי  `ux/a11y-israeli-law`
       - ת"י 5568 (WCAG 2.0 AA) מול WCAG 2.2 AA — מה מוסיפים ולמה  `ux/a11y-is5568-vs-wcag22`
       - הצהרת נגישות — מה חייבת להכיל ואיך מנסחים  `ux/a11y-statement`
     - Autofill — מיפוי autocomplete, inputmode ו-enterkeyhint  `ux/autofill-tokens`
     - רדיו, צ'קבוקס ומתג ב-RTL — סמנטיקה ובחירות  `ux/choice-controls`
+    - ניהול פוקוס — סדר, טבעת, דיאלוגים ודביקים  `ux/focus-management`
     - הקלדה בעברית — פריסת מקלדת, סופיות, תיקון אוטומטי  `ux/hebrew-input`
+    - מיקרו-קופי בעברית — פשוט, מגדרי, אחיד  `ux/hebrew-microcopy`
     - טיפוגרפיה עברית ל-UI — פונטים, גדלים, מספרים  `ux/hebrew-typography`
+    - עזרה ומילון מונחים — גילוי הדרגתי בלי להסתיר מידע חובה  `ux/help-and-glossary`
     - מסכות קלט ישראליות — ת"ז, טלפון, תאריך, סכום  `ux/israeli-input-masking`
+    - מודל מקלדת — ניווט, קיצורים ומה אסור  `ux/keyboard-model`
+      - מפת מקלדת — הטבלה המחייבת  `ux/checklists/keyboard-map`
     - הכרזות ל-aria-live — מה, מתי ואיך לא להציף  `ux/live-announcements`
+    - מובייל — thumb zone, מקלדת וירטואלית ו-44px  `ux/mobile-layout`
+    - הדפסה וייצוא PDF — נגיש, נאמן למקור, בלי שרת  `ux/print-export`
     - שדות חובה, רשות ושדות תלויים  `ux/required-optional-conditional`
     - RTL — תשתית, CSS לוגי ומה נשבר בפועל  `ux/rtl-foundations`
       - Bidi — תעודת זהות, טלפון, אימייל וטקסט מעורב עברית/אנגלית  `ux/bidi-mixed-content`
+    - חתימה — Canvas, חלופה במקלדת ותוקף משפטי  `ux/signature-accessibility`
+    - מהירות מילוי — ברירות מחדל, העתקה וסקירה  `ux/speed-patterns`
+    - בדיקות נגישות — מקלדת, קוראי מסך, CI ו-DoD  `ux/testing`
+      - צ'קליסט נגישות ל-PR — להעתיק לתבנית  `ux/checklists/a11y-pr-checklist`
+      - בדיקת מסך — 15 דקות לפני שמראים למשתמש  `ux/checklists/screen-review-checklist`
+    - אמון ופרטיות — "הנתונים לא עוזבים את המכשיר"  `ux/trust-local-privacy`
     - ולידציה, סיכום שגיאות וניהול פוקוס  `ux/validation-and-errors`
     - אשף שלבים מול עמוד ארוך — ההחלטה לטופס 101  `ux/wizard-vs-long-page`
+      - מפת מסכים לטופס 101 — מה בכל שלב, ומה נשבר  `ux/form-101-screen-map`
       - התקדמות, שמירה אוטומטית ו"המשך מאוחר יותר" בלי שרת  `ux/progress-save-resume`
+- טופס 101 — כרטיס עובד: הסגל המשפטי  `law/form-101`
+- ביטוח לאומי — גמלת ילד נכה והיטב הזיכוי (רשות המסים)  `source/btl-child-disability`
 - gov.il — רשימת רכזי הנגישות במשרדי הממשלה  `source/govil-accessibility-coordinators`
 - gov.il — הצהרת נגישות (דוגמה רשמית של מערך הדיגיטל הלאומי)  `source/govil-accessibility-statement`
+- gov.il — כרטיס עובד ובקשה להקלה ולתיאום מס (טופס 101)  `source/govil-form-101-service`
+- gov.il — אישור על משכורת וניכוי מס (טופס 106)  `source/govil-form-106`
+- טופס 116 — בקשה להקלה ולתיאום בחישוב ניכויי המס  `source/govil-form-116`
+- gov.il — מדריך הטבות מס הכנסה לעולים חדשים (2026)  `source/govil-immigrant-guide`
 - ת"י 5568 חלק 1 (ספטמבר 2023) — התקן הישראלי לנגישות אתרי אינטרנט  `source/govil-is5568-standard`
+- gov.il — מדריך הטבות במס להורים עם ילדים קטנים (2026-2024)  `source/govil-parents-credit-points`
+- gov.il — גמלאים מעל גיל 70 פטורים ממילוי טופס 101 מידי שנה  `source/govil-pensioner-101-exemption`
+- gov.il — מדריך מקצועי: תיקון מס׳ 13 לחוק הגנת הפרטיות  `source/govil-privacy-amendment-13`
+- gov.il — נקודות זיכוי בעד שירות מילואים כלוחם (2026–2027)  `source/govil-reserve-credit`
+- gov.il — זיכוי בעד בן/בת זוג ללא הכנסות  `source/govil-spouse-credit`
+- gov.il — עריכת תיאום מס באופן מקוון  `source/govil-tax-coordination`
 - gov.il — "נגישות אתרי אינטרנט" (מדריך, עדכון 16.03.2026)  `source/govil-website-accessibility-guide`
 - GOV.UK Design System — Addresses pattern  `source/govuk-addresses`
 - GOV.UK Design System — Dates pattern  `source/govuk-dates`
 - GOV.UK Design System — Error summary component  `source/govuk-error-summary`
 - GOV.UK Design System — Names pattern  `source/govuk-names`
 - GOV.UK Design System — Question pages pattern  `source/govuk-question-pages`
+- Israeli ID number — check-digit algorithm (technical reference)  `source/id-checksum-reference`
 - תקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע״ג-2013 — נוסח מלא  `source/israel-regs-service-accessibility`
+- כל-זכות — נקודות זיכוי בגין מזונות לבן/בת זוג לשעבר  `source/kolzchut-alimony`
+- כל-זכות — נקודות זיכוי להורים (פעוט / 6–17 / עד 18)  `source/kolzchut-children-credit`
+- כל-זכות — נקודות זיכוי ממס הכנסה (פורטל)  `source/kolzchut-credit-points`
+- כל-זכות — נקודות זיכוי בעד ילד או בוגר עם מוגבלות  `source/kolzchut-disabled-child`
+- כל-זכות — נקודות זיכוי לעובד זר  `source/kolzchut-foreign-worker`
+- כל-זכות — טופס 101 (הליך)  `source/kolzchut-form-101`
+- כל-זכות — נקודות זיכוי לעולה חדש  `source/kolzchut-oleh`
+- כל-זכות — נקודות זיכוי לחיילים משוחררים ומסיימי שירות לאומי  `source/kolzchut-soldier`
+- כל-זכות — נקודות זיכוי למי שמפרנסים את בני זוגם  `source/kolzchut-spouse`
 - MDN — HTML autocomplete attribute (token list)  `source/mdn-autocomplete`
 - MDN — HTML enterkeyhint attribute  `source/mdn-enterkeyhint`
 - MDN — HTML inputmode attribute  `source/mdn-inputmode`
 - MDN — VisualViewport API  `source/mdn-visual-viewport`
+- הוראות מס הכנסה (ניהול פנקסי חשבונות), תשל״ג-1973 — סעיף 25  `source/nevo-bookkeeping-rules`
+- פקודת מס הכנסה [נוסח חדש] — נוסח משולב (נבו)  `source/nevo-income-tax-ordinance`
 - NN/g — Website Forms Usability: Top 10 Recommendations  `source/nng-web-form-design`
+- כללים והוראות להפקת טופס 101 אלקטרוני לשנת 2026 (חוזר 12.1.2026)  `source/taxes-electronic-101-rules-2026`
+- טופס 101 (כרטיס עובד) — נוסח רשמי 0101/130, מעודכן 11.2025  `source/taxes-form-101-2026`
+- לוח עזר לחישוב מס הכנסה ממשכורת — ינואר 2025 ואילך  `source/taxes-monthly-deductions-2025`
+- לוח עזר לחישוב מס הכנסה ממשכורת — ינואר 2026 ואילך (מעודכן אפריל 2026)  `source/taxes-monthly-deductions-2026`
 - tofes101.co.il/docs/online-form/custom-form/ — employer template docs  `source/tofes101-docs-custom-form`
 - tofes101.co.il/docs/online-form/faq/ — FAQ (15 questions, 3 answers)  `source/tofes101-docs-faq`
 - tofes101.co.il/docs/online-form/ — how the online form behaves  `source/tofes101-docs-online-form`
@@ -74,3 +119,4 @@
 - WCAG 2.0 — תרגום עברי רשמי (איגוד האינטרנט הישראלי)  `source/w3c-wcag20-hebrew`
 - WCAG 2.2 — W3C Recommendation (12 Dec 2024)  `source/w3c-wcag22`
 - W3C WAI — "What's New in WCAG 2.2"  `source/w3c-wcag22-whats-new`
+- תקנות מס הכנסה (ניכוי ממשכורת ומשכר עבודה), התשנ״ג-1993  `source/wikisource-payroll-withholding-regulations`

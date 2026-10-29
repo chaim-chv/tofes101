@@ -36,7 +36,7 @@ up: ux/rtl-foundations
 ```
 
 ב-`dir="ltr"` הדפדפן גם **מבודד** את הרצף, כך שהמספרים לא "נשאבים" לסוף
-המשפט ([מקור](kb/sources/w3c-bidi-inline.md)).
+המשפט ([מקור](../sources/w3c-bidi-inline.md)).
 
 ## טקסט שמגיע מהמשתמש
 

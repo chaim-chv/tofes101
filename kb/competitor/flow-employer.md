@@ -54,7 +54,7 @@ There is no employer account, no dashboard, no login. The landing says it twice:
 
 Every one of these is a field in the `_settings` section of the same 101 schema
 (`research/raw/site/form-tree.txt`, lines ~389–440). This is the complete list — i.e.
-the employer product is **12 knobs plus an org block**:
+the employer product is **13 settings plus an org block**:
 
 | Group | Setting | Options / default | Effect on the employee |
 | --- | --- | --- | --- |

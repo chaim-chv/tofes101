@@ -3,13 +3,30 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
     "kb": "bun run scripts/kb.ts",
     "kb:check": "bun run scripts/kb.ts check",
     "kb:backlinks": "bun run scripts/kb.ts --write",
     "extract:form": "bun run tools/crawl/extract-form.ts && bun run tools/kb/gen-field-spec.ts",
-    "crawl": "bun run tools/crawl/dump.ts"
+    "crawl": "bun run tools/crawl/dump.ts",
+    "test": "bun test",
+    "check:privacy": "bun run scripts/check-privacy.ts",
+    "verify": "bun run test && bun run generate && bun run check:privacy && bun run e2e",
+    "e2e": "bun run tools/e2e/smoke.ts"
+  },
+  "dependencies": {
+    "@iconify-json/lucide": "^1.2.149",
+    "@nuxt/ui": "^4.12.0",
+    "nuxt": "^4.6.3",
+    "vue": "^3.5.0",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "playwright": "^1.64.1"
+    "playwright": "^1.56.0",
+    "typescript": "^5.9.0"
   }
 }

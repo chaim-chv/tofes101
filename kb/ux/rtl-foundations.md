@@ -27,7 +27,7 @@ up: ux/ux-principles
 ```
 
 - `dir` על `<html>` — לא על `body`, לא ב-CSS. כיוון הוא סמנטיקה, לא עיצוב
-  ([מקור](kb/sources/w3c-bidi-structural.md)).
+  ([מקור](../sources/w3c-bidi-structural.md)).
 - `lang="he"` בנפרד; `dir` לא נגזר מ-`lang`.
 - CSS לוגי בלבד: `margin-inline-*`, `padding-inline-*`, `inset-inline-*`,
   `border-inline-*`, `text-align: start|end`, `float: inline-start`.

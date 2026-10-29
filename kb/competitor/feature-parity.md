@@ -52,8 +52,8 @@ impossible.
 | A25 | Ads | ✔ | ✘ | none, by design |
 | A26 | Data-sharing consent | ✔ (required) | ✘ | concept does not exist |
 
-**Section A: 19 matched / 4 reduced / 3 lost-as-designed** (email, English, ads).
-The three losses are the ones we argue about in public, and two of them are features.
+**Section A: 17 matched / 5 reduced / 4 not built** (email, English, ads, data-sharing consent).
+Two of the four are features we are proud to lack; one (email) is a genuine capability gap.
 
 ## B. Employer side
 
@@ -77,7 +77,7 @@ The three losses are the ones we argue about in public, and two of them are feat
 | B16 | One link for 101 + bank details | ✔ (toggle) | ~ | v1: 101 only; the mechanism supports a second form later |
 | B17 | Upsell into an HR SaaS | ✔ (required radio) | ✘ | nothing to upsell |
 
-**Section B: 9 matched / 3 reduced / 3 lost** (email delivery, tracking, upsell).
+**Section B: 10 matched / 3 reduced / 4 not built** (email delivery, tracking, upsell, plus one deliberate non-feature).
 B13 is the structural one: without a server we cannot be the recipient. Everything else
 is a configuration surface we can clone in a week.
 
@@ -90,13 +90,13 @@ is a configuration surface we can clone in a week.
 | C3 | Hebrew RTL, Heebo-like type | ✔ | ✔ | — |
 | C4 | Accessibility claim (AA) | ✔ claimed | ✔ tested | publish method + known gaps, not just a claim |
 | C5 | Third-party scripts | ✔ 6+ | ✘ 0 | verifiable in DevTools |
-| C6 | Content hub (guides) | ✔ 21 pages | ~ 7 pages v1 | narrower but year-stamped and cross-linked into fields |
+| C6 | Content hub (guides) | ✔ 20 pages | ~ 7 pages v1 | narrower but year-stamped and cross-linked into fields |
 | C7 | Calculators | ✔ 4 | ~ 1 (VAT) | only where we can be correct and liable-free |
 | C8 | English | ✔ | ✘ | later |
 | C9 | Other forms (119, 1516, bank, 20 more) | ✔ | ✘ | v1 is 101 only; architecture is multi-form |
 | C10 | Offline capability | ~ (SPA caches) | ✔ | installable PWA, works with Wi-Fi off — our privacy proof *and* a feature |
 
-**Section C: 6 matched / 2 reduced / 2 lost.**
+**Section C: 5 matched / 2 reduced / 2 not built** — and C5 ("no third-party scripts") is a "✘" that is actually the win: we have zero scripts on purpose.
 
 ## D. Where we clearly beat them (the three arguments)
 
@@ -110,7 +110,7 @@ is a configuration surface we can clone in a week.
    external site. Ours: 5 steps with progress, live computation ("3 children → 3.5
    points"), a real review screen, an error summary that jumps to the field, and help
    written *for this field* in the app.
-3. **Owned content loop.** Their 21 guide pages never link into the exact field they
+3. **Owned content loop.** Their 20 guide pages never link into the exact field they
    explain; ours do, so the guide is the onboarding and the form is the payoff. Plus: no
    2016 numbers on a 2026 page, and answers to the 12 FAQ questions they left empty.
 

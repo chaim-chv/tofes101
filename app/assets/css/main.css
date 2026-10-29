@@ -1,0 +1,54 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/*
+ * Fonts: NO external requests. We rely on the OS Hebrew stack. If we later ship
+ * a webfont it must be self-hosted in /public/fonts (see kb/eng/privacy-enforcement.md).
+ */
+@theme {
+  --font-sans: "Heebo", "Assistant", "Segoe UI", "Arial Hebrew", "Noto Sans Hebrew",
+    system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+html {
+  /* Hebrew at 16px+ avoids iOS zoom-on-focus. */
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  text-wrap: pretty;
+}
+
+/* Numbers, IDs, emails and amounts must not jump around in an RTL line. */
+.ltr,
+input[type="tel"],
+input[type="email"],
+input[inputmode="numeric"],
+input[inputmode="decimal"] {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: start;
+}
+
+/* Never remove focus outlines: WCAG 2.4.7 / 2.4.11. */
+:focus-visible {
+  outline: 3px solid var(--ui-primary);
+  outline-offset: 2px;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+}

@@ -8,6 +8,7 @@ updated: 2026-10-29
 publisher: W3C / WAI
 url: https://www.w3.org/TR/WCAG22/
 retrieved: 2026-10-29
+verified_via: webfetch tool (full text); curl gets Cloudflare 403
 tags: [accessibility, wcag, standard]
 ---
 

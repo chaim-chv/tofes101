@@ -8,6 +8,7 @@ updated: 2026-10-29
 publisher: W3C / WAI
 url: https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/
 retrieved: 2026-10-29
+verified_via: reader (r.jina.ai); curl gets Cloudflare 403
 tags: [accessibility, wcag, wcag22]
 ---
 

@@ -44,6 +44,10 @@ it becomes `kb/decisions/adr-*.md` and gets removed from here.
 
 ## Open questions (need a human decision)
 
+_Resolved 2026-10-29 (ADR-0004): v1 = employee + employer prefill link (URL params, no server);
+tax year 2026 only; Hebrew + English; private GH repo `chaim-chv/tofes101`._
+Items O-3, O-4, O-5 and O-7 below are therefore closed. O-1, O-2 and O-6 remain open.
+
 - **O-1 — PDF output fidelity.** The official blank form has no AcroForm. Options:
   (a) overlay text at fixed coordinates on the official 2-page PDF (looks
   identical to what an employer expects, but we must ship the official PDF and

@@ -41,3 +41,18 @@ trust, feature parity, v1 scope. Not the form logic (owned by other agents).
   redirect. `data` carries `seo{sourceType,landingUrl,parentUrl,capturedAt}`.
 - Every page contains a visually hidden `do not click` link to `/admin-portal-archive`
   (also in robots.txt). Do not reproduce.
+
+## Deliverables (all written)
+
+- `kb/competitor/{site-map,flow-employee,flow-employer,flow-calculators,content-strategy,monetization-and-tracking,feature-parity,tech-recon}.md`
+- `kb/product/{scope-v1,personas}.md`
+- `kb/sources/tofes101-*` ×12 (home, sitemap, 101 landing, employer landing, docs online-form,
+  docs faq, docs custom-form, docs tax-adjustment, docs tax-reductions, legal pages,
+  runner app, engine bundle)
+- `research/raw/site/` — 47 HTML + 47 `.txt` extracts, `_status.tsv`, `form-tree.txt`
+  (400-line schema outline), `faq-extracted.md`, `chunks/`, `app-shell.html`
+- `kb/index.md` → appended `## Product`
+- `kb:check` reports no errors from any of my nodes (40 pre-existing errors remain in
+  `law/`, `ux/`, `field/` from other agents — untouched).
+
+Scripts (reproducible): `crawl.sh`, `extract.py`, `dump_tree.py` in this folder.

@@ -51,3 +51,30 @@ Format: `- **YYYY-MM-DD** — claim. → evidence/link`
   here; prefix with `NODE_TLS_REJECT_UNAUTHORIZED=0` (or use `npm i`). `curl`
   works normally.
 - **2026-10-29** — No `pdftotext`/`qpdf`; `python3 -c "import pypdf"` works.
+
+## App scaffold (verified 2026-10-29)
+
+- **2026-10-29** — Verified toolchain: `nuxt@4.6.3`, `@nuxt/ui@4.12.0`,
+  `vue@3.5.44`, `@iconify-json/lucide@1.2.149`, bun 1.4.3, Node 22. `bun run generate`
+  produces a fully static `.output/public` (6 routes prerendered).
+- **2026-10-29** — `@nuxt/icon` **falls back to `https://api.iconify.design`** at
+  runtime for any icon it did not bundle. With a strict CSP the icons simply
+  disappear. Fix used: `icon: { serverBundle: false, clientBundle: { scan: true } }`
+  + `@iconify-json/lucide` installed. `scripts/check-privacy.ts` catches a
+  regression at build time.
+- **2026-10-29** — Nuxt's router **drops the URL fragment during hydration**. The
+  employer prefill payload (`#e=…`, ADR-0005) must be captured by an inline
+  script in `app.head` (`window.__INITIAL_HASH`), otherwise `location.hash` is
+  empty inside `onMounted`.
+- **2026-10-29** — `UApp` in Nuxt UI v4 takes a **locale object**, not a string
+  (`import { he, en } from "@nuxt/ui/locale"`); passing `"he"` throws
+  `TypeError: m is not a function` deep in the render.
+- **2026-10-29** — Do not name a `ref` the same as an imported function in
+  `<script setup>`: the minifier collapses both and you get
+  `x.value = await x(...)`. (Cost us an hour.)
+- **2026-10-29** — Bun's `CompressionStream("deflate-raw")` and Chrome's are
+  interoperable; payload round-trip is covered by `tests/employer-link.test.ts`
+  (9 tests) and by the Playwright smoke (`tools/e2e/smoke.ts`).
+- **2026-10-29** — A `serve`-style static server that redirects `/x` → `/x/`
+  breaks nothing but muddies Playwright traces; `tools/serve.ts` (Bun.serve,
+  no redirects) is the local reference.

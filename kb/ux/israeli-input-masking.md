@@ -72,7 +72,7 @@ export function normalizeIlPhone(raw: string): string | null {
 
 ## תאריכים
 
-- שלושה שדות: יום / חודש / שנה ([GOV.UK](kb/sources/govuk-dates.md)).
+- שלושה שדות: יום / חודש / שנה ([GOV.UK](../sources/govuk-dates.md)).
 - קבלו יום וחודש חד-ספרתי; שנה דו-ספרתית → 20XX רק אם הגיוני (לידה: 19XX).
 - בדקו תאריך אמיתי: `new Date(y, m-1, d)` והשוו רכיבים (31/02 נפסל).
 - תאריך עתידי בתאריך לידה = שגיאה; גיל מחושב ומוצג מיד ("בן 34").

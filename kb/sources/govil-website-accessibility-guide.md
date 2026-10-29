@@ -8,6 +8,7 @@ updated: 2026-10-29
 publisher: נציבות שוויון זכויות לאנשים עם מוגבלות, משרד המשפטים (gov.il)
 url: https://www.gov.il/he/pages/website_accessibility
 retrieved: 2026-10-29
+verified_via: reader (r.jina.ai); curl gets Cloudflare 403
 tags: [accessibility, law, israel, guide]
 ---
 

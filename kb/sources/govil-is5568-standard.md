@@ -7,7 +7,9 @@ confidence: verified
 updated: 2026-10-29
 publisher: מכון התקנים הישראלי / gov.il
 url: https://www.gov.il/he/Departments/General/accesibility_standards_shortcut
+pdf: https://www.gov.il/BlobFolder/legalinfo/israeli_accessibility_standards_pdf/he/sitedocs_si-5568-1-september-2023.pdf
 retrieved: 2026-10-29
+verified_via: reader (r.jina.ai); curl gets Cloudflare 403
 tags: [accessibility, law, standard, wcag, israel]
 ---
 

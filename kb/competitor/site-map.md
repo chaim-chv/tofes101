@@ -27,7 +27,7 @@ a spinner + iframe); their real content is the runner app or a React component.
 ```
            ┌──────────────────────────── SEO layer (static, indexable) ───────────────────────────┐
   /        │ /forms/<slug>/            /docs/**            /directory/   legal  /fill-form-101-english/
-           │   └─ /organizations/      (5 sections, 21 pages)          /
+           │   └─ /organizations/      (4 sections, 20 pages)          /
            ├────────────────────────── product layer (client-run) ─────────────────────────────┤
   /forms/<slug>/submit/  ──iframe──▶ forms.tofes101.co.il/f/<id>     (AngularJS "tepez" runner)
   /forms/<slug>/create/  ──same app, data.entry.status="template"──▶ employer template builder
@@ -136,7 +136,7 @@ Template in `research/raw/site/home.txt` (`## NAV` / `## FOOTER` sections).
 1. **Form cluster** — home → `/forms/<slug>/` → `/submit/`; every form landing links
    *sideways* to "download the blank PDF", "employers: create a link" and
    *down* to `/submit/`. `/submit/` links back to nothing but the footer.
-2. **Guide cluster** — `/docs/<section>/` is a 21-page tree with a persistent left
+2. **Guide cluster** — `/docs/<section>/` is a 20-page tree with a persistent left
    sidebar (sections: מבוא · טופס 101 מקוון · תיאום מס · זיכויים ממס) repeated on every
    docs page. Guides link to `/forms/itc-101/` and to the section they explain ("read
    about this credit in section ח"). They do **not** deep-link into the form.
@@ -156,7 +156,7 @@ exact field — the "read more" ends in a generic link.
 - Their `/forms/<slug>/{,submit,create,organizations}` × 29 is 4 near-duplicate pages
   per form; at our scale the honest version is `/101/` (landing) + `/101/fill/` (app)
   + `/101/employer/` (template) with `noindex` on the app routes.
-- The `/docs` tree is their only defensible SEO asset (21 pages, 5 sections). We must
+- The `/docs` tree is their only defensible SEO asset (20 pages, 4 sections). We must
   write our own version of that structure — see
   [competitor/content-strategy](content-strategy.md) — because their text is
   CC BY-NC-SA and cannot be reused.

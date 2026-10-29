@@ -22,7 +22,7 @@ up: ux/a11y-israeli-law
 3. **דרכי יצירת קשר** לדיווח על היעדר התאמות או בקשה לביצוע הנגשה,
    כולל בקשה לפי 35א(ד)(1).
 
-([מקור](kb/sources/israel-regs-service-accessibility.md))
+([מקור](../sources/israel-regs-service-accessibility.md))
 
 "מקום בולט" = קישור בתחתית **בכל עמוד** + קישור בהצהרה עצמה; לא רק ב-`/legal`.
 

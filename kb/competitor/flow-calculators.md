@@ -38,9 +38,9 @@ Three modes on one screen, results update live:
    the VAT component (118 → 100 + 18).
 3. **Compute the VAT amount** — input: the VAT sum; output: pre-VAT amount + total.
 
-Settings: **VAT rate %** (default 18) and **rounding digits**. No date/history — which
-matters, because Israeli VAT changed in 2025; a calculator with a free-text rate is
-actually the honest design (the user supplies the rate that applies to their invoice).
+Settings: **VAT rate %** (default 18) and **rounding digits**. No date/history — and because the statutory rate changes over time, letting the user
+set the rate is actually the honest design (they supply the rate that applies to their
+invoice, and the default is just a convenience).
 
 ## 2. מחשבון אחוזים (percentages)
 

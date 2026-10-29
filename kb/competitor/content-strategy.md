@@ -50,7 +50,7 @@ Two deliberate choices worth copying:
   indexable text (2 words). They never try to rank the form itself — the form is a
   conversion step, and its metadata exists only to harvest the "מילוי ושליחה" query.
 
-## 2. The docs tree is the real asset (21 pages, 5 sections)
+## 2. The docs tree is the real asset (20 pages, 4 sections)
 
 ```
 מבוא (3)            מהו 101 · PDF להדפסה · ארכיון 2011–2025
@@ -69,7 +69,7 @@ Two deliberate choices worth copying:
 3. "How much" as a number **plus a worked example** (they use LaTeX-ish formulas; the
    example is what makes it land).
 4. "What to do" — which section of the form, which document to attach.
-5. A "read more / related" list, and a repeated left sidebar with all 21 pages.
+5. A "read more / related" list, and a repeated left sidebar with all 20 pages.
 
 The hub pages (`זיכויים`, `תיאום מס`) are 600–900 words; the children are 120–900. The
 short ones (female 118, youth 124, resident 144) are effectively stubs that exist for
@@ -84,7 +84,7 @@ for the long tail.
 - **Docs never deep-link into the form.** Every guide ends with a generic "fill the
   form" link; the "read about this credit" bubbles inside the form link **out** to
   kolzchut. Their own content and their own product do not talk to each other.
-- **No glossary, no index, no search.** 21 pages navigated only by a sidebar.
+- **No glossary, no index, no search.** 20 pages navigated only by a sidebar.
 - **12 of 15 FAQ entries are empty.** Including "I sent it to the wrong address" and
   "how do I send to several employers".
 - **English is a separate form**, not a translation layer — so it drifts.

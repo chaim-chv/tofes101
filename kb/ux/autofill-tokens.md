@@ -33,12 +33,14 @@ WCAG **1.3.5** (AA) דורש שה-purpose של שדה מידע אישי יהיה
 | אימייל | `email` | `email` | `email` | `next` |
 | ישוב | `address-level2` | – | `text` | `next` |
 | רחוב | `address-line1` | – | `text` | `next` |
-| מספר בית | `address-line2` | `numeric` | `text` | `next` |
+| מספר בית | `address-line2`* | `numeric` | `text` | `next` |
 | מיקוד | `postal-code` | `numeric` | `text` | `done` |
 | שם מעסיק | `organization` | – | `text` | `next` |
 
-מקור הטוקנים: [MDN](kb/sources/mdn-autocomplete.md); `inputmode`:
-[MDN](kb/sources/mdn-inputmode.md).
+\* אין טוקן תקני נפרד למספר בית; `address-line2` הוא הקרוב. אם מפרידים רחוב/בית, שמרו על תווית ברורה — 1.3.5 נבדק לפי הכוונה, לא רק לפי הטוקן.
+
+מקור הטוקנים: [MDN](../sources/mdn-autocomplete.md); `inputmode`:
+[MDN](../sources/mdn-inputmode.md).
 
 ## דוגמה
 
@@ -90,3 +92,12 @@ WCAG **1.3.5** (AA) דורש שה-purpose של שדה מידע אישי יהיה
 ```
 
 `size="xl"` נותן יעד מגע גדול; אל תסתמכו על ברירת מחדל 32px במובייל.
+
+## Do / Don't
+
+| Do | Don't |
+| --- | --- |
+| טוקן תקני לכל שדה | ערכים מומצאים |
+| `off` רק לת"ז | `off` על כל הטופס |
+| `section-*` לבן/בת זוג | ערבוב בין אנשים |
+| בדיקה עם password manager | להניח שהדפדפן ימלא |

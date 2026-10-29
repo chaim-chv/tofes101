@@ -2,10 +2,7 @@
 import fs from 'node:fs'
 import { PDFDocument, rgb } from 'pdf-lib'
 import fontkit from '@pdf-lib/fontkit'
-import bidiFactory from 'bidi-js'
-
-const bidi = bidiFactory()
-const reorder = (s) => bidi.getReorderedString(s, bidi.getEmbeddingLevels(s, 'rtl'))
+import { drawRtl, measureRtl } from './lib/rtl-tokens.mjs'
 const fontBytes = fs.readFileSync('../scaffold/app/assets/fonts/Heebo-Variable.ttf')
 
 const doc = await PDFDocument.create()
@@ -22,7 +19,7 @@ function wrap(text, size, maxWidth) {
   let line = ''
   for (const word of words) {
     const next = line ? `${line} ${word}` : word
-    if (font.widthOfTextAtSize(next, size) > maxWidth && line) {
+    if (measureRtl(font, next, size) > maxWidth && line) {
       lines.push(line)
       line = word
     } else line = next
@@ -34,24 +31,14 @@ function wrap(text, size, maxWidth) {
 function paragraph(text, { yTop, size = 12, leading = 18, color = ink }) {
   const lines = wrap(text, size, RIGHT - 50)
   lines.forEach((line, i) => {
-    const visual = reorder(line)
-    const w = font.widthOfTextAtSize(visual, size)
-    page.drawText(visual, { x: RIGHT - w, y: H - (yTop + i * leading), size, font, color })
+    drawRtl(page, font, line, { xRight: RIGHT, y: H - (yTop + i * leading), size, color })
   })
   return yTop + lines.length * leading
 }
 
-page.drawText(reorder('נספח לטיוטת טופס 101'), {
-  x: 0,
-  y: H - 70,
-  size: 22,
-  font,
-  color: rgb(0.04, 0.3, 0.2)
-})
-// center the title
-const t = reorder('נספח לטיוטת טופס 101')
-const tw = font.widthOfTextAtSize(t, 22)
-page.drawText(t, { x: (595.28 - tw) / 2, y: H - 70, size: 22, font, color: rgb(0.04, 0.3, 0.2) })
+const title = 'נספח לטיוטת טופס 101'
+const tw = measureRtl(font, title, 22)
+drawRtl(page, font, title, { xRight: (595.28 + tw) / 2, y: H - 70, size: 22, color: rgb(0.04, 0.3, 0.2) })
 
 let y = 120
 const rows = [
@@ -63,10 +50,8 @@ const rows = [
   ['משכורת חודשית', '12,345.00 ₪']
 ]
 for (const [label, value] of rows) {
-  const lv = reorder(`${label}:`)
-  page.drawText(lv, { x: RIGHT - font.widthOfTextAtSize(lv, 11), y: H - y, size: 11, font, color: rgb(0.45, 0.45, 0.45) })
-  const vv = reorder(value)
-  page.drawText(vv, { x: RIGHT - font.widthOfTextAtSize(vv, 13), y: H - (y + 18), size: 13, font, color: ink })
+  drawRtl(page, font, `${label}:`, { xRight: RIGHT, y: H - y, size: 11, color: rgb(0.45, 0.45, 0.45) })
+  drawRtl(page, font, value, { xRight: RIGHT, y: H - (y + 18), size: 13, color: ink })
   page.drawLine({ start: { x: 50, y: H - (y + 26) }, end: { x: RIGHT, y: H - (y + 26) }, thickness: 0.5, color: rgb(0.8, 0.8, 0.8) })
   y += 46
 }

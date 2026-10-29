@@ -3,10 +3,7 @@
 import fs from 'node:fs'
 import { PDFDocument, rgb } from 'pdf-lib'
 import fontkit from '@pdf-lib/fontkit'
-import bidiFactory from 'bidi-js'
-
-const bidi = bidiFactory()
-const reorder = (s) => bidi.getReorderedString(s, bidi.getEmbeddingLevels(s, 'rtl'))
+import { drawRtl } from './lib/rtl-tokens.mjs'
 
 const fontBytes = fs.readFileSync('../scaffold/app/assets/fonts/Heebo-Variable.ttf')
 const sigBytes = fs.readFileSync('signature-spike.png')
@@ -22,25 +19,17 @@ const ink = rgb(0.05, 0.12, 0.55)
 
 // xRight = right edge of the value box; y = baseline measured FROM TOP (like the
 // coordinates extracted with pdfjs), converted to PDF bottom-left here.
-function drawRtl(text, { xRight, yTop, size = 9, color = ink }) {
-  const visual = reorder(text)
-  const w = font.widthOfTextAtSize(visual, size)
-  page.drawText(visual, {
-    x: xRight - w,
-    y: H - yTop,
-    size,
-    font,
-    color
-  })
-  return { visual, width: +w.toFixed(2) }
+function placeRtl(text, { xRight, yTop, size = 9, color = ink }) {
+  const width = drawRtl(page, font, text, { xRight, y: H - yTop, size, color })
+  return { text, width: +width.toFixed(2) }
 }
 
 const log = {}
-log.lastName = drawRtl('כהן', { xRight: 391, yTop: 226, size: 10 })
-log.firstName = drawRtl('דוד', { xRight: 276, yTop: 226, size: 10 })
-log.id = drawRtl('123456789', { xRight: 492, yTop: 226, size: 10 })
-log.year = drawRtl('2026', { xRight: 330, yTop: 112, size: 10 })
-log.employer = drawRtl('חברת דוגמה בע"מ', { xRight: 521, yTop: 172, size: 9 })
+log.lastName = placeRtl('כהן', { xRight: 391, yTop: 226, size: 10 })
+log.firstName = placeRtl('דוד', { xRight: 276, yTop: 226, size: 10 })
+log.id = placeRtl('123456789', { xRight: 492, yTop: 226, size: 10 })
+log.year = placeRtl('2026', { xRight: 330, yTop: 112, size: 10 })
+log.employer = placeRtl('חברת דוגמה בע"מ', { xRight: 521, yTop: 172, size: 9 })
 
 // signature image in the "חתימת העובד/ת" row (bottom-left)
 page.drawImage(sig, { x: 96, y: 52, width: 120, height: 40 })

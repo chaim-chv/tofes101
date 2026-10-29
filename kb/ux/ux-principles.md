@@ -68,7 +68,16 @@ up: index
 
 ## מקורות
 
-הכללים נשענים על IS 5568 = WCAG 2.0 AA ([מקור](kb/sources/govil-is5568-standard.md)),
-WCAG 2.2 ([מקור](kb/sources/w3c-wcag22.md)), דפוסי GOV.UK
-([מקור](kb/sources/govuk-question-pages.md)) ומחקר NN/g
-([מקור](kb/sources/nng-web-form-design.md)). מקום שבו אלה מתנגשים — WCAG גובר.
+הכללים נשענים על IS 5568 = WCAG 2.0 AA ([מקור](../sources/govil-is5568-standard.md)),
+WCAG 2.2 ([מקור](../sources/w3c-wcag22.md)), דפוסי GOV.UK
+([מקור](../sources/govuk-question-pages.md)) ומחקר NN/g
+([מקור](../sources/nng-web-form-design.md)). מקום שבו אלה מתנגשים — WCAG גובר.
+
+## Do / Don't (ברמת המוצר)
+
+| Do | Don't |
+| --- | --- |
+| לקבל החלטות מוצר מול 12 הכללים | "זה רק עיצוב" |
+| לעצור PR שמפר כלל | למזג עם TODO |
+| למדוד השלמה וטעויות | למדוד רק קליקים |
+| להסביר החרגה בנוד `decision/` | חריגה שקטה |

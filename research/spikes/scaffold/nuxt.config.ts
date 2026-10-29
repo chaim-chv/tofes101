@@ -3,8 +3,33 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-10-29',
   devtools: { enabled: false },
 
-  modules: ['@nuxt/ui', '@nuxtjs/i18n', '@pinia/nuxt'],
+  modules: ['@nuxt/ui', '@nuxtjs/i18n', '@pinia/nuxt', '@vite-pwa/nuxt'],
   css: ['~/assets/css/main.css'],
+
+  // Offline-first: precache the app shell + fonts + the official PDF.
+  pwa: {
+    registerType: 'autoUpdate',
+    manifest: {
+      name: 'טופס 101 — מילוי מקומי',
+      short_name: 'טופס 101',
+      lang: 'he',
+      dir: 'rtl',
+      start_url: '/',
+      display: 'standalone',
+      background_color: '#ffffff',
+      theme_color: '#0f766e',
+      icons: []
+    },
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,ico,png,svg,ttf,json,pdf}'],
+      // the module strips .html from precache URLs; 404/200 then 404 on plain static servers
+      globIgnores: ['**/404.html', '**/200.html'],
+      navigateFallback: '/',
+      cleanupOutdatedCaches: true,
+      clientsClaim: true
+    },
+    client: { registerPlugin: true, installPrompt: false }
+  },
 
   // Self-host fonts: no Google/CDN requests at runtime or build.
   ui: { fonts: false },
