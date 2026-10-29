@@ -47,7 +47,6 @@ export default defineNuxtConfig({
         { name: "referrer", content: "no-referrer" },
         { name: "color-scheme", content: "light dark" },
       ],
-      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
       script: [
         {
           // Capture the URL fragment before Nuxt's router touches the history

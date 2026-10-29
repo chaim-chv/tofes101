@@ -4,8 +4,9 @@ A rebuild of the *good parts* of [tofes101.co.il](https://tofes101.co.il/forms/i
 fill Israeli ITC form 101 (כרטיס עובד) online, get a filled PDF — but with **no
 server, no account, no ads, no data leaving the browser**.
 
-> Status: **research / knowledge base**. No app code yet (deliberate — the KB is
-> the input to the build). See `PLAN.md`.
+> Status: **working v1** — the full form, employer prefill links, local drafts and
+> an A4 print/PDF output, deployed to GitHub Pages. PDF-perfect overlay on the
+> official form and PWA offline are next (`PLAN.md`).
 
 ## What is in here
 

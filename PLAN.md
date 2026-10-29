@@ -33,11 +33,14 @@ Playwright e2e with axe on every step.
 
 ## Phase 2 — Parity
 
-- [ ] All 12 sections, all conditionals, all documents
-- [ ] Error summary + focus management + keyboard map
-- [ ] Print/PDF output
+- [x] All 10 steps with their conditionals (children, spouse, other income, credits, coordination)
+- [x] Error summary + focus management + validate-on-touch
+- [x] A4 print output (`/print/`) — the "always works" path
+- [ ] PDF overlay on the official form (ADR-0002) — coordinates are the remaining work
+- [ ] Document checklist generation from the credit answers (data exists in `kb/field/101-documents.md`)
 - [ ] Mobile pass, screen-reader pass (NVDA/VoiceOver Hebrew)
 - [ ] Offline PWA + "your data is local" UX
+- [ ] Keyboard "fast mode" (kb/ux/checklists/keyboard-map.md)
 
 ## Phase 3 — Extras (not before parity)
 

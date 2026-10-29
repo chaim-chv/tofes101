@@ -19,5 +19,10 @@ export function useAppPath() {
     return new URL(full, location.origin).toString()
   }
 
-  return { base, path, absolute }
+  /** For head assets (`<link href>`), which Nuxt does NOT auto-prefix. */
+  function asset(to: string): string {
+    return `${base}${path(to)}`
+  }
+
+  return { base, path, absolute, asset }
 }

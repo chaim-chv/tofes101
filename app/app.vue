@@ -4,10 +4,12 @@
 import { he as uiHe, en as uiEn } from "@nuxt/ui/locale"
 
 const { locale } = useLocale()
+const { asset } = useAppPath()
 
 const uiLocale = computed(() => (locale.value === "he" ? uiHe : uiEn))
 
 useHead({
+  link: [{ rel: "icon", type: "image/svg+xml", href: asset("/favicon.svg") }],
   htmlAttrs: {
     lang: () => (locale.value === "he" ? "he" : "en"),
     dir: () => (locale.value === "he" ? "rtl" : "ltr"),
