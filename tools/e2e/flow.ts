@@ -18,7 +18,9 @@ const OUT = "research/spikes/screens"
 mkdirSync(OUT, { recursive: true })
 
 const server = startStaticServer(4173)
-const browser = await chromium.launch({ channel: "chrome" })
+// Local dev has only the system Chrome; CI runners ship Chrome too, but fall
+// back to Playwright's bundled Chromium when neither channel is available.
+const browser = await chromium.launch({ channel: "chrome" }).catch(() => chromium.launch())
 const ctx = await browser.newContext({ locale: "he-IL", viewport: { width: 1280, height: 900 } })
 const page = await ctx.newPage()
 

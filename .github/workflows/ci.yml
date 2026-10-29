@@ -14,15 +14,15 @@ jobs:
         with:
           bun-version: "1.4.3"
       - run: bun install --frozen-lockfile
-      - name: Knowledge base
+      - name: Knowledge base (no broken links, no orphans)
         run: bun run kb:check
       - name: Unit tests
         run: bun test
       - name: Typecheck
         run: bun run typecheck
-      - name: Build
+      - name: Static build
         run: bun run generate
-      - name: Privacy
+      - name: Privacy gate (no external hosts, CSP present)
         run: bun run check:privacy
-      - name: E2E
+      - name: E2E + axe
         run: bun run e2e:ci

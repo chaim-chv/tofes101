@@ -29,6 +29,8 @@ jobs:
         run: bun run kb:check
       - name: Unit tests
         run: bun test
+      - name: Typecheck
+        run: bun run typecheck
       - name: Generate static site
         env:
           NUXT_APP_BASE_URL: /tofes101/

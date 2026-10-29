@@ -13,7 +13,7 @@
     "kb:backlinks": "bun run scripts/kb.ts --write",
     "extract:form": "bun run tools/crawl/extract-form.ts && bun run tools/kb/gen-field-spec.ts",
     "crawl": "bun run tools/crawl/dump.ts",
-    "test": "bun test",
+    "test": "bun test tests",
     "check:privacy": "bun run scripts/check-privacy.ts",
     "verify": "bun run kb:check && bun test && bun run generate && bun run check:privacy && bun run e2e",
     "e2e": "bun run tools/e2e/flow.ts",
