@@ -6,7 +6,7 @@ status: verified
 confidence: verified
 updated: 2026-10-29
 tags: [law, form-101, sections, fields, mandatory]
-sources: [source/taxes-form-101-2026, source/taxes-electronic-101-rules-2026]
+sources: [source/tofes101-official-pdf, source/taxes-electronic-101-rules-2026]
 related: [law/form-101, law/form-101-official-pdf, law/declaration-and-signature, law/credit-points]
 up: law/form-101
 ---
@@ -14,7 +14,7 @@ up: law/form-101
 # מפת סעיפים — one row per official section/item
 
 Source of labels and order: the 2-page form 0101/130 (11.2025)
-([[source/taxes-form-101-2026]]). Source of “חובה/רשות” for the electronic
+([[source/tofes101-official-pdf]]). Source of “חובה/רשות” for the electronic
 version: נספח א of the 12.1.2026 circular
 ([[source/taxes-electronic-101-rules-2026]]). Where the paper form and the
 electronic matrix differ, the matrix is the 2026 implementation rule.
@@ -28,7 +28,7 @@ when its trigger is true).
 | --- | --- | --- | --- | --- | --- |
 | — | שנת המס | system | M | 4-digit tax year | Calendar year; 2025 or 2026 in this KB. |
 | א | פרטי המעסיק | employer | M | name, address, phone, deduction-file no. (מספר תיק ניכויים) | Auto-filled by payroll; deduction file is 9 digits, normally starts with 9; **do not** run the ID check-digit on it without confirming its own format. |
-| ב | פרטי העובד/ת | employee | M | “has Israeli ID?” yes/no; ID no. **or** passport no.; surname; first name; birth date; aliyah date (O); private address (street/neighbourhood, house no., city, postcode O); e-mail (O); phone; mobile; gender (male/female); marital status; Israeli resident yes/no; kibbutz member (no / yes-transferred / yes-not-transferred); health-fund member (no / yes + fund name) | ID copy incl. ספח must be attached at first filing or after a change; no ID → passport + visa/residence permit. Gender drives the 0.5 woman credit. “Israeli resident = no” suppresses the 2.25 resident points. Kibbutz member changes who bears the tax. |
+| ב | פרטי העובד/ת | employee | M | “has Israeli ID?” yes/no; ID no. **or** passport no.; surname; first name; birth date; aliyah date (O); private address (street/neighbourhood, house no., city, postcode O); e-mail (O); phone + mobile (at least one required; the matrix is ambiguous — implement “at least one”); gender (male/female); marital status; Israeli resident yes/no; kibbutz member (no / yes-transferred / yes-not-transferred); health-fund member (no / yes + fund name) | ID copy incl. ספח must be attached at first filing or after a change; no ID → passport + visa/residence permit. Gender drives the 0.5 woman credit. “Israeli resident = no” suppresses the 2.25 resident points. Kibbutz member changes who bears the tax. |
 | ג | פרטי ילדיי שטרם מלאו להם 19 שנה | employee | O | per child: name, ID, birth date, col. 1 “in my custody”, col. 2 “I receive NII child allowance for him/her” | Row is all-or-nothing: if any of name/ID/DOB is entered, all three are required; col. 1 only after the row is complete; col. 2 only after col. 1. Children 19+ are not listed. |
 | ד | פרטים על הכנסותיי ממעסיק זה | employee | M | one of (1) מלגה, (2) משכורת חודש, (3) משכורת בעד משרה נוספת, (4) משכורת חלקית, (5) שכר עבודה (עובד יומי), (6) קצבה; plus “תאריך תחילה העבודה בשנת המס” | One of 1–4 **and/or** one or more of 5–6; at least one box. “Second job” (3) forces max withholding unless coordination. “Partial” (4) and “daily” (5) also default to max unless it is the only income. Definitions in the form’s explanatory notes (1)–(6). |
 | ה | פרטים על הכנסות אחרות | employee | C | either “אין לי הכנסות אחרות ממשכורת, מקצבה וממלגה” **or** “יש לי הכנסות אחרות” + types (1–6) + one of item 7/8 + optional 9/10 | If “no other income” is ticked, items 2–10 must be disabled. If “other income” is ticked, at least one type and exactly one of 7/8. Item 7 = claim credits here; item 8 = credits used elsewhere ⇒ this employer withholds max. 9/10 control whether training-fund/pension contributions of the *other* employer are added to this payroll. |
@@ -48,7 +48,7 @@ sub-question and a document. Numbers below are the **official item numbers**.
 | 1 | אני תושב/ת ישראל | O | read-only mirror of ב “תושב ישראל = כן” | s. 34 + 36 → 2.25 points | — |
 | 2א | אני נכה 100% / עיוור/ת לצמיתות | O | certificate details | s. 9(5) **exemption** (not a point) | approval from MOD / Treasury / assessor / blind certificate issued after 1.1.1994 |
 | 2ב | בנוסף, אני מקבל תגמול חודשי לפי חוק הנכים / נפגעי פעולות איבה | C | only if 2א; amount/approval | s. 9(5)(א1) higher ceiling | approval of the monthly stipend |
-| 3 | אני תושב/ת קבע/ה בישוב מזכה | O | from-date + locality name; “no other center of life” | s. 11 (or s. 11 of the חוק אס״ח) | form 1312א from the local authority |
+| 3 | אני תושב/ת קבע/ה בישוב מזכה | O | from-date + locality name; “no other center of life” | s. 11 (or s. 11 of the חוק אס״ח); rates/ceilings are locality-specific — do not hard-code them | form 1312א from the local authority |
 | 4 | אני עולה חדש/ה | O | from-date (aliyah); optional “no income in Israel from start of year until …” | s. 35; 2026 temporary exemption law | תעודת עולה (mandatory) |
 | 5 | בגין בן/בת זוגי המתגורר/ת עימי ואין לו/לה הכנסות בשנת המס | O | checkbox only | s. 37 — **only** if employee/spouse at retirement age or blind/disabled, and spouse income ≤ 25,410 ₪ (2026) | disability/blind approval for employee or spouse |
 | 6 | אני הורה במשפחה חד הורית החי בנפרד | O | checkbox; requires item 7 | s. 40(b)(1)–(2): +1 point | — |
@@ -86,7 +86,7 @@ Exactly one of three (or none):
 2. `ב.מצב משפחתי ≠ נשוי` → section ו disabled; item 5 disabled; item 12 disabled.
 3. `ב.מין = נקבה` → 0.5 woman point; item 7 is the default child track; item 8 is for fathers/non-custodial parents.
 4. `ג` empty → items 6–11 and 13 (child-related) have no basis; still allow item 9 only if there is a child row.
-5. `ה.יש לי הכנסות אחרות` + `ה.8` (credits elsewhere) → section ח is blocked by the electronic matrix; the employee is sent to coordination.
+5. `ה.יש לי הכנסות אחרות` + `ה.8` (credits elsewhere) → this employer withholds at the maximum rate; the official matrix does **not** globally hide section ח. (The competitor hides it; do not copy that gate.) If the employee also claims the disability exemption (item 2), the form sends them to the assessor for coordination.
 6. `ד.3` (second job) → coordination required or max withholding.
 7. `ח.2א` → 2ב allowed; otherwise disabled.
 8. `ח.4` → aliyah date mandatory; `תעודת עולה` mandatory.
@@ -102,3 +102,10 @@ Exactly one of three (or none):
 - No consent-to-privacy checkbox. The signature is a truth declaration.
 - No bank-account, pension-fund or health-fund *policy* details (only health-fund
   membership yes/no + name).
+
+## Sources
+
+- [[source/tofes101-official-pdf]]
+- [[source/taxes-electronic-101-rules-2026]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

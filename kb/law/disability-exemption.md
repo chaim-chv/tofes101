@@ -6,7 +6,7 @@ status: verified
 confidence: verified
 updated: 2026-10-29
 tags: [law, exemption, disability, blindness, form-101]
-sources: [source/nevo-income-tax-ordinance, source/taxes-monthly-deductions-2026, source/taxes-form-101-2026]
+sources: [source/nevo-income-tax-ordinance, source/taxes-monthly-deductions-2026, source/tofes101-official-pdf]
 related: [law/form-101, law/credit-points, law/disabled-child-credit]
 up: law/form-101
 ---
@@ -78,3 +78,11 @@ same values as 2025.
   form/assessor approval is the practical guide.
 - Whether the 2026 temporary changes affect these ceilings (the freeze law says no
   indexation; the values are unchanged).
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/taxes-monthly-deductions-2026]]
+- [[source/tofes101-official-pdf]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

@@ -124,3 +124,10 @@ especially sensitive.
 - Whether a static host’s IP logs make the developer a controller in the specific
   configuration; this is a legal characterisation, not a technical fact.
 - The DPO threshold for a payroll bureau; route to counsel.
+
+## Sources
+
+- [[source/govil-privacy-amendment-13]]
+- [[source/taxes-electronic-101-rules-2026]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

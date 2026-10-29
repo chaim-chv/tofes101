@@ -87,3 +87,9 @@ This is an estimate; real payroll handles deductions, benefits and non-fixed pay
   were required to correct.
 - See [[law/tax-brackets-2025]] for the 2025 table and [[law/credit-points-2026]]
   for the other 2026 numbers.
+
+## Sources
+
+- [[source/taxes-monthly-deductions-2026]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

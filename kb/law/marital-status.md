@@ -6,7 +6,7 @@ status: verified
 confidence: verified
 updated: 2026-10-29
 tags: [law, marital-status, spouse, form-101]
-sources: [source/taxes-form-101-2026, source/taxes-electronic-101-rules-2026, source/nevo-income-tax-ordinance]
+sources: [source/tofes101-official-pdf, source/taxes-electronic-101-rules-2026, source/nevo-income-tax-ordinance]
 related: [law/form-101, law/spouse-not-working, law/children-details, law/single-parent-credit]
 up: law/form-101
 ---
@@ -85,3 +85,11 @@ the 101.
 5. Do not infer marital status from the presence of a spouse row or children.
 6. Do not offer “ידועים בציבור” as a marital status; explain the difference in help
    text.
+
+## Sources
+
+- [[source/tofes101-official-pdf]]
+- [[source/taxes-electronic-101-rules-2026]]
+- [[source/nevo-income-tax-ordinance]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

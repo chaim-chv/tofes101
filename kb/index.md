@@ -47,6 +47,26 @@ numeric (credit points, thresholds, ages) must be year-stamped and sourced.
 - [flow/form-101-field-spec](flow/form-101-field-spec.md) — **generated**
   exhaustive field table (160 fields) + [schema JSON](flow/form-101-schema.json).
 
+### Field deep-dives — `kb/field/`
+One node per field that needs more than a label:
+[שנת מס](field/101-tax-year.md) ·
+[זהות (ת"ז/דרכון)](field/101-employee-identity.md) ·
+[מעמד מס](field/101-employee-tax-status.md) ·
+[ילדים](field/101-children-block.md) ·
+[הכנסות אחרות](field/101-other-incomes.md) ·
+[16 פריטי הזיכוי](field/101-credit-items-map.md) ·
+[תיאום מס](field/101-tax-coordination.md) ·
+[מסמכים](field/101-documents.md) ·
+[מעסיק](field/101-employer-block.md) ·
+[חתימה](field/101-signature.md) ·
+[מונחים](glossary/terms.md)
+
+### Decisions — `kb/decisions/`
+- [ADR-0004 — v1 scope, tax year, languages](decision/adr-0004-v1-scope.md)
+- [ADR-0005 — employer prefill link](decision/adr-0005-employer-prefill-link.md)
+- [ADR-0006 — navigation model (8 steps)](decision/adr-0006-navigation.md)
+- `adr-0001-*` … `adr-0003-*` — stack, PDF strategy, draft storage (engineering track)
+
 ### Reference implementation — `kb/finding/`
 - [finding/tepez-form-runtime](finding/tepez-form-runtime.md) — how
   tofes101.co.il is actually built, and how to re-extract it.
@@ -166,3 +186,46 @@ The UX + accessibility layer: what every screen must do, and why. The hub is
 [MDN autocomplete](sources/mdn-autocomplete.md), [inputmode](sources/mdn-inputmode.md),
 [enterkeyhint](sources/mdn-enterkeyhint.md), [VisualViewport](sources/mdn-visual-viewport.md),
 [NN/g forms](sources/nng-web-form-design.md).
+
+## Law
+
+The legal spine for form 101 (טופס 101), tax years 2025–2026. Start with the hub;
+every node is year-stamped and cites a `source/` node.
+
+| Node | What it answers |
+| --- | --- |
+| [law/form-101](law/form-101.md) | **hub** — what the form is, who fills/signs it, when, and the legal spine |
+| [law/form-101-official-pdf](law/form-101-official-pdf.md) | the official 0101/130 (11.2025) artifact, page by page, and version pitfalls |
+| [law/form-101-section-map](law/form-101-section-map.md) | one row per section א–י and per item 1–16 / ט1–3, mandatory vs optional |
+| [law/personal-details](law/personal-details.md) | section ב: identity, address, phones, gender, marital status, kibbutz, health fund |
+| [law/who-must-file](law/who-must-file.md) | employee, daily worker, foreign worker, pensioner, minor, multiple employers |
+| [law/submission-deadlines](law/submission-deadlines.md) | 7 days, 1 January, 7-day changes, 2(e), late consequences |
+| [law/employer-obligations](law/employer-obligations.md) | demand, verify, withhold, report (106/126), archive, privacy |
+| [law/withholding-mechanics](law/withholding-mechanics.md) | monthly table, maximum rate, salary types, surtax |
+| [law/tax-coordination](law/tax-coordination.md) | 101 section ט, form 116 (not 119), main/second employer |
+| [law/credit-points](law/credit-points.md) | **credit hub** — every track, how points reduce tax |
+| [law/credit-point-value](law/credit-point-value.md) | 2,904 ₪/yr · 242 ₪/mo and the 2024–2027 freeze |
+| [law/credit-points-2026](law/credit-points-2026.md) | 2026 cheat sheet: values, brackets, children, oleh, reserve |
+| [law/tax-brackets-2025](law/tax-brackets-2025.md) | 2025 annual/monthly brackets and surtax |
+| [law/tax-brackets-2026](law/tax-brackets-2026.md) | 2026 brackets, the 31.3.2026 retroactive widening, worked example |
+| [law/children-credit-points](law/children-credit-points.md) | per-child table by age and parent, 2024–2026 |
+| [law/single-parent-credit](law/single-parent-credit.md) | items 6/9/10, custody, separation, part-year |
+| [law/spouse-not-working](law/spouse-not-working.md) | dependent-spouse 1 point and working-spouse 1.5/1.75 |
+| [law/new-immigrant](law/new-immigrant.md) | oleh 54/42-month schedule and the 2026 temporary exemption |
+| [law/returning-resident](law/returning-resident.md) | returning-resident tracks and what the 101 can/cannot do |
+| [law/soldier-credit](law/soldier-credit.md) | discharged soldier / national service, 36 months |
+| [law/reserve-credit](law/reserve-credit.md) | reserve combatant tiers for 2026–2027 |
+| [law/credit-points-studies](law/credit-points-studies.md) | BA/MA/profession/teaching credit and form 119 |
+| [law/alimony-credit](law/alimony-credit.md) | 1 point for alimony to a former spouse after remarriage |
+| [law/disabled-child-credit](law/disabled-child-credit.md) | 2 points per disabled child (s. 45) |
+| [law/youth-credit](law/youth-credit.md) | 1 point for ages 16–17 |
+| [law/disability-exemption](law/disability-exemption.md) | item 2 is an exemption, not points; 2026 ceilings |
+| [law/residency-and-foreign-workers](law/residency-and-foreign-workers.md) | resident vs foreign resident vs foreign worker; point tables |
+| [law/id-number-validation](law/id-number-validation.md) | 9-digit ID, check-digit algorithm, passport fallback |
+| [law/marital-status](law/marital-status.md) | five options, “פרוד/ה” approval, part-year, gaps |
+| [law/children-details](law/children-details.md) | section ג rows, custody, NII allowance, validation |
+| [law/privacy-consent](law/privacy-consent.md) | Amendment 13, no consent checkbox, browser-only checklist |
+| [law/declaration-and-signature](law/declaration-and-signature.md) | declaration text, paper vs approved electronic signature |
+| [law/retention](law/retention.md) | 7 years / 6 years from filing, versioned archive |
+| [law/edge-cases](law/edge-cases.md) | 24 edge cases: minors, foreign workers, death, corrections, etc. |
+| [law/glossary](law/glossary.md) | Hebrew/English terms for form 101 and payroll tax |

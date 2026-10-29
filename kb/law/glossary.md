@@ -6,7 +6,7 @@ status: verified
 confidence: verified
 updated: 2026-10-29
 tags: [glossary, law, form-101, hebrew, english]
-sources: [source/taxes-form-101-2026, source/nevo-income-tax-ordinance]
+sources: [source/tofes101-official-pdf, source/nevo-income-tax-ordinance]
 related: [law/form-101, law/credit-points, law/tax-coordination, glossary/terms]
 up: law/form-101
 ---
@@ -97,3 +97,10 @@ term in the UI; use the English for code/docs.
 - [[law/form-101]] — the spine
 - [[law/credit-points]] — the credit hub
 - [[glossary/terms]] — the product-wide glossary (UX/UI terms)
+
+## Sources
+
+- [[source/tofes101-official-pdf]]
+- [[source/nevo-income-tax-ordinance]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

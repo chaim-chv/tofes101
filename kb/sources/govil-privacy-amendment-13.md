@@ -8,6 +8,7 @@ authority: primary
 publisher: הרשות להגנת הפרטיות / משרד המשפטים
 url: https://www.gov.il/he/pages/guide_tikon13_professional
 retrieved: 2026-10-29
+updated: 2026-10-29
 tags: [source, privacy, amendment-13, 2025]
 ---
 
@@ -19,3 +20,5 @@ database-registration duty, notification for large/sensitive databases, the DPO
 duty, administrative fines and new criminal offences. For a local-only tool the
 key question is whether the developer ever receives/stores personal data; if not,
 the employer remains the controller and the developer is outside the database.
+
+**Retrieval note:** direct `curl` from this network returns HTTP 403 (Cloudflare); the page content was read through `r.jina.ai` on 2026-10-29. The URL above is the canonical public page.

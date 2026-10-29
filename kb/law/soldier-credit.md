@@ -75,3 +75,10 @@ Tax Authority’s national-service page.
   for all national-service tracks.
 - The treatment of a soldier discharged mid-month (the statute says “after the
   month”, so the first full month after discharge).
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/kolzchut-soldier]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

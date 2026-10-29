@@ -6,7 +6,7 @@ status: verified
 confidence: verified
 updated: 2026-10-29
 tags: [law, id-number, validation, checksum]
-sources: [source/id-checksum-reference, source/taxes-form-101-2026]
+sources: [source/id-checksum-reference, source/tofes101-official-pdf]
 related: [law/form-101, law/children-details, law/marital-status]
 up: law/form-101
 ---
@@ -93,3 +93,10 @@ Test vectors:
   (no official statement found).
 - Any special format for old IDs with fewer than 9 digits (the algorithm
   left-pads; the form expects 9).
+
+## Sources
+
+- [[source/id-checksum-reference]]
+- [[source/tofes101-official-pdf]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

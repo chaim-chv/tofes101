@@ -78,3 +78,11 @@ others must go to the assessor / use the dedicated service.
 The statutory text and the 2026 guide are verified; the administrative
 returning-resident tracks and the exact 101 treatment are `likely`/unverified.
 This node deliberately does not invent a threshold or a formula.
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/govil-immigrant-guide]]
+- [[source/govil-form-116]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

@@ -8,6 +8,7 @@ authority: secondary
 publisher: כל-זכות
 url: https://www.kolzchut.org.il/he/%D7%98%D7%95%D7%A4%D7%A1_101
 retrieved: 2026-10-29
+updated: 2026-10-29
 tags: [source, form-101, procedure]
 ---
 

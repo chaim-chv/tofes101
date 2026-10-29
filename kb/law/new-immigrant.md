@@ -75,6 +75,9 @@ Total: **42 months**.
 - Document: **תעודת עולה** is mandatory per the electronic matrix.
 - If the oleh’s entitlement was not continuous because of IDF service, post-
   secondary studies or a trip abroad, the form says to go to the assessor.
+- If the oleh has no Israeli ID yet, the 2026 electronic matrix hides section ח
+  (and section ג); use the paper form/assessor route for the oleh credit, or wait
+  for the ID. Do not force the passport path and then silently drop item 4.
 
 ## 6. The 2026 temporary exemption (in addition to the points)
 
@@ -127,3 +130,11 @@ The 2026 budget law (חוק עידוד עלייה לישראל וחזרה אלי
 - The exact implementation circular for the 2026 temporary exemption.
 - The treatment of a returning resident who does not meet the s. 35(d) definition
   but meets a newer returning-resident track — see [[law/returning-resident]].
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/govil-immigrant-guide]]
+- [[source/kolzchut-oleh]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

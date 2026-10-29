@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-29T20:13:48.629Z",
+  "generatedAt": "2026-10-29T20:30:48.764Z",
   "counts": {
-    "nodes": 120,
-    "edges": 564,
+    "nodes": 167,
+    "edges": 1074,
     "errors": 0,
-    "warnings": 88
+    "warnings": 7
   },
   "nodes": [
     {
@@ -272,10 +272,128 @@
       "related": [
         "flow/form-101-service",
         "flow/form-101-field-spec",
-        "decision/adr-0001-stack"
+        "decision/adr-0004-v1-scope"
       ],
       "dir": "finding",
       "words": 886
+    },
+    {
+      "id": "law/credit-points-2026",
+      "file": "law/credit-points-2026.md",
+      "title": "נקודות זיכוי 2026 — שנת מס 2026 cheat sheet",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "2026",
+        "snapshot"
+      ],
+      "sources": [
+        "source/taxes-monthly-deductions-2026",
+        "source/govil-parents-credit-points",
+        "source/govil-reserve-credit",
+        "source/govil-immigrant-guide"
+      ],
+      "related": [
+        "law/credit-points",
+        "law/credit-point-value",
+        "law/tax-brackets-2026",
+        "law/children-credit-points"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 725
+    },
+    {
+      "id": "law/retention",
+      "file": "law/retention.md",
+      "title": "שמירת טופס 101 — Retention and archive obligations",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "retention",
+        "archive",
+        "employer",
+        "privacy"
+      ],
+      "sources": [
+        "source/nevo-bookkeeping-rules",
+        "source/taxes-electronic-101-rules-2026",
+        "source/govil-form-106"
+      ],
+      "related": [
+        "law/employer-obligations",
+        "law/privacy-consent",
+        "law/declaration-and-signature"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 524
+    },
+    {
+      "id": "law/id-number-validation",
+      "file": "law/id-number-validation.md",
+      "title": "מספר זהות — Israeli ID validation and formatting",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "id-number",
+        "validation",
+        "checksum"
+      ],
+      "sources": [
+        "source/id-checksum-reference",
+        "source/tofes101-official-pdf"
+      ],
+      "related": [
+        "law/form-101",
+        "law/children-details",
+        "law/marital-status"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 609
+    },
+    {
+      "id": "law/credit-points",
+      "file": "law/credit-points.md",
+      "title": "נקודות זיכוי — Credit points: the complete map",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "income-tax",
+        "2025",
+        "2026"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/taxes-monthly-deductions-2026",
+        "source/taxes-monthly-deductions-2025",
+        "source/kolzchut-credit-points"
+      ],
+      "related": [
+        "law/form-101",
+        "law/credit-point-value",
+        "law/credit-points-2026",
+        "law/children-credit-points",
+        "law/spouse-not-working"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 1291
     },
     {
       "id": "law/form-101",
@@ -293,7 +411,7 @@
         "israel"
       ],
       "sources": [
-        "source/taxes-form-101-2026",
+        "source/tofes101-official-pdf",
         "source/taxes-electronic-101-rules-2026",
         "source/wikisource-payroll-withholding-regulations",
         "source/nevo-income-tax-ordinance"
@@ -306,7 +424,876 @@
         "law/privacy-consent"
       ],
       "dir": "law",
-      "words": 1552
+      "words": 1877
+    },
+    {
+      "id": "law/soldier-credit",
+      "file": "law/soldier-credit.md",
+      "title": "זיכוי לחייל משוחרר — Discharged soldier credit (s. 39א)",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "soldier",
+        "national-service"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/kolzchut-soldier"
+      ],
+      "related": [
+        "law/credit-points",
+        "law/reserve-credit",
+        "law/youth-credit"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 475
+    },
+    {
+      "id": "law/new-immigrant",
+      "file": "law/new-immigrant.md",
+      "title": "עולה חדש — New immigrant credit points (s. 35)",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "oleh",
+        "aliyah",
+        "2026"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/govil-immigrant-guide",
+        "source/kolzchut-oleh"
+      ],
+      "related": [
+        "law/credit-points",
+        "law/returning-resident",
+        "law/residency-and-foreign-workers",
+        "law/credit-points-2026"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 942
+    },
+    {
+      "id": "law/form-101-official-pdf",
+      "file": "law/form-101-official-pdf.md",
+      "title": "טופס 101 הרשמי — המסמך, הגרסה והקריאה הנכונה שלו",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "form-101",
+        "pdf",
+        "artifact",
+        "versioning"
+      ],
+      "sources": [
+        "source/tofes101-official-pdf",
+        "source/taxes-electronic-101-rules-2026"
+      ],
+      "related": [
+        "law/form-101",
+        "law/form-101-section-map",
+        "law/declaration-and-signature"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 965
+    },
+    {
+      "id": "law/edge-cases",
+      "file": "law/edge-cases.md",
+      "title": "מקרי קצה — Form 101 edge cases and how to handle them",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "form-101",
+        "edge-cases",
+        "implementation"
+      ],
+      "sources": [
+        "source/wikisource-payroll-withholding-regulations",
+        "source/taxes-electronic-101-rules-2026",
+        "source/nevo-income-tax-ordinance",
+        "source/govil-pensioner-101-exemption"
+      ],
+      "related": [
+        "law/form-101",
+        "law/who-must-file",
+        "law/tax-coordination",
+        "law/children-details",
+        "law/privacy-consent"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 1501
+    },
+    {
+      "id": "law/submission-deadlines",
+      "file": "law/submission-deadlines.md",
+      "title": "מועדי הגשה ועדכון של טופס 101 — Deadlines",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "form-101",
+        "deadlines",
+        "renewal",
+        "changes"
+      ],
+      "sources": [
+        "source/wikisource-payroll-withholding-regulations",
+        "source/taxes-electronic-101-rules-2026",
+        "source/govil-form-101-service"
+      ],
+      "related": [
+        "law/form-101",
+        "law/who-must-file",
+        "law/employer-obligations",
+        "law/edge-cases"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 723
+    },
+    {
+      "id": "law/tax-coordination",
+      "file": "law/tax-coordination.md",
+      "title": "תיאום מס — Tax coordination, second jobs and multiple employers",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "tax-coordination",
+        "form-116",
+        "second-job",
+        "multiple-employers"
+      ],
+      "sources": [
+        "source/govil-form-116",
+        "source/govil-tax-coordination",
+        "source/wikisource-payroll-withholding-regulations",
+        "source/tofes101-official-pdf"
+      ],
+      "related": [
+        "law/form-101",
+        "law/withholding-mechanics",
+        "law/credit-points",
+        "law/edge-cases"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 926
+    },
+    {
+      "id": "law/marital-status",
+      "file": "law/marital-status.md",
+      "title": "מצב משפחתי — Marital status: options, proof and consequences",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "marital-status",
+        "spouse",
+        "form-101"
+      ],
+      "sources": [
+        "source/tofes101-official-pdf",
+        "source/taxes-electronic-101-rules-2026",
+        "source/nevo-income-tax-ordinance"
+      ],
+      "related": [
+        "law/form-101",
+        "law/spouse-not-working",
+        "law/children-details",
+        "law/single-parent-credit"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 643
+    },
+    {
+      "id": "law/children-details",
+      "file": "law/children-details.md",
+      "title": "פרטי הילדים — Section ג: child rows, custody and child allowance",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "children",
+        "form-101",
+        "custody",
+        "validation"
+      ],
+      "sources": [
+        "source/tofes101-official-pdf",
+        "source/taxes-electronic-101-rules-2026"
+      ],
+      "related": [
+        "law/children-credit-points",
+        "law/single-parent-credit",
+        "law/id-number-validation",
+        "law/form-101-section-map"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 646
+    },
+    {
+      "id": "law/glossary",
+      "file": "law/glossary.md",
+      "title": "מונחים — Glossary for form 101 and Israeli payroll tax",
+      "type": "glossary",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "glossary",
+        "law",
+        "form-101",
+        "hebrew",
+        "english"
+      ],
+      "sources": [
+        "source/tofes101-official-pdf",
+        "source/nevo-income-tax-ordinance"
+      ],
+      "related": [
+        "law/form-101",
+        "law/credit-points",
+        "law/tax-coordination",
+        "glossary/terms"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 892
+    },
+    {
+      "id": "law/reserve-credit",
+      "file": "law/reserve-credit.md",
+      "title": "זיכוי ללוחמי מילואים — Reserve combatant credit (s. 39ב)",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "reserve",
+        "2026",
+        "2027"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/govil-reserve-credit",
+        "source/kolzchut-credit-points"
+      ],
+      "related": [
+        "law/credit-points",
+        "law/soldier-credit",
+        "law/credit-points-2026"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 465
+    },
+    {
+      "id": "law/withholding-mechanics",
+      "file": "law/withholding-mechanics.md",
+      "title": "מנגנון הניכוי — How the 101 changes the payroll withholding",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "withholding",
+        "payroll",
+        "tax-rate",
+        "form-101"
+      ],
+      "sources": [
+        "source/wikisource-payroll-withholding-regulations",
+        "source/taxes-monthly-deductions-2026",
+        "source/nevo-income-tax-ordinance"
+      ],
+      "related": [
+        "law/form-101",
+        "law/employer-obligations",
+        "law/tax-brackets-2026",
+        "law/tax-coordination"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 775
+    },
+    {
+      "id": "law/returning-resident",
+      "file": "law/returning-resident.md",
+      "title": "תושב חוזר — Returning resident: what the 101 can and cannot do",
+      "type": "concept",
+      "status": "likely",
+      "confidence": "likely",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "returning-resident",
+        "oleh",
+        "2026"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/govil-immigrant-guide",
+        "source/govil-form-116"
+      ],
+      "related": [
+        "law/new-immigrant",
+        "law/credit-points",
+        "law/tax-coordination",
+        "law/residency-and-foreign-workers"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 597
+    },
+    {
+      "id": "law/form-101-section-map",
+      "file": "law/form-101-section-map.md",
+      "title": "מפת סעיפי טופס 101 — Section-by-section map",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "form-101",
+        "sections",
+        "fields",
+        "mandatory"
+      ],
+      "sources": [
+        "source/tofes101-official-pdf",
+        "source/taxes-electronic-101-rules-2026"
+      ],
+      "related": [
+        "law/form-101",
+        "law/form-101-official-pdf",
+        "law/declaration-and-signature",
+        "law/credit-points"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 1867
+    },
+    {
+      "id": "law/tax-brackets-2025",
+      "file": "law/tax-brackets-2025.md",
+      "title": "מדרגות מס הכנסה 2025 — Tax brackets, tax year 2025",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "tax-brackets",
+        "2025",
+        "income-tax"
+      ],
+      "sources": [
+        "source/taxes-monthly-deductions-2025"
+      ],
+      "related": [
+        "law/tax-brackets-2026",
+        "law/credit-point-value",
+        "law/withholding-mechanics"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 319
+    },
+    {
+      "id": "law/personal-details",
+      "file": "law/personal-details.md",
+      "title": "פרטי העובד — Section ב: identity, address and status fields",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "form-101",
+        "personal-details",
+        "validation",
+        "identity"
+      ],
+      "sources": [
+        "source/tofes101-official-pdf",
+        "source/taxes-electronic-101-rules-2026"
+      ],
+      "related": [
+        "law/form-101",
+        "law/id-number-validation",
+        "law/marital-status",
+        "law/residency-and-foreign-workers"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 893
+    },
+    {
+      "id": "law/credit-points-studies",
+      "file": "law/credit-points-studies.md",
+      "title": "זיכוי בגין לימודים — Academic degree, profession and teaching certificate",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "studies",
+        "form-119"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/kolzchut-credit-points"
+      ],
+      "related": [
+        "law/credit-points",
+        "law/form-101-section-map",
+        "law/tax-coordination"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 573
+    },
+    {
+      "id": "law/alimony-credit",
+      "file": "law/alimony-credit.md",
+      "title": "זיכוי בגין מזונות לבן/בת זוג לשעבר — Alimony credit (s. 40א)",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "alimony",
+        "divorce"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/kolzchut-alimony"
+      ],
+      "related": [
+        "law/credit-points",
+        "law/single-parent-credit",
+        "law/marital-status"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 421
+    },
+    {
+      "id": "law/tax-brackets-2026",
+      "file": "law/tax-brackets-2026.md",
+      "title": "מדרגות מס הכנסה 2026 — Tax brackets, tax year 2026",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "tax-brackets",
+        "2026",
+        "income-tax"
+      ],
+      "sources": [
+        "source/taxes-monthly-deductions-2026"
+      ],
+      "related": [
+        "law/tax-brackets-2025",
+        "law/credit-point-value",
+        "law/credit-points-2026",
+        "law/withholding-mechanics"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 467
+    },
+    {
+      "id": "law/youth-credit",
+      "file": "law/youth-credit.md",
+      "title": "זיכוי לנוער עובד — Youth credit (s. 40ב)",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "youth",
+        "minors"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/kolzchut-credit-points"
+      ],
+      "related": [
+        "law/credit-points",
+        "law/soldier-credit",
+        "law/who-must-file"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 438
+    },
+    {
+      "id": "law/employer-obligations",
+      "file": "law/employer-obligations.md",
+      "title": "חובות המעסיק — Employer obligations around form 101",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "employer",
+        "withholding",
+        "reporting",
+        "retention",
+        "form-101"
+      ],
+      "sources": [
+        "source/wikisource-payroll-withholding-regulations",
+        "source/nevo-income-tax-ordinance",
+        "source/taxes-electronic-101-rules-2026",
+        "source/govil-form-106"
+      ],
+      "related": [
+        "law/form-101",
+        "law/withholding-mechanics",
+        "law/retention",
+        "law/privacy-consent"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 699
+    },
+    {
+      "id": "law/disability-exemption",
+      "file": "law/disability-exemption.md",
+      "title": "פטור לעיוור/נכה — Disability and blindness exemption (s. 9(5))",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "exemption",
+        "disability",
+        "blindness",
+        "form-101"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/taxes-monthly-deductions-2026",
+        "source/tofes101-official-pdf"
+      ],
+      "related": [
+        "law/form-101",
+        "law/credit-points",
+        "law/disabled-child-credit"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 567
+    },
+    {
+      "id": "law/disabled-child-credit",
+      "file": "law/disabled-child-credit.md",
+      "title": "זיכוי בגין ילד עם מוגבלות — Disabled child credit (s. 45)",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "disability",
+        "children"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/kolzchut-disabled-child",
+        "source/btl-child-disability"
+      ],
+      "related": [
+        "law/credit-points",
+        "law/children-credit-points",
+        "law/disability-exemption"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 627
+    },
+    {
+      "id": "law/credit-point-value",
+      "file": "law/credit-point-value.md",
+      "title": "שווי נקודת זיכוי — Value per point, 2024–2027",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "value",
+        "2025",
+        "2026"
+      ],
+      "sources": [
+        "source/taxes-monthly-deductions-2025",
+        "source/taxes-monthly-deductions-2026",
+        "source/nevo-income-tax-ordinance"
+      ],
+      "related": [
+        "law/credit-points",
+        "law/credit-points-2026",
+        "law/tax-brackets-2026"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 499
+    },
+    {
+      "id": "law/residency-and-foreign-workers",
+      "file": "law/residency-and-foreign-workers.md",
+      "title": "תושבות ועובדים זרים — Residency, foreign residents and foreign workers",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "residency",
+        "foreign-worker",
+        "credit-points",
+        "form-101"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/kolzchut-foreign-worker",
+        "source/wikisource-payroll-withholding-regulations"
+      ],
+      "related": [
+        "law/credit-points",
+        "law/who-must-file",
+        "law/new-immigrant",
+        "law/form-101-section-map"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 645
+    },
+    {
+      "id": "law/spouse-not-working",
+      "file": "law/spouse-not-working.md",
+      "title": "זיכוי בעד בן/בת זוג — Dependent spouse and working-spouse credits",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "spouse",
+        "form-101"
+      ],
+      "sources": [
+        "source/govil-spouse-credit",
+        "source/nevo-income-tax-ordinance",
+        "source/kolzchut-spouse"
+      ],
+      "related": [
+        "law/credit-points",
+        "law/marital-status",
+        "law/children-credit-points"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 836
+    },
+    {
+      "id": "law/declaration-and-signature",
+      "file": "law/declaration-and-signature.md",
+      "title": "הצהרה וחתימה — The declaration, signature and electronic form",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "signature",
+        "declaration",
+        "electronic-signature",
+        "form-101"
+      ],
+      "sources": [
+        "source/tofes101-official-pdf",
+        "source/taxes-electronic-101-rules-2026"
+      ],
+      "related": [
+        "law/form-101",
+        "law/privacy-consent",
+        "law/employer-obligations",
+        "law/retention"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 600
+    },
+    {
+      "id": "law/privacy-consent",
+      "file": "law/privacy-consent.md",
+      "title": "פרטיות והסכמה — Privacy law for a browser-only 101 tool",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "privacy",
+        "consent",
+        "amendment-13",
+        "browser-only"
+      ],
+      "sources": [
+        "source/govil-privacy-amendment-13",
+        "source/taxes-electronic-101-rules-2026"
+      ],
+      "related": [
+        "law/form-101",
+        "law/declaration-and-signature",
+        "law/retention",
+        "law/employer-obligations"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 973
+    },
+    {
+      "id": "law/who-must-file",
+      "file": "law/who-must-file.md",
+      "title": "מי חייב למלא טופס 101 — Who must file",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "form-101",
+        "scope",
+        "employee",
+        "foreign-worker",
+        "pensioner"
+      ],
+      "sources": [
+        "source/wikisource-payroll-withholding-regulations",
+        "source/govil-form-101-service",
+        "source/govil-pensioner-101-exemption"
+      ],
+      "related": [
+        "law/form-101",
+        "law/submission-deadlines",
+        "law/residency-and-foreign-workers",
+        "law/edge-cases"
+      ],
+      "up": "law/form-101",
+      "dir": "law",
+      "words": 681
+    },
+    {
+      "id": "law/children-credit-points",
+      "file": "law/children-credit-points.md",
+      "title": "נקודות זיכוי לילדים — Children credit points, 2024–2026",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "children",
+        "2026"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/govil-parents-credit-points",
+        "source/kolzchut-children-credit"
+      ],
+      "related": [
+        "law/credit-points",
+        "law/children-details",
+        "law/single-parent-credit",
+        "law/form-101-section-map"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 1387
+    },
+    {
+      "id": "law/single-parent-credit",
+      "file": "law/single-parent-credit.md",
+      "title": "הורה במשפחה חד־הורית / הורה יחיד — Single-parent credit",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "law",
+        "credit-points",
+        "single-parent",
+        "divorce",
+        "custody"
+      ],
+      "sources": [
+        "source/nevo-income-tax-ordinance",
+        "source/govil-parents-credit-points",
+        "source/kolzchut-children-credit"
+      ],
+      "related": [
+        "law/children-credit-points",
+        "law/children-details",
+        "law/alimony-credit",
+        "law/form-101-section-map"
+      ],
+      "up": "law/credit-points",
+      "dir": "law",
+      "words": 893
     },
     {
       "id": "product/personas",
@@ -630,7 +1617,7 @@
       ],
       "up": "flow/form-101-service",
       "dir": "field",
-      "words": 415
+      "words": 471
     },
     {
       "id": "decision/adr-0005-employer-prefill-link",
@@ -655,6 +1642,33 @@
       "up": "product/scope-v1",
       "dir": "decisions",
       "words": 633
+    },
+    {
+      "id": "decision/adr-0006-navigation",
+      "file": "decisions/adr-0006-navigation.md",
+      "title": "ADR-0006 — Navigation model (8 steps, not one page, not 160 pages)",
+      "type": "decision",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "adr",
+        "navigation",
+        "wizard",
+        "ux"
+      ],
+      "sources": [
+        "source/govuk-question-pages",
+        "source/nng-web-form-design"
+      ],
+      "related": [
+        "ux/wizard-vs-long-page",
+        "flow/form-101-service",
+        "product/scope-v1"
+      ],
+      "up": "ux/ux-principles",
+      "dir": "decisions",
+      "words": 382
     },
     {
       "id": "decision/adr-0004-v1-scope",
@@ -1553,7 +2567,7 @@
       "sources": [],
       "related": [],
       "dir": ".",
-      "words": 1082
+      "words": 1620
     },
     {
       "id": "source/govil-website-accessibility-guide",
@@ -1575,13 +2589,32 @@
       "words": 129
     },
     {
+      "id": "source/nuxt-ui-4-i18n",
+      "file": "sources/nuxt-ui-4-i18n.md",
+      "title": "Nuxt UI 4 — Internationalization, locale and RTL direction",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "nuxt-ui",
+        "i18n",
+        "rtl",
+        "hebrew"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 148
+    },
+    {
       "id": "source/govil-form-101-service",
       "file": "sources/govil-form-101-service.md",
       "title": "gov.il — כרטיס עובד ובקשה להקלה ולתיאום מס (טופס 101)",
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "form-101",
@@ -1591,7 +2624,7 @@
       "sources": [],
       "related": [],
       "dir": "sources",
-      "words": 71
+      "words": 99
     },
     {
       "id": "source/nevo-bookkeeping-rules",
@@ -1600,7 +2633,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "retention",
@@ -1637,7 +2670,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "credit-points",
@@ -1655,7 +2688,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "oleh",
@@ -1665,7 +2698,63 @@
       "sources": [],
       "related": [],
       "dir": "sources",
-      "words": 65
+      "words": 93
+    },
+    {
+      "id": "source/mdn-opfs",
+      "file": "sources/mdn-opfs.md",
+      "title": "MDN — Origin private file system (OPFS)",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "storage",
+        "opfs",
+        "filesystem"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 93
+    },
+    {
+      "id": "source/webdev-storage-for-the-web",
+      "file": "sources/webdev-storage-for-the-web.md",
+      "title": "web.dev — Storage for the web (quota, persistence, eviction)",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "storage",
+        "quota",
+        "persistence",
+        "reference"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 109
+    },
+    {
+      "id": "source/mdn-storage-quotas",
+      "file": "sources/mdn-storage-quotas.md",
+      "title": "MDN — Storage quotas and eviction criteria",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "storage",
+        "indexeddb",
+        "quota",
+        "eviction"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 184
     },
     {
       "id": "source/govil-is5568-standard",
@@ -1712,7 +2801,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "likely",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "id-number",
@@ -1731,7 +2820,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "form-101",
@@ -1798,7 +2887,7 @@
       "sources": [],
       "related": [],
       "dir": "sources",
-      "words": 275
+      "words": 283
     },
     {
       "id": "source/govil-form-116",
@@ -1807,7 +2896,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "form-116",
@@ -1920,7 +3009,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "form-106",
@@ -1930,7 +3019,7 @@
       "sources": [],
       "related": [],
       "dir": "sources",
-      "words": 60
+      "words": 88
     },
     {
       "id": "source/nng-web-form-design",
@@ -1976,7 +3065,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "tax-coordination",
@@ -1985,7 +3074,26 @@
       "sources": [],
       "related": [],
       "dir": "sources",
-      "words": 73
+      "words": 101
+    },
+    {
+      "id": "source/vite-pwa-nuxt",
+      "file": "sources/vite-pwa-nuxt.md",
+      "title": "@vite-pwa/nuxt — Nuxt 3/4 integration docs",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "pwa",
+        "service-worker",
+        "nuxt",
+        "workbox"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 135
     },
     {
       "id": "source/govuk-addresses",
@@ -2014,7 +3122,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "soldier",
@@ -2024,6 +3132,26 @@
       "related": [],
       "dir": "sources",
       "words": 58
+    },
+    {
+      "id": "source/webkit-itp-7day-storage",
+      "file": "sources/webkit-itp-7day-storage.md",
+      "title": "WebKit — 7-day cap on all script-writeable storage (ITP)",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "safari",
+        "storage",
+        "eviction",
+        "privacy",
+        "pwa"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 146
     },
     {
       "id": "source/israel-regs-service-accessibility",
@@ -2052,7 +3180,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "tax-rates",
@@ -2084,6 +3212,43 @@
       "words": 86
     },
     {
+      "id": "source/pdf-lib-readme",
+      "file": "sources/pdf-lib-readme.md",
+      "title": "pdf-lib — README (create/modify PDFs, embed fonts, forms)",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "pdf",
+        "pdf-lib",
+        "fonts",
+        "acroform"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 121
+    },
+    {
+      "id": "source/tepez-runner-bundle",
+      "file": "sources/tepez-runner-bundle.md",
+      "title": "tepez form-runner front-end bundle (forms.tofes101.co.il)",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "",
+      "tags": [
+        "source",
+        "reference-implementation",
+        "bundle"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 169
+    },
+    {
       "id": "source/govuk-names",
       "file": "sources/govuk-names.md",
       "title": "GOV.UK Design System — Names pattern",
@@ -2109,7 +3274,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "disability",
@@ -2120,6 +3285,25 @@
       "related": [],
       "dir": "sources",
       "words": 63
+    },
+    {
+      "id": "source/nuxt-ui-4-design-system",
+      "file": "sources/nuxt-ui-4-design-system.md",
+      "title": "Nuxt UI 4 — Design system, semantic colors and app.config",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "nuxt-ui",
+        "tailwind",
+        "theming",
+        "tokens"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 104
     },
     {
       "id": "source/tofes101-sitemap",
@@ -2147,7 +3331,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "spouse",
@@ -2165,7 +3349,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "tax-rates",
@@ -2222,7 +3406,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "privacy",
@@ -2232,7 +3416,7 @@
       "sources": [],
       "related": [],
       "dir": "sources",
-      "words": 72
+      "words": 100
     },
     {
       "id": "source/tofes101-docs-custom-form",
@@ -2260,7 +3444,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "credit-points",
@@ -2270,7 +3454,7 @@
       "sources": [],
       "related": [],
       "dir": "sources",
-      "words": 61
+      "words": 89
     },
     {
       "id": "source/govil-parents-credit-points",
@@ -2279,7 +3463,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "likely",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "credit-points",
@@ -2289,7 +3473,7 @@
       "sources": [],
       "related": [],
       "dir": "sources",
-      "words": 99
+      "words": 127
     },
     {
       "id": "source/wikisource-payroll-withholding-regulations",
@@ -2298,7 +3482,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "payroll",
@@ -2317,7 +3501,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "oleh",
@@ -2335,7 +3519,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "credit-points",
@@ -2345,7 +3529,25 @@
       "sources": [],
       "related": [],
       "dir": "sources",
-      "words": 59
+      "words": 87
+    },
+    {
+      "id": "source/nuxt-ui-4-installation",
+      "file": "sources/nuxt-ui-4-installation.md",
+      "title": "Nuxt UI 4 — Installation for Nuxt (official docs)",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "nuxt-ui",
+        "tailwind",
+        "setup"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 103
     },
     {
       "id": "source/w3c-wcag20-hebrew",
@@ -2430,7 +3632,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "form-101",
@@ -2487,7 +3689,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "income-tax",
@@ -2545,7 +3747,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "form-101",
@@ -2555,7 +3757,7 @@
       "sources": [],
       "related": [],
       "dir": "sources",
-      "words": 65
+      "words": 93
     },
     {
       "id": "source/kolzchut-alimony",
@@ -2564,7 +3766,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "alimony",
@@ -2596,13 +3798,51 @@
       "words": 192
     },
     {
+      "id": "source/unicode-uax9-bidi",
+      "file": "sources/unicode-uax9-bidi.md",
+      "title": "Unicode UAX #9 — Unicode Bidirectional Algorithm",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "bidi",
+        "unicode",
+        "hebrew",
+        "rtl",
+        "text-layout"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 132
+    },
+    {
+      "id": "source/nuxt-4-installation",
+      "file": "sources/nuxt-4-installation.md",
+      "title": "Nuxt 4 — Installation (official docs)",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "nuxt",
+        "tooling",
+        "scaffolding"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 128
+    },
+    {
       "id": "source/kolzchut-foreign-worker",
       "file": "sources/kolzchut-foreign-worker.md",
       "title": "כל-זכות — נקודות זיכוי לעובד זר",
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "foreign-worker",
@@ -2612,6 +3852,24 @@
       "related": [],
       "dir": "sources",
       "words": 68
+    },
+    {
+      "id": "source/mdn-storage-persist",
+      "file": "sources/mdn-storage-persist.md",
+      "title": "MDN — StorageManager.persist()",
+      "type": "source",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "storage",
+        "persistence",
+        "api"
+      ],
+      "sources": [],
+      "related": [],
+      "dir": "sources",
+      "words": 78
     },
     {
       "id": "source/mdn-enterkeyhint",
@@ -2677,7 +3935,7 @@
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "credit-points",
@@ -2689,33 +3947,13 @@
       "words": 90
     },
     {
-      "id": "source/taxes-form-101-2026",
-      "file": "sources/taxes-form-101-2026.md",
-      "title": "טופס 101 (כרטיס עובד) — נוסח רשמי 0101/130, מעודכן 11.2025",
-      "type": "source",
-      "status": "verified",
-      "confidence": "verified",
-      "updated": "",
-      "tags": [
-        "source",
-        "form-101",
-        "official-form",
-        "pdf",
-        "2026"
-      ],
-      "sources": [],
-      "related": [],
-      "dir": "sources",
-      "words": 102
-    },
-    {
       "id": "source/kolzchut-disabled-child",
       "file": "sources/kolzchut-disabled-child.md",
       "title": "כל-זכות — נקודות זיכוי בעד ילד או בוגר עם מוגבלות",
       "type": "source",
       "status": "verified",
       "confidence": "verified",
-      "updated": "",
+      "updated": "2026-10-29",
       "tags": [
         "source",
         "disability",
@@ -2750,7 +3988,7 @@
       ],
       "up": "index",
       "dir": "glossary",
-      "words": 749
+      "words": 771
     },
     {
       "id": "flow/form-101-service",
@@ -3234,12 +4472,382 @@
     },
     {
       "from": "finding/tepez-form-runtime",
+      "to": "decision/adr-0004-v1-scope",
+      "kind": "related"
+    },
+    {
+      "from": "finding/tepez-form-runtime",
       "to": "source/tofes101-form-runner-api",
       "kind": "source"
     },
     {
+      "from": "finding/tepez-form-runtime",
+      "to": "source/tepez-runner-bundle",
+      "kind": "source"
+    },
+    {
+      "from": "finding/tepez-form-runtime",
+      "to": "flow/form-101-field-spec",
+      "kind": "link"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "law/credit-point-value",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "law/tax-brackets-2026",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "law/children-credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "source/taxes-monthly-deductions-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "source/govil-parents-credit-points",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "source/govil-reserve-credit",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "source/govil-immigrant-guide",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "law/children-credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "law/single-parent-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "law/new-immigrant",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "source/taxes-monthly-deductions-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "source/govil-parents-credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "source/govil-reserve-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points-2026",
+      "to": "source/govil-immigrant-guide",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/retention",
+      "to": "law/employer-obligations",
+      "kind": "related"
+    },
+    {
+      "from": "law/retention",
+      "to": "law/privacy-consent",
+      "kind": "related"
+    },
+    {
+      "from": "law/retention",
+      "to": "law/declaration-and-signature",
+      "kind": "related"
+    },
+    {
+      "from": "law/retention",
+      "to": "source/nevo-bookkeeping-rules",
+      "kind": "source"
+    },
+    {
+      "from": "law/retention",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/retention",
+      "to": "source/govil-form-106",
+      "kind": "source"
+    },
+    {
+      "from": "law/retention",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/retention",
+      "to": "source/nevo-bookkeeping-rules",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/retention",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/retention",
+      "to": "source/govil-form-106",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/id-number-validation",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/id-number-validation",
+      "to": "law/children-details",
+      "kind": "related"
+    },
+    {
+      "from": "law/id-number-validation",
+      "to": "law/marital-status",
+      "kind": "related"
+    },
+    {
+      "from": "law/id-number-validation",
+      "to": "source/id-checksum-reference",
+      "kind": "source"
+    },
+    {
+      "from": "law/id-number-validation",
+      "to": "source/tofes101-official-pdf",
+      "kind": "source"
+    },
+    {
+      "from": "law/id-number-validation",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/id-number-validation",
+      "to": "source/id-checksum-reference",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/id-number-validation",
+      "to": "source/tofes101-official-pdf",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/credit-point-value",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/credit-points-2026",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/children-credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/spouse-not-working",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "source/taxes-monthly-deductions-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "source/taxes-monthly-deductions-2025",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "source/kolzchut-credit-points",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "source/taxes-monthly-deductions-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/youth-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/residency-and-foreign-workers",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/children-credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/single-parent-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/spouse-not-working",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/alimony-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/disabled-child-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/new-immigrant",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/returning-resident",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/soldier-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/reserve-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/credit-points-studies",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/disability-exemption",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/form-101-section-map",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/credit-point-value",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/credit-points-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/tax-brackets-2025",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "law/tax-brackets-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "source/taxes-monthly-deductions-2025",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points",
+      "to": "source/kolzchut-credit-points",
+      "kind": "wikilink"
+    },
+    {
       "from": "law/form-101",
-      "to": "source/taxes-form-101-2026",
+      "to": "law/form-101-section-map",
+      "kind": "related"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/tax-coordination",
+      "kind": "related"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/employer-obligations",
+      "kind": "related"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/privacy-consent",
+      "kind": "related"
+    },
+    {
+      "from": "law/form-101",
+      "to": "source/tofes101-official-pdf",
       "kind": "source"
     },
     {
@@ -3259,6 +4867,16 @@
     },
     {
       "from": "law/form-101",
+      "to": "law/form-101-section-map",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/form-101-official-pdf",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
       "to": "source/wikisource-payroll-withholding-regulations",
       "kind": "wikilink"
     },
@@ -3270,6 +4888,1791 @@
     {
       "from": "law/form-101",
       "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/submission-deadlines",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/edge-cases",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/withholding-mechanics",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/employer-obligations",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/tax-brackets-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/credit-point-value",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/marital-status",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/id-number-validation",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/children-details",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/tax-coordination",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/spouse-not-working",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/declaration-and-signature",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/credit-points-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/privacy-consent",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/personal-details",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/who-must-file",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/tax-brackets-2025",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/children-credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/single-parent-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/new-immigrant",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/returning-resident",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/soldier-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/reserve-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/credit-points-studies",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/alimony-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/disabled-child-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/youth-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/disability-exemption",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/residency-and-foreign-workers",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/retention",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "law/glossary",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101",
+      "to": "source/tofes101-official-pdf",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/soldier-credit",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/soldier-credit",
+      "to": "law/reserve-credit",
+      "kind": "related"
+    },
+    {
+      "from": "law/soldier-credit",
+      "to": "law/youth-credit",
+      "kind": "related"
+    },
+    {
+      "from": "law/soldier-credit",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/soldier-credit",
+      "to": "source/kolzchut-soldier",
+      "kind": "source"
+    },
+    {
+      "from": "law/soldier-credit",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/soldier-credit",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/soldier-credit",
+      "to": "source/kolzchut-soldier",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "law/returning-resident",
+      "kind": "related"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "law/residency-and-foreign-workers",
+      "kind": "related"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "law/credit-points-2026",
+      "kind": "related"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "source/govil-immigrant-guide",
+      "kind": "source"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "source/kolzchut-oleh",
+      "kind": "source"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "law/returning-resident",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "law/residency-and-foreign-workers",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "source/govil-immigrant-guide",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/new-immigrant",
+      "to": "source/kolzchut-oleh",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101-official-pdf",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/form-101-official-pdf",
+      "to": "law/form-101-section-map",
+      "kind": "related"
+    },
+    {
+      "from": "law/form-101-official-pdf",
+      "to": "law/declaration-and-signature",
+      "kind": "related"
+    },
+    {
+      "from": "law/form-101-official-pdf",
+      "to": "source/tofes101-official-pdf",
+      "kind": "source"
+    },
+    {
+      "from": "law/form-101-official-pdf",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/form-101-official-pdf",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/form-101-official-pdf",
+      "to": "source/tofes101-official-pdf",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101-official-pdf",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "law/who-must-file",
+      "kind": "related"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "law/tax-coordination",
+      "kind": "related"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "law/children-details",
+      "kind": "related"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "law/privacy-consent",
+      "kind": "related"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "source"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "source/govil-pensioner-101-exemption",
+      "kind": "source"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "law/tax-coordination",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/edge-cases",
+      "to": "source/govil-pensioner-101-exemption",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/submission-deadlines",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/submission-deadlines",
+      "to": "law/who-must-file",
+      "kind": "related"
+    },
+    {
+      "from": "law/submission-deadlines",
+      "to": "law/employer-obligations",
+      "kind": "related"
+    },
+    {
+      "from": "law/submission-deadlines",
+      "to": "law/edge-cases",
+      "kind": "related"
+    },
+    {
+      "from": "law/submission-deadlines",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "source"
+    },
+    {
+      "from": "law/submission-deadlines",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/submission-deadlines",
+      "to": "source/govil-form-101-service",
+      "kind": "source"
+    },
+    {
+      "from": "law/submission-deadlines",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/submission-deadlines",
+      "to": "law/who-must-file",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/submission-deadlines",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/submission-deadlines",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/submission-deadlines",
+      "to": "source/govil-form-101-service",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "law/withholding-mechanics",
+      "kind": "related"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "law/edge-cases",
+      "kind": "related"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "source/govil-form-116",
+      "kind": "source"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "source/govil-tax-coordination",
+      "kind": "source"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "source"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "source/tofes101-official-pdf",
+      "kind": "source"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "law/credit-points-studies",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "law/children-credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "law/single-parent-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "source/govil-form-116",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "source/govil-tax-coordination",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/tax-coordination",
+      "to": "source/tofes101-official-pdf",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/marital-status",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/marital-status",
+      "to": "law/spouse-not-working",
+      "kind": "related"
+    },
+    {
+      "from": "law/marital-status",
+      "to": "law/children-details",
+      "kind": "related"
+    },
+    {
+      "from": "law/marital-status",
+      "to": "law/single-parent-credit",
+      "kind": "related"
+    },
+    {
+      "from": "law/marital-status",
+      "to": "source/tofes101-official-pdf",
+      "kind": "source"
+    },
+    {
+      "from": "law/marital-status",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/marital-status",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/marital-status",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/marital-status",
+      "to": "source/tofes101-official-pdf",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/marital-status",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/marital-status",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/children-details",
+      "to": "law/children-credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/children-details",
+      "to": "law/single-parent-credit",
+      "kind": "related"
+    },
+    {
+      "from": "law/children-details",
+      "to": "law/id-number-validation",
+      "kind": "related"
+    },
+    {
+      "from": "law/children-details",
+      "to": "law/form-101-section-map",
+      "kind": "related"
+    },
+    {
+      "from": "law/children-details",
+      "to": "source/tofes101-official-pdf",
+      "kind": "source"
+    },
+    {
+      "from": "law/children-details",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/children-details",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/children-details",
+      "to": "law/children-credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/children-details",
+      "to": "law/privacy-consent",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/children-details",
+      "to": "law/retention",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/children-details",
+      "to": "source/tofes101-official-pdf",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/children-details",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/glossary",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/glossary",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/glossary",
+      "to": "law/tax-coordination",
+      "kind": "related"
+    },
+    {
+      "from": "law/glossary",
+      "to": "glossary/terms",
+      "kind": "related"
+    },
+    {
+      "from": "law/glossary",
+      "to": "source/tofes101-official-pdf",
+      "kind": "source"
+    },
+    {
+      "from": "law/glossary",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/glossary",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/glossary",
+      "to": "law/form-101",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/glossary",
+      "to": "law/credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/glossary",
+      "to": "glossary/terms",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/glossary",
+      "to": "source/tofes101-official-pdf",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/glossary",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/reserve-credit",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/reserve-credit",
+      "to": "law/soldier-credit",
+      "kind": "related"
+    },
+    {
+      "from": "law/reserve-credit",
+      "to": "law/credit-points-2026",
+      "kind": "related"
+    },
+    {
+      "from": "law/reserve-credit",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/reserve-credit",
+      "to": "source/govil-reserve-credit",
+      "kind": "source"
+    },
+    {
+      "from": "law/reserve-credit",
+      "to": "source/kolzchut-credit-points",
+      "kind": "source"
+    },
+    {
+      "from": "law/reserve-credit",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/reserve-credit",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/reserve-credit",
+      "to": "source/govil-reserve-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/reserve-credit",
+      "to": "source/kolzchut-credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/withholding-mechanics",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/withholding-mechanics",
+      "to": "law/employer-obligations",
+      "kind": "related"
+    },
+    {
+      "from": "law/withholding-mechanics",
+      "to": "law/tax-brackets-2026",
+      "kind": "related"
+    },
+    {
+      "from": "law/withholding-mechanics",
+      "to": "law/tax-coordination",
+      "kind": "related"
+    },
+    {
+      "from": "law/withholding-mechanics",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "source"
+    },
+    {
+      "from": "law/withholding-mechanics",
+      "to": "source/taxes-monthly-deductions-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/withholding-mechanics",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/withholding-mechanics",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/withholding-mechanics",
+      "to": "law/tax-brackets-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/withholding-mechanics",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/withholding-mechanics",
+      "to": "source/taxes-monthly-deductions-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/withholding-mechanics",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/returning-resident",
+      "to": "law/new-immigrant",
+      "kind": "related"
+    },
+    {
+      "from": "law/returning-resident",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/returning-resident",
+      "to": "law/tax-coordination",
+      "kind": "related"
+    },
+    {
+      "from": "law/returning-resident",
+      "to": "law/residency-and-foreign-workers",
+      "kind": "related"
+    },
+    {
+      "from": "law/returning-resident",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/returning-resident",
+      "to": "source/govil-immigrant-guide",
+      "kind": "source"
+    },
+    {
+      "from": "law/returning-resident",
+      "to": "source/govil-form-116",
+      "kind": "source"
+    },
+    {
+      "from": "law/returning-resident",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/returning-resident",
+      "to": "law/new-immigrant",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/returning-resident",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/returning-resident",
+      "to": "source/govil-immigrant-guide",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/returning-resident",
+      "to": "source/govil-form-116",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101-section-map",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/form-101-section-map",
+      "to": "law/form-101-official-pdf",
+      "kind": "related"
+    },
+    {
+      "from": "law/form-101-section-map",
+      "to": "law/declaration-and-signature",
+      "kind": "related"
+    },
+    {
+      "from": "law/form-101-section-map",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/form-101-section-map",
+      "to": "source/tofes101-official-pdf",
+      "kind": "source"
+    },
+    {
+      "from": "law/form-101-section-map",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/form-101-section-map",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/form-101-section-map",
+      "to": "source/tofes101-official-pdf",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101-section-map",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/form-101-section-map",
+      "to": "law/spouse-not-working",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/tax-brackets-2025",
+      "to": "law/tax-brackets-2026",
+      "kind": "related"
+    },
+    {
+      "from": "law/tax-brackets-2025",
+      "to": "law/credit-point-value",
+      "kind": "related"
+    },
+    {
+      "from": "law/tax-brackets-2025",
+      "to": "law/withholding-mechanics",
+      "kind": "related"
+    },
+    {
+      "from": "law/tax-brackets-2025",
+      "to": "source/taxes-monthly-deductions-2025",
+      "kind": "source"
+    },
+    {
+      "from": "law/tax-brackets-2025",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/tax-brackets-2025",
+      "to": "source/taxes-monthly-deductions-2025",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "law/id-number-validation",
+      "kind": "related"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "law/marital-status",
+      "kind": "related"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "law/residency-and-foreign-workers",
+      "kind": "related"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "source/tofes101-official-pdf",
+      "kind": "source"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "law/new-immigrant",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "law/residency-and-foreign-workers",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "law/privacy-consent",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "law/marital-status",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/personal-details",
+      "to": "source/tofes101-official-pdf",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points-studies",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-points-studies",
+      "to": "law/form-101-section-map",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-points-studies",
+      "to": "law/tax-coordination",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-points-studies",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-points-studies",
+      "to": "source/kolzchut-credit-points",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-points-studies",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/credit-points-studies",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-points-studies",
+      "to": "source/kolzchut-credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/alimony-credit",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/alimony-credit",
+      "to": "law/single-parent-credit",
+      "kind": "related"
+    },
+    {
+      "from": "law/alimony-credit",
+      "to": "law/marital-status",
+      "kind": "related"
+    },
+    {
+      "from": "law/alimony-credit",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/alimony-credit",
+      "to": "source/kolzchut-alimony",
+      "kind": "source"
+    },
+    {
+      "from": "law/alimony-credit",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/alimony-credit",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/alimony-credit",
+      "to": "source/kolzchut-alimony",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/tax-brackets-2026",
+      "to": "law/tax-brackets-2025",
+      "kind": "related"
+    },
+    {
+      "from": "law/tax-brackets-2026",
+      "to": "law/credit-point-value",
+      "kind": "related"
+    },
+    {
+      "from": "law/tax-brackets-2026",
+      "to": "law/credit-points-2026",
+      "kind": "related"
+    },
+    {
+      "from": "law/tax-brackets-2026",
+      "to": "law/withholding-mechanics",
+      "kind": "related"
+    },
+    {
+      "from": "law/tax-brackets-2026",
+      "to": "source/taxes-monthly-deductions-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/tax-brackets-2026",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/tax-brackets-2026",
+      "to": "law/tax-brackets-2025",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/tax-brackets-2026",
+      "to": "law/credit-points-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/tax-brackets-2026",
+      "to": "source/taxes-monthly-deductions-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/youth-credit",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/youth-credit",
+      "to": "law/soldier-credit",
+      "kind": "related"
+    },
+    {
+      "from": "law/youth-credit",
+      "to": "law/who-must-file",
+      "kind": "related"
+    },
+    {
+      "from": "law/youth-credit",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/youth-credit",
+      "to": "source/kolzchut-credit-points",
+      "kind": "source"
+    },
+    {
+      "from": "law/youth-credit",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/youth-credit",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/youth-credit",
+      "to": "source/kolzchut-credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "law/withholding-mechanics",
+      "kind": "related"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "law/retention",
+      "kind": "related"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "law/privacy-consent",
+      "kind": "related"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "source"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "source/govil-form-106",
+      "kind": "source"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "law/retention",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "law/privacy-consent",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/employer-obligations",
+      "to": "source/govil-form-106",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/disability-exemption",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/disability-exemption",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/disability-exemption",
+      "to": "law/disabled-child-credit",
+      "kind": "related"
+    },
+    {
+      "from": "law/disability-exemption",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/disability-exemption",
+      "to": "source/taxes-monthly-deductions-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/disability-exemption",
+      "to": "source/tofes101-official-pdf",
+      "kind": "source"
+    },
+    {
+      "from": "law/disability-exemption",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/disability-exemption",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/disability-exemption",
+      "to": "source/taxes-monthly-deductions-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/disability-exemption",
+      "to": "source/tofes101-official-pdf",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/disabled-child-credit",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/disabled-child-credit",
+      "to": "law/children-credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/disabled-child-credit",
+      "to": "law/disability-exemption",
+      "kind": "related"
+    },
+    {
+      "from": "law/disabled-child-credit",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/disabled-child-credit",
+      "to": "source/kolzchut-disabled-child",
+      "kind": "source"
+    },
+    {
+      "from": "law/disabled-child-credit",
+      "to": "source/btl-child-disability",
+      "kind": "source"
+    },
+    {
+      "from": "law/disabled-child-credit",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/disabled-child-credit",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/disabled-child-credit",
+      "to": "source/kolzchut-disabled-child",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/disabled-child-credit",
+      "to": "source/btl-child-disability",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-point-value",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-point-value",
+      "to": "law/credit-points-2026",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-point-value",
+      "to": "law/tax-brackets-2026",
+      "kind": "related"
+    },
+    {
+      "from": "law/credit-point-value",
+      "to": "source/taxes-monthly-deductions-2025",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-point-value",
+      "to": "source/taxes-monthly-deductions-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-point-value",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/credit-point-value",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/credit-point-value",
+      "to": "source/taxes-monthly-deductions-2025",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-point-value",
+      "to": "source/taxes-monthly-deductions-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/credit-point-value",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/residency-and-foreign-workers",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/residency-and-foreign-workers",
+      "to": "law/who-must-file",
+      "kind": "related"
+    },
+    {
+      "from": "law/residency-and-foreign-workers",
+      "to": "law/new-immigrant",
+      "kind": "related"
+    },
+    {
+      "from": "law/residency-and-foreign-workers",
+      "to": "law/form-101-section-map",
+      "kind": "related"
+    },
+    {
+      "from": "law/residency-and-foreign-workers",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/residency-and-foreign-workers",
+      "to": "source/kolzchut-foreign-worker",
+      "kind": "source"
+    },
+    {
+      "from": "law/residency-and-foreign-workers",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "source"
+    },
+    {
+      "from": "law/residency-and-foreign-workers",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/residency-and-foreign-workers",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/residency-and-foreign-workers",
+      "to": "source/kolzchut-foreign-worker",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/residency-and-foreign-workers",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/spouse-not-working",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/spouse-not-working",
+      "to": "law/marital-status",
+      "kind": "related"
+    },
+    {
+      "from": "law/spouse-not-working",
+      "to": "law/children-credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/spouse-not-working",
+      "to": "source/govil-spouse-credit",
+      "kind": "source"
+    },
+    {
+      "from": "law/spouse-not-working",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/spouse-not-working",
+      "to": "source/kolzchut-spouse",
+      "kind": "source"
+    },
+    {
+      "from": "law/spouse-not-working",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/spouse-not-working",
+      "to": "source/govil-spouse-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/spouse-not-working",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/spouse-not-working",
+      "to": "source/kolzchut-spouse",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/declaration-and-signature",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/declaration-and-signature",
+      "to": "law/privacy-consent",
+      "kind": "related"
+    },
+    {
+      "from": "law/declaration-and-signature",
+      "to": "law/employer-obligations",
+      "kind": "related"
+    },
+    {
+      "from": "law/declaration-and-signature",
+      "to": "law/retention",
+      "kind": "related"
+    },
+    {
+      "from": "law/declaration-and-signature",
+      "to": "source/tofes101-official-pdf",
+      "kind": "source"
+    },
+    {
+      "from": "law/declaration-and-signature",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/declaration-and-signature",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/declaration-and-signature",
+      "to": "source/tofes101-official-pdf",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/declaration-and-signature",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/privacy-consent",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/privacy-consent",
+      "to": "law/declaration-and-signature",
+      "kind": "related"
+    },
+    {
+      "from": "law/privacy-consent",
+      "to": "law/retention",
+      "kind": "related"
+    },
+    {
+      "from": "law/privacy-consent",
+      "to": "law/employer-obligations",
+      "kind": "related"
+    },
+    {
+      "from": "law/privacy-consent",
+      "to": "source/govil-privacy-amendment-13",
+      "kind": "source"
+    },
+    {
+      "from": "law/privacy-consent",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "source"
+    },
+    {
+      "from": "law/privacy-consent",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/privacy-consent",
+      "to": "source/govil-privacy-amendment-13",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/privacy-consent",
+      "to": "source/taxes-electronic-101-rules-2026",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "law/form-101",
+      "kind": "related"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "law/submission-deadlines",
+      "kind": "related"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "law/residency-and-foreign-workers",
+      "kind": "related"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "law/edge-cases",
+      "kind": "related"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "source"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "source/govil-form-101-service",
+      "kind": "source"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "source/govil-pensioner-101-exemption",
+      "kind": "source"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "law/form-101",
+      "kind": "up"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "law/tax-coordination",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "law/edge-cases",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "source/wikisource-payroll-withholding-regulations",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "source/govil-form-101-service",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/who-must-file",
+      "to": "source/govil-pensioner-101-exemption",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "law/children-details",
+      "kind": "related"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "law/single-parent-credit",
+      "kind": "related"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "law/form-101-section-map",
+      "kind": "related"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "source/govil-parents-credit-points",
+      "kind": "source"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "source/kolzchut-children-credit",
+      "kind": "source"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "law/single-parent-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "law/disabled-child-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "source/govil-parents-credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/children-credit-points",
+      "to": "source/kolzchut-children-credit",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/single-parent-credit",
+      "to": "law/children-credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "law/single-parent-credit",
+      "to": "law/children-details",
+      "kind": "related"
+    },
+    {
+      "from": "law/single-parent-credit",
+      "to": "law/alimony-credit",
+      "kind": "related"
+    },
+    {
+      "from": "law/single-parent-credit",
+      "to": "law/form-101-section-map",
+      "kind": "related"
+    },
+    {
+      "from": "law/single-parent-credit",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "source"
+    },
+    {
+      "from": "law/single-parent-credit",
+      "to": "source/govil-parents-credit-points",
+      "kind": "source"
+    },
+    {
+      "from": "law/single-parent-credit",
+      "to": "source/kolzchut-children-credit",
+      "kind": "source"
+    },
+    {
+      "from": "law/single-parent-credit",
+      "to": "law/credit-points",
+      "kind": "up"
+    },
+    {
+      "from": "law/single-parent-credit",
+      "to": "source/nevo-income-tax-ordinance",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/single-parent-credit",
+      "to": "source/govil-parents-credit-points",
+      "kind": "wikilink"
+    },
+    {
+      "from": "law/single-parent-credit",
+      "to": "source/kolzchut-children-credit",
       "kind": "wikilink"
     },
     {
@@ -3449,6 +6852,16 @@
     },
     {
       "from": "field/101-credit-items-map",
+      "to": "law/credit-points",
+      "kind": "related"
+    },
+    {
+      "from": "field/101-credit-items-map",
+      "to": "law/form-101-section-map",
+      "kind": "related"
+    },
+    {
+      "from": "field/101-credit-items-map",
       "to": "source/tofes101-form-runner-api",
       "kind": "source"
     },
@@ -3463,8 +6876,18 @@
       "kind": "up"
     },
     {
+      "from": "field/101-credit-items-map",
+      "to": "law/credit-points",
+      "kind": "link"
+    },
+    {
       "from": "field/101-children-block",
       "to": "flow/form-101-service",
+      "kind": "related"
+    },
+    {
+      "from": "field/101-children-block",
+      "to": "law/children-credit-points",
       "kind": "related"
     },
     {
@@ -3481,6 +6904,11 @@
       "from": "field/101-children-block",
       "to": "flow/form-101-service",
       "kind": "up"
+    },
+    {
+      "from": "field/101-children-block",
+      "to": "law/id-number-validation",
+      "kind": "link"
     },
     {
       "from": "field/101-other-incomes",
@@ -3494,6 +6922,11 @@
     },
     {
       "from": "field/101-other-incomes",
+      "to": "law/tax-coordination",
+      "kind": "related"
+    },
+    {
+      "from": "field/101-other-incomes",
       "to": "source/tofes101-form-runner-api",
       "kind": "source"
     },
@@ -3506,6 +6939,11 @@
       "from": "field/101-other-incomes",
       "to": "flow/form-101-service",
       "kind": "up"
+    },
+    {
+      "from": "field/101-other-incomes",
+      "to": "law/credit-points",
+      "kind": "link"
     },
     {
       "from": "field/101-signature",
@@ -3519,6 +6957,11 @@
     },
     {
       "from": "field/101-signature",
+      "to": "law/declaration-and-signature",
+      "kind": "related"
+    },
+    {
+      "from": "field/101-signature",
       "to": "source/tofes101-official-pdf",
       "kind": "source"
     },
@@ -3531,6 +6974,11 @@
       "from": "field/101-signature",
       "to": "flow/form-101-service",
       "kind": "up"
+    },
+    {
+      "from": "field/101-signature",
+      "to": "law/declaration-and-signature",
+      "kind": "link"
     },
     {
       "from": "field/101-employer-block",
@@ -3558,8 +7006,18 @@
       "kind": "up"
     },
     {
+      "from": "field/101-employer-block",
+      "to": "law/employer-obligations",
+      "kind": "link"
+    },
+    {
       "from": "field/101-employee-identity",
       "to": "flow/form-101-service",
+      "kind": "related"
+    },
+    {
+      "from": "field/101-employee-identity",
+      "to": "law/id-number-validation",
       "kind": "related"
     },
     {
@@ -3580,6 +7038,11 @@
     {
       "from": "field/101-employee-identity",
       "to": "ux/ux-principles",
+      "kind": "link"
+    },
+    {
+      "from": "field/101-employee-identity",
+      "to": "law/id-number-validation",
       "kind": "link"
     },
     {
@@ -3624,6 +7087,11 @@
     },
     {
       "from": "field/101-tax-coordination",
+      "to": "law/tax-coordination",
+      "kind": "related"
+    },
+    {
+      "from": "field/101-tax-coordination",
       "to": "field/101-other-incomes",
       "kind": "related"
     },
@@ -3644,6 +7112,11 @@
     },
     {
       "from": "field/101-tax-coordination",
+      "to": "law/tax-coordination",
+      "kind": "link"
+    },
+    {
+      "from": "field/101-tax-coordination",
       "to": "field/101-children-block",
       "kind": "link"
     },
@@ -3661,6 +7134,51 @@
       "from": "decision/adr-0005-employer-prefill-link",
       "to": "product/scope-v1",
       "kind": "up"
+    },
+    {
+      "from": "decision/adr-0006-navigation",
+      "to": "ux/wizard-vs-long-page",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0006-navigation",
+      "to": "flow/form-101-service",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0006-navigation",
+      "to": "product/scope-v1",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0006-navigation",
+      "to": "source/govuk-question-pages",
+      "kind": "source"
+    },
+    {
+      "from": "decision/adr-0006-navigation",
+      "to": "source/nng-web-form-design",
+      "kind": "source"
+    },
+    {
+      "from": "decision/adr-0006-navigation",
+      "to": "ux/ux-principles",
+      "kind": "up"
+    },
+    {
+      "from": "decision/adr-0006-navigation",
+      "to": "product/scope-v1",
+      "kind": "link"
+    },
+    {
+      "from": "decision/adr-0006-navigation",
+      "to": "ux/wizard-vs-long-page",
+      "kind": "link"
+    },
+    {
+      "from": "decision/adr-0006-navigation",
+      "to": "decision/adr-0005-employer-prefill-link",
+      "kind": "link"
     },
     {
       "from": "decision/adr-0004-v1-scope",
@@ -4925,6 +8443,76 @@
     {
       "from": "index",
       "to": "finding/tepez-form-runtime",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "field/101-tax-year",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "field/101-employee-identity",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "field/101-employee-tax-status",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "field/101-children-block",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "field/101-other-incomes",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "field/101-credit-items-map",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "field/101-tax-coordination",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "field/101-documents",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "field/101-employer-block",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "field/101-signature",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "glossary/terms",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "decision/adr-0004-v1-scope",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "decision/adr-0005-employer-prefill-link",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "decision/adr-0006-navigation",
       "kind": "link"
     },
     {
@@ -5208,6 +8796,176 @@
       "kind": "link"
     },
     {
+      "from": "index",
+      "to": "law/form-101-official-pdf",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/form-101-section-map",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/personal-details",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/who-must-file",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/submission-deadlines",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/employer-obligations",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/withholding-mechanics",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/tax-coordination",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/credit-points",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/credit-point-value",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/credit-points-2026",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/tax-brackets-2025",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/tax-brackets-2026",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/children-credit-points",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/single-parent-credit",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/spouse-not-working",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/new-immigrant",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/returning-resident",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/soldier-credit",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/reserve-credit",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/credit-points-studies",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/alimony-credit",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/disabled-child-credit",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/youth-credit",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/disability-exemption",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/residency-and-foreign-workers",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/id-number-validation",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/marital-status",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/children-details",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/privacy-consent",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/declaration-and-signature",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/retention",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/edge-cases",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "law/glossary",
+      "kind": "link"
+    },
+    {
       "from": "source/govil-website-accessibility-guide",
       "to": "source/israel-regs-service-accessibility",
       "kind": "wikilink"
@@ -5371,6 +9129,16 @@
       "from": "source/mdn-visual-viewport",
       "to": "ux/mobile-layout",
       "kind": "wikilink"
+    },
+    {
+      "from": "source/tepez-runner-bundle",
+      "to": "source/tofes101-form-runner-api",
+      "kind": "link"
+    },
+    {
+      "from": "source/tepez-runner-bundle",
+      "to": "finding/tepez-form-runtime",
+      "kind": "link"
     },
     {
       "from": "source/govuk-names",
@@ -5553,6 +9321,21 @@
       "kind": "link"
     },
     {
+      "from": "glossary/terms",
+      "to": "law/tax-coordination",
+      "kind": "link"
+    },
+    {
+      "from": "glossary/terms",
+      "to": "law/new-immigrant",
+      "kind": "link"
+    },
+    {
+      "from": "glossary/terms",
+      "to": "law/returning-resident",
+      "kind": "link"
+    },
+    {
       "from": "flow/form-101-service",
       "to": "flow/form-101-field-spec",
       "kind": "related"
@@ -5608,6 +9391,11 @@
       "kind": "link"
     },
     {
+      "from": "flow/form-101-service",
+      "to": "law/children-credit-points",
+      "kind": "link"
+    },
+    {
       "from": "flow/form-101-field-spec",
       "to": "flow/form-101-service",
       "kind": "related"
@@ -5630,93 +9418,12 @@
   ],
   "errors": [],
   "warnings": [
-    "finding/tepez-form-runtime.md: related target not found -> 'decision/adr-0001-stack'",
-    "finding/tepez-form-runtime.md: source target not found -> 'source/tepez-runner-bundle'",
-    "finding/tepez-form-runtime.md: md link not found -> './form-101-field-spec.md'",
-    "law/form-101.md: related target not found -> 'law/form-101-section-map'",
-    "law/form-101.md: related target not found -> 'law/credit-points'",
-    "law/form-101.md: related target not found -> 'law/tax-coordination'",
-    "law/form-101.md: related target not found -> 'law/employer-obligations'",
-    "law/form-101.md: related target not found -> 'law/privacy-consent'",
-    "law/form-101.md: wikilink not found -> 'law/form-101-section-map'",
-    "law/form-101.md: wikilink not found -> 'law/form-101-official-pdf'",
-    "law/form-101.md: wikilink not found -> 'law/submission-deadlines'",
-    "law/form-101.md: wikilink not found -> 'law/edge-cases'",
-    "law/form-101.md: wikilink not found -> 'law/withholding-mechanics'",
-    "law/form-101.md: wikilink not found -> 'law/employer-obligations'",
-    "law/form-101.md: wikilink not found -> 'law/tax-brackets-2026'",
-    "law/form-101.md: wikilink not found -> 'law/credit-point-value'",
-    "law/form-101.md: wikilink not found -> 'law/employer-obligations'",
-    "law/form-101.md: wikilink not found -> 'law/marital-status'",
-    "law/form-101.md: wikilink not found -> 'law/id-number-validation'",
-    "law/form-101.md: wikilink not found -> 'law/children-details'",
-    "law/form-101.md: wikilink not found -> 'law/withholding-mechanics'",
-    "law/form-101.md: wikilink not found -> 'law/tax-coordination'",
-    "law/form-101.md: wikilink not found -> 'law/spouse-not-working'",
-    "law/form-101.md: wikilink not found -> 'law/submission-deadlines'",
-    "law/form-101.md: wikilink not found -> 'law/credit-points'",
-    "law/form-101.md: wikilink not found -> 'law/tax-coordination'",
-    "law/form-101.md: wikilink not found -> 'law/declaration-and-signature'",
-    "law/form-101.md: wikilink not found -> 'law/form-101-section-map'",
-    "law/form-101.md: wikilink not found -> 'law/credit-points'",
-    "law/form-101.md: wikilink not found -> 'law/credit-points-2026'",
-    "law/form-101.md: wikilink not found -> 'law/tax-coordination'",
-    "law/form-101.md: wikilink not found -> 'law/privacy-consent'",
-    "law/form-101.md: wikilink not found -> 'law/declaration-and-signature'",
-    "law/form-101.md: wikilink not found -> 'law/form-101-official-pdf'",
-    "law/form-101.md: wikilink not found -> 'law/form-101-section-map'",
-    "law/form-101.md: wikilink not found -> 'law/who-must-file'",
-    "law/form-101.md: wikilink not found -> 'law/submission-deadlines'",
-    "law/form-101.md: wikilink not found -> 'law/employer-obligations'",
-    "law/form-101.md: wikilink not found -> 'law/withholding-mechanics'",
-    "law/form-101.md: wikilink not found -> 'law/tax-coordination'",
-    "law/form-101.md: wikilink not found -> 'law/credit-points'",
-    "law/form-101.md: wikilink not found -> 'law/credit-point-value'",
-    "law/form-101.md: wikilink not found -> 'law/credit-points-2026'",
-    "law/form-101.md: wikilink not found -> 'law/tax-brackets-2025'",
-    "law/form-101.md: wikilink not found -> 'law/tax-brackets-2026'",
-    "law/form-101.md: wikilink not found -> 'law/children-credit-points'",
-    "law/form-101.md: wikilink not found -> 'law/single-parent-credit'",
-    "law/form-101.md: wikilink not found -> 'law/spouse-not-working'",
-    "law/form-101.md: wikilink not found -> 'law/new-immigrant'",
-    "law/form-101.md: wikilink not found -> 'law/returning-resident'",
-    "law/form-101.md: wikilink not found -> 'law/soldier-credit'",
-    "law/form-101.md: wikilink not found -> 'law/reserve-credit'",
-    "law/form-101.md: wikilink not found -> 'law/credit-points-studies'",
-    "law/form-101.md: wikilink not found -> 'law/alimony-credit'",
-    "law/form-101.md: wikilink not found -> 'law/disabled-child-credit'",
-    "law/form-101.md: wikilink not found -> 'law/youth-credit'",
-    "law/form-101.md: wikilink not found -> 'law/disability-exemption'",
-    "law/form-101.md: wikilink not found -> 'law/residency-and-foreign-workers'",
-    "law/form-101.md: wikilink not found -> 'law/id-number-validation'",
-    "law/form-101.md: wikilink not found -> 'law/marital-status'",
-    "law/form-101.md: wikilink not found -> 'law/children-details'",
-    "law/form-101.md: wikilink not found -> 'law/privacy-consent'",
-    "law/form-101.md: wikilink not found -> 'law/declaration-and-signature'",
-    "law/form-101.md: wikilink not found -> 'law/retention'",
-    "law/form-101.md: wikilink not found -> 'law/edge-cases'",
-    "law/form-101.md: wikilink not found -> 'law/glossary'",
-    "field/101-credit-items-map.md: related target not found -> 'law/credit-points'",
-    "field/101-credit-items-map.md: related target not found -> 'law/form-101-section-map'",
-    "field/101-credit-items-map.md: md link not found -> '../law/credit-points.md'",
-    "field/101-children-block.md: related target not found -> 'law/children-credit-points'",
-    "field/101-children-block.md: md link not found -> '../law/id-number-validation.md'",
-    "field/101-other-incomes.md: related target not found -> 'law/tax-coordination'",
-    "field/101-other-incomes.md: md link not found -> '../law/credit-points.md'",
-    "field/101-signature.md: related target not found -> 'law/declaration-and-signature'",
-    "field/101-signature.md: md link not found -> '../law/declaration-and-signature.md'",
-    "field/101-employer-block.md: md link not found -> '../law/employer-obligations.md'",
-    "field/101-employee-identity.md: related target not found -> 'law/id-number-validation'",
-    "field/101-employee-identity.md: md link not found -> '../law/id-number-validation.md'",
-    "field/101-employee-identity.md: md link not found -> '../law/id-number-validation.md'",
-    "field/101-tax-coordination.md: related target not found -> 'law/tax-coordination'",
     "decisions/adr-0005-employer-prefill-link.md: related target not found -> 'eng/architecture'",
     "decisions/adr-0004-v1-scope.md: md link not found -> '../eng/architecture.md'",
     "index.md: md link not found -> 'eng/architecture.md'",
     "index.md: md link not found -> 'eng/architecture.md'",
-    "glossary/terms.md: md link not found -> '../law/tax-coordination.md'",
-    "glossary/terms.md: md link not found -> '../law/new-immigrant.md'",
-    "glossary/terms.md: md link not found -> '../law/returning-resident.md'",
-    "flow/form-101-service.md: md link not found -> '../law/children-credit-points.md'"
+    "sources/webdev-storage-for-the-web.md: md link not found -> '../../eng/storage-draft.md'",
+    "sources/vite-pwa-nuxt.md: md link not found -> '../../eng/offline-pwa.md'",
+    "sources/pdf-lib-readme.md: md link not found -> '../../eng/pdf-hebrew-rtl.md'"
   ]
 }

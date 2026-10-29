@@ -99,3 +99,12 @@ browser-only tool that produces a PDF:
 - Do not discard prior versions after an update.
 - Do not send the form or its data to a third party (including the app vendor)
   without a legal basis and the employee’s knowledge.
+
+## Sources
+
+- [[source/wikisource-payroll-withholding-regulations]]
+- [[source/nevo-income-tax-ordinance]]
+- [[source/taxes-electronic-101-rules-2026]]
+- [[source/govil-form-106]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

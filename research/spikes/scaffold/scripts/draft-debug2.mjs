@@ -1,0 +1,13 @@
+import { chromium } from 'playwright'
+const b = await chromium.launch({ channel: 'chrome' })
+const ctx = await b.newContext()
+const p = await ctx.newPage()
+p.on('console', m => console.log('CONSOLE', m.type(), m.text().slice(0,300)))
+p.on('pageerror', e => console.log('PAGEERR', String(e)))
+await p.goto('http://localhost:3013/draft-test/', { waitUntil: 'networkidle' })
+console.log('first', await p.evaluate(() => window.__draftResult))
+await p.reload({ waitUntil: 'domcontentloaded' })
+await p.waitForTimeout(4000)
+console.log('second', await p.evaluate(() => window.__draftResult ?? 'NONE'))
+console.log('html len', (await p.content()).length)
+await b.close()

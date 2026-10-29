@@ -28,6 +28,7 @@
     - ADR-0004 — v1 scope, tax year, languages, delivery  `decision/adr-0004-v1-scope`
     - ADR-0005 — Employer prefill link (no-server template replacement)  `decision/adr-0005-employer-prefill-link`
   - עקרונות UX — 12 כללים שמחייבים כל מסך  `ux/ux-principles`
+    - ADR-0006 — Navigation model (8 steps, not one page, not 160 pages)  `decision/adr-0006-navigation`
     - נגישות בישראל — מה החוק מחייב אתר ציבורי  `ux/a11y-israeli-law`
       - ת"י 5568 (WCAG 2.0 AA) מול WCAG 2.2 AA — מה מוסיפים ולמה  `ux/a11y-is5568-vs-wcag22`
       - הצהרת נגישות — מה חייבת להכיל ואיך מנסחים  `ux/a11y-statement`
@@ -58,6 +59,40 @@
       - מפת מסכים לטופס 101 — מה בכל שלב, ומה נשבר  `ux/form-101-screen-map`
       - התקדמות, שמירה אוטומטית ו"המשך מאוחר יותר" בלי שרת  `ux/progress-save-resume`
 - טופס 101 — כרטיס עובד: הסגל המשפטי  `law/form-101`
+  - פרטי הילדים — Section ג: child rows, custody and child allowance  `law/children-details`
+  - נקודות זיכוי — Credit points: the complete map  `law/credit-points`
+    - זיכוי בגין מזונות לבן/בת זוג לשעבר — Alimony credit (s. 40א)  `law/alimony-credit`
+    - נקודות זיכוי לילדים — Children credit points, 2024–2026  `law/children-credit-points`
+    - שווי נקודת זיכוי — Value per point, 2024–2027  `law/credit-point-value`
+    - נקודות זיכוי 2026 — שנת מס 2026 cheat sheet  `law/credit-points-2026`
+    - זיכוי בגין לימודים — Academic degree, profession and teaching certificate  `law/credit-points-studies`
+    - זיכוי בגין ילד עם מוגבלות — Disabled child credit (s. 45)  `law/disabled-child-credit`
+    - עולה חדש — New immigrant credit points (s. 35)  `law/new-immigrant`
+    - זיכוי ללוחמי מילואים — Reserve combatant credit (s. 39ב)  `law/reserve-credit`
+    - תושב חוזר — Returning resident: what the 101 can and cannot do  `law/returning-resident`
+    - הורה במשפחה חד־הורית / הורה יחיד — Single-parent credit  `law/single-parent-credit`
+    - זיכוי לחייל משוחרר — Discharged soldier credit (s. 39א)  `law/soldier-credit`
+    - זיכוי בעד בן/בת זוג — Dependent spouse and working-spouse credits  `law/spouse-not-working`
+    - מדרגות מס הכנסה 2025 — Tax brackets, tax year 2025  `law/tax-brackets-2025`
+    - מדרגות מס הכנסה 2026 — Tax brackets, tax year 2026  `law/tax-brackets-2026`
+    - זיכוי לנוער עובד — Youth credit (s. 40ב)  `law/youth-credit`
+  - הצהרה וחתימה — The declaration, signature and electronic form  `law/declaration-and-signature`
+  - פטור לעיוור/נכה — Disability and blindness exemption (s. 9(5))  `law/disability-exemption`
+  - מקרי קצה — Form 101 edge cases and how to handle them  `law/edge-cases`
+  - חובות המעסיק — Employer obligations around form 101  `law/employer-obligations`
+  - טופס 101 הרשמי — המסמך, הגרסה והקריאה הנכונה שלו  `law/form-101-official-pdf`
+  - מפת סעיפי טופס 101 — Section-by-section map  `law/form-101-section-map`
+  - מונחים — Glossary for form 101 and Israeli payroll tax  `law/glossary`
+  - מספר זהות — Israeli ID validation and formatting  `law/id-number-validation`
+  - מצב משפחתי — Marital status: options, proof and consequences  `law/marital-status`
+  - פרטי העובד — Section ב: identity, address and status fields  `law/personal-details`
+  - פרטיות והסכמה — Privacy law for a browser-only 101 tool  `law/privacy-consent`
+  - תושבות ועובדים זרים — Residency, foreign residents and foreign workers  `law/residency-and-foreign-workers`
+  - שמירת טופס 101 — Retention and archive obligations  `law/retention`
+  - מועדי הגשה ועדכון של טופס 101 — Deadlines  `law/submission-deadlines`
+  - תיאום מס — Tax coordination, second jobs and multiple employers  `law/tax-coordination`
+  - מי חייב למלא טופס 101 — Who must file  `law/who-must-file`
+  - מנגנון הניכוי — How the 101 changes the payroll withholding  `law/withholding-mechanics`
 - ביטוח לאומי — גמלת ילד נכה והיטב הזיכוי (רשות המסים)  `source/btl-child-disability`
 - gov.il — רשימת רכזי הנגישות במשרדי הממשלה  `source/govil-accessibility-coordinators`
 - gov.il — הצהרת נגישות (דוגמה רשמית של מערך הדיגיטל הלאומי)  `source/govil-accessibility-statement`
@@ -92,14 +127,22 @@
 - MDN — HTML autocomplete attribute (token list)  `source/mdn-autocomplete`
 - MDN — HTML enterkeyhint attribute  `source/mdn-enterkeyhint`
 - MDN — HTML inputmode attribute  `source/mdn-inputmode`
+- MDN — Origin private file system (OPFS)  `source/mdn-opfs`
+- MDN — StorageManager.persist()  `source/mdn-storage-persist`
+- MDN — Storage quotas and eviction criteria  `source/mdn-storage-quotas`
 - MDN — VisualViewport API  `source/mdn-visual-viewport`
 - הוראות מס הכנסה (ניהול פנקסי חשבונות), תשל״ג-1973 — סעיף 25  `source/nevo-bookkeeping-rules`
 - פקודת מס הכנסה [נוסח חדש] — נוסח משולב (נבו)  `source/nevo-income-tax-ordinance`
 - NN/g — Website Forms Usability: Top 10 Recommendations  `source/nng-web-form-design`
+- Nuxt 4 — Installation (official docs)  `source/nuxt-4-installation`
+- Nuxt UI 4 — Design system, semantic colors and app.config  `source/nuxt-ui-4-design-system`
+- Nuxt UI 4 — Internationalization, locale and RTL direction  `source/nuxt-ui-4-i18n`
+- Nuxt UI 4 — Installation for Nuxt (official docs)  `source/nuxt-ui-4-installation`
+- pdf-lib — README (create/modify PDFs, embed fonts, forms)  `source/pdf-lib-readme`
 - כללים והוראות להפקת טופס 101 אלקטרוני לשנת 2026 (חוזר 12.1.2026)  `source/taxes-electronic-101-rules-2026`
-- טופס 101 (כרטיס עובד) — נוסח רשמי 0101/130, מעודכן 11.2025  `source/taxes-form-101-2026`
 - לוח עזר לחישוב מס הכנסה ממשכורת — ינואר 2025 ואילך  `source/taxes-monthly-deductions-2025`
 - לוח עזר לחישוב מס הכנסה ממשכורת — ינואר 2026 ואילך (מעודכן אפריל 2026)  `source/taxes-monthly-deductions-2026`
+- tepez form-runner front-end bundle (forms.tofes101.co.il)  `source/tepez-runner-bundle`
 - tofes101.co.il/docs/online-form/custom-form/ — employer template docs  `source/tofes101-docs-custom-form`
 - tofes101.co.il/docs/online-form/faq/ — FAQ (15 questions, 3 answers)  `source/tofes101-docs-faq`
 - tofes101.co.il/docs/online-form/ — how the online form behaves  `source/tofes101-docs-online-form`
@@ -114,9 +157,13 @@
 - forms.tofes101.co.il — the embedded runner shell  `source/tofes101-runner-app`
 - tofes101.co.il — home page (crawled)  `source/tofes101-site-home`
 - tofes101.co.il — sitemap index, sitemap-0, sitemap-pdfs, robots.txt  `source/tofes101-sitemap`
+- Unicode UAX #9 — Unicode Bidirectional Algorithm  `source/unicode-uax9-bidi`
+- @vite-pwa/nuxt — Nuxt 3/4 integration docs  `source/vite-pwa-nuxt`
 - W3C i18n — Inline markup and bidirectional text in HTML  `source/w3c-bidi-inline`
 - W3C i18n — Structural markup and right-to-left text in HTML  `source/w3c-bidi-structural`
 - WCAG 2.0 — תרגום עברי רשמי (איגוד האינטרנט הישראלי)  `source/w3c-wcag20-hebrew`
 - WCAG 2.2 — W3C Recommendation (12 Dec 2024)  `source/w3c-wcag22`
 - W3C WAI — "What's New in WCAG 2.2"  `source/w3c-wcag22-whats-new`
+- web.dev — Storage for the web (quota, persistence, eviction)  `source/webdev-storage-for-the-web`
+- WebKit — 7-day cap on all script-writeable storage (ITP)  `source/webkit-itp-7day-storage`
 - תקנות מס הכנסה (ניכוי ממשכורת ומשכר עבודה), התשנ״ג-1993  `source/wikisource-payroll-withholding-regulations`

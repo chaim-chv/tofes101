@@ -8,6 +8,7 @@ authority: secondary
 publisher: itsbaba.com / public implementations
 url: https://www.itsbaba.com/israeli-id-validator
 retrieved: 2026-10-29
+updated: 2026-10-29
 tags: [source, id-number, validation, algorithm]
 ---
 

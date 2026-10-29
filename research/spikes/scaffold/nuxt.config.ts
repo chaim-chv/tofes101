@@ -37,7 +37,24 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'he', dir: 'rtl' },
-      meta: [{ name: 'robots', content: 'noindex' }]
+      meta: [
+        { name: 'robots', content: 'noindex' },
+        {
+          'http-equiv': 'Content-Security-Policy',
+          content: [
+            "default-src 'self'",
+            "script-src 'self' 'unsafe-inline'",
+            "style-src 'self' 'unsafe-inline'",
+            "img-src 'self' data: blob:",
+            "font-src 'self'",
+            "connect-src 'self'",
+            "worker-src 'self'",
+            "object-src 'none'",
+            "base-uri 'self'",
+            "form-action 'none'"
+          ].join('; ')
+        }
+      ]
     }
   },
 

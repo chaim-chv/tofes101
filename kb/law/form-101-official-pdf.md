@@ -6,7 +6,7 @@ status: verified
 confidence: verified
 updated: 2026-10-29
 tags: [law, form-101, pdf, artifact, versioning]
-sources: [source/taxes-form-101-2026, source/taxes-electronic-101-rules-2026]
+sources: [source/tofes101-official-pdf, source/taxes-electronic-101-rules-2026]
 related: [law/form-101, law/form-101-section-map, law/declaration-and-signature]
 up: law/form-101
 ---
@@ -102,8 +102,9 @@ electronic matrix, which is tabular and machine-readable.
 
 ## 5. Version pitfalls
 
-- **2024 vs 2026**: the 2024 form lacks item 16 (reserve combatants) and has
-  slightly different wording; do not use it as the 2026 schema.
+- **2024 vs 2026**: the revisions differ in wording, date and some field details
+  (the 2024 copy also has 16 items); do not use a 2024 copy as the 2026 schema.
+  Always match the revision date to the tax year.
 - **101 vs 101ג**: 101ג is the shortened pensioner form; 101 is the general form.
 - **Paper vs electronic**: the paper form has no employer signature; the approved
   electronic version requires employee identification, a declaration tick, and an
@@ -119,3 +120,10 @@ blank form was retrieved from the tofes101.co.il mirror. It matches the 2026
 circular’s field list and the 2024 Tax Authority PDF layout, but a direct
 `taxes.gov.il` 2026 blank-form URL was not found. Treat the mirror as a faithful
 copy of the official artifact, not as the Tax Authority’s canonical URL.
+
+## Sources
+
+- [[source/tofes101-official-pdf]]
+- [[source/taxes-electronic-101-rules-2026]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

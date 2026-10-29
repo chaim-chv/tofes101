@@ -6,7 +6,7 @@ status: verified
 confidence: verified
 updated: 2026-10-29
 tags: [law, children, form-101, custody, validation]
-sources: [source/taxes-form-101-2026, source/taxes-electronic-101-rules-2026]
+sources: [source/tofes101-official-pdf, source/taxes-electronic-101-rules-2026]
 related: [law/children-credit-points, law/single-parent-credit, law/id-number-validation, law/form-101-section-map]
 up: law/form-101
 ---
@@ -80,3 +80,10 @@ are required. Empty rows are allowed; the section is optional.
    group; warn on mismatch.
 6. Do not require section ג to be complete to submit; it is optional.
 7. If the user has no children, let them skip without a red error.
+
+## Sources
+
+- [[source/tofes101-official-pdf]]
+- [[source/taxes-electronic-101-rules-2026]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

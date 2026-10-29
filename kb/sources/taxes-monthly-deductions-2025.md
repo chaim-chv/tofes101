@@ -8,6 +8,7 @@ authority: primary
 publisher: רשות המסים בישראל
 url: https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2025.pdf
 retrieved: 2026-10-29
+updated: 2026-10-29
 tags: [source, tax-rates, credit-points, 2025]
 ---
 

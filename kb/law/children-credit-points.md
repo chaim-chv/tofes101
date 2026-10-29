@@ -30,6 +30,20 @@ The difference between the parents is only in the 6–18 bands: the mother gets 
 points for ages 6–17 and 0.5 at 18; the father gets 1 point for 6–17 and nothing
 at 18. The under-6 bands are the same for both parents from 2024.
 
+### Annual NIS value (2025 and 2026, point = 2,904 ₪)
+
+| Points | Annual value | Monthly value |
+| --- | --- | --- |
+| 0.5 | 1,452 ₪ | 121 ₪ |
+| 1.0 | 2,904 ₪ | 242 ₪ |
+| 2.0 | 5,808 ₪ | 484 ₪ |
+| 2.5 | 7,260 ₪ | 605 ₪ |
+| 3.5 | 10,164 ₪ | 847 ₪ |
+| 4.5 | 13,068 ₪ | 1,089 ₪ |
+
+The point value is identical in 2025 and 2026, so the NIS table is the same for
+both years. Multiply by the number of children in the band.
+
 Statutory basis: s. 40(b) (single-parent family and the father’s parallel track)
 and s. 66(c)(4)/(5) (the mother’s and father’s points on a separate computation).
 The table is confirmed by the Tax Authority’s 2026 parents page and Kol Zchut.
@@ -67,7 +81,7 @@ The form has two distinct child blocks:
 | Form item | Label | Who | Schedule |
 | --- | --- | --- | --- |
 | ח 7 | “בגין ילדי שבחזקתי המפורטים בחלק ג” | mother; custodial parent; single parent receiving the NII child allowance | mother/custodial: 2.5 / 4.5 / 3.5 / 2.5 / 2 / 0.5 |
-| ח 8 | “בגין ילדיי המפורטים בחלק ג” | father; parent whose children are not in their custody; a parent who is not the “הורה במשפחה חד הורית” | father/non-custodial: 2.5 / 4.5 / 3.5 / 2.5 / 1 / — |
+| ח 8 | “בגין ילדיי המפורטים בחלק ג” | father; parent whose children are not in their custody (including an unmarried woman whose children are not in her custody); a parent who is not the “הורה במשפחה חד הורית” | father/non-custodial: 2.5 / 4.5 / 3.5 / 2.5 / 1 / — |
 
 The electronic matrix enforces the counters: item 7 has six age bands including
 18; item 8 has five bands and no 18. The employer compares the counters with the
@@ -150,3 +164,11 @@ child rows in section ג.
    relevant custody group; warn on mismatch, do not silently correct.
 7. Apply the annual values; do not prorate by birth month.
 8. Use the 2026 table only for 2026; year-stamp the data.
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/govil-parents-credit-points]]
+- [[source/kolzchut-children-credit]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

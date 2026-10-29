@@ -8,6 +8,7 @@ authority: primary
 publisher: רשות המסים בישראל
 url: https://www.gov.il/he/pages/tax-benefits-for-parents-with-small-children
 retrieved: 2026-10-29
+updated: 2026-10-29
 tags: [source, credit-points, children, 2026]
 ---
 
@@ -22,3 +23,5 @@ Official summary table “סיכום נקודות זיכוי ילדים לשני
 ⚠️ Only the header and first rows could be read in this session (the local network
 filter blocks the full page); the remaining rows are cross-checked against the
 ordinance ss. 40/66 and Kol Zchut, hence `likely`.
+
+**Retrieval note:** direct `curl` from this network returns HTTP 403 (Cloudflare); the page content was read through `r.jina.ai` on 2026-10-29. The URL above is the canonical public page.

@@ -62,3 +62,9 @@ monthly_withholding = tax_after_credits / 12
   here).
 - The 2025 table was already under the 2025–2027 freeze, so it equals the 2024
   table except where legislation changed.
+
+## Sources
+
+- [[source/taxes-monthly-deductions-2025]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

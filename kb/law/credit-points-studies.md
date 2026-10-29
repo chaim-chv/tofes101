@@ -78,3 +78,10 @@ up: law/credit-points
 - The exact teaching-certificate regulation and its current amount/conditions.
 - The treatment of foreign degrees and unrecognised institutions (route to the
   assessor).
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/kolzchut-credit-points]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

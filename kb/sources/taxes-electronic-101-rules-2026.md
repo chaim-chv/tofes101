@@ -8,6 +8,7 @@ authority: primary
 publisher: רשות המסים בישראל — אגף בכיר טכנולוגיות דיגיטליות ומידע
 url: https://www.gov.il/BlobFolder/service/itc-application-for-electronic-101/he/IncomeTax_employers-info-120126-1.pdf
 retrieved: 2026-10-29
+updated: 2026-10-29
 tags: [source, form-101, electronic, circular, 2026]
 ---
 

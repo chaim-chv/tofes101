@@ -8,6 +8,7 @@ authority: primary
 publisher: נבו הוצאה לאור
 url: https://www.nevo.co.il/law_html/law01/255_179.htm
 retrieved: 2026-10-29
+updated: 2026-10-29
 tags: [source, retention, bookkeeping, records]
 ---
 

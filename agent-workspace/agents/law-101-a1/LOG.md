@@ -39,3 +39,22 @@ Workspace: /Users/chv/develop/tofes101
 - Employer sanction for failing to demand 101: not found in regulations.
 - Full official parents table (gov.il page partly blocked by network filter); child amounts cross-checked against ordinance s40/s66.
 - Whether minors need guardian signature (no requirement found).
+
+## 2026-10-29 — final
+- Wrote 35 `kb/law/*.md` nodes: hub + 34 children (including `personal-details`),
+  `_facts.json` with 103 facts, and 27 source nodes.
+- Key correction: tax coordination = **form 116**; form 119 = academic/profession
+  credit. Recorded in SHARED (existing `field/101-tax-coordination` still says 119).
+- Key warning: a browser form-filler is not an approved electronic-101 system
+  (2026 circular); recorded in SHARED.
+- Consolidated the duplicate official-PDF source node into the existing
+  `source/tofes101-official-pdf`; fixed its revision from 10/2025 to 11.2025.
+- Added `_facts.json` (valid JSON) with 2025/2026 point values, brackets, child
+  points, oleh/soldier/reserve/study/disability values, deadlines, retention.
+- Added a `## Law` index section with all 35 nodes.
+- Unverified (documented in `law/form-101.md` §13): employee fine for late filing;
+  employer sanction for not demanding the form; full official parents table
+  (network-blocked); direct 2026 blank-form URL (mirror used); returning-resident
+  administrative tracks; same-sex/non-binary; national-service statutory basis;
+  deduction-file check digit; small-app privacy thresholds; 2026 oleh circular;
+  sailor/foreign-expert/treaty exemptions.

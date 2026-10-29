@@ -8,6 +8,7 @@ authority: secondary
 publisher: כל-זכות
 url: https://www.kolzchut.org.il/he/%D7%A0%D7%A7%D7%95%D7%93%D7%95%D7%AA_%D7%96%D7%99%D7%9B%D7%95%D7%99_%D7%9E%D7%9E%D7%A1_%D7%94%D7%9B%D7%A0%D7%A1%D7%94_%D7%91%D7%A2%D7%93_%D7%99%D7%9C%D7%93_%D7%90%D7%95_%D7%91%D7%95%D7%92%D7%A8_%D7%A2%D7%9D_%D7%9E%D7%95%D7%92%D7%91%D7%9C%D7%95%D7%AA
 retrieved: 2026-10-29
+updated: 2026-10-29
 tags: [source, disability, children, credit-points]
 ---
 

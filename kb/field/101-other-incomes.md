@@ -52,7 +52,7 @@ employer may apply credit points at all.
   each option ("אם תבחר/י כאן, לא תוכל/י לבקש נקודות זיכוי בטופס הזה — זה
   בסדר, הן יינתנו במקום שבו הן כבר ניתנות").
 - After the answer, show a **status strip**: `נקודות זיכוי בטופס הזה: ✔ / ✘`
-  and, if ✘, what to do instead (form 119 / tax coordination). This single
+  and, if ✘, what to do instead (form 116 — tax coordination). This single
   element prevents the most expensive mistake in the form.
 - The `הפרשות` checkboxes are the least understood part of the whole product.
   Rewrite as two short statements with "לא הבנתי — מה זה?" → a glossary popover

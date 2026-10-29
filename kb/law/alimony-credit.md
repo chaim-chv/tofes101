@@ -64,3 +64,10 @@ the **former spouse** gets **1 point** (s. 40א).
   recognition order; route to the assessor.
 - The treatment of a same-sex former spouse under the current wording; the form is
   gendered. Legal advice required.
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/kolzchut-alimony]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

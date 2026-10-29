@@ -88,3 +88,11 @@ certificate) and form 116א for the institution-care alternative.
 - The exact s. 45 medical categories and whether the 2026 NII approval list is
   identical to the statutory list.
 - The adult-child (18+) route through the 101 vs annual return.
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/kolzchut-disabled-child]]
+- [[source/btl-child-disability]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

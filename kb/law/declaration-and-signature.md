@@ -6,7 +6,7 @@ status: verified
 confidence: verified
 updated: 2026-10-29
 tags: [law, signature, declaration, electronic-signature, form-101]
-sources: [source/taxes-form-101-2026, source/taxes-electronic-101-rules-2026]
+sources: [source/tofes101-official-pdf, source/taxes-electronic-101-rules-2026]
 related: [law/form-101, law/privacy-consent, law/employer-obligations, law/retention]
 up: law/form-101
 ---
@@ -94,3 +94,10 @@ maximum rate.
 4. Editing a signed PDF instead of creating a new version.
 5. Claiming a drawn signature is an approved electronic signature.
 6. Forgetting the 7-day change undertaking in the help text.
+
+## Sources
+
+- [[source/tofes101-official-pdf]]
+- [[source/taxes-electronic-101-rules-2026]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

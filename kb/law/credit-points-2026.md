@@ -98,7 +98,7 @@ circular is published. See [[law/new-immigrant]].
 - Point value 2024–2027.
 - Most indexed amounts for 2025–2027 (freeze law).
 - Surtax threshold 721,560 (not indexed in this period).
-- Spouse-income threshold 25,410 (2025–2026).
+- Spouse-income threshold 25,410 (2026; 2025 likely the same under the freeze).
 - Disability/blind ceilings 684,000 / 445,200 / 81,960 (2025–2026).
 
 ## 7. What changed in 2026
@@ -110,3 +110,12 @@ circular is published. See [[law/new-immigrant]].
 4. Electronic-101 rules for 2026 (circular 12.1.2026).
 5. Settlement-benefit changes for 2026–2029 and new localities (not core to the
    101 form, but item 3 may be affected — check the current locality list).
+
+## Sources
+
+- [[source/taxes-monthly-deductions-2026]]
+- [[source/govil-parents-credit-points]]
+- [[source/govil-reserve-credit]]
+- [[source/govil-immigrant-guide]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

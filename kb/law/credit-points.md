@@ -114,7 +114,7 @@ exemption; its value depends on the income ceiling and the employee’s other in
 
 There is no general annual cap on the **number** of personal credit points. The
 practical ceiling is the tax liability: points cannot reduce tax below zero. The
-only explicit ceilings in the 101 context are:
+main explicit ceilings in the 101 context are:
 
 - the **exemption ceilings** for disability/blindness (684,000 / 445,200 / 81,960
   in 2025–2026);
@@ -149,3 +149,12 @@ only explicit ceilings in the 101 context are:
 - [[law/credit-points-studies]]
 - [[law/alimony-credit]] · [[law/disabled-child-credit]] · [[law/youth-credit]]
 - [[law/disability-exemption]] · [[law/residency-and-foreign-workers]]
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/taxes-monthly-deductions-2026]]
+- [[source/taxes-monthly-deductions-2025]]
+- [[source/kolzchut-credit-points]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

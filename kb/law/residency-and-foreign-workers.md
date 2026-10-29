@@ -85,3 +85,12 @@ rules differ from a “foreign resident” who happens to work in Israel.
 - The treatment of Palestinian workers from the territories (different regime,
   often no 101; assessor instructions).
 - Treaty residents (e.g. foreign experts) and the 101’s role, if any.
+- Special exemptions sometimes mentioned in payroll guides (sailors, foreign experts, etc.) are outside the 101’s checkboxes; route them to the assessor rather than inventing a field.
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/kolzchut-foreign-worker]]
+- [[source/wikisource-payroll-withholding-regulations]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

@@ -85,3 +85,11 @@ employee starts on 1 January and is paid on 31 January, the form is due by
 - Married on 3 August 2026 → notice + updated form by **10 August 2026**.
 - Child born 20 December 2026 → notice by **27 December 2026**; the credit is
   annual for 2026 (birth year), not prorated by month.
+
+## Sources
+
+- [[source/wikisource-payroll-withholding-regulations]]
+- [[source/taxes-electronic-101-rules-2026]]
+- [[source/govil-form-101-service]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

@@ -85,3 +85,11 @@ annual return.
   the declaration is annual.
 - Escalate to payroll/legal; no explicit statutory fine on the employee for mere
   non-submission was found (see [[law/edge-cases]]).
+
+## Sources
+
+- [[source/wikisource-payroll-withholding-regulations]]
+- [[source/govil-form-101-service]]
+- [[source/govil-pensioner-101-exemption]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

@@ -1,11 +1,13 @@
 <script setup lang="ts">
+useHead({ title: 'טופס 101 — מילוי מקומי' })
 const name = ref('')
 const birth = ref('')
 const salary = ref(12345)
 </script>
 
 <template>
-  <UContainer class="py-8 max-w-xl">
+  <main>
+    <UContainer class="py-8 max-w-xl">
     <h1 class="text-2xl font-bold mb-6">טופס 101 — סקיצת בדיקה</h1>
     <UForm :state="{ name, birth, salary }" class="space-y-4">
       <UFormField label="שם פרטי" name="name" required>
@@ -20,5 +22,6 @@ const salary = ref(12345)
       <UButton type="submit" label="שמור" block />
     </UForm>
     <p class="mt-6 text-sm text-muted">הנתונים נשמרים במכשיר שלך בלבד.</p>
-  </UContainer>
+    </UContainer>
+  </main>
 </template>

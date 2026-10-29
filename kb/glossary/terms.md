@@ -41,7 +41,8 @@ verification by the law track.
 | ספח | ID-card annex ("seif") | The page attached to an Israeli ID card listing family members; the form asks for a copy. |
 | קרן השתלמות | study fund | Employer/employee savings fund; contributions have their own tax treatment and affect what the employer must add to salary. |
 | ביטוח לאומי · מל"ל | National Insurance (NII) | Pays child allowances, disability child benefit, etc. Several form items depend on receiving an NII benefit. |
-| טופס 119 | form 119 | Request for tax relief/coordination; also the declaration attached for the "finished studies" credit. |
+| טופס 116 | form 116 | Request for **tax coordination** (תיאום מס) with the Tax Authority. |
+| טופס 119 | form 119 | Declaration attached for the **finished studies / profession** credit (part ח׳ item 15). *Not* the coordination form. |
 | טופס 1312א | form 1312a | Municipality certificate for a qualifying locality. |
 
 ## Naming rules for the app

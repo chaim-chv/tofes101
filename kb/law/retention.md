@@ -81,3 +81,11 @@ retrieval when needed, including all previous versions. This means:
   under s. 25; the conservative 7-year rule is the safe implementation.
 - Any sector-specific retention rule longer than 7 years (e.g. public-sector
   archives); check the employer’s sector.
+
+## Sources
+
+- [[source/nevo-bookkeeping-rules]]
+- [[source/taxes-electronic-101-rules-2026]]
+- [[source/govil-form-106]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

@@ -6,7 +6,7 @@ status: verified
 confidence: verified
 updated: 2026-10-29
 tags: [law, form-101, income-tax, payroll, israel]
-sources: [source/taxes-form-101-2026, source/taxes-electronic-101-rules-2026, source/wikisource-payroll-withholding-regulations, source/nevo-income-tax-ordinance]
+sources: [source/tofes101-official-pdf, source/taxes-electronic-101-rules-2026, source/wikisource-payroll-withholding-regulations, source/nevo-income-tax-ordinance]
 related: [law/form-101-section-map, law/credit-points, law/tax-coordination, law/employer-obligations, law/privacy-consent]
 ---
 
@@ -171,10 +171,42 @@ by circular and by retroactive legislation; the app must show a “verify with t
 Tax Authority / payroll” notice and must not present an estimate as a binding
 calculation.
 
+## 13. What I could not verify
+
+1. **A specific fine on the employee for late/non-filing.** The regulations impose
+   maximum withholding; the declaration says false details are an offence; no
+   fixed employee fine was found.
+2. **A specific sanction on an employer that fails to demand the form.** Regulation
+   2(c) imposes the duty, but the enforcement provision was not located.
+3. **The full official parents table.** The gov.il page was only partially readable
+   from this network; the values are cross-checked against the ordinance ss. 40/66
+   and Kol Zchut. The separated-parent rows are the least certain.
+4. **A direct Tax Authority URL for the 2026 blank form.** The 2026 rules circular
+   and the 2024 blank PDF are on gov.il; the 11.2025 blank PDF was taken from the
+   tofes101.co.il mirror and matches the official layout/metadata.
+5. **Returning-resident administrative tracks.** The s. 35(d) definition and the
+   2026 temporary law are verified; the intermediate “תושב חוזר ותיק” thresholds
+   and the exact 101 treatment are not.
+6. **Same-sex couples and non-binary gender.** The form is binary/gendered; no
+   official path was found. Route to the assessor.
+7. **National-service credit’s exact statutory basis.** The 1 point/year × 36
+   months is the Tax Authority/Kol Zchut position; s. 39א itself is soldier-specific.
+8. **Deduction-file check digit.** The personal-ID algorithm is verified; whether
+   it applies to תיק ניכויים is not.
+9. **Privacy thresholds for a small local-only app.** Amendment 13 is verified;
+   whether a static host’s IP logs make the developer a controller is a legal
+   characterisation.
+10. **The 2026 oleh/returning-resident exemption circular.** The ceilings are in the
+    official booklet; the operational circular was pending when the booklet was
+    updated.
+11. **Sailor/foreign-expert/treaty exemptions.** These are outside the 101’s
+    checkboxes and were not researched; route to the assessor.
+
 ## Children
 
 - [[law/form-101-official-pdf]] — the artifact, page by page
 - [[law/form-101-section-map]] — every section and item, who fills it, mandatory?
+- [[law/personal-details]] — section ב: identity, address, phones, gender, marital status, kibbutz
 - [[law/who-must-file]] — employee, daily worker, foreign worker, pensioner, minor
 - [[law/submission-deadlines]] — 7 days, 1 January, changes, 2(e)
 - [[law/employer-obligations]] — demand, verify, withhold, report, retain
@@ -196,3 +228,12 @@ calculation.
 - [[law/id-number-validation]] · [[law/marital-status]] · [[law/children-details]]
 - [[law/privacy-consent]] · [[law/declaration-and-signature]] · [[law/retention]]
 - [[law/edge-cases]] · [[law/glossary]]
+
+## Sources
+
+- [[source/tofes101-official-pdf]]
+- [[source/taxes-electronic-101-rules-2026]]
+- [[source/wikisource-payroll-withholding-regulations]]
+- [[source/nevo-income-tax-ordinance]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

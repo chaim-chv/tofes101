@@ -6,7 +6,7 @@ status: verified
 confidence: verified
 updated: 2026-10-29
 tags: [law, tax-coordination, form-116, second-job, multiple-employers]
-sources: [source/govil-form-116, source/govil-tax-coordination, source/wikisource-payroll-withholding-regulations, source/taxes-form-101-2026]
+sources: [source/govil-form-116, source/govil-tax-coordination, source/wikisource-payroll-withholding-regulations, source/tofes101-official-pdf]
 related: [law/form-101, law/withholding-mechanics, law/credit-points, law/edge-cases]
 up: law/form-101
 ---
@@ -14,8 +14,8 @@ up: law/form-101
 # תיאום מס
 
 > **Correction that matters:** coordination uses **form 116**. Form **119** is
-> the academic-degree / profession credit declaration (section ח item 15). Never
-> send a user to 119 for coordination.
+> the academic-degree / profession credit declaration (section ח item 15); see
+> [[law/credit-points-studies]]. Never send a user to 119 for coordination.
 
 ## 1. The problem
 
@@ -120,3 +120,12 @@ employer withholds at the maximum rate.
   the spouse’s credit amount, so the payroll/annual return must compute it.
 - **Employee refuses coordination** — allowed; the consequence is max withholding
   at the second payer, corrected at year end.
+
+## Sources
+
+- [[source/govil-form-116]]
+- [[source/govil-tax-coordination]]
+- [[source/wikisource-payroll-withholding-regulations]]
+- [[source/tofes101-official-pdf]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

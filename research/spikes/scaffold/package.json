@@ -13,6 +13,7 @@
     "@nuxt/ui": "^4.12.0",
     "@nuxtjs/i18n": "^10.6.0",
     "@pinia/nuxt": "^1.0.3",
+    "idb-keyval": "^6.3.0",
     "nuxt": "^4.6.3",
     "pinia": "^4.1.0",
     "tailwindcss": "^4.3.3",
@@ -21,7 +22,10 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
+    "@nuxt/test-utils": "^4.3.4",
     "@vite-pwa/nuxt": "^1.1.1",
-    "axe-core": "^4.14.0"
+    "axe-core": "^4.14.0",
+    "fake-indexeddb": "^6.2.6",
+    "vitest": "^5.0.5"
   }
 }

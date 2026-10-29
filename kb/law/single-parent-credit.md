@@ -109,3 +109,11 @@ The exact interaction between item 9 and the father’s parallel points under
 s. 40(b)(1א) is statutory but not spelled out in the 2026 circular’s field notes;
 the practical reading above (full schedule + one +1) follows the statute and the
 Tax Authority table. For a disputed case, route to the assessor.
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/govil-parents-credit-points]]
+- [[source/kolzchut-children-credit]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

@@ -8,6 +8,7 @@ authority: primary
 publisher: המוסד לביטוח לאומי
 url: https://www.btl.gov.il/AllRights/Shituf/tovanot/Documents/RashutHamisimYeledNeheRishon.pdf
 retrieved: 2026-10-29
+updated: 2026-10-29
 tags: [source, disability, children, nii]
 ---
 

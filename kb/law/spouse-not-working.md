@@ -31,8 +31,9 @@ the annual return rather than monthly.
 2. The couple is **married** (registered). Unmarried cohabitants (“ידועים בציבור”)
    do **not** qualify for s. 37; Kol Zchut states this explicitly.
 3. The spouse lives with the employee and the employee supports them.
-4. The spouse’s income in the tax year does **not exceed 25,410 ₪** (2025–2026;
-   frozen). Income includes work, pension, business and other taxable income.
+4. The spouse’s income in the tax year does **not exceed 25,410 ₪** (2026;
+   the 2025 figure is governed by the Tax Authority’s indexed threshold and is
+   likely the same under the freeze — verify with the 2025 calculator). Income includes work, pension, business and other taxable income.
 5. At least one of the spouses:
    - has reached **retirement age** under the National Insurance Law, or
    - is **blind** or **disabled** under s. 9(5)(א) or (א1).
@@ -42,10 +43,11 @@ retirement-age/disability condition; do not grant the point on “no income” a
 
 ## 3. Retirement age — do not hard-code a single number
 
-Retirement age depends on gender and birth year (men currently 67; women 62–67
-with a gradual rise). The form/payroll should ask “has the employee or spouse
-reached retirement age?” and, if needed, link to the NII table, not store a
-single `RETIREMENT_AGE = 67`.
+Retirement age depends on gender and birth year (men currently 67; women rise
+gradually from 62 toward 65, depending on birth year). The form/payroll should ask
+“has the employee or spouse reached retirement age?” and, if needed, link to the
+NII table, not store a single `RETIREMENT_AGE = 67`. **Unverified:** the exact
+2026 age for a given birth year; use the NII table.
 
 ## 4. Working spouse — s. 38
 
@@ -88,7 +90,7 @@ assessor’s instruction or the annual return.
    approval; otherwise warn that the assessor may reject it.
 4. Do not apply item 5 to unmarried cohabitants, even if they share a household.
 5. Do not apply both the dependent-spouse and working-spouse credits.
-6. Use 25,410 ₪ for 2025 and 2026; year-stamp it.
+6. Use 25,410 ₪ for 2026; for 2025 use the 2025 calculator/Tax Authority threshold. Year-stamp it.
 
 ## 8. Unverified / edge cases
 
@@ -99,3 +101,11 @@ assessor’s instruction or the annual return.
   cash-flow treatment is not.
 - Same-sex registered couples: the statute uses “בן זוג רשום”; the form has only
   male/female. Route to the assessor; **unverified**.
+
+## Sources
+
+- [[source/govil-spouse-credit]]
+- [[source/nevo-income-tax-ordinance]]
+- [[source/kolzchut-spouse]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

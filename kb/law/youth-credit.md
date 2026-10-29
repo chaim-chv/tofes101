@@ -65,3 +65,10 @@ proration).
 3. Do not ask for a document; the birth date is enough.
 4. Add the 0.5 woman point if the youth is female.
 5. Do not apply the youth point to a 15-year-old or an 18-year-old.
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/kolzchut-credit-points]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

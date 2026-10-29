@@ -1,0 +1,1032 @@
+[
+  {
+    "id": "cp.value.2026",
+    "claim_he": "שווי נקודת זיכוי לשנת 2026 הוא 2,904 ש״ח לשנה",
+    "claim_en": "Credit point value for 2026 is 2,904 NIS/year",
+    "value": 2904,
+    "year": 2026,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "cp.value.month.2026",
+    "claim_he": "שווי נקודת זיכוי חודשי לשנת 2026 הוא 242 ש״ח",
+    "claim_en": "Monthly credit point value for 2026 is 242 NIS",
+    "value": 242,
+    "year": 2026,
+    "unit": "NIS/month",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "cp.value.2025",
+    "claim_he": "שווי נקודת זיכוי לשנת 2025 הוא 2,904 ש״ח לשנה",
+    "claim_en": "Credit point value for 2025 is 2,904 NIS/year",
+    "value": 2904,
+    "year": 2025,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2025",
+    "confidence": "verified"
+  },
+  {
+    "id": "cp.value.month.2025",
+    "claim_he": "שווי נקודת זיכוי חודשי לשנת 2025 הוא 242 ש״ח",
+    "claim_en": "Monthly credit point value for 2025 is 242 NIS",
+    "value": 242,
+    "year": 2025,
+    "unit": "NIS/month",
+    "source_id": "source/taxes-monthly-deductions-2025",
+    "confidence": "verified"
+  },
+  {
+    "id": "cp.freeze",
+    "claim_he": "שווי נקודת הזיכוי קפוא לשנים 2024–2027",
+    "claim_en": "Credit point value is frozen for 2024–2027",
+    "value": true,
+    "year": "2024-2027",
+    "unit": "boolean",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "cp.resident.points",
+    "claim_he": "תושב ישראל זכאי ל-2 נקודות זיכוי לפי סעיף 34",
+    "claim_en": "An Israeli resident gets 2 credit points under s. 34",
+    "value": 2,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "cp.travel.points",
+    "claim_he": "זיכוי נסיעה לפי סעיף 36 הוא רבע נקודת זיכוי",
+    "claim_en": "Travel credit under s. 36 is 0.25 point",
+    "value": 0.25,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "cp.resident.total",
+    "claim_he": "סך נקודות הזיכוי הבסיסיות לתושב ישראל הוא 2.25",
+    "claim_en": "Total base credit points for an Israeli resident is 2.25",
+    "value": 2.25,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "cp.woman.points",
+    "claim_he": "אשה זכאית לתוספת חצי נקודת זיכוי לפי סעיף 36א",
+    "claim_en": "A woman gets an extra 0.5 point under s. 36a",
+    "value": 0.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "cp.woman.total",
+    "claim_he": "סך נקודות הזיכוי לאשה תושבת ישראל הוא 2.75",
+    "claim_en": "Total credit points for a female Israeli resident is 2.75",
+    "value": 2.75,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "withholding.max_rate",
+    "claim_he": "שיעור הניכוי המרבי כשאין טופס 101 או שחסר סעיף הכנסות אחרות הוא 47%",
+    "claim_en": "Maximum withholding when form 101 or its other-income section is missing is 47%",
+    "value": 47,
+    "year": 2026,
+    "unit": "percent",
+    "source_id": "source/wikisource-payroll-withholding-regulations",
+    "confidence": "verified"
+  },
+  {
+    "id": "surtax.threshold",
+    "claim_he": "מס יסף חל על הכנסה חייבת מעל 721,560 ש״ח לשנה",
+    "claim_en": "Surtax applies to taxable income above 721,560 NIS/year",
+    "value": 721560,
+    "year": 2026,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "surtax.rate",
+    "claim_he": "שיעור מס היסף הוא 3%",
+    "claim_en": "Surtax rate is 3%",
+    "value": 3,
+    "year": 2026,
+    "unit": "percent",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "surtax.capital.rate",
+    "claim_he": "מס נוסף על הכנסה ממקורות הוניים הוא 2% מעל התקרה",
+    "claim_en": "Additional tax on capital-source income is 2% above the threshold",
+    "value": 2,
+    "year": 2026,
+    "unit": "percent",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2025.10.annual",
+    "claim_he": "מדרגת המס 10% לשנת 2025 חלה על הכנסה שנתית עד 84,120 ש״ח",
+    "claim_en": "The 10% bracket for 2025 applies to annual income up to 84120 NIS",
+    "value": 84120,
+    "year": 2025,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2025",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2025.10.monthly",
+    "claim_he": "מדרגת המס 10% לשנת 2025 חלה על הכנסה חודשית עד 7,010 ש״ח",
+    "claim_en": "The 10% bracket for 2025 applies to monthly income up to 7010 NIS",
+    "value": 7010,
+    "year": 2025,
+    "unit": "NIS/month",
+    "source_id": "source/taxes-monthly-deductions-2025",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2025.14.annual",
+    "claim_he": "מדרגת המס 14% לשנת 2025 חלה על הכנסה שנתית עד 120,720 ש״ח",
+    "claim_en": "The 14% bracket for 2025 applies to annual income up to 120720 NIS",
+    "value": 120720,
+    "year": 2025,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2025",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2025.14.monthly",
+    "claim_he": "מדרגת המס 14% לשנת 2025 חלה על הכנסה חודשית עד 10,060 ש״ח",
+    "claim_en": "The 14% bracket for 2025 applies to monthly income up to 10060 NIS",
+    "value": 10060,
+    "year": 2025,
+    "unit": "NIS/month",
+    "source_id": "source/taxes-monthly-deductions-2025",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2025.20.annual",
+    "claim_he": "מדרגת המס 20% לשנת 2025 חלה על הכנסה שנתית עד 193,800 ש״ח",
+    "claim_en": "The 20% bracket for 2025 applies to annual income up to 193800 NIS",
+    "value": 193800,
+    "year": 2025,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2025",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2025.20.monthly",
+    "claim_he": "מדרגת המס 20% לשנת 2025 חלה על הכנסה חודשית עד 16,150 ש״ח",
+    "claim_en": "The 20% bracket for 2025 applies to monthly income up to 16150 NIS",
+    "value": 16150,
+    "year": 2025,
+    "unit": "NIS/month",
+    "source_id": "source/taxes-monthly-deductions-2025",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2025.31.annual",
+    "claim_he": "מדרגת המס 31% לשנת 2025 חלה על הכנסה שנתית עד 269,280 ש״ח",
+    "claim_en": "The 31% bracket for 2025 applies to annual income up to 269280 NIS",
+    "value": 269280,
+    "year": 2025,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2025",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2025.31.monthly",
+    "claim_he": "מדרגת המס 31% לשנת 2025 חלה על הכנסה חודשית עד 22,440 ש״ח",
+    "claim_en": "The 31% bracket for 2025 applies to monthly income up to 22440 NIS",
+    "value": 22440,
+    "year": 2025,
+    "unit": "NIS/month",
+    "source_id": "source/taxes-monthly-deductions-2025",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2025.35.annual",
+    "claim_he": "מדרגת המס 35% לשנת 2025 חלה על הכנסה שנתית עד 560,280 ש״ח",
+    "claim_en": "The 35% bracket for 2025 applies to annual income up to 560280 NIS",
+    "value": 560280,
+    "year": 2025,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2025",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2025.35.monthly",
+    "claim_he": "מדרגת המס 35% לשנת 2025 חלה על הכנסה חודשית עד 46,690 ש״ח",
+    "claim_en": "The 35% bracket for 2025 applies to monthly income up to 46690 NIS",
+    "value": 46690,
+    "year": 2025,
+    "unit": "NIS/month",
+    "source_id": "source/taxes-monthly-deductions-2025",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2026.10.annual",
+    "claim_he": "מדרגת המס 10% לשנת 2026 חלה על הכנסה שנתית עד 84,120 ש״ח",
+    "claim_en": "The 10% bracket for 2026 applies to annual income up to 84120 NIS",
+    "value": 84120,
+    "year": 2026,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2026.10.monthly",
+    "claim_he": "מדרגת המס 10% לשנת 2026 חלה על הכנסה חודשית עד 7,010 ש״ח",
+    "claim_en": "The 10% bracket for 2026 applies to monthly income up to 7010 NIS",
+    "value": 7010,
+    "year": 2026,
+    "unit": "NIS/month",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2026.14.annual",
+    "claim_he": "מדרגת המס 14% לשנת 2026 חלה על הכנסה שנתית עד 120,720 ש״ח",
+    "claim_en": "The 14% bracket for 2026 applies to annual income up to 120720 NIS",
+    "value": 120720,
+    "year": 2026,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2026.14.monthly",
+    "claim_he": "מדרגת המס 14% לשנת 2026 חלה על הכנסה חודשית עד 10,060 ש״ח",
+    "claim_en": "The 14% bracket for 2026 applies to monthly income up to 10060 NIS",
+    "value": 10060,
+    "year": 2026,
+    "unit": "NIS/month",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2026.20.annual",
+    "claim_he": "מדרגת המס 20% לשנת 2026 חלה על הכנסה שנתית עד 228,000 ש״ח",
+    "claim_en": "The 20% bracket for 2026 applies to annual income up to 228000 NIS",
+    "value": 228000,
+    "year": 2026,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2026.20.monthly",
+    "claim_he": "מדרגת המס 20% לשנת 2026 חלה על הכנסה חודשית עד 19,000 ש״ח",
+    "claim_en": "The 20% bracket for 2026 applies to monthly income up to 19000 NIS",
+    "value": 19000,
+    "year": 2026,
+    "unit": "NIS/month",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2026.31.annual",
+    "claim_he": "מדרגת המס 31% לשנת 2026 חלה על הכנסה שנתית עד 301,200 ש״ח",
+    "claim_en": "The 31% bracket for 2026 applies to annual income up to 301200 NIS",
+    "value": 301200,
+    "year": 2026,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2026.31.monthly",
+    "claim_he": "מדרגת המס 31% לשנת 2026 חלה על הכנסה חודשית עד 25,100 ש״ח",
+    "claim_en": "The 31% bracket for 2026 applies to monthly income up to 25100 NIS",
+    "value": 25100,
+    "year": 2026,
+    "unit": "NIS/month",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2026.35.annual",
+    "claim_he": "מדרגת המס 35% לשנת 2026 חלה על הכנסה שנתית עד 560,280 ש״ח",
+    "claim_en": "The 35% bracket for 2026 applies to annual income up to 560280 NIS",
+    "value": 560280,
+    "year": 2026,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.2026.35.monthly",
+    "claim_he": "מדרגת המס 35% לשנת 2026 חלה על הכנסה חודשית עד 46,690 ש״ח",
+    "claim_en": "The 35% bracket for 2026 applies to monthly income up to 46690 NIS",
+    "value": 46690,
+    "year": 2026,
+    "unit": "NIS/month",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.top.rate",
+    "claim_he": "מדרגת המס העליונה היא 47%",
+    "claim_en": "The top marginal tax rate is 47%",
+    "value": 47,
+    "year": 2026,
+    "unit": "percent",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.birth.mother",
+    "claim_he": "נקודות זיכוי לאם/הורה משמורן בגין ילד בגיל birth: 2.5",
+    "claim_en": "Credit points for mother/custodial parent for a child age birth: 2.5",
+    "value": 2.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.birth.father",
+    "claim_he": "נקודות זיכוי לאב/הורה לא משמורן בגין ילד בגיל birth: 2.5",
+    "claim_en": "Credit points for father/non-custodial parent for a child age birth: 2.5",
+    "value": 2.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.1-2.mother",
+    "claim_he": "נקודות זיכוי לאם/הורה משמורן בגין ילד בגיל 1-2: 4.5",
+    "claim_en": "Credit points for mother/custodial parent for a child age 1-2: 4.5",
+    "value": 4.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.1-2.father",
+    "claim_he": "נקודות זיכוי לאב/הורה לא משמורן בגין ילד בגיל 1-2: 4.5",
+    "claim_en": "Credit points for father/non-custodial parent for a child age 1-2: 4.5",
+    "value": 4.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.3.mother",
+    "claim_he": "נקודות זיכוי לאם/הורה משמורן בגין ילד בגיל 3: 3.5",
+    "claim_en": "Credit points for mother/custodial parent for a child age 3: 3.5",
+    "value": 3.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.3.father",
+    "claim_he": "נקודות זיכוי לאב/הורה לא משמורן בגין ילד בגיל 3: 3.5",
+    "claim_en": "Credit points for father/non-custodial parent for a child age 3: 3.5",
+    "value": 3.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.4-5.mother",
+    "claim_he": "נקודות זיכוי לאם/הורה משמורן בגין ילד בגיל 4-5: 2.5",
+    "claim_en": "Credit points for mother/custodial parent for a child age 4-5: 2.5",
+    "value": 2.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.4-5.father",
+    "claim_he": "נקודות זיכוי לאב/הורה לא משמורן בגין ילד בגיל 4-5: 2.5",
+    "claim_en": "Credit points for father/non-custodial parent for a child age 4-5: 2.5",
+    "value": 2.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.6-17.mother",
+    "claim_he": "נקודות זיכוי לאם/הורה משמורן בגין ילד בגיל 6-17: 2.0",
+    "claim_en": "Credit points for mother/custodial parent for a child age 6-17: 2.0",
+    "value": 2.0,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.6-17.father",
+    "claim_he": "נקודות זיכוי לאב/הורה לא משמורן בגין ילד בגיל 6-17: 1.0",
+    "claim_en": "Credit points for father/non-custodial parent for a child age 6-17: 1.0",
+    "value": 1.0,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.18.mother",
+    "claim_he": "נקודות זיכוי לאם/הורה משמורן בגין ילד בגיל 18: 0.5",
+    "claim_en": "Credit points for mother/custodial parent for a child age 18: 0.5",
+    "value": 0.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.18.father",
+    "claim_he": "נקודות זיכוי לאב/הורה לא משמורן בגין ילד בגיל 18: 0.0",
+    "claim_en": "Credit points for father/non-custodial parent for a child age 18: 0.0",
+    "value": 0.0,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "child.age_cutoff",
+    "claim_he": "ילד לצורך טופס 101 הוא מי שטרם מלאו לו 19 בשנת המס",
+    "claim_en": "A child for form 101 is under 19 in the tax year",
+    "value": 19,
+    "year": 2026,
+    "unit": "years",
+    "source_id": "source/wikisource-payroll-withholding-regulations",
+    "confidence": "verified"
+  },
+  {
+    "id": "single_parent.extra",
+    "claim_he": "תוספת נקודת זיכוי אחת להורה במשפחה חד־הורית החי בנפרד",
+    "claim_en": "One extra credit point for a single-parent family living apart",
+    "value": 1,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "single_parent.one_parent",
+    "claim_he": "תוספת נקודת זיכוי אחת להורה יחיד שהורהו השני נפטר או אינו רשום",
+    "claim_en": "One extra credit point for a single parent whose other parent died/is unregistered",
+    "value": 1,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "noncustodial.points",
+    "claim_he": "הורה שאינו משמורן המשתתף בכלכלת ילדיו זכאי לנקודה אחת או לחלק ממנה",
+    "claim_en": "A non-custodial parent sharing upkeep gets 1 point or a fraction",
+    "value": 1,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "spouse.income_threshold",
+    "claim_he": "תקרת הכנסת בן/בת הזוג לזיכוי בן זוג ללא הכנסות היא 25,410 ש״ח לשנה",
+    "claim_en": "Spouse-income ceiling for the dependent-spouse credit is 25,410 NIS/year",
+    "value": 25410,
+    "year": 2026,
+    "unit": "NIS/year",
+    "source_id": "source/govil-spouse-credit",
+    "confidence": "verified"
+  },
+  {
+    "id": "spouse.points",
+    "claim_he": "זיכוי בעד בן/בת זוג ללא הכנסות הוא נקודת זיכוי אחת",
+    "claim_en": "Dependent-spouse credit is 1 point",
+    "value": 1,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "spouse.working.points",
+    "claim_he": "זיכוי בעד בן/בת זוג עובד הוא 1.5 נקודות (או 1.75 עם זכאות לנקודת קצבה)",
+    "claim_en": "Working-spouse credit is 1.5 points (1.75 with a pension point)",
+    "value": 1.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "alimony.points",
+    "claim_he": "זיכוי בגין מזונות לבן/בת זוג לשעבר הוא נקודת זיכוי אחת",
+    "claim_en": "Alimony-to-former-spouse credit is 1 point",
+    "value": 1,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "disabled_child.points",
+    "claim_he": "זיכוי בגין ילד נטול יכולת הוא 2 נקודות לילד",
+    "claim_en": "Disabled-child credit is 2 points per child",
+    "value": 2,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "youth.points",
+    "claim_he": "זיכוי לנוער בגיל 16–17 הוא נקודת זיכוי אחת",
+    "claim_en": "Youth credit for ages 16–17 is 1 point",
+    "value": 1,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "oleh.first_year",
+    "claim_he": "עולה שעלה מ-2022 מקבל נקודת זיכוי אחת בחודש בחודשים 1–12",
+    "claim_en": "An oleh from 2022 gets 1 point/month in months 1–12",
+    "value": 1,
+    "year": 2026,
+    "unit": "points/month",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "oleh.months_13_30",
+    "claim_he": "עולה מקבל 3 נקודות זיכוי בחודש בחודשים 13–30",
+    "claim_en": "An oleh gets 3 points/month in months 13–30",
+    "value": 3,
+    "year": 2026,
+    "unit": "points/month",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "oleh.months_31_42",
+    "claim_he": "עולה מקבל 2 נקודות זיכוי בחודש בחודשים 31–42",
+    "claim_en": "An oleh gets 2 points/month in months 31–42",
+    "value": 2,
+    "year": 2026,
+    "unit": "points/month",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "oleh.months_43_54",
+    "claim_he": "עולה מקבל נקודת זיכוי אחת בחודש בחודשים 43–54",
+    "claim_en": "An oleh gets 1 point/month in months 43–54",
+    "value": 1,
+    "year": 2026,
+    "unit": "points/month",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "oleh.period",
+    "claim_he": "תקופת הזכאות לעולה שעלה מ-2022 היא 54 חודשים",
+    "claim_en": "Entitlement period for an oleh from 2022 is 54 months",
+    "value": 54,
+    "year": 2026,
+    "unit": "months",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "oleh.pre2022.period",
+    "claim_he": "תקופת הזכאות לעולה שעלה לפני 2022 היא 42 חודשים",
+    "claim_en": "Entitlement period for a pre-2022 oleh is 42 months",
+    "value": 42,
+    "year": 2026,
+    "unit": "months",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "soldier.full",
+    "claim_he": "חייל משוחרר משירות מלא זכאי ל-2 נקודות בשנה",
+    "claim_en": "A fully discharged soldier gets 2 points/year",
+    "value": 2,
+    "year": 2026,
+    "unit": "points/year",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "soldier.partial",
+    "claim_he": "חייל משוחרר משירות חלקי זכאי לנקודה אחת בשנה",
+    "claim_en": "A partially discharged soldier gets 1 point/year",
+    "value": 1,
+    "year": 2026,
+    "unit": "points/year",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "soldier.months",
+    "claim_he": "זיכוי חייל משוחרר ניתן ל-36 חודשים לאחר השחרור",
+    "claim_en": "Discharged-soldier credit runs for 36 months after discharge",
+    "value": 36,
+    "year": 2026,
+    "unit": "months",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "reserve.30_39",
+    "claim_he": "לוחם מילואים עם 30–39 ימים בשנה הקודמת זכאי ל-0.5 נקודה",
+    "claim_en": "Reserve combatant with 30–39 days last year gets 0.5 point",
+    "value": 0.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "reserve.40_49",
+    "claim_he": "לוחם מילואים עם 40–49 ימים בשנה הקודמת זכאי ל-0.75 נקודה",
+    "claim_en": "Reserve combatant with 40–49 days last year gets 0.75 point",
+    "value": 0.75,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "reserve.50",
+    "claim_he": "לוחם מילואים עם 50 ימים או יותר בשנה הקודמת זכאי לנקודה אחת",
+    "claim_en": "Reserve combatant with 50+ days last year gets 1 point",
+    "value": 1,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "reserve.step",
+    "claim_he": "תוספת רבע נקודה לכל 5 ימי מילואים נוספים",
+    "claim_en": "Extra 0.25 point per additional 5 reserve days",
+    "value": 0.25,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "reserve.cap",
+    "claim_he": "תקרת זיכוי לוחם מילואים היא 4 נקודות",
+    "claim_en": "Reserve combatant credit cap is 4 points",
+    "value": 4,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "study.ba.points",
+    "claim_he": "זיכוי בגין תואר ראשון הוא נקודה אחת",
+    "claim_en": "Bachelor's degree credit is 1 point",
+    "value": 1,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "study.ba.years",
+    "claim_he": "זיכוי בגין תואר ראשון ניתן לעד 3 שנות מס",
+    "claim_en": "Bachelor's credit is granted for up to 3 tax years",
+    "value": 3,
+    "year": 2026,
+    "unit": "years",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "study.ma.points",
+    "claim_he": "זיכוי בגין תואר שני הוא חצי נקודת זיכוי",
+    "claim_en": "Master's degree credit is 0.5 point",
+    "value": 0.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "study.ma.years",
+    "claim_he": "זיכוי בגין תואר שני ניתן לעד 2 שנות מס",
+    "claim_en": "Master's credit is granted for up to 2 tax years",
+    "value": 2,
+    "year": 2026,
+    "unit": "years",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "study.profession.points",
+    "claim_he": "זיכוי בגין לימודי מקצוע הוא נקודה אחת",
+    "claim_en": "Profession-studies credit is 1 point",
+    "value": 1,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "study.profession.years",
+    "claim_he": "זיכוי בגין לימודי מקצוע ניתן לעד 3 שנות מס",
+    "claim_en": "Profession-studies credit is granted for up to 3 tax years",
+    "value": 3,
+    "year": 2026,
+    "unit": "years",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "disability.ceiling.stipend",
+    "claim_he": "תקרת הפטור לנכה/עיוור המקבל תגמול חודשי היא 684,000 ש״ח לשנה",
+    "claim_en": "Exemption ceiling for a disabled/blind person receiving a monthly stipend is 684,000 NIS/year",
+    "value": 684000,
+    "year": 2026,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "disability.ceiling.work",
+    "claim_he": "תקרת הפטור לנכה/עיוור מיגיעה אישית היא 445,200 ש״ח לשנה",
+    "claim_en": "Exemption ceiling for a disabled/blind person from personal effort is 445,200 NIS/year",
+    "value": 445200,
+    "year": 2026,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "disability.ceiling.other",
+    "claim_he": "תקרת הפטור לנכה/עיוור שלא מיגיעה אישית היא 81,960 ש״ח לשנה",
+    "claim_en": "Exemption ceiling for a disabled/blind person not from personal effort is 81,960 NIS/year",
+    "value": 81960,
+    "year": 2026,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "disability.is_exemption",
+    "claim_he": "פטור נכה/עיוור הוא פטור מהכנסה, לא נקודות זיכוי",
+    "claim_en": "The disability/blind benefit is an income exemption, not credit points",
+    "value": true,
+    "year": 2026,
+    "unit": "boolean",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "submission.days",
+    "claim_he": "יש למלא טופס 101 תוך 7 ימים מתחילת העבודה או מיום קבלת המשכורת הראשונה, לפי המוקדם",
+    "claim_en": "Form 101 must be filled within 7 days of starting work or first pay, whichever is earlier",
+    "value": 7,
+    "year": 2026,
+    "unit": "days",
+    "source_id": "source/wikisource-payroll-withholding-regulations",
+    "confidence": "verified"
+  },
+  {
+    "id": "submission.renewal",
+    "claim_he": "טופס 101 מתחדש ב-1 בינואר של כל שנת מס",
+    "claim_en": "Form 101 is renewed on 1 January of each tax year",
+    "value": "01-01",
+    "year": 2026,
+    "unit": "date",
+    "source_id": "source/wikisource-payroll-withholding-regulations",
+    "confidence": "verified"
+  },
+  {
+    "id": "submission.change_days",
+    "claim_he": "שינוי בפרטים יש להודיע תוך 7 ימים",
+    "claim_en": "Changes must be notified within 7 days",
+    "value": 7,
+    "year": 2026,
+    "unit": "days",
+    "source_id": "source/wikisource-payroll-withholding-regulations",
+    "confidence": "verified"
+  },
+  {
+    "id": "form106.deadline",
+    "claim_he": "טופס 106 יימסר לעובד עד 31 במרץ",
+    "claim_en": "Form 106 must be given to the employee by 31 March",
+    "value": "03-31",
+    "year": 2026,
+    "unit": "date",
+    "source_id": "source/govil-form-106",
+    "confidence": "verified"
+  },
+  {
+    "id": "form126.deadline",
+    "claim_he": "טופס 126 יוגש עד 30 באפריל",
+    "claim_en": "Form 126 must be filed by 30 April",
+    "value": "04-30",
+    "year": 2026,
+    "unit": "date",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "retention.years",
+    "claim_he": "מערכת החשבונות נשמרת 7 שנים מתום שנת המס",
+    "claim_en": "Accounting records are kept 7 years from the end of the tax year",
+    "value": 7,
+    "year": 2026,
+    "unit": "years",
+    "source_id": "source/nevo-bookkeeping-rules",
+    "confidence": "verified"
+  },
+  {
+    "id": "retention.filing_years",
+    "claim_he": "או 6 שנים מיום הגשת הדו״ח, לפי המאוחר",
+    "claim_en": "Or 6 years from filing the return, whichever is later",
+    "value": 6,
+    "year": 2026,
+    "unit": "years",
+    "source_id": "source/nevo-bookkeeping-rules",
+    "confidence": "verified"
+  },
+  {
+    "id": "oleh2026.ceiling",
+    "claim_he": "תקרת הפטור לעולה/תושב חוזר שהגיע ב-2026 היא 600,000 ש״ח",
+    "claim_en": "Exemption ceiling for an oleh/returning resident arriving in 2026 is 600,000 NIS",
+    "value": 600000,
+    "year": 2026,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "oleh2027.ceiling",
+    "claim_he": "תקרת הפטור לעולה/תושב חוזר בשנת 2027 היא 1,000,000 ש״ח",
+    "claim_en": "Exemption ceiling for an oleh/returning resident in 2027 is 1,000,000 NIS",
+    "value": 1000000,
+    "year": 2027,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "oleh2028.ceiling",
+    "claim_he": "תקרת הפטור לעולה/תושב חוזר בשנת 2028 היא 1,000,000 ש״ח",
+    "claim_en": "Exemption ceiling for an oleh/returning resident in 2028 is 1,000,000 NIS",
+    "value": 1000000,
+    "year": 2028,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "oleh2029.ceiling",
+    "claim_he": "תקרת הפטור לעולה/תושב חוזר בשנת 2029 היא 350,000 ש״ח",
+    "claim_en": "Exemption ceiling for an oleh/returning resident in 2029 is 350,000 NIS",
+    "value": 350000,
+    "year": 2029,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "oleh2030.ceiling",
+    "claim_he": "תקרת הפטור לעולה/תושב חוזר בשנת 2030 היא 150,000 ש״ח",
+    "claim_en": "Exemption ceiling for an oleh/returning resident in 2030 is 150,000 NIS",
+    "value": 150000,
+    "year": 2030,
+    "unit": "NIS/year",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "oleh.arrival_window",
+    "claim_he": "הפטור הזמני חל על מי שהגיע בין 5.11.2025 ל-31.12.2026",
+    "claim_en": "The temporary exemption applies to arrivals between 5.11.2025 and 31.12.2026",
+    "value": "2025-11-05..2026-12-31",
+    "year": 2026,
+    "unit": "date range",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "likely"
+  },
+  {
+    "id": "foreign_worker.nursing",
+    "claim_he": "עובד זר בסיעוד זכאי ל-2.25 נקודות זיכוי",
+    "claim_en": "A foreign worker in nursing care gets 2.25 credit points",
+    "value": 2.25,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/kolzchut-foreign-worker",
+    "confidence": "likely"
+  },
+  {
+    "id": "foreign_worker.other",
+    "claim_he": "עובד זר שלא בסיעוד זכאי לנקודת זיכוי אחת",
+    "claim_en": "A foreign worker outside nursing gets 1 credit point",
+    "value": 1,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/kolzchut-foreign-worker",
+    "confidence": "likely"
+  },
+  {
+    "id": "foreign_worker.woman",
+    "claim_he": "עובדת זרה זכאית לתוספת חצי נקודת זיכוי",
+    "claim_en": "A female foreign worker gets an extra 0.5 point",
+    "value": 0.5,
+    "year": 2026,
+    "unit": "points",
+    "source_id": "source/kolzchut-foreign-worker",
+    "confidence": "likely"
+  },
+  {
+    "id": "privacy.amendment13",
+    "claim_he": "תיקון 13 לחוק הגנת הפרטיות נכנס לתוקף ב-14.8.2025",
+    "claim_en": "Privacy Protection Law Amendment 13 entered into force on 14.8.2025",
+    "value": "2025-08-14",
+    "year": 2025,
+    "unit": "date",
+    "source_id": "source/govil-privacy-amendment-13",
+    "confidence": "verified"
+  },
+  {
+    "id": "bracket.change.date",
+    "claim_he": "ריווח מדרגות המס לשנת 2026 נחקק ב-31.3.2026 והוא רטרואקטיבי ל-1.1.2026",
+    "claim_en": "The 2026 bracket widening was enacted on 31.3.2026 and applies retroactively from 1.1.2026",
+    "value": "2026-03-31",
+    "year": 2026,
+    "unit": "date",
+    "source_id": "source/taxes-monthly-deductions-2026",
+    "confidence": "verified"
+  },
+  {
+    "id": "form.revision",
+    "claim_he": "הנוסח הנוכחי של טופס 101 הוא 0101/130 מעודכן 11.2025",
+    "claim_en": "Current form 101 is 0101/130 revision 11.2025",
+    "value": "11.2025",
+    "year": 2026,
+    "unit": "text",
+    "source_id": "source/tofes101-official-pdf",
+    "confidence": "verified"
+  },
+  {
+    "id": "form.code",
+    "claim_he": "קוד הטופס הוא 0101/130",
+    "claim_en": "Form code is 0101/130",
+    "value": "0101/130",
+    "year": 2026,
+    "unit": "text",
+    "source_id": "source/tofes101-official-pdf",
+    "confidence": "verified"
+  },
+  {
+    "id": "tax_year.calendar",
+    "claim_he": "שנת המס היא שנת לוח ינואר–דצמבר",
+    "claim_en": "The tax year is the calendar year, January–December",
+    "value": true,
+    "year": 2026,
+    "unit": "boolean",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  },
+  {
+    "id": "credit.not_refundable",
+    "claim_he": "נקודות זיכוי מקטינות מס ואינן מחוללות תשלום שלילי",
+    "claim_en": "Credit points reduce tax and do not create a negative tax payment",
+    "value": true,
+    "year": 2026,
+    "unit": "boolean",
+    "source_id": "source/nevo-income-tax-ordinance",
+    "confidence": "verified"
+  }
+]

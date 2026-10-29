@@ -32,6 +32,12 @@ as repeat rows.
         → אישור תיאום מס (upload)
 ```
 
+> ⚠️ **Form number correction:** the coordination request is **form 116**, not
+> 119. Form 119 is the declaration used for the "finished studies / profession"
+> credit (item 15 of part ח׳). The reference product links both concepts to 119 in
+> some of its copy; the law track verified this — see
+> [law/tax-coordination](../law/tax-coordination.md).
+
 ## Rules worth knowing
 
 - Selecting "יש לי הכנסות נוספות" here is *not* the same as section ה׳. ה׳ is
@@ -47,7 +53,7 @@ as repeat rows.
 
 - Frame it as a decision, not a form: *"יש לך עוד מקום עבודה השנה?"* → if yes:
   *"אפשר לבקש תיאום מס, כדי שלא יורידו לך מס מקסימלי. זה דורש אישור מפקיד
-  השומה."* with three actions: `לפתוח בקשה (טופס 119)` · `כבר יש לי אישור —
+  השומה."* with three actions: `לפתוח בקשה (טופס 116)` · `כבר יש לי אישור —
   לצרף` · `לא עכשיו`.
 - Deep-link to the official online service
   (`https://www.misim.gov.il/shteumeimas/…`) — the reference already does this in

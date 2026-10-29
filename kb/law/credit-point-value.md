@@ -72,3 +72,11 @@ Verified against the official 2025 and 2026 withholding booklets (p. 10 and p. 1
 respectively) and the consolidated ordinance s. 33א. The 2027 value is frozen by
 the same law but is not needed for the 2026 launch; keep it as a forward-looking
 constant only if the data model supports year stamping.
+
+## Sources
+
+- [[source/taxes-monthly-deductions-2025]]
+- [[source/taxes-monthly-deductions-2026]]
+- [[source/nevo-income-tax-ordinance]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

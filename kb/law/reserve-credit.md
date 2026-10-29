@@ -71,3 +71,11 @@ tiers. Do not apply the temporary tiers to 2025.
   statutory wording is broad; the Tax Authority page is not explicit).
 - The treatment of reserve days in the year of discharge or in a year with no
   taxable income.
+
+## Sources
+
+- [[source/nevo-income-tax-ordinance]]
+- [[source/govil-reserve-credit]]
+- [[source/kolzchut-credit-points]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

@@ -101,3 +101,11 @@ an **estimate**, not a payroll engine.
 - Never apply 2025 brackets to 2026.
 - Never treat “maximum rate” as a flat 47% of net; it is 47% of the taxable
   payment after allowable deductions.
+
+## Sources
+
+- [[source/wikisource-payroll-withholding-regulations]]
+- [[source/taxes-monthly-deductions-2026]]
+- [[source/nevo-income-tax-ordinance]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.

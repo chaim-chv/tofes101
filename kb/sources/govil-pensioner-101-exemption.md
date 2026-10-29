@@ -8,6 +8,7 @@ authority: primary
 publisher: רשות המסים בישראל
 url: https://www.gov.il/he/pages/sa091122-1
 retrieved: 2026-10-29
+updated: 2026-10-29
 tags: [source, form-101, pensioners, exemption]
 ---
 
@@ -19,3 +20,5 @@ income and no special reliefs (e.g. settlement benefit) are exempt from the annu
 pensions; 100% nursing-level pensions; disability/loss-of-capacity pensions every
 2 years. The exemption is an administrative instruction, not a change to
 regulation 2.
+
+**Retrieval note:** direct `curl` from this network returns HTTP 403 (Cloudflare); the page content was read through `r.jina.ai` on 2026-10-29. The URL above is the canonical public page.

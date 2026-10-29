@@ -7,7 +7,7 @@ confidence: verified
 updated: 2026-10-29
 tags: [recon, reference-implementation, tepez, form-runtime]
 sources: [source/tofes101-form-runner-api, source/tepez-runner-bundle]
-related: [flow/form-101-service, flow/form-101-field-spec, decision/adr-0001-stack]
+related: [flow/form-101-service, flow/form-101-field-spec, decision/adr-0004-v1-scope]
 ---
 
 # How tofes101.co.il renders the 101 form
@@ -93,7 +93,7 @@ renders the PDF from the resulting model.
 - Many sections exist only for **old printed forms** (`legacy` sub-sections,
   "שדות שהופיעו בעבר…"), i.e. the schema is a 15-year accretion. Roughly
   25 % of the tree is dead/debug/ad content (`adWrapTop`, `settingsWrap`,
-  `bottomCustom/adPanel`). See [form-101-field-spec](./form-101-field-spec.md)
+  `bottomCustom/adPanel`). See [form-101-field-spec](../flow/form-101-field-spec.md)
   for the cleaned list of the 12 real sections and 160 real fields.
 - The site is ad-funded: `auxData.ads` + `_settings.marketingConsent` — the user
   is asked to opt in to having their personal data sold to advertisers, and ads

@@ -8,6 +8,7 @@ authority: primary
 publisher: רשות המסים בישראל
 url: https://www.gov.il/BlobFolder/service/tax-coordination-online/he/Service_Pages_Income_tax_annual-report-2024_itc116-2024.pdf
 retrieved: 2026-10-29
+updated: 2026-10-29
 tags: [source, form-116, tax-coordination, pdf]
 ---
 

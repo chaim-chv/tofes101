@@ -219,3 +219,12 @@ Each case: **what the law says → what the app should do → confidence**.
 - **App:** separate the employer prefill (company details only) from the employee
   form; do not collect employee data on the employer side; add a disclaimer.
 - **Confidence:** verified (design/legal analysis).
+
+## Sources
+
+- [[source/wikisource-payroll-withholding-regulations]]
+- [[source/taxes-electronic-101-rules-2026]]
+- [[source/nevo-income-tax-ordinance]]
+- [[source/govil-pensioner-101-exemption]]
+
+Every normative statement above is based on these nodes; year-specific values are stamped in the text.
