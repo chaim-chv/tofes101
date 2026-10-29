@@ -64,7 +64,8 @@ One node per field that needs more than a label:
 ### Decisions — `kb/decisions/`
 - [ADR-0004 — v1 scope, tax year, languages](decision/adr-0004-v1-scope.md)
 - [ADR-0005 — employer prefill link](decision/adr-0005-employer-prefill-link.md)
-- [ADR-0006 — navigation model (8 steps)](decision/adr-0006-navigation.md)
+- [ADR-0006 — navigation model](decision/adr-0006-navigation.md)
+- [ADR-0007 — one route, steps as state](decision/adr-0007-single-route.md)
 - `adr-0001-*` … `adr-0003-*` — stack, PDF strategy, draft storage (engineering track)
 
 ### Reference implementation — `kb/finding/`

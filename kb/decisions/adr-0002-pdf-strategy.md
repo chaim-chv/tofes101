@@ -82,3 +82,18 @@ Adopt **A + B**:
   an HTML replica of the official layout instead of an overlay.
 - Mobile Safari cannot generate/download the PDF reliably; reorder to make print
   the primary output.
+
+
+## Implementation note (2026-10-30)
+
+v1 shipped with the **print-first** path: `/print/` renders an A4 document from
+the same `ReviewList` the user reviewed, and `window.print()` produces the PDF.
+It has perfect Hebrew shaping (the browser does the bidi), zero bundle cost, and
+works on every device — including ones where a 516 KB lazy chunk would be a
+problem on 3G.
+
+The overlay renderer stays the next step: `pdf-lib` + `fontkit` + `bidi-js` is
+proven in `research/spikes/pdf/` (IoU 0.79–0.83 vs Chrome), but it needs the
+coordinate map for all 160 slots, which is a calibration project of its own
+(`?calibrate=1` in `docs/IMPLEMENTATION.md` §14). Until then the printed sheet is
+the honest, working output — and the review screen shows exactly what will print.

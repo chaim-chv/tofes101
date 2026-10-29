@@ -43,6 +43,7 @@
   - Scope v1 — browser-only 101 (no emailing), derived from parity  `product/scope-v1`
     - ADR-0004 — v1 scope, tax year, languages, delivery  `decision/adr-0004-v1-scope`
     - ADR-0005 — Employer prefill link (no-server template replacement)  `decision/adr-0005-employer-prefill-link`
+    - ADR-0007 — One form route, steps as state  `decision/adr-0007-single-route`
   - עקרונות UX — 12 כללים שמחייבים כל מסך  `ux/ux-principles`
     - ADR-0006 — Navigation model (8 steps, not one page, not 160 pages)  `decision/adr-0006-navigation`
     - נגישות בישראל — מה החוק מחייב אתר ציבורי  `ux/a11y-israeli-law`

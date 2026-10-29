@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-29T22:08:03.047Z",
+  "generatedAt": "2026-10-29T22:27:14.570Z",
   "counts": {
-    "nodes": 183,
-    "edges": 1255,
+    "nodes": 184,
+    "edges": 1261,
     "errors": 0,
     "warnings": 0
   },
@@ -2087,6 +2087,31 @@
       "words": 430
     },
     {
+      "id": "decision/adr-0007-single-route",
+      "file": "decisions/adr-0007-single-route.md",
+      "title": "ADR-0007 — One form route, steps as state",
+      "type": "decision",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-30",
+      "tags": [
+        "adr",
+        "routing",
+        "pwa",
+        "offline",
+        "navigation"
+      ],
+      "sources": [],
+      "related": [
+        "decision/adr-0006-navigation",
+        "eng/offline-pwa",
+        "decision/adr-0004-v1-scope"
+      ],
+      "up": "product/scope-v1",
+      "dir": "decisions",
+      "words": 275
+    },
+    {
       "id": "decision/adr-0002-pdf-strategy",
       "file": "decisions/adr-0002-pdf-strategy.md",
       "title": "ADR-0002 — PDF strategy: overlay the official flat PDF, print as fallback",
@@ -2116,7 +2141,7 @@
       ],
       "up": "eng/architecture",
       "dir": "decisions",
-      "words": 573
+      "words": 695
     },
     {
       "id": "decision/adr-0001-stack",
@@ -3055,7 +3080,7 @@
       "sources": [],
       "related": [],
       "dir": ".",
-      "words": 1989
+      "words": 1995
     },
     {
       "id": "source/govil-website-accessibility-guide",
@@ -8344,6 +8369,31 @@
       "kind": "link"
     },
     {
+      "from": "decision/adr-0007-single-route",
+      "to": "decision/adr-0006-navigation",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0007-single-route",
+      "to": "eng/offline-pwa",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0007-single-route",
+      "to": "decision/adr-0004-v1-scope",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0007-single-route",
+      "to": "product/scope-v1",
+      "kind": "up"
+    },
+    {
+      "from": "decision/adr-0007-single-route",
+      "to": "decision/adr-0006-navigation",
+      "kind": "link"
+    },
+    {
       "from": "decision/adr-0002-pdf-strategy",
       "to": "eng/pdf-generation",
       "kind": "related"
@@ -9816,6 +9866,11 @@
     {
       "from": "index",
       "to": "decision/adr-0006-navigation",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "decision/adr-0007-single-route",
       "kind": "link"
     },
     {
