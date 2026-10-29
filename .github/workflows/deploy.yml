@@ -28,7 +28,7 @@ jobs:
       - name: Knowledge base is consistent
         run: bun run kb:check
       - name: Unit tests
-        run: bun test
+        run: bun run test
       - name: Typecheck
         run: bun run typecheck
       - name: Generate static site

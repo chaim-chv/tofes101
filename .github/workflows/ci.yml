@@ -17,7 +17,7 @@ jobs:
       - name: Knowledge base (no broken links, no orphans)
         run: bun run kb:check
       - name: Unit tests
-        run: bun test
+        run: bun run test
       - name: Typecheck
         run: bun run typecheck
       - name: Static build
