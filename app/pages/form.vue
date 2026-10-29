@@ -191,7 +191,12 @@ const printHref = computed(() => path("/print/"))
 
       <!-- progress -->
       <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <StepProgress :steps="form.steps.value" :current="form.currentStepIndex.value" @select="jump" />
+        <StepProgress
+          :steps="form.steps.value"
+          :current="form.currentStepIndex.value"
+          :show-counts="showErrors"
+          @select="jump"
+        />
         <p class="text-xs text-muted">
           <span v-if="form.saving.value">{{ t("common.saving") }}</span>
           <span v-else-if="form.lastSavedAt.value">{{ t("common.saved") }}</span>

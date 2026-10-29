@@ -9,6 +9,8 @@ const props = defineProps<{
   steps: StepView[]
   current: number
   disabled?: boolean
+  /** Badges only after the user has attempted to move on — no wall of red on arrival. */
+  showCounts?: boolean
 }>()
 
 const emit = defineEmits<{ select: [index: number] }>()
@@ -64,7 +66,7 @@ function onKeydown(event: KeyboardEvent, index: number) {
           <span aria-hidden="true" class="font-mono">{{ index + 1 }}</span>
           <span class="hidden sm:inline">{{ t(step.titleKey) }}</span>
           <span
-            v-if="step.issueCount"
+            v-if="props.showCounts && step.issueCount"
             class="ms-1 rounded-full bg-error px-1.5 text-[10px] font-semibold text-white"
             :aria-label="t('meta.errorsInStep', { n: step.issueCount })"
           >
