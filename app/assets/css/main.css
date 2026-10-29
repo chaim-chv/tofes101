@@ -14,7 +14,7 @@
 :root {
   color-scheme: light;
   /* Contrast fix (kb/eng/testing.md): the default Nuxt UI teal fails AA on white. */
-  --ui-primary: var(--color-teal-700);
+  --ui-primary: var(--color-teal-800);
   --ui-text-dimmed: var(--color-slate-600);
 }
 

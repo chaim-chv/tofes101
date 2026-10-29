@@ -18,6 +18,7 @@ jobs:
   verify:
     name: Verify (kb, types, unit, privacy, e2e)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
@@ -38,6 +39,8 @@ jobs:
         run: bun run generate
       - name: Privacy gate (no external hosts, CSP present)
         run: bun run check:privacy
+      - name: Install Chromium for Playwright
+        run: bunx playwright install --with-deps chromium
       - name: E2E smoke (headless Chromium, under the Pages base path)
         env:
           BASE: /tofes101

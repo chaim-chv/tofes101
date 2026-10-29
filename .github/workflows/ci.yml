@@ -8,6 +8,7 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
@@ -24,5 +25,7 @@ jobs:
         run: bun run generate
       - name: Privacy gate (no external hosts, CSP present)
         run: bun run check:privacy
+      - name: Install Chromium for Playwright
+        run: bunx playwright install --with-deps chromium
       - name: E2E + axe
         run: bun run e2e:ci
