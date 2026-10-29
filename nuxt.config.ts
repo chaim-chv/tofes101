@@ -10,6 +10,10 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
+  // Keep component names exactly as written (`FormField`, `StepProgress`) instead
+  // of prefixing them by folder. One name per concept, everywhere.
+  components: [{ path: "~/components", pathPrefix: false }],
+
   // Icons must be bundled at build time. Without this, @nuxt/icon falls back to
   // fetching from api.iconify.design at runtime — an outbound request that leaks
   // every page view. Enforced by scripts/check-privacy.ts.
@@ -71,5 +75,5 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  vite: { build: { sourcemap: process.env.SOURCE_MAP === "1" } },
+  vite: { build: { sourcemap: false } },
 })

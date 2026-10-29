@@ -1,0 +1,66 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify (kb, types, unit, privacy, e2e)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.3"
+      - name: Install
+        run: bun install --frozen-lockfile
+      - name: Knowledge base is consistent
+        run: bun run kb:check
+      - name: Unit tests
+        run: bun test
+      - name: Generate static site
+        env:
+          NUXT_APP_BASE_URL: /tofes101/
+          NUXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/tofes101/
+        run: bun run generate
+      - name: Privacy gate (no external hosts, CSP present)
+        run: bun run check:privacy
+      - name: E2E smoke (headless Chromium, under the Pages base path)
+        env:
+          BASE: /tofes101
+        run: bun run e2e:ci
+      - uses: actions/upload-artifact@v4
+        with:
+          name: static-site
+          path: .output/public
+          retention-days: 7
+
+  deploy:
+    name: Deploy
+    needs: verify
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: static-site
+          path: .output/public
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .output/public
+      - id: deployment
+        uses: actions/deploy-pages@v4

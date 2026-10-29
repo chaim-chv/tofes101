@@ -35,7 +35,7 @@ const LIMITS: Record<EmployerKey, number> = { n: 200, a: 300, p: 40, d: 20 }
 
 function bytesToB64url(bytes: Uint8Array): string {
   let bin = ""
-  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i])
+  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i] ?? 0)
   return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "")
 }
 

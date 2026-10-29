@@ -1,12 +1,405 @@
 {
-  "generatedAt": "2026-10-29T20:30:48.764Z",
+  "generatedAt": "2026-10-29T21:45:16.646Z",
   "counts": {
-    "nodes": 167,
-    "edges": 1074,
+    "nodes": 183,
+    "edges": 1255,
     "errors": 0,
-    "warnings": 7
+    "warnings": 0
   },
   "nodes": [
+    {
+      "id": "eng/pdf-hebrew-rtl",
+      "file": "eng/pdf-hebrew-rtl.md",
+      "title": "Hebrew/RTL text in generated PDFs — what actually happens",
+      "type": "finding",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "pdf",
+        "hebrew",
+        "rtl",
+        "bidi",
+        "fontkit",
+        "pdf-lib"
+      ],
+      "sources": [
+        "source/unicode-uax9-bidi",
+        "source/pdf-lib-readme"
+      ],
+      "related": [
+        "eng/pdf-generation",
+        "decision/adr-0002-pdf-strategy",
+        "ux/bidi-mixed-content",
+        "ux/hebrew-typography"
+      ],
+      "up": "eng/pdf-generation",
+      "dir": "eng",
+      "words": 1042
+    },
+    {
+      "id": "eng/privacy-enforcement",
+      "file": "eng/privacy-enforcement.md",
+      "title": "Privacy enforcement — CSP, self-hosting, and the build-time gate",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "privacy",
+        "csp",
+        "security",
+        "ci",
+        "no-analytics"
+      ],
+      "sources": [
+        "source/nuxt-ui-4-installation",
+        "source/vite-pwa-nuxt"
+      ],
+      "related": [
+        "eng/architecture",
+        "eng/offline-pwa",
+        "law/privacy-consent",
+        "ux/trust-local-privacy",
+        "decision/adr-0001-stack"
+      ],
+      "up": "eng/architecture",
+      "dir": "eng",
+      "words": 1058
+    },
+    {
+      "id": "eng/pdf-generation",
+      "file": "eng/pdf-generation.md",
+      "title": "PDF generation — overlay the official flat PDF, with a print fallback",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "pdf",
+        "pdf-lib",
+        "printing",
+        "output",
+        "signature"
+      ],
+      "sources": [
+        "source/pdf-lib-readme",
+        "source/unicode-uax9-bidi"
+      ],
+      "related": [
+        "decision/adr-0002-pdf-strategy",
+        "eng/pdf-hebrew-rtl",
+        "eng/signature",
+        "ux/print-export",
+        "law/form-101-official-pdf"
+      ],
+      "up": "eng/architecture",
+      "dir": "eng",
+      "words": 1269
+    },
+    {
+      "id": "eng/architecture",
+      "file": "eng/architecture.md",
+      "title": "Architecture — client-only Nuxt app, layers, data flow, threat model",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "architecture",
+        "nuxt",
+        "offline",
+        "privacy",
+        "pdf"
+      ],
+      "sources": [
+        "source/nuxt-4-installation",
+        "source/nuxt-ui-4-installation",
+        "source/vite-pwa-nuxt"
+      ],
+      "related": [
+        "decision/adr-0001-stack",
+        "decision/adr-0002-pdf-strategy",
+        "decision/adr-0003-draft-storage",
+        "eng/repo-layout",
+        "eng/storage-draft",
+        "eng/pdf-generation",
+        "eng/privacy-enforcement",
+        "eng/offline-pwa",
+        "eng/form-schema-model",
+        "flow/form-101-service",
+        "ux/print-export"
+      ],
+      "up": "index",
+      "dir": "eng",
+      "words": 1225
+    },
+    {
+      "id": "eng/repo-layout",
+      "file": "eng/repo-layout.md",
+      "title": "Repo layout — directories, naming, boundaries, scripts",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "repo",
+        "structure",
+        "conventions",
+        "nuxt"
+      ],
+      "sources": [
+        "source/nuxt-4-installation"
+      ],
+      "related": [
+        "eng/architecture",
+        "eng/toolchain-versions",
+        "eng/form-schema-model",
+        "decision/adr-0001-stack"
+      ],
+      "up": "eng/architecture",
+      "dir": "eng",
+      "words": 921
+    },
+    {
+      "id": "eng/testing",
+      "file": "eng/testing.md",
+      "title": "Testing and quality gates — Vitest, Playwright, axe, CI",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "testing",
+        "vitest",
+        "playwright",
+        "axe",
+        "ci",
+        "accessibility"
+      ],
+      "sources": [
+        "source/nuxt-4-installation"
+      ],
+      "related": [
+        "eng/architecture",
+        "eng/storage-draft",
+        "eng/pdf-generation",
+        "eng/performance",
+        "ux/checklists/a11y-pr-checklist"
+      ],
+      "up": "eng/architecture",
+      "dir": "eng",
+      "words": 1069
+    },
+    {
+      "id": "eng/signature",
+      "file": "eng/signature.md",
+      "title": "Signature capture and embedding — what is actually being produced",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "likely",
+      "updated": "2026-10-29",
+      "tags": [
+        "signature",
+        "pdf",
+        "canvas",
+        "legal",
+        "accessibility"
+      ],
+      "sources": [
+        "source/pdf-lib-readme"
+      ],
+      "related": [
+        "eng/pdf-generation",
+        "law/declaration-and-signature",
+        "field/101-signature",
+        "ux/signature-accessibility",
+        "decision/adr-0002-pdf-strategy"
+      ],
+      "up": "eng/architecture",
+      "dir": "eng",
+      "words": 682
+    },
+    {
+      "id": "eng/performance",
+      "file": "eng/performance.md",
+      "title": "Performance — measured budget, 3G plan, per-step splitting",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "performance",
+        "bundle",
+        "lighthouse",
+        "3g",
+        "code-splitting"
+      ],
+      "sources": [
+        "source/nuxt-4-installation",
+        "source/nuxt-ui-4-installation"
+      ],
+      "related": [
+        "eng/architecture",
+        "eng/pdf-generation",
+        "eng/offline-pwa",
+        "eng/testing"
+      ],
+      "up": "eng/architecture",
+      "dir": "eng",
+      "words": 1019
+    },
+    {
+      "id": "eng/form-schema-model",
+      "file": "eng/form-schema-model.md",
+      "title": "Form schema model — sections, fields, conditions, validation, calculation",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "schema",
+        "form-model",
+        "validation",
+        "computation",
+        "form-101"
+      ],
+      "sources": [
+        "source/tofes101-form-runner-api"
+      ],
+      "related": [
+        "flow/form-101-field-spec",
+        "eng/architecture",
+        "eng/storage-draft",
+        "eng/pdf-generation"
+      ],
+      "up": "eng/architecture",
+      "dir": "eng",
+      "words": 1507
+    },
+    {
+      "id": "eng/offline-pwa",
+      "file": "eng/offline-pwa.md",
+      "title": "Offline / PWA — service worker, precache, updates, verified gotchas",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "pwa",
+        "service-worker",
+        "offline",
+        "workbox",
+        "nuxt"
+      ],
+      "sources": [
+        "source/vite-pwa-nuxt",
+        "source/webkit-itp-7day-storage"
+      ],
+      "related": [
+        "eng/architecture",
+        "eng/privacy-enforcement",
+        "eng/storage-draft",
+        "decision/adr-0001-stack"
+      ],
+      "up": "eng/architecture",
+      "dir": "eng",
+      "words": 890
+    },
+    {
+      "id": "eng/storage-draft",
+      "file": "eng/storage-draft.md",
+      "title": "Draft storage — versioned IndexedDB envelope, autosave, export/import",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "storage",
+        "draft",
+        "indexeddb",
+        "autosave",
+        "migrations",
+        "offline"
+      ],
+      "sources": [
+        "source/mdn-storage-quotas",
+        "source/mdn-storage-persist",
+        "source/webkit-itp-7day-storage",
+        "source/mdn-opfs"
+      ],
+      "related": [
+        "decision/adr-0003-draft-storage",
+        "eng/architecture",
+        "ux/progress-save-resume",
+        "ux/trust-local-privacy",
+        "eng/offline-pwa"
+      ],
+      "up": "eng/architecture",
+      "dir": "eng",
+      "words": 1373
+    },
+    {
+      "id": "eng/i18n-rtl",
+      "file": "eng/i18n-rtl.md",
+      "title": "i18n and RTL — Hebrew first, English from day one",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "i18n",
+        "rtl",
+        "hebrew",
+        "nuxt-ui",
+        "intl"
+      ],
+      "sources": [
+        "source/nuxt-ui-4-i18n",
+        "source/nuxt-ui-4-design-system"
+      ],
+      "related": [
+        "eng/architecture",
+        "ux/rtl-foundations",
+        "ux/bidi-mixed-content",
+        "ux/hebrew-typography",
+        "decision/adr-0004-v1-scope"
+      ],
+      "up": "eng/architecture",
+      "dir": "eng",
+      "words": 1059
+    },
+    {
+      "id": "eng/toolchain-versions",
+      "file": "eng/toolchain-versions.md",
+      "title": "Toolchain versions — what we actually resolved (2026-10-29)",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "tooling",
+        "versions",
+        "bun",
+        "nuxt",
+        "nuxt-ui",
+        "pdf"
+      ],
+      "sources": [
+        "source/nuxt-4-installation",
+        "source/nuxt-ui-4-installation",
+        "source/vite-pwa-nuxt",
+        "source/pdf-lib-readme"
+      ],
+      "related": [
+        "eng/architecture",
+        "decision/adr-0001-stack",
+        "eng/repo-layout"
+      ],
+      "up": "eng/architecture",
+      "dir": "eng",
+      "words": 816
+    },
     {
       "id": "competitor/feature-parity",
       "file": "competitor/feature-parity.md",
@@ -1694,6 +2087,101 @@
       "words": 430
     },
     {
+      "id": "decision/adr-0002-pdf-strategy",
+      "file": "decisions/adr-0002-pdf-strategy.md",
+      "title": "ADR-0002 — PDF strategy: overlay the official flat PDF, print as fallback",
+      "type": "decision",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "adr",
+        "pdf",
+        "pdf-lib",
+        "printing",
+        "hebrew",
+        "signature"
+      ],
+      "sources": [
+        "source/pdf-lib-readme",
+        "source/unicode-uax9-bidi"
+      ],
+      "related": [
+        "eng/pdf-generation",
+        "eng/pdf-hebrew-rtl",
+        "eng/signature",
+        "ux/print-export",
+        "law/form-101-official-pdf",
+        "decision/adr-0001-stack"
+      ],
+      "up": "eng/architecture",
+      "dir": "decisions",
+      "words": 573
+    },
+    {
+      "id": "decision/adr-0001-stack",
+      "file": "decisions/adr-0001-stack.md",
+      "title": "ADR-0001 — Stack: bun + Nuxt 4.6 + Nuxt UI 4.12, static generate",
+      "type": "decision",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "adr",
+        "stack",
+        "nuxt",
+        "nuxt-ui",
+        "bun",
+        "static"
+      ],
+      "sources": [
+        "source/nuxt-4-installation",
+        "source/nuxt-ui-4-installation",
+        "source/vite-pwa-nuxt"
+      ],
+      "related": [
+        "eng/architecture",
+        "eng/toolchain-versions",
+        "eng/repo-layout",
+        "decision/adr-0004-v1-scope"
+      ],
+      "up": "eng/architecture",
+      "dir": "decisions",
+      "words": 559
+    },
+    {
+      "id": "decision/adr-0003-draft-storage",
+      "file": "decisions/adr-0003-draft-storage.md",
+      "title": "ADR-0003 — Draft storage: Pinia + versioned IndexedDB envelope",
+      "type": "decision",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-29",
+      "tags": [
+        "adr",
+        "storage",
+        "indexeddb",
+        "draft",
+        "migrations",
+        "pinia"
+      ],
+      "sources": [
+        "source/mdn-storage-quotas",
+        "source/webkit-itp-7day-storage",
+        "source/mdn-storage-persist",
+        "source/mdn-opfs"
+      ],
+      "related": [
+        "eng/storage-draft",
+        "eng/architecture",
+        "ux/progress-save-resume",
+        "ux/trust-local-privacy"
+      ],
+      "up": "eng/architecture",
+      "dir": "decisions",
+      "words": 501
+    },
+    {
       "id": "ux/signature-accessibility",
       "file": "ux/signature-accessibility.md",
       "title": "חתימה — Canvas, חלופה במקלדת ותוקף משפטי",
@@ -2567,7 +3055,7 @@
       "sources": [],
       "related": [],
       "dir": ".",
-      "words": 1620
+      "words": 1989
     },
     {
       "id": "source/govil-website-accessibility-guide",
@@ -4045,6 +4533,651 @@
     }
   ],
   "edges": [
+    {
+      "from": "eng/pdf-hebrew-rtl",
+      "to": "eng/pdf-generation",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-hebrew-rtl",
+      "to": "decision/adr-0002-pdf-strategy",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-hebrew-rtl",
+      "to": "ux/bidi-mixed-content",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-hebrew-rtl",
+      "to": "ux/hebrew-typography",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-hebrew-rtl",
+      "to": "source/unicode-uax9-bidi",
+      "kind": "source"
+    },
+    {
+      "from": "eng/pdf-hebrew-rtl",
+      "to": "source/pdf-lib-readme",
+      "kind": "source"
+    },
+    {
+      "from": "eng/pdf-hebrew-rtl",
+      "to": "eng/pdf-generation",
+      "kind": "up"
+    },
+    {
+      "from": "eng/privacy-enforcement",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "eng/privacy-enforcement",
+      "to": "eng/offline-pwa",
+      "kind": "related"
+    },
+    {
+      "from": "eng/privacy-enforcement",
+      "to": "law/privacy-consent",
+      "kind": "related"
+    },
+    {
+      "from": "eng/privacy-enforcement",
+      "to": "ux/trust-local-privacy",
+      "kind": "related"
+    },
+    {
+      "from": "eng/privacy-enforcement",
+      "to": "decision/adr-0001-stack",
+      "kind": "related"
+    },
+    {
+      "from": "eng/privacy-enforcement",
+      "to": "source/nuxt-ui-4-installation",
+      "kind": "source"
+    },
+    {
+      "from": "eng/privacy-enforcement",
+      "to": "source/vite-pwa-nuxt",
+      "kind": "source"
+    },
+    {
+      "from": "eng/privacy-enforcement",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "decision/adr-0002-pdf-strategy",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "eng/pdf-hebrew-rtl",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "eng/signature",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "ux/print-export",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "law/form-101-official-pdf",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "source/pdf-lib-readme",
+      "kind": "source"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "source/unicode-uax9-bidi",
+      "kind": "source"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "decision/adr-0002-pdf-strategy",
+      "kind": "link"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "law/form-101-official-pdf",
+      "kind": "link"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "eng/pdf-hebrew-rtl",
+      "kind": "link"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "eng/signature",
+      "kind": "link"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "law/declaration-and-signature",
+      "kind": "link"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "decision/adr-0001-stack",
+      "kind": "related"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "decision/adr-0002-pdf-strategy",
+      "kind": "related"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "decision/adr-0003-draft-storage",
+      "kind": "related"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "eng/repo-layout",
+      "kind": "related"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "eng/storage-draft",
+      "kind": "related"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "eng/pdf-generation",
+      "kind": "related"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "eng/privacy-enforcement",
+      "kind": "related"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "eng/offline-pwa",
+      "kind": "related"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "eng/form-schema-model",
+      "kind": "related"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "flow/form-101-service",
+      "kind": "related"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "ux/print-export",
+      "kind": "related"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "source/nuxt-4-installation",
+      "kind": "source"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "source/nuxt-ui-4-installation",
+      "kind": "source"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "source/vite-pwa-nuxt",
+      "kind": "source"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "index",
+      "kind": "up"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "decision/adr-0001-stack",
+      "kind": "link"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "eng/toolchain-versions",
+      "kind": "link"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "eng/form-schema-model",
+      "kind": "link"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "flow/form-101-field-spec",
+      "kind": "link"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "eng/pdf-generation",
+      "kind": "link"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "decision/adr-0002-pdf-strategy",
+      "kind": "link"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "eng/privacy-enforcement",
+      "kind": "link"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "decision/adr-0003-draft-storage",
+      "kind": "link"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "eng/offline-pwa",
+      "kind": "link"
+    },
+    {
+      "from": "eng/architecture",
+      "to": "decision/adr-0004-v1-scope",
+      "kind": "link"
+    },
+    {
+      "from": "eng/repo-layout",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "eng/repo-layout",
+      "to": "eng/toolchain-versions",
+      "kind": "related"
+    },
+    {
+      "from": "eng/repo-layout",
+      "to": "eng/form-schema-model",
+      "kind": "related"
+    },
+    {
+      "from": "eng/repo-layout",
+      "to": "decision/adr-0001-stack",
+      "kind": "related"
+    },
+    {
+      "from": "eng/repo-layout",
+      "to": "source/nuxt-4-installation",
+      "kind": "source"
+    },
+    {
+      "from": "eng/repo-layout",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "eng/testing",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "eng/testing",
+      "to": "eng/storage-draft",
+      "kind": "related"
+    },
+    {
+      "from": "eng/testing",
+      "to": "eng/pdf-generation",
+      "kind": "related"
+    },
+    {
+      "from": "eng/testing",
+      "to": "eng/performance",
+      "kind": "related"
+    },
+    {
+      "from": "eng/testing",
+      "to": "ux/checklists/a11y-pr-checklist",
+      "kind": "related"
+    },
+    {
+      "from": "eng/testing",
+      "to": "source/nuxt-4-installation",
+      "kind": "source"
+    },
+    {
+      "from": "eng/testing",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "eng/signature",
+      "to": "eng/pdf-generation",
+      "kind": "related"
+    },
+    {
+      "from": "eng/signature",
+      "to": "law/declaration-and-signature",
+      "kind": "related"
+    },
+    {
+      "from": "eng/signature",
+      "to": "field/101-signature",
+      "kind": "related"
+    },
+    {
+      "from": "eng/signature",
+      "to": "ux/signature-accessibility",
+      "kind": "related"
+    },
+    {
+      "from": "eng/signature",
+      "to": "decision/adr-0002-pdf-strategy",
+      "kind": "related"
+    },
+    {
+      "from": "eng/signature",
+      "to": "source/pdf-lib-readme",
+      "kind": "source"
+    },
+    {
+      "from": "eng/signature",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "eng/signature",
+      "to": "ux/signature-accessibility",
+      "kind": "link"
+    },
+    {
+      "from": "eng/signature",
+      "to": "law/declaration-and-signature",
+      "kind": "link"
+    },
+    {
+      "from": "eng/performance",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "eng/performance",
+      "to": "eng/pdf-generation",
+      "kind": "related"
+    },
+    {
+      "from": "eng/performance",
+      "to": "eng/offline-pwa",
+      "kind": "related"
+    },
+    {
+      "from": "eng/performance",
+      "to": "eng/testing",
+      "kind": "related"
+    },
+    {
+      "from": "eng/performance",
+      "to": "source/nuxt-4-installation",
+      "kind": "source"
+    },
+    {
+      "from": "eng/performance",
+      "to": "source/nuxt-ui-4-installation",
+      "kind": "source"
+    },
+    {
+      "from": "eng/performance",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "eng/form-schema-model",
+      "to": "flow/form-101-field-spec",
+      "kind": "related"
+    },
+    {
+      "from": "eng/form-schema-model",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "eng/form-schema-model",
+      "to": "eng/storage-draft",
+      "kind": "related"
+    },
+    {
+      "from": "eng/form-schema-model",
+      "to": "eng/pdf-generation",
+      "kind": "related"
+    },
+    {
+      "from": "eng/form-schema-model",
+      "to": "source/tofes101-form-runner-api",
+      "kind": "source"
+    },
+    {
+      "from": "eng/form-schema-model",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "eng/form-schema-model",
+      "to": "eng/pdf-generation",
+      "kind": "link"
+    },
+    {
+      "from": "eng/form-schema-model",
+      "to": "ux/form-101-screen-map",
+      "kind": "link"
+    },
+    {
+      "from": "eng/offline-pwa",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "eng/offline-pwa",
+      "to": "eng/privacy-enforcement",
+      "kind": "related"
+    },
+    {
+      "from": "eng/offline-pwa",
+      "to": "eng/storage-draft",
+      "kind": "related"
+    },
+    {
+      "from": "eng/offline-pwa",
+      "to": "decision/adr-0001-stack",
+      "kind": "related"
+    },
+    {
+      "from": "eng/offline-pwa",
+      "to": "source/vite-pwa-nuxt",
+      "kind": "source"
+    },
+    {
+      "from": "eng/offline-pwa",
+      "to": "source/webkit-itp-7day-storage",
+      "kind": "source"
+    },
+    {
+      "from": "eng/offline-pwa",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "eng/offline-pwa",
+      "to": "source/webkit-itp-7day-storage",
+      "kind": "link"
+    },
+    {
+      "from": "eng/storage-draft",
+      "to": "decision/adr-0003-draft-storage",
+      "kind": "related"
+    },
+    {
+      "from": "eng/storage-draft",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "eng/storage-draft",
+      "to": "ux/progress-save-resume",
+      "kind": "related"
+    },
+    {
+      "from": "eng/storage-draft",
+      "to": "ux/trust-local-privacy",
+      "kind": "related"
+    },
+    {
+      "from": "eng/storage-draft",
+      "to": "eng/offline-pwa",
+      "kind": "related"
+    },
+    {
+      "from": "eng/storage-draft",
+      "to": "source/mdn-storage-quotas",
+      "kind": "source"
+    },
+    {
+      "from": "eng/storage-draft",
+      "to": "source/mdn-storage-persist",
+      "kind": "source"
+    },
+    {
+      "from": "eng/storage-draft",
+      "to": "source/webkit-itp-7day-storage",
+      "kind": "source"
+    },
+    {
+      "from": "eng/storage-draft",
+      "to": "source/mdn-opfs",
+      "kind": "source"
+    },
+    {
+      "from": "eng/storage-draft",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "eng/storage-draft",
+      "to": "decision/adr-0003-draft-storage",
+      "kind": "link"
+    },
+    {
+      "from": "eng/storage-draft",
+      "to": "source/webkit-itp-7day-storage",
+      "kind": "link"
+    },
+    {
+      "from": "eng/i18n-rtl",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "eng/i18n-rtl",
+      "to": "ux/rtl-foundations",
+      "kind": "related"
+    },
+    {
+      "from": "eng/i18n-rtl",
+      "to": "ux/bidi-mixed-content",
+      "kind": "related"
+    },
+    {
+      "from": "eng/i18n-rtl",
+      "to": "ux/hebrew-typography",
+      "kind": "related"
+    },
+    {
+      "from": "eng/i18n-rtl",
+      "to": "decision/adr-0004-v1-scope",
+      "kind": "related"
+    },
+    {
+      "from": "eng/i18n-rtl",
+      "to": "source/nuxt-ui-4-i18n",
+      "kind": "source"
+    },
+    {
+      "from": "eng/i18n-rtl",
+      "to": "source/nuxt-ui-4-design-system",
+      "kind": "source"
+    },
+    {
+      "from": "eng/i18n-rtl",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "eng/i18n-rtl",
+      "to": "eng/pdf-hebrew-rtl",
+      "kind": "link"
+    },
+    {
+      "from": "eng/toolchain-versions",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "eng/toolchain-versions",
+      "to": "decision/adr-0001-stack",
+      "kind": "related"
+    },
+    {
+      "from": "eng/toolchain-versions",
+      "to": "eng/repo-layout",
+      "kind": "related"
+    },
+    {
+      "from": "eng/toolchain-versions",
+      "to": "source/nuxt-4-installation",
+      "kind": "source"
+    },
+    {
+      "from": "eng/toolchain-versions",
+      "to": "source/nuxt-ui-4-installation",
+      "kind": "source"
+    },
+    {
+      "from": "eng/toolchain-versions",
+      "to": "source/vite-pwa-nuxt",
+      "kind": "source"
+    },
+    {
+      "from": "eng/toolchain-versions",
+      "to": "source/pdf-lib-readme",
+      "kind": "source"
+    },
+    {
+      "from": "eng/toolchain-versions",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "eng/toolchain-versions",
+      "to": "eng/pdf-hebrew-rtl",
+      "kind": "link"
+    },
+    {
+      "from": "eng/toolchain-versions",
+      "to": "eng/performance",
+      "kind": "link"
+    },
     {
       "from": "competitor/feature-parity",
       "to": "product/scope-v1",
@@ -7132,6 +8265,11 @@
     },
     {
       "from": "decision/adr-0005-employer-prefill-link",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0005-employer-prefill-link",
       "to": "product/scope-v1",
       "kind": "up"
     },
@@ -7198,6 +8336,166 @@
     {
       "from": "decision/adr-0004-v1-scope",
       "to": "product/scope-v1",
+      "kind": "up"
+    },
+    {
+      "from": "decision/adr-0004-v1-scope",
+      "to": "eng/architecture",
+      "kind": "link"
+    },
+    {
+      "from": "decision/adr-0002-pdf-strategy",
+      "to": "eng/pdf-generation",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0002-pdf-strategy",
+      "to": "eng/pdf-hebrew-rtl",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0002-pdf-strategy",
+      "to": "eng/signature",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0002-pdf-strategy",
+      "to": "ux/print-export",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0002-pdf-strategy",
+      "to": "law/form-101-official-pdf",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0002-pdf-strategy",
+      "to": "decision/adr-0001-stack",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0002-pdf-strategy",
+      "to": "source/pdf-lib-readme",
+      "kind": "source"
+    },
+    {
+      "from": "decision/adr-0002-pdf-strategy",
+      "to": "source/unicode-uax9-bidi",
+      "kind": "source"
+    },
+    {
+      "from": "decision/adr-0002-pdf-strategy",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "decision/adr-0002-pdf-strategy",
+      "to": "eng/pdf-hebrew-rtl",
+      "kind": "link"
+    },
+    {
+      "from": "decision/adr-0002-pdf-strategy",
+      "to": "law/declaration-and-signature",
+      "kind": "link"
+    },
+    {
+      "from": "decision/adr-0001-stack",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0001-stack",
+      "to": "eng/toolchain-versions",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0001-stack",
+      "to": "eng/repo-layout",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0001-stack",
+      "to": "decision/adr-0004-v1-scope",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0001-stack",
+      "to": "source/nuxt-4-installation",
+      "kind": "source"
+    },
+    {
+      "from": "decision/adr-0001-stack",
+      "to": "source/nuxt-ui-4-installation",
+      "kind": "source"
+    },
+    {
+      "from": "decision/adr-0001-stack",
+      "to": "source/vite-pwa-nuxt",
+      "kind": "source"
+    },
+    {
+      "from": "decision/adr-0001-stack",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "decision/adr-0001-stack",
+      "to": "eng/offline-pwa",
+      "kind": "link"
+    },
+    {
+      "from": "decision/adr-0001-stack",
+      "to": "eng/performance",
+      "kind": "link"
+    },
+    {
+      "from": "decision/adr-0001-stack",
+      "to": "decision/adr-0003-draft-storage",
+      "kind": "link"
+    },
+    {
+      "from": "decision/adr-0003-draft-storage",
+      "to": "eng/storage-draft",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0003-draft-storage",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0003-draft-storage",
+      "to": "ux/progress-save-resume",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0003-draft-storage",
+      "to": "ux/trust-local-privacy",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0003-draft-storage",
+      "to": "source/mdn-storage-quotas",
+      "kind": "source"
+    },
+    {
+      "from": "decision/adr-0003-draft-storage",
+      "to": "source/webkit-itp-7day-storage",
+      "kind": "source"
+    },
+    {
+      "from": "decision/adr-0003-draft-storage",
+      "to": "source/mdn-storage-persist",
+      "kind": "source"
+    },
+    {
+      "from": "decision/adr-0003-draft-storage",
+      "to": "source/mdn-opfs",
+      "kind": "source"
+    },
+    {
+      "from": "decision/adr-0003-draft-storage",
+      "to": "eng/architecture",
       "kind": "up"
     },
     {
@@ -8438,6 +9736,11 @@
     {
       "from": "index",
       "to": "ux/ux-principles",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/architecture",
       "kind": "link"
     },
     {
@@ -8966,6 +10269,81 @@
       "kind": "link"
     },
     {
+      "from": "index",
+      "to": "eng/toolchain-versions",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/repo-layout",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/form-schema-model",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/storage-draft",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/offline-pwa",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/pdf-generation",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/pdf-hebrew-rtl",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/signature",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/privacy-enforcement",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/i18n-rtl",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/testing",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/performance",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "decision/adr-0001-stack",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "decision/adr-0002-pdf-strategy",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "decision/adr-0003-draft-storage",
+      "kind": "link"
+    },
+    {
       "from": "source/govil-website-accessibility-guide",
       "to": "source/israel-regs-service-accessibility",
       "kind": "wikilink"
@@ -8994,6 +10372,11 @@
       "from": "source/govil-accessibility-coordinators",
       "to": "ux/a11y-israeli-law",
       "kind": "wikilink"
+    },
+    {
+      "from": "source/webdev-storage-for-the-web",
+      "to": "eng/storage-draft",
+      "kind": "link"
     },
     {
       "from": "source/govil-is5568-standard",
@@ -9096,6 +10479,11 @@
       "kind": "link"
     },
     {
+      "from": "source/vite-pwa-nuxt",
+      "to": "eng/offline-pwa",
+      "kind": "link"
+    },
+    {
       "from": "source/govuk-addresses",
       "to": "ux/israeli-input-masking",
       "kind": "wikilink"
@@ -9129,6 +10517,11 @@
       "from": "source/mdn-visual-viewport",
       "to": "ux/mobile-layout",
       "kind": "wikilink"
+    },
+    {
+      "from": "source/pdf-lib-readme",
+      "to": "eng/pdf-hebrew-rtl",
+      "kind": "link"
     },
     {
       "from": "source/tepez-runner-bundle",
@@ -9417,13 +10810,5 @@
     }
   ],
   "errors": [],
-  "warnings": [
-    "decisions/adr-0005-employer-prefill-link.md: related target not found -> 'eng/architecture'",
-    "decisions/adr-0004-v1-scope.md: md link not found -> '../eng/architecture.md'",
-    "index.md: md link not found -> 'eng/architecture.md'",
-    "index.md: md link not found -> 'eng/architecture.md'",
-    "sources/webdev-storage-for-the-web.md: md link not found -> '../../eng/storage-draft.md'",
-    "sources/vite-pwa-nuxt.md: md link not found -> '../../eng/offline-pwa.md'",
-    "sources/pdf-lib-readme.md: md link not found -> '../../eng/pdf-hebrew-rtl.md'"
-  ]
+  "warnings": []
 }

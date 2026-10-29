@@ -1,15 +1,15 @@
 # Backlinks (generated)
 
-_167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
+_183 nodes · 1255 edges · generated 2026-10-29 21:45Z_
 
 ## ./
 
 ### מפת הידע — tofes101 knowledge base  `index`
 
-- type: **glossary** · status: verified · confidence: verified · 1620 words
+- type: **glossary** · status: verified · confidence: verified · 1989 words
 - tags: index, map-of-content
-- out (109): `flow/form-101-service` (link), `law/form-101` (link), `flow/form-101-field-spec` (link), `ux/ux-principles` (link), `finding/tepez-form-runtime` (link), `field/101-tax-year` (link), `field/101-employee-identity` (link), `field/101-employee-tax-status` (link), `field/101-children-block` (link), `field/101-other-incomes` (link), `field/101-credit-items-map` (link), `field/101-tax-coordination` (link), `field/101-documents` (link), `field/101-employer-block` (link), `field/101-signature` (link), `glossary/terms` (link), `decision/adr-0004-v1-scope` (link), `decision/adr-0005-employer-prefill-link` (link), `decision/adr-0006-navigation` (link), `product/scope-v1` (link), `product/personas` (link), `competitor/site-map` (link), `competitor/flow-employee` (link), `competitor/flow-employer` (link), `competitor/flow-calculators` (link), `competitor/content-strategy` (link), `competitor/monetization-and-tracking` (link), `competitor/feature-parity` (link), `competitor/tech-recon` (link), `ux/a11y-israeli-law` (link), `ux/a11y-is5568-vs-wcag22` (link), `ux/a11y-statement` (link), `ux/rtl-foundations` (link), `ux/bidi-mixed-content` (link), `ux/hebrew-typography` (link), `ux/hebrew-input` (link), `ux/hebrew-microcopy` (link), `ux/wizard-vs-long-page` (link), `ux/form-101-screen-map` (link), `ux/progress-save-resume` (link), `ux/autofill-tokens` (link), `ux/israeli-input-masking` (link), `ux/validation-and-errors` (link), `ux/required-optional-conditional` (link), `ux/live-announcements` (link), `ux/choice-controls` (link), `ux/help-and-glossary` (link), `ux/signature-accessibility` (link), `ux/keyboard-model` (link), `ux/focus-management` (link), `ux/speed-patterns` (link), `ux/mobile-layout` (link), `ux/trust-local-privacy` (link), `ux/print-export` (link), `ux/checklists/a11y-pr-checklist` (link), `ux/checklists/keyboard-map` (link), `ux/checklists/screen-review-checklist` (link), `source/govil-is5568-standard` (link), `source/israel-regs-service-accessibility` (link), `source/govil-website-accessibility-guide` (link), `source/govil-accessibility-statement` (link), `source/w3c-wcag22` (link), `source/w3c-wcag20-hebrew` (link), `source/w3c-bidi-structural` (link), `source/w3c-bidi-inline` (link), `source/govuk-question-pages` (link), `source/govuk-error-summary` (link), `source/govuk-names` (link), `source/govuk-addresses` (link), `source/govuk-dates` (link), `source/mdn-autocomplete` (link), `source/mdn-inputmode` (link), `source/mdn-enterkeyhint` (link), `source/mdn-visual-viewport` (link), `source/nng-web-form-design` (link), `law/form-101-official-pdf` (link), `law/form-101-section-map` (link), `law/personal-details` (link), `law/who-must-file` (link), `law/submission-deadlines` (link), `law/employer-obligations` (link), `law/withholding-mechanics` (link), `law/tax-coordination` (link), `law/credit-points` (link), `law/credit-point-value` (link), `law/credit-points-2026` (link), `law/tax-brackets-2025` (link), `law/tax-brackets-2026` (link), `law/children-credit-points` (link), `law/single-parent-credit` (link), `law/spouse-not-working` (link), `law/new-immigrant` (link), `law/returning-resident` (link), `law/soldier-credit` (link), `law/reserve-credit` (link), `law/credit-points-studies` (link), `law/alimony-credit` (link), `law/disabled-child-credit` (link), `law/youth-credit` (link), `law/disability-exemption` (link), `law/residency-and-foreign-workers` (link), `law/id-number-validation` (link), `law/marital-status` (link), `law/children-details` (link), `law/privacy-consent` (link), `law/declaration-and-signature` (link), `law/retention` (link), `law/edge-cases` (link), `law/glossary` (link)
-- **in (16)**: `competitor/feature-parity` (up), `competitor/tech-recon` (up), `competitor/flow-employee` (up), `competitor/site-map` (related), `competitor/site-map` (up), `competitor/monetization-and-tracking` (up), `competitor/flow-calculators` (up), `competitor/flow-employer` (up), `competitor/content-strategy` (up), `product/personas` (up), `product/scope-v1` (related), `product/scope-v1` (up), `decision/adr-0004-v1-scope` (related), `ux/ux-principles` (up), `glossary/terms` (up), `flow/form-101-service` (up)
+- out (125): `flow/form-101-service` (link), `law/form-101` (link), `flow/form-101-field-spec` (link), `ux/ux-principles` (link), `eng/architecture` (link), `finding/tepez-form-runtime` (link), `field/101-tax-year` (link), `field/101-employee-identity` (link), `field/101-employee-tax-status` (link), `field/101-children-block` (link), `field/101-other-incomes` (link), `field/101-credit-items-map` (link), `field/101-tax-coordination` (link), `field/101-documents` (link), `field/101-employer-block` (link), `field/101-signature` (link), `glossary/terms` (link), `decision/adr-0004-v1-scope` (link), `decision/adr-0005-employer-prefill-link` (link), `decision/adr-0006-navigation` (link), `product/scope-v1` (link), `product/personas` (link), `competitor/site-map` (link), `competitor/flow-employee` (link), `competitor/flow-employer` (link), `competitor/flow-calculators` (link), `competitor/content-strategy` (link), `competitor/monetization-and-tracking` (link), `competitor/feature-parity` (link), `competitor/tech-recon` (link), `ux/a11y-israeli-law` (link), `ux/a11y-is5568-vs-wcag22` (link), `ux/a11y-statement` (link), `ux/rtl-foundations` (link), `ux/bidi-mixed-content` (link), `ux/hebrew-typography` (link), `ux/hebrew-input` (link), `ux/hebrew-microcopy` (link), `ux/wizard-vs-long-page` (link), `ux/form-101-screen-map` (link), `ux/progress-save-resume` (link), `ux/autofill-tokens` (link), `ux/israeli-input-masking` (link), `ux/validation-and-errors` (link), `ux/required-optional-conditional` (link), `ux/live-announcements` (link), `ux/choice-controls` (link), `ux/help-and-glossary` (link), `ux/signature-accessibility` (link), `ux/keyboard-model` (link), `ux/focus-management` (link), `ux/speed-patterns` (link), `ux/mobile-layout` (link), `ux/trust-local-privacy` (link), `ux/print-export` (link), `ux/checklists/a11y-pr-checklist` (link), `ux/checklists/keyboard-map` (link), `ux/checklists/screen-review-checklist` (link), `source/govil-is5568-standard` (link), `source/israel-regs-service-accessibility` (link), `source/govil-website-accessibility-guide` (link), `source/govil-accessibility-statement` (link), `source/w3c-wcag22` (link), `source/w3c-wcag20-hebrew` (link), `source/w3c-bidi-structural` (link), `source/w3c-bidi-inline` (link), `source/govuk-question-pages` (link), `source/govuk-error-summary` (link), `source/govuk-names` (link), `source/govuk-addresses` (link), `source/govuk-dates` (link), `source/mdn-autocomplete` (link), `source/mdn-inputmode` (link), `source/mdn-enterkeyhint` (link), `source/mdn-visual-viewport` (link), `source/nng-web-form-design` (link), `law/form-101-official-pdf` (link), `law/form-101-section-map` (link), `law/personal-details` (link), `law/who-must-file` (link), `law/submission-deadlines` (link), `law/employer-obligations` (link), `law/withholding-mechanics` (link), `law/tax-coordination` (link), `law/credit-points` (link), `law/credit-point-value` (link), `law/credit-points-2026` (link), `law/tax-brackets-2025` (link), `law/tax-brackets-2026` (link), `law/children-credit-points` (link), `law/single-parent-credit` (link), `law/spouse-not-working` (link), `law/new-immigrant` (link), `law/returning-resident` (link), `law/soldier-credit` (link), `law/reserve-credit` (link), `law/credit-points-studies` (link), `law/alimony-credit` (link), `law/disabled-child-credit` (link), `law/youth-credit` (link), `law/disability-exemption` (link), `law/residency-and-foreign-workers` (link), `law/id-number-validation` (link), `law/marital-status` (link), `law/children-details` (link), `law/privacy-consent` (link), `law/declaration-and-signature` (link), `law/retention` (link), `law/edge-cases` (link), `law/glossary` (link), `eng/toolchain-versions` (link), `eng/repo-layout` (link), `eng/form-schema-model` (link), `eng/storage-draft` (link), `eng/offline-pwa` (link), `eng/pdf-generation` (link), `eng/pdf-hebrew-rtl` (link), `eng/signature` (link), `eng/privacy-enforcement` (link), `eng/i18n-rtl` (link), `eng/testing` (link), `eng/performance` (link), `decision/adr-0001-stack` (link), `decision/adr-0002-pdf-strategy` (link), `decision/adr-0003-draft-storage` (link)
+- **in (17)**: `eng/architecture` (up), `competitor/feature-parity` (up), `competitor/tech-recon` (up), `competitor/flow-employee` (up), `competitor/site-map` (related), `competitor/site-map` (up), `competitor/monetization-and-tracking` (up), `competitor/flow-calculators` (up), `competitor/flow-employer` (up), `competitor/content-strategy` (up), `product/personas` (up), `product/scope-v1` (related), `product/scope-v1` (up), `decision/adr-0004-v1-scope` (related), `ux/ux-principles` (up), `glossary/terms` (up), `flow/form-101-service` (up)
 
 ## competitor/
 
@@ -71,18 +71,39 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 
 ## decisions/
 
+### ADR-0001 — Stack: bun + Nuxt 4.6 + Nuxt UI 4.12, static generate  `decision/adr-0001-stack`
+
+- type: **decision** · status: verified · confidence: verified · 559 words
+- tags: adr, stack, nuxt, nuxt-ui, bun, static
+- out (11): `eng/architecture` (related), `eng/toolchain-versions` (related), `eng/repo-layout` (related), `decision/adr-0004-v1-scope` (related), `source/nuxt-4-installation` (source), `source/nuxt-ui-4-installation` (source), `source/vite-pwa-nuxt` (source), `eng/architecture` (up), `eng/offline-pwa` (link), `eng/performance` (link), `decision/adr-0003-draft-storage` (link)
+- **in (8)**: `eng/privacy-enforcement` (related), `eng/architecture` (related), `eng/architecture` (link), `eng/repo-layout` (related), `eng/offline-pwa` (related), `eng/toolchain-versions` (related), `decision/adr-0002-pdf-strategy` (related), `index` (link)
+
+### ADR-0002 — PDF strategy: overlay the official flat PDF, print as fallback  `decision/adr-0002-pdf-strategy`
+
+- type: **decision** · status: verified · confidence: verified · 573 words
+- tags: adr, pdf, pdf-lib, printing, hebrew, signature
+- out (11): `eng/pdf-generation` (related), `eng/pdf-hebrew-rtl` (related), `eng/signature` (related), `ux/print-export` (related), `law/form-101-official-pdf` (related), `decision/adr-0001-stack` (related), `source/pdf-lib-readme` (source), `source/unicode-uax9-bidi` (source), `eng/architecture` (up), `eng/pdf-hebrew-rtl` (link), `law/declaration-and-signature` (link)
+- **in (7)**: `eng/pdf-hebrew-rtl` (related), `eng/pdf-generation` (related), `eng/pdf-generation` (link), `eng/architecture` (related), `eng/architecture` (link), `eng/signature` (related), `index` (link)
+
+### ADR-0003 — Draft storage: Pinia + versioned IndexedDB envelope  `decision/adr-0003-draft-storage`
+
+- type: **decision** · status: verified · confidence: verified · 501 words
+- tags: adr, storage, indexeddb, draft, migrations, pinia
+- out (9): `eng/storage-draft` (related), `eng/architecture` (related), `ux/progress-save-resume` (related), `ux/trust-local-privacy` (related), `source/mdn-storage-quotas` (source), `source/webkit-itp-7day-storage` (source), `source/mdn-storage-persist` (source), `source/mdn-opfs` (source), `eng/architecture` (up)
+- **in (6)**: `eng/architecture` (related), `eng/architecture` (link), `eng/storage-draft` (related), `eng/storage-draft` (link), `decision/adr-0001-stack` (link), `index` (link)
+
 ### ADR-0004 — v1 scope, tax year, languages, delivery  `decision/adr-0004-v1-scope`
 
 - type: **decision** · status: verified · confidence: verified · 430 words
 - tags: adr, scope, product
-- out (4): `product/scope-v1` (related), `flow/form-101-service` (related), `index` (related), `product/scope-v1` (up)
-- **in (3)**: `finding/tepez-form-runtime` (related), `decision/adr-0005-employer-prefill-link` (related), `index` (link)
+- out (5): `product/scope-v1` (related), `flow/form-101-service` (related), `index` (related), `product/scope-v1` (up), `eng/architecture` (link)
+- **in (6)**: `eng/architecture` (link), `eng/i18n-rtl` (related), `finding/tepez-form-runtime` (related), `decision/adr-0005-employer-prefill-link` (related), `decision/adr-0001-stack` (related), `index` (link)
 
 ### ADR-0005 — Employer prefill link (no-server template replacement)  `decision/adr-0005-employer-prefill-link`
 
 - type: **decision** · status: draft · confidence: likely · 633 words
 - tags: adr, employer, url, privacy
-- out (3): `decision/adr-0004-v1-scope` (related), `field/101-employer-block` (related), `product/scope-v1` (up)
+- out (4): `decision/adr-0004-v1-scope` (related), `field/101-employer-block` (related), `eng/architecture` (related), `product/scope-v1` (up)
 - **in (2)**: `decision/adr-0006-navigation` (link), `index` (link)
 
 ### ADR-0006 — Navigation model (8 steps, not one page, not 160 pages)  `decision/adr-0006-navigation`
@@ -91,6 +112,99 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - tags: adr, navigation, wizard, ux
 - out (9): `ux/wizard-vs-long-page` (related), `flow/form-101-service` (related), `product/scope-v1` (related), `source/govuk-question-pages` (source), `source/nng-web-form-design` (source), `ux/ux-principles` (up), `product/scope-v1` (link), `ux/wizard-vs-long-page` (link), `decision/adr-0005-employer-prefill-link` (link)
 - **in (1)**: `index` (link)
+
+## eng/
+
+### Architecture — client-only Nuxt app, layers, data flow, threat model  `eng/architecture`
+
+- type: **concept** · status: verified · confidence: verified · 1225 words
+- tags: architecture, nuxt, offline, privacy, pdf
+- out (25): `decision/adr-0001-stack` (related), `decision/adr-0002-pdf-strategy` (related), `decision/adr-0003-draft-storage` (related), `eng/repo-layout` (related), `eng/storage-draft` (related), `eng/pdf-generation` (related), `eng/privacy-enforcement` (related), `eng/offline-pwa` (related), `eng/form-schema-model` (related), `flow/form-101-service` (related), `ux/print-export` (related), `source/nuxt-4-installation` (source), `source/nuxt-ui-4-installation` (source), `source/vite-pwa-nuxt` (source), `index` (up), `decision/adr-0001-stack` (link), `eng/toolchain-versions` (link), `eng/form-schema-model` (link), `flow/form-101-field-spec` (link), `eng/pdf-generation` (link), `decision/adr-0002-pdf-strategy` (link), `eng/privacy-enforcement` (link), `decision/adr-0003-draft-storage` (link), `eng/offline-pwa` (link), `decision/adr-0004-v1-scope` (link)
+- **in (28)**: `eng/privacy-enforcement` (related), `eng/privacy-enforcement` (up), `eng/pdf-generation` (up), `eng/repo-layout` (related), `eng/repo-layout` (up), `eng/testing` (related), `eng/testing` (up), `eng/signature` (up), `eng/performance` (related), `eng/performance` (up), `eng/form-schema-model` (related), `eng/form-schema-model` (up), `eng/offline-pwa` (related), `eng/offline-pwa` (up), `eng/storage-draft` (related), `eng/storage-draft` (up), `eng/i18n-rtl` (related), `eng/i18n-rtl` (up), `eng/toolchain-versions` (related), `eng/toolchain-versions` (up), `decision/adr-0005-employer-prefill-link` (related), `decision/adr-0004-v1-scope` (link), `decision/adr-0002-pdf-strategy` (up), `decision/adr-0001-stack` (related), `decision/adr-0001-stack` (up), `decision/adr-0003-draft-storage` (related), `decision/adr-0003-draft-storage` (up), `index` (link)
+
+### Form schema model — sections, fields, conditions, validation, calculation  `eng/form-schema-model`
+
+- type: **concept** · status: verified · confidence: verified · 1507 words
+- tags: schema, form-model, validation, computation, form-101
+- out (8): `flow/form-101-field-spec` (related), `eng/architecture` (related), `eng/storage-draft` (related), `eng/pdf-generation` (related), `source/tofes101-form-runner-api` (source), `eng/architecture` (up), `eng/pdf-generation` (link), `ux/form-101-screen-map` (link)
+- **in (4)**: `eng/architecture` (related), `eng/architecture` (link), `eng/repo-layout` (related), `index` (link)
+
+### i18n and RTL — Hebrew first, English from day one  `eng/i18n-rtl`
+
+- type: **concept** · status: verified · confidence: verified · 1059 words
+- tags: i18n, rtl, hebrew, nuxt-ui, intl
+- out (9): `eng/architecture` (related), `ux/rtl-foundations` (related), `ux/bidi-mixed-content` (related), `ux/hebrew-typography` (related), `decision/adr-0004-v1-scope` (related), `source/nuxt-ui-4-i18n` (source), `source/nuxt-ui-4-design-system` (source), `eng/architecture` (up), `eng/pdf-hebrew-rtl` (link)
+- **in (1)**: `index` (link)
+
+### Offline / PWA — service worker, precache, updates, verified gotchas  `eng/offline-pwa`
+
+- type: **concept** · status: verified · confidence: verified · 890 words
+- tags: pwa, service-worker, offline, workbox, nuxt
+- out (8): `eng/architecture` (related), `eng/privacy-enforcement` (related), `eng/storage-draft` (related), `decision/adr-0001-stack` (related), `source/vite-pwa-nuxt` (source), `source/webkit-itp-7day-storage` (source), `eng/architecture` (up), `source/webkit-itp-7day-storage` (link)
+- **in (8)**: `eng/privacy-enforcement` (related), `eng/architecture` (related), `eng/architecture` (link), `eng/performance` (related), `eng/storage-draft` (related), `decision/adr-0001-stack` (link), `index` (link), `source/vite-pwa-nuxt` (link)
+
+### PDF generation — overlay the official flat PDF, with a print fallback  `eng/pdf-generation`
+
+- type: **concept** · status: verified · confidence: verified · 1269 words
+- tags: pdf, pdf-lib, printing, output, signature
+- out (13): `decision/adr-0002-pdf-strategy` (related), `eng/pdf-hebrew-rtl` (related), `eng/signature` (related), `ux/print-export` (related), `law/form-101-official-pdf` (related), `source/pdf-lib-readme` (source), `source/unicode-uax9-bidi` (source), `eng/architecture` (up), `decision/adr-0002-pdf-strategy` (link), `law/form-101-official-pdf` (link), `eng/pdf-hebrew-rtl` (link), `eng/signature` (link), `law/declaration-and-signature` (link)
+- **in (11)**: `eng/pdf-hebrew-rtl` (related), `eng/pdf-hebrew-rtl` (up), `eng/architecture` (related), `eng/architecture` (link), `eng/testing` (related), `eng/signature` (related), `eng/performance` (related), `eng/form-schema-model` (related), `eng/form-schema-model` (link), `decision/adr-0002-pdf-strategy` (related), `index` (link)
+
+### Hebrew/RTL text in generated PDFs — what actually happens  `eng/pdf-hebrew-rtl`
+
+- type: **finding** · status: verified · confidence: verified · 1042 words
+- tags: pdf, hebrew, rtl, bidi, fontkit, pdf-lib
+- out (7): `eng/pdf-generation` (related), `decision/adr-0002-pdf-strategy` (related), `ux/bidi-mixed-content` (related), `ux/hebrew-typography` (related), `source/unicode-uax9-bidi` (source), `source/pdf-lib-readme` (source), `eng/pdf-generation` (up)
+- **in (8)**: `eng/pdf-generation` (related), `eng/pdf-generation` (link), `eng/i18n-rtl` (link), `eng/toolchain-versions` (link), `decision/adr-0002-pdf-strategy` (related), `decision/adr-0002-pdf-strategy` (link), `index` (link), `source/pdf-lib-readme` (link)
+
+### Performance — measured budget, 3G plan, per-step splitting  `eng/performance`
+
+- type: **concept** · status: verified · confidence: verified · 1019 words
+- tags: performance, bundle, lighthouse, 3g, code-splitting
+- out (7): `eng/architecture` (related), `eng/pdf-generation` (related), `eng/offline-pwa` (related), `eng/testing` (related), `source/nuxt-4-installation` (source), `source/nuxt-ui-4-installation` (source), `eng/architecture` (up)
+- **in (4)**: `eng/testing` (related), `eng/toolchain-versions` (link), `decision/adr-0001-stack` (link), `index` (link)
+
+### Privacy enforcement — CSP, self-hosting, and the build-time gate  `eng/privacy-enforcement`
+
+- type: **concept** · status: verified · confidence: verified · 1058 words
+- tags: privacy, csp, security, ci, no-analytics
+- out (8): `eng/architecture` (related), `eng/offline-pwa` (related), `law/privacy-consent` (related), `ux/trust-local-privacy` (related), `decision/adr-0001-stack` (related), `source/nuxt-ui-4-installation` (source), `source/vite-pwa-nuxt` (source), `eng/architecture` (up)
+- **in (4)**: `eng/architecture` (related), `eng/architecture` (link), `eng/offline-pwa` (related), `index` (link)
+
+### Repo layout — directories, naming, boundaries, scripts  `eng/repo-layout`
+
+- type: **concept** · status: verified · confidence: verified · 921 words
+- tags: repo, structure, conventions, nuxt
+- out (6): `eng/architecture` (related), `eng/toolchain-versions` (related), `eng/form-schema-model` (related), `decision/adr-0001-stack` (related), `source/nuxt-4-installation` (source), `eng/architecture` (up)
+- **in (4)**: `eng/architecture` (related), `eng/toolchain-versions` (related), `decision/adr-0001-stack` (related), `index` (link)
+
+### Signature capture and embedding — what is actually being produced  `eng/signature`
+
+- type: **concept** · status: verified · confidence: likely · 682 words
+- tags: signature, pdf, canvas, legal, accessibility
+- out (9): `eng/pdf-generation` (related), `law/declaration-and-signature` (related), `field/101-signature` (related), `ux/signature-accessibility` (related), `decision/adr-0002-pdf-strategy` (related), `source/pdf-lib-readme` (source), `eng/architecture` (up), `ux/signature-accessibility` (link), `law/declaration-and-signature` (link)
+- **in (4)**: `eng/pdf-generation` (related), `eng/pdf-generation` (link), `decision/adr-0002-pdf-strategy` (related), `index` (link)
+
+### Draft storage — versioned IndexedDB envelope, autosave, export/import  `eng/storage-draft`
+
+- type: **concept** · status: verified · confidence: verified · 1373 words
+- tags: storage, draft, indexeddb, autosave, migrations, offline
+- out (12): `decision/adr-0003-draft-storage` (related), `eng/architecture` (related), `ux/progress-save-resume` (related), `ux/trust-local-privacy` (related), `eng/offline-pwa` (related), `source/mdn-storage-quotas` (source), `source/mdn-storage-persist` (source), `source/webkit-itp-7day-storage` (source), `source/mdn-opfs` (source), `eng/architecture` (up), `decision/adr-0003-draft-storage` (link), `source/webkit-itp-7day-storage` (link)
+- **in (7)**: `eng/architecture` (related), `eng/testing` (related), `eng/form-schema-model` (related), `eng/offline-pwa` (related), `decision/adr-0003-draft-storage` (related), `index` (link), `source/webdev-storage-for-the-web` (link)
+
+### Testing and quality gates — Vitest, Playwright, axe, CI  `eng/testing`
+
+- type: **concept** · status: verified · confidence: verified · 1069 words
+- tags: testing, vitest, playwright, axe, ci, accessibility
+- out (7): `eng/architecture` (related), `eng/storage-draft` (related), `eng/pdf-generation` (related), `eng/performance` (related), `ux/checklists/a11y-pr-checklist` (related), `source/nuxt-4-installation` (source), `eng/architecture` (up)
+- **in (2)**: `eng/performance` (related), `index` (link)
+
+### Toolchain versions — what we actually resolved (2026-10-29)  `eng/toolchain-versions`
+
+- type: **concept** · status: verified · confidence: verified · 816 words
+- tags: tooling, versions, bun, nuxt, nuxt-ui, pdf
+- out (10): `eng/architecture` (related), `decision/adr-0001-stack` (related), `eng/repo-layout` (related), `source/nuxt-4-installation` (source), `source/nuxt-ui-4-installation` (source), `source/vite-pwa-nuxt` (source), `source/pdf-lib-readme` (source), `eng/architecture` (up), `eng/pdf-hebrew-rtl` (link), `eng/performance` (link)
+- **in (4)**: `eng/architecture` (link), `eng/repo-layout` (related), `decision/adr-0001-stack` (related), `index` (link)
 
 ## field/
 
@@ -148,7 +262,7 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **field** · status: verified · confidence: verified · 461 words
 - tags: form-101, field, signature, declaration
 - out (7): `flow/form-101-service` (related), `law/form-101` (related), `law/declaration-and-signature` (related), `source/tofes101-official-pdf` (source), `source/tofes101-form-runner-api` (source), `flow/form-101-service` (up), `law/declaration-and-signature` (link)
-- **in (5)**: `ux/signature-accessibility` (related), `ux/signature-accessibility` (link), `ux/validation-and-errors` (link), `ux/print-export` (related), `index` (link)
+- **in (6)**: `eng/signature` (related), `ux/signature-accessibility` (related), `ux/signature-accessibility` (link), `ux/validation-and-errors` (link), `ux/print-export` (related), `index` (link)
 
 ### שדה — חלק ט׳ תיאום מס  `field/101-tax-coordination`
 
@@ -180,14 +294,14 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **flow** · status: verified · confidence: verified · 3575 words
 - tags: form-101, fields, schema, reference
 - out (4): `flow/form-101-service` (related), `finding/tepez-form-runtime` (related), `source/tofes101-form-runner-api` (source), `flow/form-101-service` (up)
-- **in (8)**: `competitor/flow-employee` (link), `finding/tepez-form-runtime` (related), `finding/tepez-form-runtime` (link), `ux/form-101-screen-map` (link), `index` (link), `source/tofes101-form-runner-api` (link), `flow/form-101-service` (related), `flow/form-101-service` (link)
+- **in (10)**: `eng/architecture` (link), `eng/form-schema-model` (related), `competitor/flow-employee` (link), `finding/tepez-form-runtime` (related), `finding/tepez-form-runtime` (link), `ux/form-101-screen-map` (link), `index` (link), `source/tofes101-form-runner-api` (link), `flow/form-101-service` (related), `flow/form-101-service` (link)
 
 ### שירות מילוי טופס 101 — end-to-end service flow  `flow/form-101-service`
 
 - type: **flow** · status: verified · confidence: verified · 2075 words
 - tags: form-101, flow, product, reference
 - out (12): `flow/form-101-field-spec` (related), `finding/tepez-form-runtime` (related), `law/form-101` (related), `product/scope-v1` (related), `source/tofes101-form-runner-api` (source), `source/tofes101-official-pdf` (source), `index` (up), `law/form-101` (link), `flow/form-101-field-spec` (link), `finding/tepez-form-runtime` (link), `ux/ux-principles` (link), `law/children-credit-points` (link)
-- **in (34)**: `competitor/flow-employee` (related), `competitor/flow-employee` (link), `finding/tepez-form-runtime` (related), `product/scope-v1` (related), `product/scope-v1` (link), `field/101-documents` (related), `field/101-documents` (up), `field/101-tax-year` (related), `field/101-tax-year` (up), `field/101-credit-items-map` (related), `field/101-credit-items-map` (up), `field/101-children-block` (related), `field/101-children-block` (up), `field/101-other-incomes` (related), `field/101-other-incomes` (up), `field/101-signature` (related), `field/101-signature` (up), `field/101-employer-block` (related), `field/101-employer-block` (up), `field/101-employee-identity` (related), `field/101-employee-identity` (up), `field/101-employee-tax-status` (related), `field/101-employee-tax-status` (up), `field/101-tax-coordination` (related), `field/101-tax-coordination` (up), `decision/adr-0006-navigation` (related), `decision/adr-0004-v1-scope` (related), `ux/ux-principles` (related), `ux/wizard-vs-long-page` (related), `ux/form-101-screen-map` (related), `index` (link), `glossary/terms` (related), `flow/form-101-field-spec` (related), `flow/form-101-field-spec` (up)
+- **in (35)**: `eng/architecture` (related), `competitor/flow-employee` (related), `competitor/flow-employee` (link), `finding/tepez-form-runtime` (related), `product/scope-v1` (related), `product/scope-v1` (link), `field/101-documents` (related), `field/101-documents` (up), `field/101-tax-year` (related), `field/101-tax-year` (up), `field/101-credit-items-map` (related), `field/101-credit-items-map` (up), `field/101-children-block` (related), `field/101-children-block` (up), `field/101-other-incomes` (related), `field/101-other-incomes` (up), `field/101-signature` (related), `field/101-signature` (up), `field/101-employer-block` (related), `field/101-employer-block` (up), `field/101-employee-identity` (related), `field/101-employee-identity` (up), `field/101-employee-tax-status` (related), `field/101-employee-tax-status` (up), `field/101-tax-coordination` (related), `field/101-tax-coordination` (up), `decision/adr-0006-navigation` (related), `decision/adr-0004-v1-scope` (related), `ux/ux-principles` (related), `ux/wizard-vs-long-page` (related), `ux/form-101-screen-map` (related), `index` (link), `glossary/terms` (related), `flow/form-101-field-spec` (related), `flow/form-101-field-spec` (up)
 
 ## glossary/
 
@@ -254,7 +368,7 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **concept** · status: verified · confidence: verified · 600 words
 - tags: law, signature, declaration, electronic-signature, form-101
 - out (9): `law/form-101` (related), `law/privacy-consent` (related), `law/employer-obligations` (related), `law/retention` (related), `source/tofes101-official-pdf` (source), `source/taxes-electronic-101-rules-2026` (source), `law/form-101` (up), `source/tofes101-official-pdf` (wikilink), `source/taxes-electronic-101-rules-2026` (wikilink)
-- **in (8)**: `law/retention` (related), `law/form-101` (wikilink), `law/form-101-official-pdf` (related), `law/form-101-section-map` (related), `law/privacy-consent` (related), `field/101-signature` (related), `field/101-signature` (link), `index` (link)
+- **in (12)**: `eng/pdf-generation` (link), `eng/signature` (related), `eng/signature` (link), `law/retention` (related), `law/form-101` (wikilink), `law/form-101-official-pdf` (related), `law/form-101-section-map` (related), `law/privacy-consent` (related), `field/101-signature` (related), `field/101-signature` (link), `decision/adr-0002-pdf-strategy` (link), `index` (link)
 
 ### פטור לעיוור/נכה — Disability and blindness exemption (s. 9(5))  `law/disability-exemption`
 
@@ -296,7 +410,7 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **concept** · status: verified · confidence: verified · 965 words
 - tags: law, form-101, pdf, artifact, versioning
 - out (8): `law/form-101` (related), `law/form-101-section-map` (related), `law/declaration-and-signature` (related), `source/tofes101-official-pdf` (source), `source/taxes-electronic-101-rules-2026` (source), `law/form-101` (up), `source/tofes101-official-pdf` (wikilink), `source/taxes-electronic-101-rules-2026` (wikilink)
-- **in (3)**: `law/form-101` (wikilink), `law/form-101-section-map` (related), `index` (link)
+- **in (6)**: `eng/pdf-generation` (related), `eng/pdf-generation` (link), `law/form-101` (wikilink), `law/form-101-section-map` (related), `decision/adr-0002-pdf-strategy` (related), `index` (link)
 
 ### מפת סעיפי טופס 101 — Section-by-section map  `law/form-101-section-map`
 
@@ -345,7 +459,7 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **concept** · status: verified · confidence: verified · 973 words
 - tags: law, privacy, consent, amendment-13, browser-only
 - out (9): `law/form-101` (related), `law/declaration-and-signature` (related), `law/retention` (related), `law/employer-obligations` (related), `source/govil-privacy-amendment-13` (source), `source/taxes-electronic-101-rules-2026` (source), `law/form-101` (up), `source/govil-privacy-amendment-13` (wikilink), `source/taxes-electronic-101-rules-2026` (wikilink)
-- **in (10)**: `law/retention` (related), `law/form-101` (related), `law/form-101` (wikilink), `law/edge-cases` (related), `law/children-details` (wikilink), `law/personal-details` (wikilink), `law/employer-obligations` (related), `law/employer-obligations` (wikilink), `law/declaration-and-signature` (related), `index` (link)
+- **in (11)**: `eng/privacy-enforcement` (related), `law/retention` (related), `law/form-101` (related), `law/form-101` (wikilink), `law/edge-cases` (related), `law/children-details` (wikilink), `law/personal-details` (wikilink), `law/employer-obligations` (related), `law/employer-obligations` (wikilink), `law/declaration-and-signature` (related), `index` (link)
 
 ### זיכוי ללוחמי מילואים — Reserve combatant credit (s. 39ב)  `law/reserve-credit`
 
@@ -706,21 +820,21 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **source** · status: verified · confidence: verified · 93 words
 - tags: storage, opfs, filesystem
 - out (0): —
-- **in (0)**: — nothing links here
+- **in (2)**: `eng/storage-draft` (source), `decision/adr-0003-draft-storage` (source)
 
 ### MDN — StorageManager.persist()  `source/mdn-storage-persist`
 
 - type: **source** · status: verified · confidence: verified · 78 words
 - tags: storage, persistence, api
 - out (0): —
-- **in (0)**: — nothing links here
+- **in (2)**: `eng/storage-draft` (source), `decision/adr-0003-draft-storage` (source)
 
 ### MDN — Storage quotas and eviction criteria  `source/mdn-storage-quotas`
 
 - type: **source** · status: verified · confidence: verified · 184 words
 - tags: storage, indexeddb, quota, eviction
 - out (0): —
-- **in (0)**: — nothing links here
+- **in (2)**: `eng/storage-draft` (source), `decision/adr-0003-draft-storage` (source)
 
 ### MDN — VisualViewport API  `source/mdn-visual-viewport`
 
@@ -755,35 +869,35 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **source** · status: verified · confidence: verified · 128 words
 - tags: nuxt, tooling, scaffolding
 - out (0): —
-- **in (0)**: — nothing links here
+- **in (6)**: `eng/architecture` (source), `eng/repo-layout` (source), `eng/testing` (source), `eng/performance` (source), `eng/toolchain-versions` (source), `decision/adr-0001-stack` (source)
 
 ### Nuxt UI 4 — Design system, semantic colors and app.config  `source/nuxt-ui-4-design-system`
 
 - type: **source** · status: verified · confidence: verified · 104 words
 - tags: nuxt-ui, tailwind, theming, tokens
 - out (0): —
-- **in (0)**: — nothing links here
+- **in (1)**: `eng/i18n-rtl` (source)
 
 ### Nuxt UI 4 — Internationalization, locale and RTL direction  `source/nuxt-ui-4-i18n`
 
 - type: **source** · status: verified · confidence: verified · 148 words
 - tags: nuxt-ui, i18n, rtl, hebrew
 - out (0): —
-- **in (0)**: — nothing links here
+- **in (1)**: `eng/i18n-rtl` (source)
 
 ### Nuxt UI 4 — Installation for Nuxt (official docs)  `source/nuxt-ui-4-installation`
 
 - type: **source** · status: verified · confidence: verified · 103 words
 - tags: nuxt-ui, tailwind, setup
 - out (0): —
-- **in (0)**: — nothing links here
+- **in (5)**: `eng/privacy-enforcement` (source), `eng/architecture` (source), `eng/performance` (source), `eng/toolchain-versions` (source), `decision/adr-0001-stack` (source)
 
 ### pdf-lib — README (create/modify PDFs, embed fonts, forms)  `source/pdf-lib-readme`
 
 - type: **source** · status: verified · confidence: verified · 121 words
 - tags: pdf, pdf-lib, fonts, acroform
-- out (0): —
-- **in (0)**: — nothing links here
+- out (1): `eng/pdf-hebrew-rtl` (link)
+- **in (5)**: `eng/pdf-hebrew-rtl` (source), `eng/pdf-generation` (source), `eng/signature` (source), `eng/toolchain-versions` (source), `decision/adr-0002-pdf-strategy` (source)
 
 ### כללים והוראות להפקת טופס 101 אלקטרוני לשנת 2026 (חוזר 12.1.2026)  `source/taxes-electronic-101-rules-2026`
 
@@ -860,7 +974,7 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **source** · status: verified · confidence: verified · 142 words
 - tags: source, reference-implementation, api
 - out (2): `flow/form-101-field-spec` (link), `law/form-101` (link)
-- **in (20)**: `competitor/feature-parity` (source), `competitor/tech-recon` (source), `competitor/flow-employee` (source), `competitor/monetization-and-tracking` (source), `competitor/monetization-and-tracking` (link), `competitor/flow-employer` (source), `finding/tepez-form-runtime` (source), `field/101-documents` (source), `field/101-tax-year` (source), `field/101-credit-items-map` (source), `field/101-children-block` (source), `field/101-other-incomes` (source), `field/101-signature` (source), `field/101-employer-block` (source), `field/101-employee-identity` (source), `field/101-employee-tax-status` (source), `field/101-tax-coordination` (source), `source/tepez-runner-bundle` (link), `flow/form-101-service` (source), `flow/form-101-field-spec` (source)
+- **in (21)**: `eng/form-schema-model` (source), `competitor/feature-parity` (source), `competitor/tech-recon` (source), `competitor/flow-employee` (source), `competitor/monetization-and-tracking` (source), `competitor/monetization-and-tracking` (link), `competitor/flow-employer` (source), `finding/tepez-form-runtime` (source), `field/101-documents` (source), `field/101-tax-year` (source), `field/101-credit-items-map` (source), `field/101-children-block` (source), `field/101-other-incomes` (source), `field/101-signature` (source), `field/101-employer-block` (source), `field/101-employee-identity` (source), `field/101-employee-tax-status` (source), `field/101-tax-coordination` (source), `source/tepez-runner-bundle` (link), `flow/form-101-service` (source), `flow/form-101-field-spec` (source)
 
 ### tofes101.co.il/forms/itc-101/organizations/ — employer landing (B2B)  `source/tofes101-itc101-employer-landing`
 
@@ -916,14 +1030,14 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **source** · status: verified · confidence: verified · 132 words
 - tags: bidi, unicode, hebrew, rtl, text-layout
 - out (0): —
-- **in (0)**: — nothing links here
+- **in (3)**: `eng/pdf-hebrew-rtl` (source), `eng/pdf-generation` (source), `decision/adr-0002-pdf-strategy` (source)
 
 ### @vite-pwa/nuxt — Nuxt 3/4 integration docs  `source/vite-pwa-nuxt`
 
 - type: **source** · status: verified · confidence: verified · 135 words
 - tags: pwa, service-worker, nuxt, workbox
-- out (0): —
-- **in (0)**: — nothing links here
+- out (1): `eng/offline-pwa` (link)
+- **in (5)**: `eng/privacy-enforcement` (source), `eng/architecture` (source), `eng/offline-pwa` (source), `eng/toolchain-versions` (source), `decision/adr-0001-stack` (source)
 
 ### W3C i18n — Inline markup and bidirectional text in HTML  `source/w3c-bidi-inline`
 
@@ -964,7 +1078,7 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 
 - type: **source** · status: verified · confidence: verified · 109 words
 - tags: storage, quota, persistence, reference
-- out (0): —
+- out (1): `eng/storage-draft` (link)
 - **in (0)**: — nothing links here
 
 ### WebKit — 7-day cap on all script-writeable storage (ITP)  `source/webkit-itp-7day-storage`
@@ -972,7 +1086,7 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **source** · status: verified · confidence: verified · 146 words
 - tags: safari, storage, eviction, privacy, pwa
 - out (0): —
-- **in (0)**: — nothing links here
+- **in (5)**: `eng/offline-pwa` (source), `eng/offline-pwa` (link), `eng/storage-draft` (source), `eng/storage-draft` (link), `decision/adr-0003-draft-storage` (source)
 
 ### תקנות מס הכנסה (ניכוי ממשכורת ומשכר עבודה), התשנ״ג-1993  `source/wikisource-payroll-withholding-regulations`
 
@@ -1016,7 +1130,7 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **pattern** · status: verified · confidence: verified · 417 words
 - tags: rtl, bidi, numbers, ids, email, a11y
 - out (7): `ux/rtl-foundations` (related), `ux/israeli-input-masking` (related), `ux/hebrew-typography` (related), `source/w3c-bidi-inline` (source), `source/w3c-bidi-structural` (source), `ux/rtl-foundations` (up), `source/w3c-bidi-inline` (link)
-- **in (4)**: `ux/rtl-foundations` (related), `ux/israeli-input-masking` (related), `index` (link), `source/w3c-bidi-inline` (wikilink)
+- **in (6)**: `eng/pdf-hebrew-rtl` (related), `eng/i18n-rtl` (related), `ux/rtl-foundations` (related), `ux/israeli-input-masking` (related), `index` (link), `source/w3c-bidi-inline` (wikilink)
 
 ### רדיו, צ'קבוקס ומתג ב-RTL — סמנטיקה ובחירות  `ux/choice-controls`
 
@@ -1037,7 +1151,7 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **flow** · status: verified · confidence: likely · 509 words
 - tags: form-101, ux, flow, screens, rtl
 - out (10): `ux/wizard-vs-long-page` (related), `flow/form-101-service` (related), `ux/checklists/screen-review-checklist` (related), `source/govuk-question-pages` (source), `source/w3c-wcag22` (source), `ux/wizard-vs-long-page` (up), `ux/required-optional-conditional` (wikilink), `ux/signature-accessibility` (wikilink), `ux/print-export` (wikilink), `flow/form-101-field-spec` (link)
-- **in (1)**: `index` (link)
+- **in (2)**: `eng/form-schema-model` (link), `index` (link)
 
 ### הקלדה בעברית — פריסת מקלדת, סופיות, תיקון אוטומטי  `ux/hebrew-input`
 
@@ -1058,7 +1172,7 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **pattern** · status: likely · confidence: likely · 455 words
 - tags: hebrew, typography, fonts, legibility, rtl
 - out (5): `ux/rtl-foundations` (related), `ux/mobile-layout` (related), `ux/hebrew-microcopy` (related), `source/w3c-wcag22` (source), `ux/ux-principles` (up)
-- **in (5)**: `ux/bidi-mixed-content` (related), `ux/rtl-foundations` (related), `ux/hebrew-microcopy` (related), `ux/hebrew-input` (related), `index` (link)
+- **in (7)**: `eng/pdf-hebrew-rtl` (related), `eng/i18n-rtl` (related), `ux/bidi-mixed-content` (related), `ux/rtl-foundations` (related), `ux/hebrew-microcopy` (related), `ux/hebrew-input` (related), `index` (link)
 
 ### עזרה ומילון מונחים — גילוי הדרגתי בלי להסתיר מידע חובה  `ux/help-and-glossary`
 
@@ -1100,14 +1214,14 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **pattern** · status: verified · confidence: likely · 426 words
 - tags: pdf, print, export, a11y, legal
 - out (7): `ux/signature-accessibility` (related), `ux/trust-local-privacy` (related), `field/101-signature` (related), `source/govil-is5568-standard` (source), `source/w3c-wcag22` (source), `ux/ux-principles` (up), `source/govil-is5568-standard` (link)
-- **in (7)**: `ux/signature-accessibility` (related), `ux/signature-accessibility` (wikilink), `ux/ux-principles` (wikilink), `ux/a11y-israeli-law` (wikilink), `ux/form-101-screen-map` (wikilink), `ux/trust-local-privacy` (related), `index` (link)
+- **in (10)**: `eng/pdf-generation` (related), `eng/architecture` (related), `decision/adr-0002-pdf-strategy` (related), `ux/signature-accessibility` (related), `ux/signature-accessibility` (wikilink), `ux/ux-principles` (wikilink), `ux/a11y-israeli-law` (wikilink), `ux/form-101-screen-map` (wikilink), `ux/trust-local-privacy` (related), `index` (link)
 
 ### התקדמות, שמירה אוטומטית ו"המשך מאוחר יותר" בלי שרת  `ux/progress-save-resume`
 
 - type: **pattern** · status: verified · confidence: verified · 460 words
 - tags: ux, progress, autosave, draft, localstorage, offline
 - out (6): `ux/wizard-vs-long-page` (related), `ux/trust-local-privacy` (related), `ux/mobile-layout` (related), `source/govuk-question-pages` (source), `source/w3c-wcag22` (source), `ux/wizard-vs-long-page` (up)
-- **in (5)**: `ux/ux-principles` (wikilink), `ux/wizard-vs-long-page` (related), `ux/speed-patterns` (related), `ux/trust-local-privacy` (related), `index` (link)
+- **in (7)**: `eng/storage-draft` (related), `decision/adr-0003-draft-storage` (related), `ux/ux-principles` (wikilink), `ux/wizard-vs-long-page` (related), `ux/speed-patterns` (related), `ux/trust-local-privacy` (related), `index` (link)
 
 ### שדות חובה, רשות ושדות תלויים  `ux/required-optional-conditional`
 
@@ -1121,14 +1235,14 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **pattern** · status: verified · confidence: verified · 444 words
 - tags: rtl, css, hebrew, layout, a11y
 - out (7): `ux/bidi-mixed-content` (related), `ux/hebrew-typography` (related), `ux/mobile-layout` (related), `source/w3c-bidi-structural` (source), `source/w3c-wcag22` (source), `ux/ux-principles` (up), `source/w3c-bidi-structural` (link)
-- **in (8)**: `ux/ux-principles` (wikilink), `ux/checklists/a11y-pr-checklist` (related), `ux/bidi-mixed-content` (related), `ux/bidi-mixed-content` (up), `ux/hebrew-typography` (related), `ux/mobile-layout` (related), `index` (link), `source/w3c-bidi-structural` (wikilink)
+- **in (9)**: `eng/i18n-rtl` (related), `ux/ux-principles` (wikilink), `ux/checklists/a11y-pr-checklist` (related), `ux/bidi-mixed-content` (related), `ux/bidi-mixed-content` (up), `ux/hebrew-typography` (related), `ux/mobile-layout` (related), `index` (link), `source/w3c-bidi-structural` (wikilink)
 
 ### חתימה — Canvas, חלופה במקלדת ותוקף משפטי  `ux/signature-accessibility`
 
 - type: **pattern** · status: verified · confidence: likely · 437 words
 - tags: signature, canvas, a11y, keyboard, legal
 - out (8): `field/101-signature` (related), `ux/focus-management` (related), `ux/live-announcements` (related), `ux/print-export` (related), `source/w3c-wcag22` (source), `ux/ux-principles` (up), `ux/print-export` (wikilink), `field/101-signature` (link)
-- **in (6)**: `ux/ux-principles` (wikilink), `ux/keyboard-model` (related), `ux/form-101-screen-map` (wikilink), `ux/print-export` (related), `ux/live-announcements` (related), `index` (link)
+- **in (8)**: `eng/signature` (related), `eng/signature` (link), `ux/ux-principles` (wikilink), `ux/keyboard-model` (related), `ux/form-101-screen-map` (wikilink), `ux/print-export` (related), `ux/live-announcements` (related), `index` (link)
 
 ### מהירות מילוי — ברירות מחדל, העתקה וסקירה  `ux/speed-patterns`
 
@@ -1149,7 +1263,7 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **pattern** · status: verified · confidence: likely · 478 words
 - tags: privacy, trust, local-only, storage, security
 - out (5): `ux/progress-save-resume` (related), `ux/print-export` (related), `ux/a11y-statement` (related), `source/w3c-wcag22` (source), `ux/ux-principles` (up)
-- **in (6)**: `ux/ux-principles` (wikilink), `ux/progress-save-resume` (related), `ux/a11y-statement` (related), `ux/speed-patterns` (wikilink), `ux/print-export` (related), `index` (link)
+- **in (9)**: `eng/privacy-enforcement` (related), `eng/storage-draft` (related), `decision/adr-0003-draft-storage` (related), `ux/ux-principles` (wikilink), `ux/progress-save-resume` (related), `ux/a11y-statement` (related), `ux/speed-patterns` (wikilink), `ux/print-export` (related), `index` (link)
 
 ### עקרונות UX — 12 כללים שמחייבים כל מסך  `ux/ux-principles`
 
@@ -1179,7 +1293,7 @@ _167 nodes · 1074 edges · generated 2026-10-29 20:30Z_
 - type: **pattern** · status: verified · confidence: verified · 595 words
 - tags: a11y, checklist, pr, wcag, definition-of-done
 - out (7): `ux/testing` (related), `ux/keyboard-model` (related), `ux/rtl-foundations` (related), `source/w3c-wcag22` (source), `source/govil-is5568-standard` (source), `source/govuk-error-summary` (source), `ux/testing` (up)
-- **in (7)**: `ux/ux-principles` (related), `ux/ux-principles` (wikilink), `ux/a11y-israeli-law` (related), `ux/checklists/screen-review-checklist` (related), `ux/testing` (related), `ux/a11y-is5568-vs-wcag22` (related), `index` (link)
+- **in (8)**: `eng/testing` (related), `ux/ux-principles` (related), `ux/ux-principles` (wikilink), `ux/a11y-israeli-law` (related), `ux/checklists/screen-review-checklist` (related), `ux/testing` (related), `ux/a11y-is5568-vs-wcag22` (related), `index` (link)
 
 ### מפת מקלדת — הטבלה המחייבת  `ux/checklists/keyboard-map`
 

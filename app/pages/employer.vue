@@ -8,7 +8,10 @@ import { encodeEmployerLink, fingerprint as hashPayload } from "~~/shared/employ
  * Everything here runs locally; the produced link carries only the employer
  * block, in the URL fragment.
  */
-const { t, locale } = useLocale()
+const { t, locale, init } = useLocale()
+const { path, absolute } = useAppPath()
+
+onMounted(() => init())
 useHead({ title: () => `${t("employer.h1")} — ${t("app.name")}` })
 
 const form = reactive({
@@ -38,8 +41,7 @@ async function build() {
     },
     lock: form.lock ? ["n", "a", "p", "d"] : [],
   })
-  const base = import.meta.client ? `${location.origin}/form/` : "/form/"
-  link.value = `${base}#e=${payload}`
+  link.value = `${absolute("/form/")}#e=${payload}`
   fingerprintCode.value = await hashPayload(payload)
   copied.value = false
 }
@@ -79,7 +81,7 @@ function slug(s: string) {
 <template>
   <div class="min-h-dvh bg-elevated/30">
     <UContainer class="max-w-3xl py-10 sm:py-16">
-      <UButton to="/" variant="link" color="neutral" icon="i-lucide-arrow-right" size="sm">
+      <UButton :to="path('/')" variant="link" color="neutral" icon="i-lucide-arrow-right" size="sm">
         {{ t("nav.home") }}
       </UButton>
 

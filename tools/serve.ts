@@ -11,6 +11,7 @@ import { existsSync, statSync } from "node:fs"
 
 const ROOT = ".output/public"
 const PORT = Number(process.env.PORT ?? 4173)
+const BASE = (process.env.BASE ?? "").replace(/\/$/, "")
 
 const MIME: Record<string, string> = {
   ".html": "text/html; charset=utf-8",
@@ -45,7 +46,9 @@ export function startStaticServer(port = PORT) {
     port,
     fetch(req) {
       const url = new URL(req.url)
-      const file = resolveStatic(url.pathname)
+      // Mirror GitHub Pages' project-site prefix: `/tofes101/form/` -> `/form/`.
+      const pathname = BASE && url.pathname.startsWith(BASE) ? url.pathname.slice(BASE.length) || "/" : url.pathname
+      const file = resolveStatic(pathname)
       if (!file) return new Response("Not found", { status: 404 })
       return new Response(Bun.file(file), {
         headers: {

@@ -229,3 +229,54 @@ every node is year-stamped and cites a `source/` node.
 | [law/retention](law/retention.md) | 7 years / 6 years from filing, versioned archive |
 | [law/edge-cases](law/edge-cases.md) | 24 edge cases: minors, foreign workers, death, corrections, etc. |
 | [law/glossary](law/glossary.md) | Hebrew/English terms for form 101 and payroll tax |
+
+## Engineering
+
+The implementation layer: how the client-only app is built, where state lives, how
+the PDF is produced, and what we can prove about privacy and performance. Hub:
+[eng/architecture](eng/architecture.md).
+
+**Foundation**
+
+| Node | What it answers |
+| --- | --- |
+| [eng/architecture](eng/architecture.md) | **hub** — layers, module map, data flow, schema location, static deploy, threat-model diagram |
+| [eng/toolchain-versions](eng/toolchain-versions.md) | exact verified versions (bun 1.4.3, Nuxt 4.6.3, UI 4.12.0, Pinia 4.1.0, pdf-lib 1.17.1…) and the warnings we saw |
+| [eng/repo-layout](eng/repo-layout.md) | `app/` tree, naming, import boundaries, scripts, CI order |
+| [eng/form-schema-model](eng/form-schema-model.md) | the 160-field runtime model: kinds, conditions, validators, computed values, repeat groups |
+
+**State and storage**
+
+| Node | What it answers |
+| --- | --- |
+| [eng/storage-draft](eng/storage-draft.md) | versioned IndexedDB envelope, migrations, autosave, multi-tab conflicts, TTL, export/import |
+| [eng/offline-pwa](eng/offline-pwa.md) | precache, service-worker registration gotchas, update strategy, verified offline reload |
+
+**Output**
+
+| Node | What it answers |
+| --- | --- |
+| [eng/pdf-generation](eng/pdf-generation.md) | official PDF has 0 AcroForm fields → coordinate overlay; print fallback; decision matrix |
+| [eng/pdf-hebrew-rtl](eng/pdf-hebrew-rtl.md) | fontkit's RTL reversal vs UAX #9; the token algorithm verified against Chrome |
+| [eng/signature](eng/signature.md) | canvas → PNG → PDF, accessibility, and the legal question handed to the law track |
+
+**Trust and delivery**
+
+| Node | What it answers |
+| --- | --- |
+| [eng/privacy-enforcement](eng/privacy-enforcement.md) | CSP, self-hosted fonts/icons, `check-privacy` gate, runtime network assertion |
+| [eng/i18n-rtl](eng/i18n-rtl.md) | Nuxt UI locale, `dir`, logical CSS, Intl formats, bidi in inputs |
+| [eng/testing](eng/testing.md) | Vitest/Playwright/axe results, PDF golden tests, GitHub Actions with bun |
+| [eng/performance](eng/performance.md) | measured Lighthouse 98/100, bundle accounting, 3G budget, per-step splitting |
+
+**Decisions**
+
+| ADR | Decision |
+| --- | --- |
+| [ADR-0001](decisions/adr-0001-stack.md) | bun + Nuxt 4.6 + Nuxt UI 4.12 + Pinia 4, static `nuxt generate`; lightweight `useLocale` in v1 (i18n 10 verified as upgrade path) |
+| [ADR-0002](decisions/adr-0002-pdf-strategy.md) | pdf-lib overlay on the official flat PDF; HTML print as fallback/accessible path |
+| [ADR-0003](decisions/adr-0003-draft-storage.md) | Pinia + versioned IndexedDB envelope via `idb-keyval`, custom migrations |
+
+**Spike evidence:** `research/spikes/RESULTS.md` (commands, resolved versions,
+offline test, PDF previews) and `research/spikes/pdf/out/` (filled official PDF +
+PNG renders).

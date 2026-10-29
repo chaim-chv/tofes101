@@ -10,6 +10,22 @@
   - Competitor monetisation, ads and tracking (what we refuse to do)  `competitor/monetization-and-tracking`
   - tofes101.co.il — site map & information architecture  `competitor/site-map`
   - Tech recon — stack, chunks, endpoints, and how the runner is embedded  `competitor/tech-recon`
+  - Architecture — client-only Nuxt app, layers, data flow, threat model  `eng/architecture`
+    - ADR-0001 — Stack: bun + Nuxt 4.6 + Nuxt UI 4.12, static generate  `decision/adr-0001-stack`
+    - ADR-0002 — PDF strategy: overlay the official flat PDF, print as fallback  `decision/adr-0002-pdf-strategy`
+    - ADR-0003 — Draft storage: Pinia + versioned IndexedDB envelope  `decision/adr-0003-draft-storage`
+    - Form schema model — sections, fields, conditions, validation, calculation  `eng/form-schema-model`
+    - i18n and RTL — Hebrew first, English from day one  `eng/i18n-rtl`
+    - Offline / PWA — service worker, precache, updates, verified gotchas  `eng/offline-pwa`
+    - PDF generation — overlay the official flat PDF, with a print fallback  `eng/pdf-generation`
+      - Hebrew/RTL text in generated PDFs — what actually happens  `eng/pdf-hebrew-rtl`
+    - Performance — measured budget, 3G plan, per-step splitting  `eng/performance`
+    - Privacy enforcement — CSP, self-hosting, and the build-time gate  `eng/privacy-enforcement`
+    - Repo layout — directories, naming, boundaries, scripts  `eng/repo-layout`
+    - Signature capture and embedding — what is actually being produced  `eng/signature`
+    - Draft storage — versioned IndexedDB envelope, autosave, export/import  `eng/storage-draft`
+    - Testing and quality gates — Vitest, Playwright, axe, CI  `eng/testing`
+    - Toolchain versions — what we actually resolved (2026-10-29)  `eng/toolchain-versions`
   - שירות מילוי טופס 101 — end-to-end service flow  `flow/form-101-service`
     - שדה — חלק ג׳ ילדים (repeat rows)  `field/101-children-block`
     - שדה — חלק ח׳ מפת 16 פריטי הפטור/זיכוי (UI ↔ rule ↔ document)  `field/101-credit-items-map`

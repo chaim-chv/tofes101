@@ -15,8 +15,11 @@
     "crawl": "bun run tools/crawl/dump.ts",
     "test": "bun test",
     "check:privacy": "bun run scripts/check-privacy.ts",
-    "verify": "bun run test && bun run generate && bun run check:privacy && bun run e2e",
-    "e2e": "bun run tools/e2e/smoke.ts"
+    "verify": "bun run kb:check && bun test && bun run generate && bun run check:privacy && bun run e2e",
+    "e2e": "bun run tools/e2e/flow.ts",
+    "typecheck": "nuxt typecheck",
+    "prepare": "nuxt prepare",
+    "e2e:ci": "bun run tools/e2e/flow.ts"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.149",
@@ -26,7 +29,10 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@types/node": "^26.6.6",
     "playwright": "^1.56.0",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "vue-tsc": "^3.3.14"
   }
 }

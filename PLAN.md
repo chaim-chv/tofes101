@@ -15,14 +15,21 @@ it becomes `kb/decisions/adr-*.md` and gets removed from here.
 - [ ] Competitor teardown (`kb/competitor/`) — in progress, agent `teardown-d4`
 - [ ] Field deep-dives (`kb/field/`) — orchestrator
 
-## Phase 1 — Skeleton (after the four reports land)
+## Phase 1 — Skeleton ✅ (done 2026-10-29)
 
-- [ ] `bunx nuxi init` + `@nuxt/ui`, verified versions pinned (see `kb/eng/toolchain-versions.md`)
-- [ ] RTL shell, Hebrew fonts self-hosted, design tokens
-- [ ] The schema runtime: `relevant` / computed / validators as **data**, typed
-- [ ] Draft persistence + versioned JSON export/import
-- [ ] One section end-to-end (ב. פרטי העובד) as the vertical slice
-- [ ] a11y CI (axe) + Playwright smoke test
+Shipped: schema runtime (pure engine + predicates), 10-step flow, IndexedDB draft,
+he/en catalogs with completeness tests, signature (draw + typed), review, A4 print,
+employer prefill link, GitHub Pages deploy, privacy gate, 56 unit tests + full-flow
+Playwright e2e with axe on every step.
+
+## Phase 1.5 — remaining
+
+- [x] Nuxt 4.6.3 + Nuxt UI 4.12.0 (pinned, `kb/eng/toolchain-versions.md`)
+- [x] RTL shell, design tokens, contrast fixes
+- [x] Schema runtime + engine, typed, no `eval`
+- [x] Draft persistence + versioned JSON export/import
+- [x] All 10 steps end-to-end
+- [x] a11y gate (axe, 0 violations) + Playwright e2e
 
 ## Phase 2 — Parity
 

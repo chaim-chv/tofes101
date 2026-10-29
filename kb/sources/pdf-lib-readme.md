@@ -26,4 +26,4 @@ tags: [pdf, pdf-lib, fonts, acroform]
 Caveat discovered in the spike (not documented upstream): fontkit applies the
 script direction (reverses Hebrew runs) but not the full bidi algorithm, so
 digits/English inside a Hebrew line come out mirrored. See
-[eng/pdf-hebrew-rtl](../../eng/pdf-hebrew-rtl.md) for the token-level fix.
+[eng/pdf-hebrew-rtl](../eng/pdf-hebrew-rtl.md) for the token-level fix.

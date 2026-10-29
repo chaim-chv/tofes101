@@ -1,53 +1,64 @@
 /**
- * Minimal i18n: two dictionaries, one reactive locale, no dependency.
+ * Locale + message lookup. Two catalogs, typed keys, no i18n dependency.
  *
- * Why not @nuxtjs/i18n for v1: we need exactly two locales, no routing
- * strategy, no plural rules beyond Intl, and we want the message keys to be
- * literally the same object across the app so the form schema can reference
- * them. If routing-level locales become a requirement, swap this out — the
- * call sites (`t('key')`) stay the same.
+ * The schema references `MessageKey`s, so a missing translation is a TypeScript
+ * error, not a blank line at runtime.
  */
-import he from "~/locales/he"
-import en from "~/locales/en"
-
-export type Locale = "he" | "en"
-
-const messages = { he, en } as const
-export type MessageKey = keyof typeof he
+import {
+  DIR,
+  HTML_LANG,
+  LOCALE_LABEL,
+  catalogFor,
+  locales,
+  type Locale,
+  type MessageKey,
+} from "~/locales"
 
 const STORAGE_KEY = "tofes101.locale"
 
 export function useLocale() {
   const locale = useState<Locale>("locale", () => "he")
 
-  function apply(l: Locale) {
-    locale.value = l
+  function setLocale(next: Locale) {
+    locale.value = next
     if (import.meta.client) {
       try {
-        localStorage.setItem(STORAGE_KEY, l)
+        localStorage.setItem(STORAGE_KEY, next)
       } catch {
-        /* private mode / storage full: ignore, locale is cosmetic */
+        /* storage may be unavailable; the locale is cosmetic */
       }
     }
   }
 
+  /** Called once on mount: stored choice, else the browser's preference. */
   function init() {
     if (!import.meta.client) return
     const saved = localStorage.getItem(STORAGE_KEY) as Locale | null
-    if (saved === "he" || saved === "en") locale.value = saved
-    else if (navigator.language?.toLowerCase().startsWith("en")) locale.value = "en"
+    if (saved && locales.includes(saved)) {
+      locale.value = saved
+      return
+    }
+    if (navigator.language?.toLowerCase().startsWith("en")) locale.value = "en"
   }
 
   function toggle() {
-    apply(locale.value === "he" ? "en" : "he")
+    setLocale(locale.value === "he" ? "en" : "he")
   }
 
-  /** Translate. Falls back to the key so a missing string is visible, not blank. */
+  /** Translate, with `{name}` interpolation. Missing keys surface as the key. */
   function t(key: MessageKey, vars?: Record<string, string | number>): string {
-    const raw = (messages[locale.value] as Record<string, string>)[key] ?? key
+    const raw = catalogFor(locale.value)[key] ?? (key as string)
     if (!vars) return raw
-    return raw.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? `{${k}}`))
+    return raw.replace(/\{(\w+)\}/g, (_, k: string) =>
+      vars[k] === undefined ? `{${k}}` : String(vars[k]),
+    )
   }
 
-  return { locale, apply, init, toggle, t }
+  const dir = computed(() => DIR[locale.value])
+  const lang = computed(() => HTML_LANG[locale.value])
+  const localeName = computed(() => LOCALE_LABEL[locale.value])
+
+  return { locale, setLocale, init, toggle, t, dir, lang, localeName, locales, LOCALE_LABEL }
 }
+
+export type { Locale, MessageKey }

@@ -59,3 +59,40 @@ bun run extract:form                          # re-extract the reference form
 - **Correctness**: every legally load-bearing rule cites a primary source in `kb/law/`.
 - **Speed of use**: a returning user should be able to fill the form in minutes,
   keyboard-only, without the mouse.
+
+---
+
+## Live
+
+**https://chaim-chv.github.io/tofes101/** — deployed from `main` by
+`.github/workflows/deploy.yml` (verify → artifact → GitHub Pages).
+
+## How it is built
+
+The form is **data**, not markup: `app/form/schema.ts` holds one `FieldDef` per
+fact (label key, condition predicate, requiredness, validators, PDF slot), and
+`app/form/engine.ts` is a pure, dependency-free layer that computes visibility,
+validation and step gating. Components render what the engine says and contain no
+rules. Storage and printing are adapters. See `docs/IMPLEMENTATION.md` for the
+contracts and the build order.
+
+```
+app/form/      schema · engine · validators · derive · format   (pure)
+app/storage/   IndexedDB draft, versioned envelope, export/import
+app/components one component per control kind; no duplicated markup
+app/pages/     / (landing) · /employer (link builder) · /form (the flow) · /print (A4)
+app/locales/   he.ts + en.ts, typed keys, completeness tested
+shared/        employer-link codec (deflate-raw + base64url, fragment only)
+```
+
+## Verify
+
+```bash
+bun run kb:check      # knowledge graph: no broken links
+bun test              # 56 unit tests (engine, validators, i18n, draft)
+bun run typecheck     # vue-tsc, strict
+bun run generate      # static site
+bun run check:privacy # fails on ANY external host or missing CSP
+bun run e2e           # Playwright: employer link → full fill → review → print, axe on every step
+bun run verify        # all of the above in order
+```

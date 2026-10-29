@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const { t, toggle } = useLocale()
+const { t, toggle, init } = useLocale()
+const { path } = useAppPath()
+
+onMounted(() => init())
 useHead({ title: () => `${t('app.name')} — ${t('app.tagline')}` })
 
 const steps = [
@@ -13,15 +16,15 @@ const steps = [
   <div class="min-h-dvh bg-elevated/30">
     <header class="border-b border-default bg-default">
       <UContainer class="flex items-center justify-between gap-4 py-3">
-        <NuxtLink to="/" class="flex items-center gap-2 font-semibold text-highlighted">
+        <NuxtLink :to="path('/')" class="flex items-center gap-2 font-semibold text-highlighted">
           <UIcon name="i-lucide-file-text" class="size-5 text-primary" />
           {{ t("app.name") }}
         </NuxtLink>
         <nav class="flex items-center gap-1" aria-label="ניווט ראשי">
-          <UButton to="/form" variant="ghost" color="neutral" size="sm">
+          <UButton :to="path('/form/')" variant="ghost" color="neutral" size="sm">
             {{ t("nav.form") }}
           </UButton>
-          <UButton to="/employer" variant="ghost" color="neutral" size="sm">
+          <UButton :to="path('/employer/')" variant="ghost" color="neutral" size="sm">
             {{ t("nav.employer") }}
           </UButton>
           <UButton variant="ghost" color="neutral" size="sm" icon="i-lucide-languages" @click="toggle()">
@@ -44,10 +47,10 @@ const steps = [
             {{ t("home.lead") }}
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
-            <UButton to="/form" size="lg" icon="i-lucide-arrow-left">
+            <UButton :to="path('/form/')" size="lg" icon="i-lucide-arrow-left">
               {{ t("home.cta.start") }}
             </UButton>
-            <UButton to="/employer" size="lg" variant="outline" color="neutral" icon="i-lucide-link">
+            <UButton :to="path('/employer/')" size="lg" variant="outline" color="neutral" icon="i-lucide-link">
               {{ t("home.cta.employer") }}
             </UButton>
           </div>

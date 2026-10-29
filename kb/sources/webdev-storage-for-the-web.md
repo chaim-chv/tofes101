@@ -24,5 +24,5 @@ the draft design:
 - Chrome team research: eviction is rare for regularly visited sites, but a
   privacy-first app should still offer an explicit export.
 
-This node exists so the quota claims in [eng/storage-draft](../../eng/storage-draft.md)
+This node exists so the quota claims in [eng/storage-draft](../eng/storage-draft.md)
 have a citable secondary source in addition to MDN.

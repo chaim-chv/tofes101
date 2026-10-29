@@ -29,4 +29,4 @@ spike results):
 - `pwa.registerType: 'autoUpdate'` sets `skipWaiting` + `clientsClaim` when the
   client plugin or an injected register script is enabled.
 - `pwa.workbox.navigateFallback` defaults to the app base URL; beware with
-  prerendered sub-routes (see [eng/offline-pwa](../../eng/offline-pwa.md)).
+  prerendered sub-routes (see [eng/offline-pwa](../eng/offline-pwa.md)).
