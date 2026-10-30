@@ -152,6 +152,18 @@ const today = new Date()
 const iso = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
 await page.fill("#f-sign\\.date", iso)
 await a11y("sign")
+
+if (process.env.E2E_DEBUG_STYLES) {
+  const styles = await page.evaluate(() => {
+    const root = getComputedStyle(document.documentElement)
+    const btns = Array.from(document.querySelectorAll("button")).map((b) => {
+      const cs = getComputedStyle(b)
+      return { text: (b.textContent || "").trim().slice(0, 24), bg: cs.backgroundColor, color: cs.color, size: cs.fontSize }
+    })
+    return { primary: root.getPropertyValue("--ui-primary").trim(), btns: btns.filter((b) => b.text) }
+  })
+  console.log("STYLES", JSON.stringify(styles, null, 1))
+}
 await page.screenshot({ path: `${OUT}/07-sign.png`, fullPage: true })
 
 /* ---------------------------------------------------------------------- pdf */

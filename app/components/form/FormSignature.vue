@@ -187,7 +187,13 @@ const signedLabel = computed(() =>
           class="w-full rounded-lg border border-default bg-default px-3 py-2.5 text-base text-highlighted"
           @keydown.enter.prevent="commitTyped"
         />
-        <UButton type="button" size="sm" @click="commitTyped">{{ t("sign.sign") }}</UButton>
+        <button
+          type="button"
+          class="rounded-md bg-teal-800 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-teal-900 focus-visible:ring-2 focus-visible:ring-teal-900"
+          @click="commitTyped"
+        >
+          {{ t("sign.sign") }}
+        </button>
       </div>
 
       <p v-if="signedLabel" class="mt-3 flex items-center gap-2 text-sm text-highlighted" role="status">

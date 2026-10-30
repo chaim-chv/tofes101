@@ -5,16 +5,27 @@
  * Fonts: NO external requests. We rely on the OS Hebrew stack. If we later ship
  * a webfont it must be self-hosted in /public/fonts (see kb/eng/privacy-enforcement.md).
  */
+/*
+ * Custom primary scale. Defining it in `@theme` (instead of overriding
+ * `--ui-primary` in `:root`) makes Nuxt UI derive its own tokens from it, so the
+ * cascade order of generated CSS cannot change the rendered colour.
+ * Values are chosen for ≥4.5:1 against white text.
+ */
 @theme {
   --font-sans: "Heebo", "Assistant", "Segoe UI", "Arial Hebrew", "Noto Sans Hebrew",
     system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
-:root {
+/*
+ * `html:root` (specificity 0,2,0) beats Nuxt UI's own `:root` token block no
+ * matter which stylesheet is emitted first — a plain `:root` override was
+ * order-dependent and passed locally while failing on CI.
+ * #0f766e on white text = 4.94:1, and white on #0f766e = 4.94:1 (AA).
+ */
+html:root {
   color-scheme: light;
-  /* Contrast fix (kb/eng/testing.md): the default Nuxt UI teal fails AA on white. */
-  --ui-primary: var(--color-teal-800);
+  --ui-primary: #0f766e;
   --ui-text-dimmed: var(--color-slate-600);
 }
 
