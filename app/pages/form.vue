@@ -270,6 +270,7 @@ const printHref = computed(() => path("/print/"))
             </div>
           </template>
         </div>
+        <DocumentChecklist v-if="step?.id === 'sign'" :state="form.state.value" />
       </section>
 
       <!-- actions -->

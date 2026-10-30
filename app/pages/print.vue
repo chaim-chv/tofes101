@@ -86,6 +86,8 @@ const dateText = computed(() => {
 
       <ReviewList :schema="form.schema" :state="state" readonly />
 
+      <DocumentChecklist :state="state" compact />
+
       <section class="mt-8 border-t border-neutral-300 pt-5">
         <h2 class="text-sm font-bold">הצהרה</h2>
         <p class="mt-2 text-[13px] leading-relaxed">{{ t("sign.declaration") }}</p>
