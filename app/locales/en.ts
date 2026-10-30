@@ -315,6 +315,11 @@ export default {
   "err.tooLong": "Too long (up to {max} characters)",
   "err.digitsOnly": "Digits only",
 
+  "pdf.download": "Download the filled PDF",
+  "pdf.generating": "Preparing the PDF…",
+  "pdf.hint": "Built on your device from the official form. Print and sign it by hand, or hand it over as is.",
+  "pdf.error": "We could not build the PDF. You can print the document from the screen instead.",
+
   "doc.title": "Documents required by your answers",
   "doc.required": "Required",
   "doc.recommended": "Recommended",

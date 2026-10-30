@@ -114,3 +114,19 @@ Refs: kb/eng/performance.md, kb/eng/repo-layout.md, .output/public/_fonts/, .out
 ### [2026-10-29T23:12:00Z] agent: eng-stack-c3 | type: FINDING | confidence: verified
 **Live root still fails WCAG contrast (axe 4.14, 2026-10-29):** success badge `#00c950` on `#e2f7ec` = **1.97:1**; CTA white on `#00bba7` = **2.42:1**. Fix in `app/assets/css/main.css` (`--ui-primary: var(--color-teal-700)`, `--ui-success: var(--color-green-700)`; also `--ui-text-dimmed: var(--color-slate-600)` for placeholders). Nuxt UI defines these in `index.html` as `var(--ui-color-*-500)`, so overriding the semantic var is enough. After the fix the scaffold measured 0 axe violations / 24 passes and Lighthouse a11y 100.
 Refs: kb/eng/testing.md, kb/eng/privacy-enforcement.md, .output/public/index.html
+
+### [2026-10-30T09:05:00Z] agent: pdf-overlay-e5 | type: FINDING | confidence: verified
+PDF overlay module is implemented at `app/pdf/` and generates its coordinate map from the PDF text layer: `bun run tools/pdf/build-anchors.ts` → `app/pdf/anchors.json` (134 anchors, source SHA-256 recorded). Pipeline is anchors → `fields.ts` (FormState → items) → `overlay.ts` (`renderPdf`, lazy pdf-lib/fontkit) → bytes. Text anchors are `{page,xRight,yTop,baseline}` from the top; mark anchors are the centre of the printed `o`/`q` box. Do not hand-edit anchors.json.
+Refs: app/pdf/README.md, tools/pdf/build-anchors.ts
+
+### [2026-10-30T09:05:00Z] agent: pdf-overlay-e5 | type: CORRECTION | confidence: verified
+With `embedFont(..., { subset:true })`, pdfjs text extraction of the filled PDF returns Hebrew in **logical** order (e.g. `משה כהן`), not the visual order noted in the spike (which used an unsubset font). Tests accept either; visual PNGs confirm the Hebrew is not mirrored. Adding `pdfjs-dist@6.4.299` is dev-only (anchor generator + test).
+Refs: tests/pdf.test.ts, research/spikes/pdf/out/sample-family-p1.png
+
+### [2026-10-30T09:05:00Z] agent: pdf-overlay-e5 | type: FINDING | confidence: verified
+Measured dynamic-chunk cost of the overlay (bun build --splitting, gzip): pdf-lib 165 KB + fontkit 334 KB + overlay/fields/rtl/bidi/locales ~27 KB ≈ 526 KB JS, plus same-origin assets fetched on demand (PDF 553 KB, TTF 122 KB). Filled output is ~546 KB, 2 pages, within the 500 KB–2 MB test range.
+Refs: app/pdf/README.md, agent-workspace/agents/pdf-overlay-e5/LOG.md
+
+### [2026-10-30T09:05:00Z] agent: pdf-overlay-e5 | type: WARNING | confidence: verified
+Official 11.2025/2026 form has no printed slot for `employee.passportCountry`, `employee.separatedCertificate`, `credits.immigrantType` (עולה/תושב חוזר), `other.types=other`, `other.source`, `coord.noIncomeUntil`. The overlay deliberately skips them rather than inventing a field; UI copy/export must not imply they are printed. Also the locality-name blank on p2 item 3 is only ~14 pt wide — we print the name on the neighbouring "מתגוררים ביישוב" rule.
+Refs: app/pdf/README.md §Intentionally not printed

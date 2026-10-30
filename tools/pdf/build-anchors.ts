@@ -156,13 +156,14 @@ function resolveMark(rule: MarkRule) {
     distance(centre(item), target) < distance(centre(best), target) ? item : best,
   )
 
-  // The glyph's baseline is NOT the visual centre of the box: a lowercase `o`
-  // x-height rises ~2.6 pt ABOVE the baseline at the form's 10 pt printing size,
-  // so the visual centre (measured from the top) is baseline − 2.6.
+  // The glyph's baseline is NOT the visual centre of the box: the printed
+  // square rises ~9.2 pt above the baseline at the form's 10 pt size, so its
+  // centre is baseline − 4.8. The visible square is also ~0.7 pt left of the
+  // glyph advance centre (right side bearing).
   return {
     page: rule.page,
-    x: round(nearest.x + nearest.w / 2),
-    y: round(nearest.y - 2.6),
+    x: round(nearest.x + nearest.w / 2 - 0.7),
+    y: round(nearest.y - 4.8),
     mark: true as const,
     size: 8,
   }

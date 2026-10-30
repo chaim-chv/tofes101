@@ -10,7 +10,7 @@
  *    bytes directly (tests in Bun).
  */
 import type { FormState, Signature } from "../form/types"
-import type { PDFFont, PDFPage } from "pdf-lib"
+import type { Color, PDFFont, PDFPage } from "pdf-lib"
 import { ANCHORS, SIGNATURE_BOX, isTextAnchor, type Anchor } from "./anchors"
 import { buildItems } from "./fields"
 import { drawRtl, measureRtl } from "./rtl"
@@ -69,7 +69,7 @@ function fitText(font: PDFFont, text: string, size: number, maxWidth?: number) {
   return { text: `${next}…`, size: scaled }
 }
 
-function drawText(page: PDFPage, font: PDFFont, anchor: Extract<Anchor, { xRight: number }>, value: string, ink: unknown) {
+function drawText(page: PDFPage, font: PDFFont, anchor: Extract<Anchor, { xRight: number }>, value: string, ink: Color) {
   const fitted = fitText(font, value, anchor.size ?? 9, anchor.maxWidth)
   drawRtl(page, font, fitted.text, {
     xRight: anchor.xRight,
@@ -80,7 +80,7 @@ function drawText(page: PDFPage, font: PDFFont, anchor: Extract<Anchor, { xRight
   })
 }
 
-function drawMark(page: PDFPage, font: PDFFont, anchor: Extract<Anchor, { mark: true }>, ink: unknown) {
+function drawMark(page: PDFPage, font: PDFFont, anchor: Extract<Anchor, { mark: true }>, ink: Color) {
   const size = anchor.size ?? 8
   const width = font.widthOfTextAtSize("X", size)
   page.drawText("X", {
@@ -94,7 +94,7 @@ function drawMark(page: PDFPage, font: PDFFont, anchor: Extract<Anchor, { mark: 
   })
 }
 
-function drawSignature(page: PDFPage, signature: Signature, ink: unknown, font: PDFFont) {
+function drawSignature(page: PDFPage, signature: Signature, ink: Color, font: PDFFont) {
   if (signature.kind === "typed" && signature.typedName) {
     drawRtl(page, font, signature.typedName, {
       xRight: SIGNATURE_BOX.x + SIGNATURE_BOX.width,
@@ -109,8 +109,11 @@ function drawSignature(page: PDFPage, signature: Signature, ink: unknown, font: 
   const box = SIGNATURE_BOX
   for (const stroke of signature.strokes) {
     for (let i = 1; i < stroke.length; i++) {
-      const [x1, y1] = stroke[i - 1]
-      const [x2, y2] = stroke[i]
+      const from = stroke[i - 1]
+      const to = stroke[i]
+      if (!from || !to) continue
+      const [x1 = 0, y1 = 0] = from
+      const [x2 = 0, y2 = 0] = to
       page.drawLine({
         start: { x: box.x + x1 * box.width, y: page.getHeight() - (box.yTop + y1 * box.height) },
         end: { x: box.x + x2 * box.width, y: page.getHeight() - (box.yTop + y2 * box.height) },

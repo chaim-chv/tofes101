@@ -17,7 +17,7 @@ import type {
   StepView,
   ValidationResult,
 } from "./types"
-import { isEmpty } from "./values"
+import { isEmpty, rowKey } from "./values"
 import { stamp } from "./validators"
 
 /* ------------------------------------------------------------------ visibility */
@@ -54,7 +54,7 @@ export function validateField(field: FieldDef, state: FormState): Issue[] {
     }
     for (const item of items) {
       for (const sub of field.fields ?? []) {
-        const key = sub.id.slice(sub.id.lastIndexOf(".") + 1)
+        const key = rowKey(sub.id)
         const id = `${field.id}.${key}`
         const subValue = item[key]
         const subRequired = typeof sub.required === "function" ? sub.required(state) : sub.required === true

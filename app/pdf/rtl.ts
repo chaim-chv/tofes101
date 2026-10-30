@@ -19,7 +19,7 @@
  * they stay intact while the surrounding Hebrew is placed right-to-left.
  */
 import bidiFactory from "bidi-js"
-import type { PDFFont, PDFPage } from "pdf-lib"
+import type { Color, PDFFont, PDFPage } from "pdf-lib"
 
 const bidi = bidiFactory()
 
@@ -49,7 +49,7 @@ export type RtlOptions = {
   /** Baseline, in PDF points measured from the bottom-left (pdf-lib space). */
   y: number
   size: number
-  color?: unknown
+  color?: Color
 }
 
 /**
@@ -63,8 +63,8 @@ export function rtlTokens(text: string, base: "rtl" | "ltr" = "rtl"): string[] {
   const runs: Array<{ text: string; rtl: boolean }> = []
   let start = 0
   for (let i = 1; i <= text.length; i++) {
-    if (i === text.length || (levels[i] & 1) !== (levels[start] & 1)) {
-      runs.push({ text: text.slice(start, i), rtl: (levels[start] & 1) === 1 })
+    if (i === text.length || ((levels[i] ?? 0) & 1) !== ((levels[start] ?? 0) & 1)) {
+      runs.push({ text: text.slice(start, i), rtl: ((levels[start] ?? 0) & 1) === 1 })
       start = i
     }
   }
@@ -105,8 +105,8 @@ export function drawRtl(page: PDFPage, font: PDFFont, text: string, options: Rtl
 
   // Visual order for an RTL paragraph is the reverse of logical token order.
   for (let i = tokens.length - 1; i >= 0; i--) {
-    page.drawText(tokens[i], { x, y, size, font, color })
-    x += widths[i]
+    page.drawText(tokens[i]!, { x, y, size, font, color })
+    x += widths[i]!
   }
   return total
 }

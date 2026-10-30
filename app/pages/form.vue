@@ -166,6 +166,11 @@ async function exportBackup() {
 }
 
 const printHref = computed(() => path("/print/"))
+const pdf = usePdfExport()
+
+function downloadPdf() {
+  void pdf.download(form.state.value)
+}
 </script>
 
 <template>
@@ -271,6 +276,25 @@ const printHref = computed(() => path("/print/"))
           </template>
         </div>
         <DocumentChecklist v-if="step?.id === 'sign'" :state="form.state.value" />
+
+        <div v-if="step?.id === 'sign'" class="mt-6 rounded-xl border border-default bg-elevated/30 p-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <UButton :loading="pdf.busy.value" icon="i-lucide-file-down" size="lg" @click="downloadPdf">
+              {{ pdf.busy.value ? t("pdf.generating") : t("pdf.download") }}
+            </UButton>
+            <UButton :to="printHref" variant="outline" color="neutral" icon="i-lucide-printer">
+              {{ t("meta.reviewAll") }}
+            </UButton>
+          </div>
+          <p class="mt-2 text-xs text-muted">{{ t("pdf.hint") }}</p>
+          <UAlert
+            v-if="pdf.error.value"
+            class="mt-3 [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
+            color="error"
+            variant="subtle"
+            :description="t('pdf.error')"
+          />
+        </div>
       </section>
 
       <!-- actions -->

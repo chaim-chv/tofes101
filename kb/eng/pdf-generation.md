@@ -178,3 +178,26 @@ signature. Legal meaning is handed to `law-101-a1`; see
 - Output opens in macOS Preview, Chrome, Acrobat Reader; page count stays 2.
 - File size delta < 5%.
 - The same fixture printed from the HTML path fits 2 A4 pages.
+
+
+## Implementation status (2026-10-30)
+
+Shipped, lazy-loaded (`app/pdf/**`), verified in the browser and in a real
+download from the deployed site:
+
+| piece | file | notes |
+| --- | --- | --- |
+| bidi/RTL tokeniser | `app/pdf/rtl.ts` | port of the spike; fontkit reverses Hebrew but does not implement UAX #9 |
+| anchors | `app/pdf/anchors.json` + `anchors.ts` | 134 generated slots; header pins the source PDF SHA-256 |
+| anchor generator | `tools/pdf/build-anchors.ts` | reads both pages with pdfjs, resolves label text + documented offsets, nearest `o`/`q` glyph for option boxes |
+| field mapping | `app/pdf/fields.ts` | declarative `state → items`; the single place that knows a value's printed form |
+| renderer | `app/pdf/overlay.ts` | `renderPdf(state, {pdfUrl, fontUrl})`, no top-level side effects |
+
+Known approximations (documented in `app/pdf/README.md`): 9-digit fields print as
+one right-aligned string rather than one digit per printed cell; the locality name
+uses the neighbouring rule because the printed gap is ~14 pt. Nothing is mirrored,
+nothing overlaps a label, and no value leaves the page.
+
+Budget: the renderer is **not** in the first load (largest preload chunk is 123 KB);
+pdf-lib + fontkit land in a separate chunk loaded on click. Assets (553 KB PDF,
+122 KB TTF) are same-origin static files, fetched only when exporting.

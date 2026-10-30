@@ -199,24 +199,24 @@ function pushText(items: PdfItem[], anchor: string, value: unknown, format: Form
 
 function buildChildren(items: PdfItem[], state: FormState) {
   repeat(state, "children").slice(0, CHILD_ROWS).forEach((child, row) => {
-    pushText(items, `children.${row}.name`, child["children.name"])
-    pushText(items, `children.${row}.idNum`, child["children.idNum"])
-    pushText(items, `children.${row}.birthDate`, child["children.birthDate"], asDate)
-    if (child["children.custody"] === true) items.push({ anchor: `children.${row}.custody`, mark: true })
-    if (child["children.allowance"] === true) items.push({ anchor: `children.${row}.allowance`, mark: true })
+    pushText(items, `children.${row}.name`, child["name"])
+    pushText(items, `children.${row}.idNum`, child["idNum"])
+    pushText(items, `children.${row}.birthDate`, child["birthDate"], asDate)
+    if (child["custody"] === true) items.push({ anchor: `children.${row}.custody`, mark: true })
+    if (child["allowance"] === true) items.push({ anchor: `children.${row}.allowance`, mark: true })
   })
 }
 
 function buildCoordination(items: PdfItem[], state: FormState) {
   if (state.values["coord.request"] !== true || state.values["coord.reason"] !== "other-incomes") return
   repeat(state, "coord.employers").slice(0, COORD_ROWS).forEach((employer, row) => {
-    pushText(items, `coord.${row}.name`, employer["coord.name"])
-    pushText(items, `coord.${row}.address`, employer["coord.address"])
-    pushText(items, `coord.${row}.fileNum`, employer["coord.fileNum"])
-    const type = asText(employer["coord.incomeType"])
+    pushText(items, `coord.${row}.name`, employer["name"])
+    pushText(items, `coord.${row}.address`, employer["address"])
+    pushText(items, `coord.${row}.fileNum`, employer["fileNum"])
+    const type = asText(employer["incomeType"])
     pushText(items, `coord.${row}.incomeType`, coordIncomeTypeLabel[type] ?? type)
-    pushText(items, `coord.${row}.monthlyIncome`, employer["coord.monthlyIncome"])
-    pushText(items, `coord.${row}.monthlyTax`, employer["coord.monthlyTax"])
+    pushText(items, `coord.${row}.monthlyIncome`, employer["monthlyIncome"])
+    pushText(items, `coord.${row}.monthlyTax`, employer["monthlyTax"])
   })
 }
 

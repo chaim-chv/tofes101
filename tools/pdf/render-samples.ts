@@ -128,19 +128,19 @@ const family = state((set) => {
   set("children", [
     {
       _key: "c1",
-      "children.name": "נועה כהן",
-      "children.idNum": "312345678",
-      "children.birthDate": "2014-05-14",
-      "children.custody": true,
-      "children.allowance": true,
+      "name": "נועה כהן",
+      "idNum": "312345678",
+      "birthDate": "2014-05-14",
+      "custody": true,
+      "allowance": true,
     },
     {
       _key: "c2",
-      "children.name": "איתי כהן",
-      "children.idNum": "323456789",
-      "children.birthDate": "2018-09-02",
-      "children.custody": true,
-      "children.allowance": true,
+      "name": "איתי כהן",
+      "idNum": "323456789",
+      "birthDate": "2018-09-02",
+      "custody": true,
+      "allowance": true,
     },
   ])
 
@@ -184,11 +184,11 @@ const immigrant = state((set) => {
   set("children", [
     {
       _key: "c1",
-      "children.name": "דניאל רוזן",
-      "children.idNum": "334455667",
-      "children.birthDate": "2016-08-21",
-      "children.custody": true,
-      "children.allowance": false,
+      "name": "דניאל רוזן",
+      "idNum": "334455667",
+      "birthDate": "2016-08-21",
+      "custody": true,
+      "allowance": false,
     },
   ])
 
@@ -217,21 +217,21 @@ const immigrant = state((set) => {
   set("coord.employers", [
     {
       _key: "e1",
-      "coord.name": "סטודיו אור בע\"מ",
-      "coord.address": "הרצל 4, עכו",
-      "coord.fileNum": "901234567",
-      "coord.incomeType": "work",
-      "coord.monthlyIncome": "4,200",
-      "coord.monthlyTax": "620",
+      "name": "סטודיו אור בע\"מ",
+      "address": "הרצל 4, עכו",
+      "fileNum": "901234567",
+      "incomeType": "work",
+      "monthlyIncome": "4,200",
+      "monthlyTax": "620",
     },
     {
       _key: "e2",
-      "coord.name": "קרן מלגות צפון",
-      "coord.address": "שדרות בן גוריון 2, נהריה",
-      "coord.fileNum": "902345678",
-      "coord.incomeType": "scholarship",
-      "coord.monthlyIncome": "1,500",
-      "coord.monthlyTax": "0",
+      "name": "קרן מלגות צפון",
+      "address": "שדרות בן גוריון 2, נהריה",
+      "fileNum": "902345678",
+      "incomeType": "scholarship",
+      "monthlyIncome": "1,500",
+      "monthlyTax": "0",
     },
   ])
 

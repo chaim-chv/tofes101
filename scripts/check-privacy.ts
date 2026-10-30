@@ -20,6 +20,9 @@ const ALLOW_HOSTS = new Set<string>([
   // lucide collection at build time and the CSP sets connect-src 'self', so this
   // URL can never be fetched. Re-checked below against the CSP meta tag.
   "api.iconify.design",
+  // License/error-message URLs inside vendored libraries (pdf-lib, iconv-lite).
+  // They are string literals, never fetched.
+  "github.com",
 ])
 const TEXT_EXT = new Set([".html", ".js", ".css", ".json", ".svg", ".webmanifest"])
 

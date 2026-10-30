@@ -74,10 +74,18 @@ export function setField(state: FormState, id: string, value: unknown): FormStat
 
 /* --------------------------------------------------------------- repeat rows */
 
+/** Sub-field key inside a repeat row: `children.idNum` -> `idNum`. */
+export function rowKey(fieldId: string): string {
+  return fieldId.includes(".") ? fieldId.slice(fieldId.lastIndexOf(".") + 1) : fieldId
+}
+
 export function newRepeatItem(fields: readonly FieldDef[] | undefined): RepeatItem {
   const item: RepeatItem = { _key: crypto.randomUUID() }
   for (const f of fields ?? []) {
-    if (f.kind !== "static" && f.kind !== "repeat") item[f.id] = defaultValue(f) ?? null
+    if (f.kind === "static" || f.kind === "repeat") continue
+    // Canonical row keys are bare (`idNum`, not `children.idNum`) so the UI, the
+    // engine, the review and the PDF all read the same object shape.
+    item[rowKey(f.id)] = defaultValue(f) ?? null
   }
   return item
 }

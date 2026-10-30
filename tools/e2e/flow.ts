@@ -154,6 +154,21 @@ await page.fill("#f-sign\\.date", iso)
 await a11y("sign")
 await page.screenshot({ path: `${OUT}/07-sign.png`, fullPage: true })
 
+/* ---------------------------------------------------------------------- pdf */
+
+const [download] = await Promise.all([
+  page.waitForEvent("download", { timeout: 120_000 }),
+  page.getByRole("button", { name: /הורדת PDF|Download the filled PDF/ }).click(),
+])
+const pdfPath = await download.path()
+if (!pdfPath) throw new Error("PDF download produced no file")
+const pdfBytes = await Bun.file(pdfPath).arrayBuffer()
+const head = new TextDecoder().decode(new Uint8Array(pdfBytes.slice(0, 5)))
+if (head !== "%PDF-") throw new Error(`downloaded file is not a PDF (head=${head})`)
+if (pdfBytes.byteLength < 200_000) throw new Error(`PDF too small: ${pdfBytes.byteLength}`)
+console.log(`  → pdf: ${download.suggestedFilename()} (${Math.round(pdfBytes.byteLength / 1024)} KB)`)
+await Bun.write(`${OUT}/09-filled.pdf`, new Uint8Array(pdfBytes))
+
 /* -------------------------------------------------------------------- print */
 
 await page.waitForTimeout(700)
