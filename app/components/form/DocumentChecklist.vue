@@ -28,7 +28,7 @@ const items = computed(() => documentChecklist(props.state))
         class="flex flex-wrap items-start gap-x-3 gap-y-1 rounded-lg border border-default px-3 py-2"
       >
         <span
-          class="mt-0.5 shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+          class="mt-0.5 shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold"
           :class="item.required ? 'bg-error text-white' : 'border border-default bg-default text-highlighted'"
         >
           {{ item.required ? t("doc.required") : t("doc.recommended") }}

@@ -7,7 +7,7 @@ import type { EmployerPrefill } from "~~/shared/employer-link"
 import { decodeEmployerLink } from "~~/shared/employer-link"
 import type { MessageKey } from "~/locales"
 
-const { t, locale, init: initLocale, localeName } = useLocale()
+const { t, locale, init: initLocale, localeName, setGender } = useLocale()
 const { path, absolute } = useAppPath()
 const form = useFormStore()
 if (import.meta.dev && import.meta.client) (window as any).__form = form
@@ -27,6 +27,55 @@ const EMPLOYER_FIELD_BY_KEY: Record<string, string> = {
   a: "employer.address",
   p: "employer.phone",
   d: "employer.deductionFile",
+}
+
+// Keep every gendered message in sync with the employee's answer.
+watch(
+  () => form.state.value.values["employee.sex"],
+  (sex) => setGender(sex === "female" ? "f" : sex === "male" ? "m" : null),
+  { immediate: true },
+)
+
+// Signing date is the signing date: set it when a signature exists, and never
+// leave it empty (a signature without a date is not a signature).
+watch(
+  () => form.state.value.values["sign.signature"],
+  (signature) => {
+    if (!signature) return
+    if (form.state.value.values["sign.date"]) return
+    const now = new Date()
+    const iso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`
+    form.setValue("sign.date", iso)
+  },
+)
+
+const importInput = ref<HTMLInputElement | null>(null)
+const importResult = ref<{ ok: boolean; reason?: string } | null>(null)
+const importMessage = computed(() => {
+  const r = importResult.value
+  if (!r) return null
+  if (r.ok) return t("import.ok")
+  const map: Record<string, string> = {
+    parse: "import.parse",
+    foreign: "import.foreign",
+    newer: "import.newer",
+    shape: "import.shape",
+    unavailable: "import.parse",
+  }
+  return t((map[r.reason ?? "shape"] ?? "import.shape") as any)
+})
+
+function pickBackup() {
+  importInput.value?.click()
+}
+
+async function onBackupChosen(event: Event) {
+  const input = event.target as HTMLInputElement
+  const file = input.files?.[0]
+  input.value = ""
+  if (!file) return
+  if (form.dirty.value && !confirm(t("import.confirm"))) return
+  importResult.value = await form.importDraft(file)
 }
 
 onMounted(async () => {
@@ -194,6 +243,14 @@ function downloadPdf() {
         </div>
       </UCard>
 
+      <UAlert
+        v-if="importMessage"
+        class="mb-4 [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
+        :color="importResult?.ok ? 'success' : 'error'"
+        variant="subtle"
+        :description="importMessage"
+      />
+
       <!-- progress -->
       <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
         <StepProgress
@@ -275,6 +332,11 @@ function downloadPdf() {
             </div>
           </template>
         </div>
+        <DocumentUploads
+          v-if="step?.id === 'attach'"
+          :id-kind="(form.state.value.values['employee.idKind'] as 'idNum' | 'passport' | undefined)"
+        />
+
         <DocumentChecklist v-if="step?.id === 'sign'" :state="form.state.value" />
 
         <div v-if="step?.id === 'sign'" class="mt-6 rounded-xl border border-default bg-elevated/30 p-4">
@@ -307,6 +369,17 @@ function downloadPdf() {
           <UButton variant="outline" color="neutral" icon="i-lucide-download" @click="exportBackup">
             {{ t("meta.exportJson") }}
           </UButton>
+          <UButton variant="outline" color="neutral" icon="i-lucide-upload" @click="pickBackup">
+            {{ t("meta.importJson") }}
+          </UButton>
+          <input
+            ref="importInput"
+            type="file"
+            accept="application/json,.json"
+            class="sr-only"
+            :aria-label="t('meta.importJson')"
+            @change="onBackupChosen"
+          />
           <UButton v-if="isLast" :to="printHref" icon="i-lucide-printer">
             {{ t("meta.reviewAll") }}
           </UButton>

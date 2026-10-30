@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T22:27:16.490Z",
+  "generatedAt": "2026-10-30T14:10:52.918Z",
   "counts": {
     "nodes": 184,
     "edges": 1261,
@@ -95,7 +95,7 @@
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 1269
+      "words": 1484
     },
     {
       "id": "eng/architecture",

@@ -11,6 +11,8 @@
  */
 import type { FormState, RepeatItem, Signature } from "../form/types"
 import { formatDate } from "../form/format"
+import he from "~/locales/he"
+import { schema } from "../form/schema"
 
 export type PdfItem =
   | { anchor: string; text: string }
@@ -24,6 +26,22 @@ const asText: Formatter = (value) => {
   return typeof value === "string" ? value.trim() : String(value)
 }
 const asDate: Formatter = (value) => (typeof value === "string" && value ? formatDate(value) : "")
+
+/**
+ * Print the label the form expects, not the stored enum. The official 101 shows
+ * "כללית", never "clalit", and a truncated English enum is exactly the kind of
+ * detail an employer rejects.
+ */
+const asOptionLabel = (fieldId: string): Formatter => (value) => {
+  const field = schema.allFields.find((f) => f.id === fieldId)
+  const option = field?.options?.find((o) => o.value === value)
+  if (!option) return value === undefined || value === null ? "" : String(value)
+  if (option.labelKey) {
+    const entry = he[option.labelKey as keyof typeof he]
+    return typeof entry === "string" ? entry : entry.m
+  }
+  return option.label ?? String(value)
+}
 
 type TextRule = {
   field: string
@@ -60,7 +78,12 @@ const TEXT_RULES: TextRule[] = [
   { field: "employee.zip", anchor: "employee.zip" },
   { field: "employee.mobile", anchor: "employee.mobile" },
   { field: "employee.email", anchor: "employee.email" },
-  { field: "employee.healthFundName", anchor: "employee.healthFundName", when: (s) => isTrue(s, "employee.healthFundMember") },
+  {
+    field: "employee.healthFundName",
+    anchor: "employee.healthFundName",
+    format: asOptionLabel("employee.healthFundName"),
+    when: (s) => isTrue(s, "employee.healthFundMember"),
+  },
 
   // page 1 · spouse
   { field: "spouse.firstName", anchor: "spouse.firstName", when: isMarried },

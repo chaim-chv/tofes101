@@ -13,7 +13,7 @@ import {
   validateField,
   visibleSteps,
 } from "../app/form/engine"
-import { emptyState, setField, addRepeatItem } from "../app/form/values"
+import { emptyState, setField, addRepeatItem, applyInitials, newRepeatItem } from "../app/form/values"
 import { ageAt, israeliId, parseDate } from "../app/form/validators"
 import type { FormState } from "../app/form/types"
 
@@ -229,5 +229,61 @@ describe("full validation", () => {
     state = addRepeatItem(state, "children", field("children").fields)
     const result = validateAll(schema, state)
     expect(result.errors.some((e) => e.field.startsWith("children."))).toBe(true)
+  })
+})
+
+
+describe("strict identity rules", () => {
+  test("letters in an ID are reported, not silently stripped", () => {
+    const issues = validateField(field("employee.idNum"), stateWith({ "employee.idNum": "12a456782" }))
+    expect(issues.map((i) => i.code)).toEqual(["id.digits"])
+  })
+
+  test("spouse cannot share the employee's ID", () => {
+    const state = stateWith({
+      "employee.idNum": "123456782",
+      "spouse.idNum": "123456782",
+      "employee.maritalStatus": "married",
+    })
+    expect(validateField(field("spouse.idNum"), state).map((i) => i.code)).toContain("id.duplicate")
+  })
+
+  test("two children cannot share an ID", () => {
+    let state = stateWith({ "employee.idKind": "idNum", "children": [] })
+    const childFields = field("children").fields
+    state = addRepeatItem(state, "children", childFields)
+    state = addRepeatItem(state, "children", childFields)
+    const rows = state.values.children as Array<Record<string, unknown>>
+    rows[0]!.idNum = "000000026"
+    rows[1]!.idNum = "000000026"
+    state = setField(state, "children", rows)
+    const keys = validateAll(schema, state).errors.map((e) => e.messageKey)
+    expect(keys).toContain("err.id.duplicateRow")
+  })
+
+  test("a child cannot reuse a parent's ID", () => {
+    let state = stateWith({ "employee.idKind": "idNum", "employee.idNum": "123456782", "children": [] })
+    state = addRepeatItem(state, "children", field("children").fields)
+    const rows = state.values.children as Array<Record<string, unknown>>
+    rows[0]!.idNum = "123456782"
+    state = setField(state, "children", rows)
+    expect(validateAll(schema, state).errors.some((e) => e.code === "id.duplicate")).toBe(true)
+  })
+})
+
+describe("defaults", () => {
+  test("identity defaults to an Israeli ID, not a passport", () => {
+    const state = applyInitials(schema, emptyState(2026))
+    expect(state.values["employee.idKind"]).toBe("idNum")
+  })
+
+  test("a new child row starts in the employee's custody", () => {
+    const item = newRepeatItem(field("children").fields)
+    expect(item.custody).toBe(true)
+  })
+
+  test("initials never overwrite an answered field", () => {
+    const answered = setField(emptyState(2026), "employee.idKind", "passport")
+    expect(applyInitials(schema, answered).values["employee.idKind"]).toBe("passport")
   })
 })

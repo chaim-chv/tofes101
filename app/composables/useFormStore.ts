@@ -21,14 +21,14 @@ import {
   validateField,
   visibleSteps,
 } from "~/form/engine"
-import { addRepeatItem, emptyState, removeRepeatItem, setField, setRepeatItemValue } from "~/form/values"
+import { addRepeatItem, applyInitials, emptyState, removeRepeatItem, setField, setRepeatItemValue } from "~/form/values"
 import type { FieldDef, FormSchema, FormState, Issue, Step, ValidationResult } from "~/form/types"
 import { createDraftStore, type ImportResult } from "~/storage/draft"
 
 export function useFormStore(options: { schema?: FormSchema } = {}) {
   const schema = options.schema ?? defaultSchema
 
-  const state = useState<FormState>("form-state", () => emptyState(schema.taxYear))
+  const state = useState<FormState>("form-state", () => applyInitials(schema, emptyState(schema.taxYear)))
   const hydrated = useState<boolean>("form-hydrated", () => false)
   const saving = useState<boolean>("form-saving", () => false)
   const lastSavedAt = useState<string | null>("form-last-saved", () => null)
@@ -187,7 +187,7 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
     try {
       const loaded = await store.load()
       if (!loaded) return
-      state.value = updateHidden(schema, loaded)
+      state.value = updateHidden(schema, applyInitials(schema, loaded))
       const requested = Number(new URL(location.href).searchParams.get("step") ?? loaded.meta.step ?? 0)
       const entry = resolveEntryStep(schema, state.value, Number.isFinite(requested) ? requested : 0)
       state.value = { ...state.value, meta: { ...state.value.meta, step: entry.index } }

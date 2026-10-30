@@ -209,3 +209,51 @@ describe("renderPdf", () => {
     expect(text).toContain("03-1234567")
   })
 })
+
+describe("attachments and labels", () => {
+  const png = Uint8Array.from(
+    atob(
+      "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
+    ),
+    (c) => c.charCodeAt(0),
+  )
+
+  test("the health fund prints its Hebrew name, not the stored enum", async () => {
+    let state = emptyState(2026)
+    state = setField(state, "employee.healthFundMember", true)
+    state = setField(state, "employee.healthFundName", "clalit")
+
+    const bytes = await renderPdf(state, {
+      pdf: readFileSync(asset("assets/tofes-101-official.pdf")),
+      font: readFileSync(asset("fonts/Heebo-Variable.ttf")),
+    })
+    const doc = await getDocument({ data: new Uint8Array(bytes) }).promise
+    const page = await doc.getPage(1)
+    const content = await page.getTextContent()
+    const text = content.items.map((i: { str?: string }) => i.str ?? "").join("")
+    expect(text).not.toContain("clalit")
+    // pdfjs usually returns the drawn order, which is visual (RTL) — accept both
+    // so the assertion is about *content*, not about extractor quirks.
+    expect(text.includes("כללית") || text.includes("תילכל")).toBe(true)
+  })
+
+  test("attachments become extra pages after the form", async () => {
+    const state = emptyState(2026)
+    const withAttachments = await renderPdf(state, {
+      pdf: readFileSync(asset("assets/tofes-101-official.pdf")),
+      font: readFileSync(asset("fonts/Heebo-Variable.ttf")),
+      attachments: [
+        { slot: "id-front", name: "id.png", type: "image/png", bytes: png },
+        { slot: "id-annex", name: "annex.png", type: "image/png", bytes: png },
+      ],
+    })
+    const plain = await renderPdf(state, {
+      pdf: readFileSync(asset("assets/tofes-101-official.pdf")),
+      font: readFileSync(asset("fonts/Heebo-Variable.ttf")),
+    })
+    const a = await PDFDocument.load(withAttachments)
+    const b = await PDFDocument.load(plain)
+    expect(a.getPageCount()).toBe(b.getPageCount() + 2)
+    expect(a.getPageCount()).toBe(4)
+  })
+})

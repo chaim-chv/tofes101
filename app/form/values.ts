@@ -27,6 +27,7 @@ export function emptyState(taxYear = TAX_YEAR): FormState {
 
 /** The value a field starts with, before the user touches it. */
 export function defaultValue(field: FieldDef): FieldValue {
+  if (field.initial !== undefined) return field.initial as FieldValue
   switch (field.kind) {
     case "checkbox":
       return false
@@ -70,6 +71,22 @@ export function setField(state: FormState, id: string, value: unknown): FormStat
     meta: { ...state.meta, updatedAt: new Date().toISOString() },
     values: { ...state.values, [id]: value as FieldValue },
   }
+}
+
+/** Fill in declared initials once, without touching existing answers. */
+export function applyInitials(schema: { allFields: readonly FieldDef[] }, state: FormState): FormState {
+  let values = state.values
+  let changed = false
+  for (const field of schema.allFields) {
+    if (field.initial === undefined || field.kind === "static") continue
+    if (values[field.id] !== undefined) continue
+    if (!changed) {
+      values = { ...values }
+      changed = true
+    }
+    values[field.id] = field.initial as FieldValue
+  }
+  return changed ? { ...state, values } : state
 }
 
 /* --------------------------------------------------------------- repeat rows */

@@ -52,6 +52,27 @@ export function validateField(field: FieldDef, state: FormState): Issue[] {
     if (required && items.length < Math.max(1, field.minItems ?? 0)) {
       out.push({ field: field.id, code: "required", severity: "error", messageKey: "err.required" })
     }
+    // A person cannot appear twice in the same repeater (two children with one ID).
+    const seen = new Map<string, number>()
+    items.forEach((item, index) => {
+      const idKey = field.fields?.find((f) => f.id.endsWith(".idNum"))
+      if (!idKey) return
+      const value = String(item[rowKey(idKey.id)] ?? "").trim()
+      if (!value) return
+      const previous = seen.get(value)
+      if (previous !== undefined) {
+        out.push({
+          field: `${field.id}.${rowKey(idKey.id)}`,
+          code: "id.duplicate",
+          severity: "error",
+          messageKey: "err.id.duplicateRow",
+          params: { first: previous + 1, second: index + 1 },
+        })
+      } else {
+        seen.set(value, index)
+      }
+    })
+
     for (const item of items) {
       for (const sub of field.fields ?? []) {
         const key = rowKey(sub.id)

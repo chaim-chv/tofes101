@@ -34,6 +34,16 @@ export type RenderPdfOptions = {
   fontUrl?: string
   /** Injectable for tests; defaults to globalThis.fetch. */
   fetchImpl?: typeof fetch
+  /** Scans/photos to append as extra pages after the form. */
+  attachments?: Array<{ slot: string; name: string; type: string; bytes: Uint8Array }>
+}
+
+/** Caption printed on each appended page. */
+const ATTACHMENT_LABEL: Record<string, string> = {
+  "id-front": "צילום תעודת זהות",
+  "id-annex": "ספח תושב",
+  passport: "צילום דרכון",
+  residence: "אישור / רישיון שהייה",
 }
 
 function toBytes(value: Uint8Array | ArrayBuffer): Uint8Array {
@@ -162,5 +172,63 @@ export async function renderPdf(state: FormState, options: RenderPdfOptions = {}
     }
   }
 
+  if (options.attachments?.length) {
+    await appendAttachments(doc, font, ink, options.attachments)
+  }
+
   return doc.save()
+}
+
+/**
+ * Append each upload as its own A4 page: caption on top, image fitted and
+ * centred below. A PDF upload contributes its first page.
+ */
+async function appendAttachments(
+  doc: Awaited<ReturnType<typeof import("pdf-lib").PDFDocument.load>>,
+  font: PDFFont,
+  ink: Color,
+  attachments: NonNullable<RenderPdfOptions["attachments"]>,
+): Promise<void> {
+  const A4 = [595.275, 841.89] as const
+  const margin = 36
+  const captionHeight = 28
+
+  let index = 0
+  for (const file of attachments) {
+    index += 1
+    const page = doc.addPage([A4[0], A4[1]])
+    const label = `${index}. ${ATTACHMENT_LABEL[file.slot] ?? file.name}`
+    drawRtl(page, font, label, {
+      xRight: A4[0] - margin,
+      y: A4[1] - margin,
+      size: 11,
+      color: ink,
+    })
+
+    const boxWidth = A4[0] - margin * 2
+    const boxTop = A4[1] - margin - captionHeight
+    const boxHeight = boxTop - margin
+
+    try {
+      if (file.type === "application/pdf") {
+        const [embedded] = await doc.embedPdf(file.bytes, [0])
+        if (!embedded) continue
+        const scale = Math.min(boxWidth / embedded.width, boxHeight / embedded.height)
+        const w = embedded.width * scale
+        const h = embedded.height * scale
+        page.drawPage(embedded, { x: (A4[0] - w) / 2, y: boxTop - h, width: w, height: h })
+      } else {
+        const image =
+          file.type === "image/png"
+            ? await doc.embedPng(file.bytes)
+            : await doc.embedJpg(file.bytes)
+        const scale = Math.min(boxWidth / image.width, boxHeight / image.height)
+        const w = image.width * scale
+        const h = image.height * scale
+        page.drawImage(image, { x: (A4[0] - w) / 2, y: boxTop - h, width: w, height: h })
+      }
+    } catch (error) {
+      console.warn(`[pdf] attachment ${file.name} could not be embedded`, error)
+    }
+  }
 }

@@ -4,6 +4,7 @@
  * assets, so the app stays offline-capable and never talks to a third party.
  */
 import type { FormState } from "~/form/types"
+import { createAttachmentStore } from "~/storage/files"
 
 export function usePdfExport() {
   const { asset } = useAppPath()
@@ -18,9 +19,15 @@ export function usePdfExport() {
     error.value = null
     try {
       const { renderPdf } = await import("~/pdf/overlay")
+      // Attachments are optional; a failure to read them must never block the
+      // form itself — the PDF is still valid without the extra pages.
+      const attachments = await createAttachmentStore()
+        .loadForPdf()
+        .catch(() => [])
       const bytes = await renderPdf(state, {
         pdfUrl: asset("/assets/tofes-101-official.pdf"),
         fontUrl: asset("/fonts/Heebo-Variable.ttf"),
+        attachments,
       })
 
       const blob = new Blob([bytes as BlobPart], { type: "application/pdf" })

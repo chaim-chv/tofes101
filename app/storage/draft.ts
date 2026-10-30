@@ -9,14 +9,12 @@
  * validated on import (and refused) without guessing.
  */
 import type { FormState } from "~/form/types"
-import { emptyState } from "~/form/values"
-import { SCHEMA_VERSION } from "~/form/values"
+import { emptyState, SCHEMA_VERSION } from "~/form/values"
+import { DRAFTS, openDb } from "./idb"
 
 export { SCHEMA_VERSION }
 
-const DB_NAME = "tofes101"
-const DB_VERSION = 1
-const STORE = "drafts"
+const STORE = DRAFTS
 const KEY = "draft"
 
 export type Envelope = {
@@ -29,24 +27,6 @@ export type Envelope = {
 export type ImportResult =
   | { ok: true; state: FormState }
   | { ok: false; reason: "unavailable" | "parse" | "foreign" | "newer" | "shape" }
-
-/* ------------------------------------------------------------------ idb glue */
-
-let dbPromise: Promise<IDBDatabase> | null = null
-
-function openDb(): Promise<IDBDatabase> {
-  if (dbPromise) return dbPromise
-  dbPromise = new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, DB_VERSION)
-    request.onupgradeneeded = () => {
-      const db = request.result
-      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE)
-    }
-    request.onsuccess = () => resolve(request.result)
-    request.onerror = () => reject(request.error)
-  })
-  return dbPromise
-}
 
 async function idbGet<T>(key: string): Promise<T | null> {
   const db = await openDb()

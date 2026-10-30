@@ -5,7 +5,7 @@
  */
 import type { FieldDef } from "./types"
 import type { Locale, MessageKey } from "~/locales"
-import { catalogFor } from "~/locales"
+import { catalogFor, isGendered } from "~/locales"
 import { isSigned } from "./values"
 
 export type Translate = (key: MessageKey, vars?: Record<string, string | number>) => string
@@ -17,7 +17,11 @@ export function formatOptionLabel(
 ): string {
   const catalog = catalogFor(locale)
   const option = field.options?.find((o) => o.value === value)
-  if (option?.labelKey) return catalog[option.labelKey as MessageKey] ?? String(value)
+  if (option?.labelKey) {
+    const entry = catalog[option.labelKey as MessageKey]
+    if (isGendered(entry)) return entry.m
+    return (entry as string | undefined) ?? String(value)
+  }
   if (option?.label) return option.label
   return String(value)
 }

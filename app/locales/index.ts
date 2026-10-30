@@ -4,7 +4,18 @@ import en from "./en"
 export const messages = { he, en } as const
 export type Locale = keyof typeof messages
 export type MessageKey = keyof typeof he
-export type Catalog = Record<MessageKey, string>
+
+/**
+ * A message is a plain string, or a masculine/feminine pair. Hebrew addresses the
+ * reader directly ("אני מקבל" / "אני מקבלת"), and a slash form ("מקבל/ת") is
+ * both longer and impersonal, so gendered entries are first-class.
+ */
+export type Entry = string | { m: string; f: string }
+export type Catalog = Record<MessageKey, Entry>
+
+export function isGendered(entry: Entry): entry is { m: string; f: string } {
+  return typeof entry === "object" && entry !== null
+}
 
 export const locales: Locale[] = ["he", "en"]
 

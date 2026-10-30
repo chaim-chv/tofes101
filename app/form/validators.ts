@@ -51,8 +51,12 @@ export function endOfTaxYear(taxYear: number): Date {
 
 export function israeliId(): Validator {
   return (value, _state) => {
-    const raw = typeof value === "string" ? value.replace(/\D/g, "") : ""
-    if (raw.length === 0) return []
+    const typed = typeof value === "string" ? value.trim() : ""
+    if (typed.length === 0) return []
+    // Reject letters/symbols instead of silently stripping them: a user who
+    // typed "12a456782" must be told, not quietly given an ID they did not type.
+    if (/[^0-9]/.test(typed)) return [issue("", "err.digitsOnly", "id.digits")]
+    const raw = typed
     if (raw.length !== 9) return [issue("", "err.id.length", "id.length")]
     if (/^0+$/.test(raw)) return [issue("", "err.id.invalid", "id.zero")]
     let sum = 0
@@ -120,6 +124,25 @@ export function afterField(otherId: string): Validator {
     const b = parseDate(state.values[otherId])
     if (!a || !b) return []
     return a.getTime() < b.getTime() ? [issue("", "err.date.beforeOther", "date.order")] : []
+  }
+}
+
+/**
+ * Two people in one form cannot share an ID. Returns a duplicate error when this
+ * field equals any of `others` (and, for repeaters, any sibling row).
+ */
+export function distinctFrom(others: readonly string[], labelKeys: Record<string, string> = {}): Validator {
+  return (value, state) => {
+    const raw = typeof value === "string" ? value.trim() : ""
+    if (!raw) return []
+    for (const other of others) {
+      const theirs = typeof state.values[other] === "string" ? String(state.values[other]).trim() : ""
+      if (theirs && theirs === raw) {
+        void labelKeys
+        return [issue("", "err.id.duplicate", "id.duplicate")]
+      }
+    }
+    return []
   }
 }
 

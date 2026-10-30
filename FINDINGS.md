@@ -78,3 +78,28 @@ Format: `- **YYYY-MM-DD** — claim. → evidence/link`
 - **2026-10-29** — A `serve`-style static server that redirects `/x` → `/x/`
   breaks nothing but muddies Playwright traces; `tools/serve.ts` (Bun.serve,
   no redirects) is the local reference.
+
+## Form correctness pass (2026-10-30)
+
+- **2026-10-30** — ID validation must reject **non-digits**, not strip them: a
+  user who types `12a456782` was silently validated as `12456782`. `israeliId()`
+  now returns `err.digitsOnly` before the length/checksum checks.
+- **2026-10-30** — Identity uniqueness is a form-wide rule: employee, spouse and
+  every child must have distinct ID numbers. Implemented as `distinctFrom()` on
+  the field plus a sibling check inside repeater validation (`err.id.duplicateRow`
+  with both row numbers).
+- **2026-10-30** — `FieldDef.initial` now exists, applied once by
+  `applyInitials()`: `employee.idKind = "idNum"` and a new child row starts with
+  `custody = true`. Initials never overwrite an answered field.
+- **2026-10-30** — Hebrew gender agreement is not "slash forms": `מצהיר/ה` reads
+  as a form, not as a person addressing the reader. Messages can now be
+  `{ m, f }` entries, selected from the `מין` answer (`useLocale().setGender`).
+- **2026-10-30** — The PDF must print the **label**, not the enum: the health fund
+  was landing in the form as `clalit`. `asOptionLabel()` resolves the option's
+  label from the catalog in the PDF chunk.
+- **2026-10-30** — Two IndexedDB modules opening the same database with different
+  versions **hang forever** on `onblocked`. All stores now open through
+  `app/storage/idb.ts` (one `DB_VERSION`, both stores created in one upgrade).
+- **2026-10-30** — Attachments (ID/annex/passport/permit) are blobs in IndexedDB,
+  never in the JSON draft; the PDF renderer appends them as A4 pages with a
+  Hebrew caption. A PDF upload contributes its first page.

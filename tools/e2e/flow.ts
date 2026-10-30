@@ -32,14 +32,20 @@ page.on("console", (m) => {
   if (m.type() === "error") problems.push(`console ${page.url()} :: ${m.text().slice(0, 200)}`)
 })
 page.on("request", (r) => {
-  const host = new URL(r.url()).hostname
-  if (!["localhost", "127.0.0.1"].includes(host)) external.push(r.url())
+  const url = r.url()
+  // blob:/data: are in-memory previews and downloads, not network traffic
+  if (url.startsWith("blob:") || url.startsWith("data:")) return
+  const host = new URL(url).hostname
+  if (!["localhost", "127.0.0.1"].includes(host)) external.push(url)
 })
 
 async function a11y(step: string) {
   const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze()
   for (const v of results.violations) {
     problems.push(`a11y[${step}] ${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`)
+    if (process.env.E2E_DEBUG_A11Y) {
+      for (const n of v.nodes) console.log("AXE", v.id, n.target.join(" "), "\n", n.html)
+    }
   }
 }
 
@@ -133,6 +139,23 @@ await page.getByRole("checkbox", { name: "7. בגין ילדיי שבחזקתי 
 await a11y("credits")
 await next()
 
+/* ------------------------------------------------------------ attachments */
+
+await page.waitForTimeout(200)
+// 1x1 PNG is enough to prove the pipeline (upload -> preview -> extra PDF page)
+const idPng = `research/spikes/screens/_upload-id.png`
+await Bun.write(
+  idPng,
+  Uint8Array.from(
+    atob("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="),
+    (c) => c.charCodeAt(0),
+  ),
+)
+await page.setInputFiles('input[type=file][aria-label="תעודת זהות — צד קדמי"]', idPng)
+await page.waitForTimeout(600)
+await a11y("attach")
+await next()
+
 /* ------------------------------------------------------------------- review */
 
 const reviewText = await page.locator("main").innerText()
@@ -178,6 +201,10 @@ const pdfBytes = await Bun.file(pdfPath).arrayBuffer()
 const head = new TextDecoder().decode(new Uint8Array(pdfBytes.slice(0, 5)))
 if (head !== "%PDF-") throw new Error(`downloaded file is not a PDF (head=${head})`)
 if (pdfBytes.byteLength < 200_000) throw new Error(`PDF too small: ${pdfBytes.byteLength}`)
+
+const { PDFDocument } = await import("pdf-lib")
+const rendered = await PDFDocument.load(new Uint8Array(pdfBytes))
+if (rendered.getPageCount() !== 3) throw new Error(`expected 3 pages (form + 1 attachment), got ${rendered.getPageCount()}`)
 console.log(`  → pdf: ${download.suggestedFilename()} (${Math.round(pdfBytes.byteLength / 1024)} KB)`)
 await Bun.write(`${OUT}/09-filled.pdf`, new Uint8Array(pdfBytes))
 

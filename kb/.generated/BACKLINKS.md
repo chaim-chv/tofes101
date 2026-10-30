@@ -1,6 +1,6 @@
 # Backlinks (generated)
 
-_184 nodes · 1261 edges · generated 2026-10-29 22:27Z_
+_184 nodes · 1261 edges · generated 2026-10-30 14:10Z_
 
 ## ./
 
@@ -152,7 +152,7 @@ _184 nodes · 1261 edges · generated 2026-10-29 22:27Z_
 
 ### PDF generation — overlay the official flat PDF, with a print fallback  `eng/pdf-generation`
 
-- type: **concept** · status: verified · confidence: verified · 1269 words
+- type: **concept** · status: verified · confidence: verified · 1484 words
 - tags: pdf, pdf-lib, printing, output, signature
 - out (13): `decision/adr-0002-pdf-strategy` (related), `eng/pdf-hebrew-rtl` (related), `eng/signature` (related), `ux/print-export` (related), `law/form-101-official-pdf` (related), `source/pdf-lib-readme` (source), `source/unicode-uax9-bidi` (source), `eng/architecture` (up), `decision/adr-0002-pdf-strategy` (link), `law/form-101-official-pdf` (link), `eng/pdf-hebrew-rtl` (link), `eng/signature` (link), `law/declaration-and-signature` (link)
 - **in (11)**: `eng/pdf-hebrew-rtl` (related), `eng/pdf-hebrew-rtl` (up), `eng/architecture` (related), `eng/architecture` (link), `eng/testing` (related), `eng/signature` (related), `eng/performance` (related), `eng/form-schema-model` (related), `eng/form-schema-model` (link), `decision/adr-0002-pdf-strategy` (related), `index` (link)

@@ -97,6 +97,8 @@ export type FieldBase = {
   /** Stable human key; also the export key. */
   labelKey?: MessageKey
   helpKey?: MessageKey
+  /** Value the field starts with (before the user touches it). */
+  initial?: FieldValue | boolean
   /** Shown only when true (or when absent). */
   when?: (state: FormState) => boolean
   /** Required for this state. */

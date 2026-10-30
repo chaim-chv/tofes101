@@ -16,6 +16,7 @@ import {
   ageBetween,
   atLeastOne,
   dateInTaxYear,
+  distinctFrom,
   digitsOnly,
   email,
   firstOf,
@@ -112,6 +113,7 @@ const stepIdentity: Step = {
       id: "employee.idKind",
       kind: "radio",
       labelKey: "f.employee.idKind",
+      initial: "idNum",
       required: true,
       options: [
         { value: "idNum", labelKey: "opt.idKind.id" },
@@ -129,7 +131,7 @@ const stepIdentity: Step = {
       inputMode: "numeric",
       maxLength: 9,
       autoComplete: "off",
-      validate: israeliId(),
+      validate: firstOf(israeliId(), distinctFrom(["spouse.idNum"], { "spouse.idNum": "spouse.idNum" })),
       span: 6,
     },
     {
@@ -340,7 +342,7 @@ const stepStatus: Step = {
       required: true,
       inputMode: "numeric",
       maxLength: 9,
-      validate: israeliId(),
+      validate: firstOf(israeliId(), distinctFrom(["employee.idNum"], { "employee.idNum": "employee.idNum" })),
       span: 6,
     },
     {
@@ -411,7 +413,7 @@ const stepChildren: Step = {
           required: true,
           inputMode: "numeric",
           maxLength: 9,
-          validate: israeliId(),
+          validate: firstOf(israeliId(), distinctFrom(["employee.idNum", "spouse.idNum"])),
         },
         {
           id: "children.birthDate",
@@ -420,7 +422,13 @@ const stepChildren: Step = {
           required: true,
           validate: firstOf(notFuture()),
         },
-        { id: "children.custody", kind: "checkbox", labelKey: "f.children.custody", helpKey: "f.children.custody.help" },
+        {
+          id: "children.custody",
+          kind: "checkbox",
+          labelKey: "f.children.custody",
+          helpKey: "f.children.custody.help",
+          initial: true,
+        },
         {
           id: "children.allowance",
           kind: "checkbox",
@@ -758,6 +766,13 @@ const stepCredits: Step = {
   ],
 }
 
+const stepAttachments: Step = {
+  id: "attach",
+  titleKey: "step.attach.title",
+  introKey: "step.attach.intro",
+  fields: [],
+}
+
 const stepReview: Step = {
   id: "review",
   titleKey: "step.review.title",
@@ -811,6 +826,7 @@ export const schema: FormSchema = {
     stepChildren,
     stepIncome,
     stepCredits,
+    stepAttachments,
     stepReview,
     stepSign,
   ],
