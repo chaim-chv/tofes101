@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import he from "~/locales/he"
+
 /**
  * Print / full-document view. This is the output path that always works: the
  * browser shapes the Hebrew correctly, the user gets a real A4 document through
@@ -7,7 +9,7 @@
  * The document itself is always the official Hebrew wording, even when the UI
  * is in English: an English label on a Hebrew tax form is a correctness bug.
  */
-import he from "~/locales/he"
+definePageMeta({ layout: false })
 
 const { t, init: initLocale, gender } = useLocale()
 const { path } = useAppPath()

@@ -1,80 +1,141 @@
 <script setup lang="ts">
-const { t, toggle, init } = useLocale()
+import type { ButtonProps } from "@nuxt/ui"
+
+const { t, locale, init } = useLocale()
 const { path } = useAppPath()
+const { summary, clearDraft } = useDraftSummary()
+const toast = useToast()
 
 onMounted(() => init())
-useHead({ title: () => `${t('app.name')} — ${t('app.tagline')}` })
+useHead({ title: () => `${t("app.name")} — ${t("app.tagline")}` })
 
-const steps = [
-  { icon: "i-lucide-shield-check", title: "home.point.local.title", body: "home.point.local.body" },
-  { icon: "i-lucide-keyboard", title: "home.point.fast.title", body: "home.point.fast.body" },
-  { icon: "i-lucide-book-open", title: "home.point.right.title", body: "home.point.right.body" },
-] as const
+const links = computed<ButtonProps[]>(() => [
+  {
+    label: summary.value ? t("home.cta.continue") : t("home.cta.start"),
+    to: summary.value ? path(`/form/?step=${summary.value.stepIndex}`) : path("/form/"),
+    icon: "i-lucide-arrow-left",
+    size: "lg",
+  },
+  {
+    label: t("home.cta.employer"),
+    to: path("/employer/"),
+    color: "neutral",
+    variant: "outline",
+    size: "lg",
+  },
+])
+
+const need = computed(() => [
+  { icon: "i-lucide-user", title: t("home.need.id.title"), description: t("home.need.id.body") },
+  { icon: "i-lucide-file-text", title: t("home.need.employer.title"), description: t("home.need.employer.body") },
+  { icon: "i-lucide-user", title: t("home.need.family.title"), description: t("home.need.family.body") },
+  { icon: "i-lucide-paperclip", title: t("home.need.docs.title"), description: t("home.need.docs.body") },
+])
+
+const points = computed(() => [
+  { icon: "i-lucide-shield-check", title: t("home.point.local.title"), description: t("home.point.local.body") },
+  { icon: "i-lucide-keyboard", title: t("home.point.fast.title"), description: t("home.point.fast.body") },
+  { icon: "i-lucide-book-open", title: t("home.point.right.title"), description: t("home.point.right.body") },
+])
+
+const savedAt = computed(() => {
+  const iso = summary.value?.savedAt
+  if (!iso) return ""
+  try {
+    return new Intl.DateTimeFormat(locale.value === "he" ? "he-IL" : "en-GB", { dateStyle: "short" }).format(new Date(iso))
+  } catch {
+    return ""
+  }
+})
+
+const resetOpen = ref(false)
+
+async function resetDraft() {
+  await clearDraft()
+  resetOpen.value = false
+  toast.add({ title: t("home.draft.cleared"), color: "success", icon: "i-lucide-trash-2" })
+}
 </script>
 
 <template>
-  <div class="min-h-dvh bg-elevated/30">
-    <header class="border-b border-default bg-default">
-      <UContainer class="flex items-center justify-between gap-4 py-3">
-        <NuxtLink :to="path('/')" class="flex items-center gap-2 font-semibold text-highlighted">
-          <UIcon name="i-lucide-file-text" class="size-5 text-primary" />
-          {{ t("app.name") }}
-        </NuxtLink>
-        <nav class="flex items-center gap-1" :aria-label="t('nav.main')">
-          <UButton :to="path('/form/')" variant="ghost" color="neutral" size="sm">
-            {{ t("nav.form") }}
-          </UButton>
-          <UButton :to="path('/employer/')" variant="ghost" color="neutral" size="sm">
-            {{ t("nav.employer") }}
-          </UButton>
-          <UButton variant="ghost" color="neutral" size="sm" icon="i-lucide-languages" @click="toggle()">
-            {{ t("nav.language") }}
-          </UButton>
-        </nav>
-      </UContainer>
-    </header>
+  <div>
+    <UPageHero
+      :title="t('home.h1')"
+      :description="t('home.lead')"
+      :links="links"
+      :ui="{
+        container: 'py-10 sm:py-16 lg:py-20 gap-8',
+        title: 'text-3xl sm:text-5xl text-pretty tracking-tight font-bold text-highlighted',
+        description: 'text-lg text-muted max-w-2xl',
+        links: 'mt-2',
+      }"
+    >
+      <template #headline>
+        <UBadge color="success" variant="subtle" icon="i-lucide-lock" class="text-green-900">
+          {{ t("privacy.badge") }}
+        </UBadge>
+      </template>
+    </UPageHero>
 
-    <main>
-      <UContainer class="py-14 sm:py-20">
-        <div class="max-w-2xl">
-          <UBadge color="success" variant="subtle" icon="i-lucide-lock" class="text-green-900">
-            {{ t("privacy.badge") }}
-          </UBadge>
-          <h1 class="mt-5 text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
-            {{ t("home.h1") }}
-          </h1>
-          <p class="mt-4 text-lg text-muted">
-            {{ t("home.lead") }}
-          </p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <UButton :to="path('/form/')" size="lg" icon="i-lucide-arrow-left">
-              {{ t("home.cta.start") }}
-            </UButton>
-            <UButton :to="path('/employer/')" size="lg" variant="outline" color="neutral" icon="i-lucide-link">
-              {{ t("home.cta.employer") }}
-            </UButton>
-          </div>
-          <p class="mt-6 text-sm text-muted">
-            {{ t("privacy.line") }}
-          </p>
-        </div>
+    <ClientOnly>
+      <div v-if="summary" class="mx-auto -mt-2 mb-8 w-full max-w-3xl px-4">
+        <UPageCard
+          variant="subtle"
+          icon="i-lucide-refresh-cw"
+          :title="t('home.draft.title')"
+          :description="t('home.draft.body', { date: savedAt, step: summary.stepNumber, total: summary.total, title: t(summary.titleKey) })"
+        >
+          <template #footer>
+            <div class="flex flex-wrap gap-2">
+              <UButton :to="path(`/form/?step=${summary.stepIndex}`)" icon="i-lucide-arrow-left">
+                {{ t("home.cta.continue") }}
+              </UButton>
+              <UButton variant="ghost" color="neutral" icon="i-lucide-trash-2" @click="resetOpen = true">
+                {{ t("home.draft.reset") }}
+              </UButton>
+            </div>
+          </template>
+        </UPageCard>
+      </div>
+    </ClientOnly>
 
-        <ul class="mt-16 grid gap-4 sm:grid-cols-3">
-          <li v-for="s in steps" :key="s.title">
-            <UCard class="h-full">
-              <UIcon :name="s.icon" class="size-6 text-primary" />
-              <h2 class="mt-3 font-semibold text-highlighted">{{ t(s.title) }}</h2>
-              <p class="mt-1 text-sm text-muted">{{ t(s.body) }}</p>
-            </UCard>
-          </li>
-        </ul>
-      </UContainer>
-    </main>
+    <UPageSection
+      :title="t('home.need.title')"
+      :description="t('home.need.lead')"
+      :ui="{ container: 'py-8 sm:py-10 lg:py-12', title: 'text-2xl sm:text-3xl' }"
+    >
+      <UPageGrid class="sm:grid-cols-2 lg:grid-cols-2">
+        <UPageCard
+          v-for="item in need"
+          :key="item.title"
+          :icon="item.icon"
+          :title="item.title"
+          :description="item.description"
+          variant="subtle"
+        />
+      </UPageGrid>
+    </UPageSection>
 
-    <footer class="border-t border-default py-6 text-center text-xs text-muted">
-      <UContainer>
-        <p>{{ t("app.footer") }}</p>
-      </UContainer>
-    </footer>
+    <UPageSection
+      :title="t('home.why.title')"
+      :ui="{ container: 'py-8 sm:py-10 lg:py-12', title: 'text-2xl sm:text-3xl' }"
+    >
+      <UPageGrid>
+        <UPageCard
+          v-for="item in points"
+          :key="item.title"
+          :icon="item.icon"
+          :title="item.title"
+          :description="item.description"
+        />
+      </UPageGrid>
+    </UPageSection>
+
+    <UModal v-model:open="resetOpen" :title="t('home.draft.confirmTitle')" :description="t('home.draft.confirmBody')">
+      <template #footer>
+        <UButton variant="ghost" color="neutral" @click="resetOpen = false">{{ t("common.cancel") }}</UButton>
+        <UButton color="error" icon="i-lucide-trash-2" @click="resetDraft">{{ t("home.draft.reset") }}</UButton>
+      </template>
+    </UModal>
   </div>
 </template>

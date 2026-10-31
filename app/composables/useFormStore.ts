@@ -25,6 +25,20 @@ import { addRepeatItem, applyInitials, emptyState, removeRepeatItem, setField, s
 import type { FieldDef, FormSchema, FormState, Issue, Step, ValidationResult } from "~/form/types"
 import { createDraftStore, type ImportResult } from "~/storage/draft"
 
+/**
+ * One BroadcastChannel per tab, shared by every `useFormStore` consumer.
+ * Creating one per consumer made a tab receive its own "saved" message (there
+ * are several consumers now: page, save status, draft menu), which looked like
+ * a multi-tab conflict on every save.
+ */
+let draftChannel: BroadcastChannel | null = null
+
+function getDraftChannel(): BroadcastChannel | null {
+  if (!import.meta.client || typeof BroadcastChannel === "undefined") return null
+  draftChannel ??= new BroadcastChannel("tofes101.draft")
+  return draftChannel
+}
+
 export function useFormStore(options: { schema?: FormSchema } = {}) {
   const schema = options.schema ?? defaultSchema
 
@@ -34,6 +48,8 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
   const lastSavedAt = useState<string | null>("form-last-saved", () => null)
   const conflict = useState<boolean>("form-conflict", () => false)
   const dirty = useState<boolean>("form-dirty", () => false)
+  /** Bumped after a successful import so the page can reset its local UI state. */
+  const importedAt = useState<number>("form-imported-at", () => 0)
 
   const store = import.meta.client ? createDraftStore() : null
 
@@ -66,14 +82,13 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
   /* ---------------------------------------------------------------- mutations */
 
   let saveTimer: ReturnType<typeof setTimeout> | null = null
-  const channel: BroadcastChannel | null =
-    import.meta.client && typeof BroadcastChannel !== "undefined" ? new BroadcastChannel("tofes101.draft") : null
-
-  channel?.addEventListener("message", (event) => {
+  const channel = getDraftChannel()
+  const onChannelMessage = (event: MessageEvent) => {
     if (event.data === "saved" && !saving.value) conflict.value = true
-  })
+  }
+  channel?.addEventListener("message", onChannelMessage)
   if (import.meta.client) {
-    onScopeDispose?.(() => channel?.close())
+    onScopeDispose?.(() => channel?.removeEventListener("message", onChannelMessage))
   }
 
   function touch() {
@@ -263,6 +278,8 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
     const result = await store.import(file)
     if (result.ok) {
       state.value = updateHidden(schema, result.state)
+      importedAt.value = Date.now()
+      syncUrl()
       if (import.meta.client) {
         // An imported draft must not inherit attachments from a previous person.
         try {
@@ -285,6 +302,7 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
     lastSavedAt,
     conflict,
     dirty,
+    importedAt,
     issues,
     steps,
     progress,

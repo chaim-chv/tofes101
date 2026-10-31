@@ -10,8 +10,10 @@ import type { FieldDef, Signature } from "~/form/types"
 import { answersFingerprint, rowKey } from "~/form/values"
 import { hiddenCount } from "~/form/engine"
 
-const { t, locale, init: initLocale, localeName, setGender } = useLocale()
-const { path, absolute } = useAppPath()
+definePageMeta({ layout: "wizard" })
+
+const { t, init: initLocale, setGender } = useLocale()
+const { path } = useAppPath()
 const form = useFormStore()
 const toast = useToast()
 if (import.meta.dev && import.meta.client) (window as any).__form = form
@@ -66,40 +68,15 @@ watch(
   },
 )
 
-const importInput = ref<HTMLInputElement | null>(null)
-const importResult = ref<{ ok: boolean; reason?: string } | null>(null)
-const importMessage = computed(() => {
-  const r = importResult.value
-  if (!r) return null
-  if (r.ok) return t("import.ok")
-  const map: Record<string, string> = {
-    parse: "import.parse",
-    foreign: "import.foreign",
-    newer: "import.newer",
-    shape: "import.shape",
-    unavailable: "import.parse",
-  }
-  return t((map[r.reason ?? "shape"] ?? "import.shape") as any)
-})
-
-function pickBackup() {
-  importInput.value?.click()
-}
-
-async function onBackupChosen(event: Event) {
-  const input = event.target as HTMLInputElement
-  const file = input.files?.[0]
-  input.value = ""
-  if (!file) return
-  if (form.dirty.value && !confirm(t("import.confirm"))) return
-  importResult.value = await form.importDraft(file)
-  if (importResult.value.ok) {
-    showErrors.value = false
-    touched.clear()
-    // The imported draft knows nothing about the employer link that was open.
+// A draft imported from the header menu replaces the whole state; reset the
+// local error/touched/overlay state so the new step starts clean.
+watch(
+  () => form.importedAt.value,
+  () => {
     lockedIds.value = new Set()
-  }
-}
+    afterNavigate()
+  },
+)
 
 async function readPrefill(rawHash: string) {
   const hash = String(rawHash ?? "").replace(/^#/, "")
@@ -332,17 +309,6 @@ function setValue(id: string, value: unknown) {
 
 /* ------------------------------------------------------------------ export */
 
-async function exportBackup() {
-  const blob = await form.exportDraft()
-  if (!blob) return
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement("a")
-  a.href = url
-  a.download = `tofes101-draft-${new Date().toISOString().slice(0, 10)}.json`
-  a.click()
-  URL.revokeObjectURL(url)
-}
-
 const printHref = computed(() => path("/print/"))
 const pdf = usePdfExport()
 
@@ -371,22 +337,6 @@ async function downloadPdf() {
   })
 }
 
-const deleteOpen = ref(false)
-const deleting = ref(false)
-
-async function deleteAll() {
-  deleting.value = true
-  try {
-    await form.reset()
-    lockedIds.value = new Set()
-    deleteOpen.value = false
-    toast.add({ title: t("delete.done"), color: "success", icon: "i-lucide-trash-2" })
-    await navigateTo(path("/"))
-  } finally {
-    deleting.value = false
-  }
-}
-
 async function reloadDraft() {
   const ok = await form.reloadFromStorage()
   toast.add({
@@ -403,10 +353,7 @@ function changeIdKind() {
 </script>
 
 <template>
-  <div class="min-h-dvh bg-elevated/30">
-    <AppHeader compact />
-
-    <main class="mx-auto w-full max-w-3xl px-4 pb-24 pt-5">
+  <main class="mx-auto w-full max-w-3xl px-4 pb-24 pt-5">
       <!-- prefill offer -->
       <UCard v-if="prefill && !prefillDismissed" class="mb-5 border-primary/40">
         <h2 class="text-base font-semibold text-highlighted">
@@ -444,14 +391,6 @@ function changeIdKind() {
         @update:open="prefillError = false"
       />
 
-      <UAlert
-        v-if="importMessage"
-        class="mb-4 [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
-        :color="importResult?.ok ? 'success' : 'error'"
-        variant="subtle"
-        :description="importMessage"
-      />
-
       <!-- progress -->
       <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
         <StepProgress
@@ -460,10 +399,6 @@ function changeIdKind() {
           :show-counts="showErrors"
           @select="jump"
         />
-        <p class="text-xs text-muted" aria-live="polite">
-          <span v-if="form.saving.value">{{ t("common.saving") }}</span>
-          <span v-else-if="form.lastSavedAt.value">{{ t("common.saved") }}</span>
-        </p>
       </div>
 
       <UCard v-if="form.conflict.value" class="mb-4 border-warning/40">
@@ -624,20 +559,6 @@ function changeIdKind() {
         </UButton>
 
         <div class="flex flex-wrap items-center gap-2">
-          <UButton variant="outline" color="neutral" icon="i-lucide-download" @click="exportBackup">
-            {{ t("meta.exportJson") }}
-          </UButton>
-          <UButton variant="outline" color="neutral" icon="i-lucide-upload" @click="pickBackup">
-            {{ t("meta.importJson") }}
-          </UButton>
-          <input
-            ref="importInput"
-            type="file"
-            accept="application/json,.json"
-            class="sr-only"
-            :aria-label="t('meta.importJson')"
-            @change="onBackupChosen"
-          />
           <UButton v-if="isLast" :loading="pdf.busy.value" icon="i-lucide-file-down" @click="downloadPdf">
             {{ pdf.busy.value ? t("pdf.generating") : t("pdf.download") }}
           </UButton>
@@ -650,23 +571,8 @@ function changeIdKind() {
         </div>
       </div>
 
-      <div class="mt-8 flex flex-col items-center gap-2">
-        <p class="text-center text-xs text-muted">
-          {{ t("privacy.line") }}
-        </p>
-        <UButton variant="link" color="error" size="xs" icon="i-lucide-trash-2" @click="deleteOpen = true">
-          {{ t("meta.clearAll") }}
-        </UButton>
-      </div>
-    </main>
-
-    <UModal v-model:open="deleteOpen" :title="t('delete.title')" :description="t('delete.body')">
-      <template #footer>
-        <UButton variant="ghost" color="neutral" @click="deleteOpen = false">{{ t("common.cancel") }}</UButton>
-        <UButton color="error" icon="i-lucide-trash-2" :loading="deleting" @click="deleteAll">
-          {{ t("delete.confirm") }}
-        </UButton>
-      </template>
-    </UModal>
-  </div>
+      <p class="mt-8 text-center text-xs text-muted">
+        {{ t("privacy.line") }}
+      </p>
+  </main>
 </template>

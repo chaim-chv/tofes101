@@ -8,8 +8,19 @@ const { asset } = useAppPath()
 
 const uiLocale = computed(() => (locale.value === "he" ? uiHe : uiEn))
 
+const fontUrl = asset("/fonts/Heebo-Variable.ttf")
+
 useHead({
-  link: [{ rel: "icon", type: "image/svg+xml", href: asset("/favicon.svg") }],
+  link: [
+    { rel: "icon", type: "image/svg+xml", href: asset("/favicon.svg") },
+    // Self-hosted, same-origin: no Google Fonts, no runtime network request.
+    { rel: "preload", as: "font", type: "font/ttf", href: fontUrl, crossorigin: "anonymous" },
+  ],
+  style: [
+    {
+      innerHTML: `@font-face{font-family:Heebo;src:url('${fontUrl}') format('truetype');font-weight:100 900;font-style:normal;font-display:swap}`,
+    },
+  ],
   htmlAttrs: {
     lang: () => (locale.value === "he" ? "he" : "en"),
     dir: () => (locale.value === "he" ? "rtl" : "ltr"),
@@ -19,6 +30,8 @@ useHead({
 
 <template>
   <UApp :locale="uiLocale">
-    <NuxtPage />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </UApp>
 </template>

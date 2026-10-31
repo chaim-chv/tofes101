@@ -47,7 +47,7 @@ function select(step: StepView) {
 
 <template>
   <nav :aria-label="t('nav.steps')" class="min-w-0">
-    <ol class="flex gap-1.5 overflow-x-auto pb-1" role="list">
+    <ol class="flex flex-wrap gap-1.5 pb-1" role="list">
       <li v-for="(step, index) in props.steps" :key="step.id" class="shrink-0">
         <button
           :ref="(el) => { if (el) refs[index] = el as HTMLButtonElement }"

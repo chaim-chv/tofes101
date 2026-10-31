@@ -12,6 +12,7 @@ import { emptyState } from "~/form/values"
  */
 const { t, locale, init } = useLocale()
 const { path, absolute } = useAppPath()
+const toast = useToast()
 
 onMounted(() => init())
 useHead({ title: () => `${t("employer.h1")} — ${t("app.name")}` })
@@ -55,8 +56,6 @@ function onDeductionInput(value: string | number) {
   form.deductionFile = String(value).replace(/\D/g, "").slice(0, 9)
 }
 
-// UInput keeps its own text node; a watcher makes the sanitised value win even
-// when the control did not re-render from the handler's update.
 watch(
   () => form.phone,
   (value) => {
@@ -73,6 +72,7 @@ watch(
 )
 
 async function build() {
+  if (!canBuild.value) return
   const payload = await encodeEmployerLink({
     i: slug(form.name),
     l: locale.value,
@@ -90,13 +90,28 @@ async function build() {
   copied.value = false
 }
 
+const message = computed(() =>
+  t("employer.result.messageBody", { link: link.value }),
+)
+
 async function copy() {
   if (!link.value) return
   try {
     await navigator.clipboard.writeText(link.value)
     copied.value = true
+    toast.add({ title: t("employer.result.copied"), color: "success", icon: "i-lucide-check-circle-2" })
   } catch {
     /* clipboard blocked: the field is selectable, the user can copy manually */
+  }
+}
+
+async function copyMessage() {
+  if (!link.value) return
+  try {
+    await navigator.clipboard.writeText(message.value)
+    toast.add({ title: t("employer.result.messageCopied"), color: "success", icon: "i-lucide-check-circle-2" })
+  } catch {
+    toast.add({ title: t("employer.result.copyFailed"), color: "error", icon: "i-lucide-circle-alert" })
   }
 }
 
@@ -120,104 +135,138 @@ function slug(s: string) {
     .replace(/^-|-$/g, "")
     .slice(0, 40)
 }
+
+const how = computed(() => [
+  { icon: "i-lucide-file-text", title: t("employer.how.1.title"), description: t("employer.how.1") },
+  { icon: "i-lucide-lock", title: t("employer.how.2.title"), description: t("employer.how.2") },
+  { icon: "i-lucide-file-down", title: t("employer.how.3.title"), description: t("employer.how.3") },
+])
 </script>
 
 <template>
-  <div class="min-h-dvh bg-elevated/30">
-    <UContainer class="max-w-3xl py-10 sm:py-16">
-      <UButton :to="path('/')" variant="link" color="neutral" icon="i-lucide-arrow-right" size="sm">
-        {{ t("nav.home") }}
-      </UButton>
+  <UContainer class="max-w-3xl py-8 sm:py-12">
+    <UButton :to="path('/')" variant="link" color="neutral" icon="i-lucide-arrow-right" size="sm">
+      {{ t("nav.home") }}
+    </UButton>
 
-      <h1 class="mt-4 text-2xl font-bold tracking-tight text-highlighted sm:text-3xl">
-        {{ t("employer.h1") }}
-      </h1>
-      <p class="mt-3 max-w-2xl text-muted">{{ t("employer.lead") }}</p>
+    <UPageHeader
+      class="mt-2"
+      :title="t('employer.h1')"
+      :description="t('employer.lead')"
+      :ui="{ title: 'text-2xl sm:text-3xl', description: 'max-w-2xl' }"
+    />
 
-      <UAlert
-        class="mt-6 [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
-        color="warning"
-        variant="subtle"
-        icon="i-lucide-shield-alert"
-        :description="t('employer.warning')"
-      />
+    <UAlert
+      class="mt-6 [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
+      color="warning"
+      variant="subtle"
+      icon="i-lucide-shield-alert"
+      :description="t('employer.warning')"
+    />
 
-      <UCard class="mt-8">
-        <form class="grid gap-5 sm:grid-cols-2" @submit.prevent="build">
-          <UFormField :label="t('employer.field.name')" required class="sm:col-span-2">
-            <UInput v-model="form.name" size="lg" autocomplete="organization" class="w-full" />
-          </UFormField>
-          <UFormField :label="t('employer.field.address')" class="sm:col-span-2">
-            <UInput v-model="form.address" size="lg" autocomplete="street-address" class="w-full" />
-          </UFormField>
-          <UFormField :label="t('employer.field.phone')" :error="phoneError">
-            <UInput
-              :model-value="form.phone"
-              size="lg"
-              type="tel"
-              inputmode="tel"
-              pattern="[0-9+\-\s]*"
-              autocomplete="tel"
-              dir="ltr"
-              class="w-full"
-              @update:model-value="onPhoneInput"
-            />
-          </UFormField>
-          <UFormField :label="t('employer.field.deductionFile')" :hint="t('employer.field.deductionHint')" :error="deductionError">
-            <UInput
-              :model-value="form.deductionFile"
-              size="lg"
-              inputmode="numeric"
-              pattern="[0-9]*"
-              maxlength="9"
-              dir="ltr"
-              class="w-full"
-              @update:model-value="onDeductionInput"
-            />
-          </UFormField>
+    <UCard v-if="!link" class="mt-6">
+      <UForm :state="form" class="grid gap-5 sm:grid-cols-2" @submit="build">
+        <UFormField :label="t('employer.field.name')" required class="sm:col-span-2">
+          <UInput v-model="form.name" size="lg" autocomplete="organization" class="w-full" />
+        </UFormField>
+        <UFormField :label="t('employer.field.address')" class="sm:col-span-2">
+          <UInput v-model="form.address" size="lg" autocomplete="street-address" class="w-full" />
+        </UFormField>
+        <UFormField :label="t('employer.field.phone')" :error="phoneError || undefined">
+          <UInput
+            :model-value="form.phone"
+            size="lg"
+            type="tel"
+            inputmode="tel"
+            pattern="[0-9+\-\s]*"
+            autocomplete="tel"
+            dir="ltr"
+            class="w-full"
+            @update:model-value="onPhoneInput"
+          />
+        </UFormField>
+        <UFormField
+          :label="t('employer.field.deductionFile')"
+          :hint="t('employer.field.deductionHint')"
+          :error="deductionError || undefined"
+        >
+          <UInput
+            :model-value="form.deductionFile"
+            size="lg"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            maxlength="9"
+            dir="ltr"
+            class="w-full"
+            @update:model-value="onDeductionInput"
+          />
+        </UFormField>
 
-          <UCheckbox v-model="form.lock" :label="t('employer.field.lock')" class="sm:col-span-2" />
+        <UCheckbox v-model="form.lock" :label="t('employer.field.lock')" class="sm:col-span-2" />
 
-          <div class="sm:col-span-2">
-            <UButton type="submit" size="lg" icon="i-lucide-link" :disabled="!canBuild">
-              {{ t("employer.result.title") }}
-            </UButton>
-          </div>
-        </form>
-      </UCard>
-
-      <UCard v-if="link" class="mt-6">
-        <h2 class="font-semibold text-highlighted">{{ t("employer.result.title") }}</h2>
-        <div class="mt-3 flex flex-col gap-3 sm:flex-row">
-          <UInput :model-value="link" readonly size="lg" class="w-full font-mono text-xs" dir="ltr" @focus="($event.target as HTMLInputElement).select()" />
-          <UButton size="lg" :icon="copied ? 'i-lucide-check' : 'i-lucide-copy'" @click="copy">
-            {{ copied ? t("employer.result.copied") : t("employer.result.copy") }}
+        <div class="sm:col-span-2">
+          <UButton type="submit" size="lg" icon="i-lucide-link" :disabled="!canBuild">
+            {{ t("employer.form.submit") }}
           </UButton>
+          <p class="mt-2 text-xs text-muted">{{ t("employer.form.requiredHint") }}</p>
         </div>
-        <dl class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted">
-          <div class="flex items-center gap-2">
-            <dt>{{ t("employer.result.fingerprint") }}</dt>
-            <dd class="font-mono text-highlighted" dir="ltr">{{ fingerprintCode }}</dd>
-          </div>
-          <div>
+      </UForm>
+    </UCard>
+
+    <UCard v-else class="mt-6">
+      <h2 class="text-lg font-semibold text-highlighted">{{ t("employer.result.title") }}</h2>
+      <p class="mt-1 text-sm text-muted">{{ t("employer.result.ready") }}</p>
+
+      <div class="mt-4 flex flex-col gap-3 sm:flex-row">
+        <UInput
+          :model-value="link"
+          readonly
+          size="lg"
+          class="w-full font-mono text-xs"
+          dir="ltr"
+          @focus="($event.target as HTMLInputElement).select()"
+        />
+        <UButton size="lg" :icon="copied ? 'i-lucide-check' : 'i-lucide-copy'" @click="copy">
+          {{ copied ? t("employer.result.copied") : t("employer.result.copy") }}
+        </UButton>
+      </div>
+
+      <div class="mt-3 flex flex-wrap gap-2">
+        <UButton :to="link" target="_blank" rel="noopener" variant="outline" color="neutral" icon="i-lucide-link">
+          {{ t("employer.result.open") }}
+        </UButton>
+        <UButton variant="outline" color="neutral" icon="i-lucide-copy" @click="copyMessage">
+          {{ t("employer.result.message") }}
+        </UButton>
+        <UButton variant="ghost" color="neutral"  @click="link = ''">
+          {{ t("employer.result.edit") }}
+        </UButton>
+      </div>
+
+      <p class="mt-4 text-xs text-muted">{{ t("employer.privacyNote") }}</p>
+
+      <UCollapsible class="mt-4">
+        <UButton variant="link" color="neutral" size="sm" >
+          {{ t("employer.result.advanced") }}
+        </UButton>
+        <template #content>
+          <div class="flex flex-wrap items-center gap-x-6 gap-y-2 pt-2 text-sm text-muted">
+            <div class="flex items-center gap-2">
+              <span>{{ t("employer.result.fingerprint") }}</span>
+              <span class="font-mono text-highlighted" dir="ltr">{{ fingerprintCode }}</span>
+            </div>
             <UButton variant="link" color="neutral" size="sm" icon="i-lucide-download" @click="download">
               {{ t("employer.result.download") }}
             </UButton>
           </div>
-        </dl>
-        <p class="mt-4 text-xs text-muted">
-          {{ t("employer.privacyNote") }}
-        </p>
-      </UCard>
+        </template>
+      </UCollapsible>
+    </UCard>
 
-      <aside class="mt-10 rounded-lg border border-default bg-default p-4 text-sm text-muted">
-        <h2 class="font-medium text-highlighted">{{ t("employer.how.title") }}</h2>
-        <ol class="mt-2 list-decimal space-y-1 ps-5">
-          <li>{{ t("employer.how.1") }}</li>
-          <li>{{ t("employer.how.2") }}</li>
-          <li>{{ t("employer.how.3") }}</li>
-        </ol>
-      </aside>
-    </UContainer>
-  </div>
+    <UPageSection
+      :title="t('employer.how.title')"
+      :features="how"
+      :ui="{ container: 'py-8 sm:py-10 lg:py-12' }"
+    />
+  </UContainer>
 </template>
