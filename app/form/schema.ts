@@ -66,17 +66,6 @@ const hasChildOutsideCustody = (s: FormState): boolean =>
 
 /* ------------------------------------------------------------------ steps */
 
-const stepIntro: Step = {
-  id: "intro",
-  titleKey: "step.intro.title",
-  introKey: "step.intro.body",
-  fields: [
-    { id: "intro.privacy", kind: "static", contentKey: "intro.privacy", variant: "success" },
-    { id: "intro.what", kind: "static", contentKey: "intro.what", variant: "info" },
-    { id: "intro.time", kind: "static", contentKey: "intro.time", variant: "info" },
-  ],
-}
-
 const stepEmployer: Step = {
   id: "employer",
   titleKey: "step.employer.title",
@@ -899,17 +888,10 @@ const stepAttachments: Step = {
   fields: [],
 }
 
-const stepReview: Step = {
-  id: "review",
-  titleKey: "step.review.title",
-  introKey: "step.review.intro",
-  fields: [{ id: "review.summary", kind: "static", contentKey: "review.summary" }],
-}
-
-const stepSign: Step = {
-  id: "sign",
-  titleKey: "step.sign.title",
-  introKey: "step.sign.intro",
+const stepFinish: Step = {
+  id: "finish",
+  titleKey: "step.finish.title",
+  introKey: "step.finish.intro",
   fields: [
     { id: "sign.declaration", kind: "static", contentKey: "sign.declaration", variant: "warning" },
     {
@@ -942,10 +924,9 @@ const stepSign: Step = {
 export const schema: FormSchema = {
   id: "itc-101",
   taxYear: 2026,
-  schemaVersion: 1,
+  schemaVersion: 2,
   declarationVersion: "2026-he-1",
   steps: [
-    stepIntro,
     stepEmployer,
     stepIdentity,
     stepContact,
@@ -954,8 +935,7 @@ export const schema: FormSchema = {
     stepIncome,
     stepCredits,
     stepAttachments,
-    stepReview,
-    stepSign,
+    stepFinish,
   ],
   allFields: [],
 }

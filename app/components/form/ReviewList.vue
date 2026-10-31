@@ -26,7 +26,7 @@ type Group = { stepId: string; titleKey: FieldDef["labelKey"]; rows: Row[] }
 const groups = computed<Group[]>(() => {
   const out: Group[] = []
   for (const step of props.schema.steps) {
-    if (step.id === "review" || step.id === "sign") continue
+    if (step.id === "finish") continue
     const rows: Row[] = []
     for (const field of step.fields) {
       if (field.kind === "static") continue

@@ -3,7 +3,7 @@
  */
 import type { FieldDef, FieldValue, FormState, FormValues, RepeatItem, Signature } from "./types"
 
-export const SCHEMA_VERSION = 1
+export const SCHEMA_VERSION = 2
 export const TAX_YEAR = 2026
 export const DECLARATION_VERSION = "2026-he-1"
 
@@ -35,6 +35,7 @@ export function emptyState(taxYear = TAX_YEAR): FormState {
       taxYear,
       locale: "he",
       step: 0,
+      stepId: "employer",
       createdAt: now,
       updatedAt: now,
       completed: {},

@@ -159,15 +159,13 @@ await page.waitForTimeout(600)
 await a11y("attach")
 await next()
 
-/* ------------------------------------------------------------------- review */
+/* ------------------------------------------------------- finish (review+sign) */
 
 const reviewText = await page.locator("main").innerText()
-if (!reviewText.includes("דנה")) throw new Error("review missing the employee name")
-if (!reviewText.includes("נועה")) throw new Error("review missing the child")
-await a11y("review")
+if (!reviewText.includes("דנה")) throw new Error("finish missing the employee name")
+if (!reviewText.includes("נועה")) throw new Error("finish missing the child")
+await a11y("finish")
 await page.screenshot({ path: `${OUT}/06-review.png`, fullPage: true })
-
-await next() // review -> sign
 
 /* --------------------------------------------------------------------- sign */
 
@@ -177,7 +175,7 @@ await page.getByRole("button", { name: "חתימה", exact: true }).click()
 const today = new Date()
 const iso = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
 await page.fill("#f-sign\\.date", iso)
-await a11y("sign")
+await a11y("finish-signed")
 
 if (process.env.E2E_DEBUG_STYLES) {
   const styles = await page.evaluate(() => {

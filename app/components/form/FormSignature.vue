@@ -200,7 +200,6 @@ const signedLabel = computed(() =>
           @pointerleave="end"
         />
         <div class="mt-2 flex items-center justify-between gap-3">
-          <p class="text-xs text-muted">{{ t("f.sign.signature.help") }}</p>
           <UButton type="button" variant="ghost" color="neutral" size="xs" @click="clear">
             {{ t("sign.clear") }}
           </UButton>

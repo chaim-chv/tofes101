@@ -16,6 +16,7 @@ const { t, init: initLocale, setGender } = useLocale()
 const { path } = useAppPath()
 const form = useFormStore()
 const toast = useToast()
+useVisualKeyboard()
 if (import.meta.dev && import.meta.client) (window as any).__form = form
 
 useHead({
@@ -183,7 +184,8 @@ function afterNavigate() {
   touched.clear()
   nextTick(() => {
     document.getElementById("step-title")?.focus()
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" })
   })
 }
 
@@ -221,6 +223,16 @@ const step = computed(() => form.currentStep.value)
 const stepTitle = computed(() => (step.value ? t(step.value.titleKey) : ""))
 const visibleStepCount = computed(() => form.steps.value.filter((s) => s.status !== "skipped").length)
 const isLast = computed(() => form.currentStepIndex.value === visibleStepCount.value - 1)
+const isFirst = computed(() => form.currentStepIndex.value === 0)
+const stepAnnouncement = computed(() =>
+  step.value
+    ? t("form.stepAnnouncement", {
+        n: form.currentStepIndex.value + 1,
+        total: visibleStepCount.value,
+        title: stepTitle.value,
+      })
+    : "",
+)
 
 /** The first step that is currently skipped, with its explanation (never silent). */
 const skippedStep = computed(() => {
@@ -353,7 +365,29 @@ function changeIdKind() {
 </script>
 
 <template>
-  <main class="mx-auto w-full max-w-3xl px-4 pb-24 pt-5">
+  <main id="main" class="mx-auto w-full max-w-5xl px-4 pb-24 pt-5">
+    <p class="sr-only" aria-live="polite">{{ stepAnnouncement }}</p>
+
+    <div class="flex gap-6 lg:gap-8">
+      <aside class="hidden w-56 shrink-0 lg:block">
+        <div class="sticky top-20">
+          <StepRail
+            :steps="form.steps.value"
+            :current-id="step?.id"
+            :show-counts="showErrors"
+            @select="jump"
+          />
+        </div>
+      </aside>
+
+      <div class="w-full min-w-0 max-w-3xl flex-1">
+        <StepProgress
+          :steps="form.steps.value"
+          :current-id="step?.id"
+          class="mb-4"
+          @select="jump"
+        />
+
       <!-- prefill offer -->
       <UCard v-if="prefill && !prefillDismissed" class="mb-5 border-primary/40">
         <h2 class="text-base font-semibold text-highlighted">
@@ -390,16 +424,6 @@ function changeIdKind() {
         :close="true"
         @update:open="prefillError = false"
       />
-
-      <!-- progress -->
-      <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <StepProgress
-          :steps="form.steps.value"
-          :current-id="step?.id"
-          :show-counts="showErrors"
-          @select="jump"
-        />
-      </div>
 
       <UCard v-if="form.conflict.value" class="mb-4 border-warning/40">
         <div class="flex flex-wrap items-start justify-between gap-3">
@@ -450,10 +474,7 @@ function changeIdKind() {
 
       <!-- step -->
       <section class="rounded-2xl border border-default bg-default p-5 sm:p-7">
-        <p class="text-xs font-medium text-muted">
-          {{ t("meta.stepOf", { n: form.currentStepIndex.value + 1, total: visibleStepCount }) }}
-        </p>
-        <h1 id="step-title" tabindex="-1" class="mt-1 text-2xl font-bold tracking-tight text-highlighted focus:outline-none">
+        <h1 id="step-title" tabindex="-1" class="text-2xl font-bold tracking-tight text-highlighted focus:outline-none">
           {{ stepTitle }}
         </h1>
         <p v-if="step?.introKey" class="mt-2 text-sm text-muted">{{ t(step.introKey) }}</p>
@@ -475,12 +496,12 @@ function changeIdKind() {
         />
 
         <!-- review step -->
-        <div v-if="step?.id === 'review'" class="mt-5">
+        <div v-if="step?.id === 'finish'" class="mt-5">
           <ReviewList :schema="form.schema" :state="form.state.value" @edit="(id: string) => form.goToId(id, { force: true })" />
         </div>
 
-        <!-- fields -->
-        <div v-else class="mt-5 grid grid-cols-12 gap-x-4 gap-y-5">
+        <!-- fields (also on finish: declaration, signature, date) -->
+        <div class="mt-5 grid grid-cols-12 gap-x-4 gap-y-5">
           <template v-for="field in step ? form.visibleFields(step) : []" :key="field.id">
             <div
               :class="field.span === 6 ? 'col-span-12 sm:col-span-6' : field.span === 4 ? 'col-span-12 sm:col-span-4' : field.span === 3 ? 'col-span-6 sm:col-span-3' : 'col-span-12'"
@@ -527,9 +548,9 @@ function changeIdKind() {
           :id-kind="(form.state.value.values['employee.idKind'] as 'idNum' | 'passport' | undefined)"
         />
 
-        <DocumentChecklist v-if="step?.id === 'sign'" :state="form.state.value" />
+        <DocumentChecklist v-if="step?.id === 'finish'" :state="form.state.value" />
 
-        <div v-if="step?.id === 'sign'" class="mt-6 space-y-3">
+        <div v-if="step?.id === 'finish'" class="mt-6 space-y-3">
           <UAlert
             v-if="signatureStale || staleError"
             color="warning"
@@ -552,27 +573,20 @@ function changeIdKind() {
         </div>
       </section>
 
-      <!-- actions -->
-      <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
-        <UButton variant="ghost" color="neutral" icon="i-lucide-arrow-right" :disabled="form.currentStepIndex.value === 0" @click="back">
-          {{ t("common.back") }}
-        </UButton>
-
-        <div class="flex flex-wrap items-center gap-2">
-          <UButton v-if="isLast" :loading="pdf.busy.value" icon="i-lucide-file-down" @click="downloadPdf">
-            {{ pdf.busy.value ? t("pdf.generating") : t("pdf.download") }}
-          </UButton>
-          <UButton v-if="isLast" :to="printHref" variant="outline" color="neutral" icon="i-lucide-printer">
-            {{ t("common.print") }}
-          </UButton>
-          <UButton v-if="!isLast" icon="i-lucide-arrow-left" @click="advance">
-            {{ t("common.next") }}
-          </UButton>
-        </div>
-      </div>
+      <FormActionBar
+        :is-first="isFirst"
+        :is-last="isLast"
+        :busy="pdf.busy.value"
+        :print-href="printHref"
+        @back="back"
+        @next="advance"
+        @download="downloadPdf"
+      />
 
       <p class="mt-8 text-center text-xs text-muted">
         {{ t("privacy.line") }}
       </p>
+      </div>
+    </div>
   </main>
 </template>

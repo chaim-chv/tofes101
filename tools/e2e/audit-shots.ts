@@ -91,8 +91,7 @@ async function desktopPass() {
   await next("12-step-credits")
   await page.getByRole("checkbox", { name: "7. בגין ילדיי שבחזקתי (מחלק ג׳)" }).check()
   await next("13-step-attach")
-  await next("14-step-review")
-  await next("15-step-sign")
+  await next("14-step-finish")
 
   // error state: clear a required answer, then jump back
   await page.goto(`${ROOT}/print/`, { waitUntil: "networkidle" })

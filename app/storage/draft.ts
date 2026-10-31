@@ -98,6 +98,50 @@ export function parseEnvelope(raw: unknown): ImportResult {
 export const migrations: Record<number, (s: FormState) => FormState> = {
   // 0 -> 1: the first released shape; nothing to do.
   0: (s) => ({ ...s, meta: { ...s.meta, schema: 1 } }),
+  // 1 -> 2: intro removed, review+sign merged into finish, navigation by id.
+  1: (s) => {
+    const idByOldStep = [
+      "employer",
+      "employer",
+      "identity",
+      "contact",
+      "status",
+      "children",
+      "income",
+      "credits",
+      "attach",
+      "finish",
+      "finish",
+    ] as const
+    const indexById: Record<string, number> = {
+      employer: 0,
+      identity: 1,
+      contact: 2,
+      status: 3,
+      children: 4,
+      income: 5,
+      credits: 6,
+      attach: 7,
+      finish: 8,
+    }
+    const stepId = s.meta.stepId ?? idByOldStep[s.meta.step] ?? "employer"
+    const completed: Record<string, true> = {}
+    for (const [id, value] of Object.entries(s.meta.completed)) {
+      if (!value) continue
+      const mapped = id === "intro" ? null : id === "review" || id === "sign" ? "finish" : id
+      if (mapped) completed[mapped] = true
+    }
+    return {
+      ...s,
+      meta: {
+        ...s.meta,
+        schema: 2,
+        stepId,
+        step: indexById[stepId] ?? 0,
+        completed,
+      },
+    }
+  },
 }
 
 export function migrate(state: FormState): FormState {

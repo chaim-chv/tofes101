@@ -112,6 +112,24 @@ describe("draft envelopes", () => {
     expect(migrate(r.state)).toEqual(r.state)
   })
 
+  test("migrates v1 intro/review/sign onto the 9-step model", () => {
+    const v1 = {
+      ...good.state,
+      meta: { ...good.state.meta, schema: 1, step: 9, completed: { intro: true, review: true } },
+    }
+    const migrated = migrate(v1)
+    expect(migrated.meta.schema).toBe(2)
+    expect(migrated.meta.stepId).toBe("finish")
+    expect(migrated.meta.step).toBe(8)
+    expect(migrated.meta.completed).toEqual({ finish: true })
+  })
+
+  test("migrates the old numeric step to the matching new step", () => {
+    const v1 = { ...good.state, meta: { ...good.state.meta, schema: 1, step: 5, completed: {} } }
+    expect(migrate(v1).meta.stepId).toBe("children")
+    expect(migrate(v1).meta.step).toBe(4)
+  })
+
   test("encodeDraft produces a JSON blob with the app marker", async () => {
     const r = parseEnvelope(good)
     if (!r.ok) throw new Error("expected ok")

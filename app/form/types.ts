@@ -84,7 +84,10 @@ export type FormState = {
     schema: number
     taxYear: number
     locale: "he" | "en"
+    /** Legacy numeric step index (still written for old drafts/PDF tests). */
     step: number
+    /** Stable step id. This is what the URL and navigation use. */
+    stepId?: StepId
     createdAt: string
     updatedAt: string
     /** steps that have been visited and were valid at least once */

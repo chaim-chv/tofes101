@@ -59,7 +59,15 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
   const steps = computed(() => stepViews(schema, state.value, issues.value))
   const progress = computed(() => progressOf(schema, state.value))
   const visibleList = computed(() => visibleSteps(schema, state.value))
-  const currentStepIndex = computed(() => Math.min(state.value.meta.step, visibleList.value.length - 1))
+  const currentStepIndex = computed(() => {
+    const list = visibleList.value
+    const id = state.value.meta.stepId
+    if (id) {
+      const index = list.findIndex((s) => s.id === id)
+      if (index !== -1) return index
+    }
+    return Math.min(state.value.meta.step, list.length - 1)
+  })
   const currentStep = computed<Step | undefined>(() => visibleList.value[currentStepIndex.value])
   const currentIssues = computed<Issue[]>(() => {
     const id = currentStep.value?.id
@@ -165,6 +173,7 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
           ? { ...state.value.meta.completed, [leaving!.id]: true }
           : state.value.meta.completed,
         step: target,
+        stepId: targetStep.id,
       },
     }
     void flush()
@@ -188,9 +197,9 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
   function syncUrl() {
     if (!import.meta.client) return
     const url = new URL(location.href)
-    const step = state.value.meta.step
-    if (step === 0) url.searchParams.delete("step")
-    else url.searchParams.set("step", String(step))
+    const id = state.value.meta.stepId ?? currentStep.value?.id
+    if (!id || currentStepIndex.value === 0) url.searchParams.delete("step")
+    else url.searchParams.set("step", String(id))
     history.replaceState(null, "", url.toString())
   }
 
@@ -204,9 +213,24 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
       const loaded = await store.load()
       if (!loaded) return
       state.value = updateHidden(schema, applyInitials(schema, loaded))
-      const requested = Number(new URL(location.href).searchParams.get("step") ?? loaded.meta.step ?? 0)
+      const visible = visibleSteps(schema, state.value)
+      let requested = state.value.meta.step
+      if (state.value.meta.stepId) {
+        const byId = visible.findIndex((s) => s.id === state.value.meta.stepId)
+        if (byId !== -1) requested = byId
+      }
+      const raw = new URL(location.href).searchParams.get("step")
+      if (raw) {
+        const byId = visible.findIndex((s) => s.id === raw)
+        if (byId !== -1) requested = byId
+        else if (/^\d+$/.test(raw)) requested = Number(raw)
+      }
       const entry = resolveEntryStep(schema, state.value, Number.isFinite(requested) ? requested : 0)
-      state.value = { ...state.value, meta: { ...state.value.meta, step: entry.index } }
+      state.value = {
+        ...state.value,
+        meta: { ...state.value.meta, step: entry.index, stepId: visible[entry.index]?.id },
+      }
+      syncUrl()
     } catch (e) {
       console.warn("[draft] load failed", e)
     }

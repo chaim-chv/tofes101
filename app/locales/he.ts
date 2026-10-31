@@ -10,6 +10,7 @@ export default {
   "app.name": "טופס 101",
   "app.tagline": "כרטיס עובד — מילוי מקוון, בלי שרת ובלי פרסומות",
   "app.year": "שנת המס 2026",
+  "form.stepAnnouncement": "שלב {n} מתוך {total}: {title}",
   "app.footer": "טופס 101 · 2026 · הנתונים נשארים במכשיר",
   "nav.home": "דף הבית",
   "nav.employer": "למעסיקים",
@@ -165,6 +166,8 @@ export default {
   "upload.privacy": "הקבצים לא נשלחים לשום מקום. הם נשמרים בדפדפן ויימצאו ב-PDF שתורידו.",
   "upload.recommended": "מומלץ",
 
+  "step.finish.title": "סקירה, הצהרה וחתימה",
+  "step.finish.intro": "זה בדיוק מה שיודפס. בדקו, חתמו, והורידו את הקובץ.",
   "step.review.title": "סקירה לפני חתימה",
   "step.review.intro": "זה בדיוק מה שיודפס. אפשר לתקן כל סעיף בלחיצה.",
   "step.sign.title": "הצהרה וחתימה",

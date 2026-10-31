@@ -7,6 +7,7 @@ export default {
   "app.name": "Form 101",
   "app.tagline": "Employee tax card — online, with no server and no ads",
   "app.year": "Tax year 2026",
+  "form.stepAnnouncement": "Step {n} of {total}: {title}",
   "app.footer": "Form 101 · 2026 · Your data stays on this device",
   "nav.home": "Home",
   "nav.employer": "For employers",
@@ -158,6 +159,8 @@ export default {
   "upload.privacy": "Files are never uploaded. They stay in your browser and end up in the PDF you download.",
   "upload.recommended": "Recommended",
 
+  "step.finish.title": "Review, declaration and signature",
+  "step.finish.intro": "This is exactly what will be printed. Check it, sign, and download the file.",
   "step.review.title": "Review before signing",
   "step.review.intro": "This is exactly what will be printed. Every section can be edited with one click.",
   "step.sign.title": "Declaration and signature",

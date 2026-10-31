@@ -37,6 +37,33 @@ html {
   /* Hebrew at 16px+ avoids iOS zoom-on-focus. */
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
+  /* Sticky header + sticky action bar: keep focused fields visible. */
+  scroll-padding-top: 5.5rem;
+  scroll-padding-bottom: 7rem;
+}
+
+/* The sticky action bar must not cover the focused field when the keyboard is open. */
+html[data-keyboard] .actionbar {
+  display: none;
+}
+
+input,
+select,
+textarea {
+  scroll-margin-block-end: 120px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {
@@ -53,6 +80,13 @@ input[inputmode="decimal"] {
   direction: ltr;
   unicode-bidi: isolate;
   text-align: start;
+}
+
+/* Nuxt UI's solid primary hover uses `primary/75`, which drops white text below
+ * 4.5:1. Keep the hover/active state at the darker teal instead. */
+[data-slot="base"].bg-primary:hover,
+[data-slot="base"].bg-primary:active {
+  background-color: #115e59 !important;
 }
 
 /* Never remove focus outlines: WCAG 2.4.7 / 2.4.11. */
