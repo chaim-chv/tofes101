@@ -111,6 +111,19 @@ input[inputmode="decimal"] {
   .no-print {
     display: none !important;
   }
+
+  /* Keep a review section and its rows on one page where possible. */
+  .review-section,
+  .review-section dl > div {
+    break-inside: avoid;
+  }
+
+  .review-section {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+
   @page {
     size: A4;
     margin: 12mm;

@@ -306,7 +306,7 @@ const stepStatus: Step = {
       when: (s) => s.values["employee.maritalStatus"] === "separated",
       span: 12,
     },
-    { id: "status.section.residence", kind: "section", contentKey: "status.section.residence" },
+    { id: "status.section.residence", kind: "section", contentKey: "status.section.residence", when: isId },
     {
       id: "employee.ilResident",
       kind: "radio",
@@ -628,7 +628,7 @@ const stepCredits: Step = {
       variant: "warning",
       when: creditsBlocked,
     },
-    { id: "credits.section.personal", kind: "section", contentKey: "credits.section.personal" },
+    { id: "credits.section.personal", kind: "section", contentKey: "credits.section.personal", when: (s) => !creditsBlocked(s) },
     creditToggle("resident", "f.credits.resident", { helpKey: "f.credits.resident.help" }),
     creditToggle("disabled", "f.credits.disabled"),
     {
@@ -688,7 +688,7 @@ const stepCredits: Step = {
       validate: firstOf(validDate(), notFuture(), dateInTaxYear((s) => s.meta.taxYear)),
       span: 6,
     },
-    { id: "credits.section.family", kind: "section", contentKey: "credits.section.family" },
+    { id: "credits.section.family", kind: "section", contentKey: "credits.section.family", when: (s) => !creditsBlocked(s) },
     creditToggle("incomelessSpouse", "f.credits.incomelessSpouse", {
       when: (s) =>
         !creditsBlocked(s) && isMarried(s) && s.values["spouse.hasIncome"] === "no",
@@ -750,7 +750,7 @@ const stepCredits: Step = {
       span: 6,
     },
     creditToggle("alimony", "f.credits.alimony"),
-    { id: "credits.section.service", kind: "section", contentKey: "credits.section.service" },
+    { id: "credits.section.service", kind: "section", contentKey: "credits.section.service", when: (s) => !creditsBlocked(s) },
     creditToggle("youngEmployee", "f.credits.youngEmployee", { validate: youngEmployeeEligible() }),
     creditToggle("discharged", "f.credits.discharged"),
     {

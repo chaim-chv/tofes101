@@ -169,15 +169,18 @@ never silently dropped.
 
 | component | responsibility | may not |
 | --- | --- | --- |
-| `FormField.vue` | dispatch by `kind`, render label/help/error wrapper | contain rules |
-| `FormText.vue` / `FormDate.vue` / `FormRadio.vue` / `FormCheckbox.vue` / `FormSelect.vue` | one control each, identical a11y wiring | know about steps |
-| `FormRepeat.vue` | add/remove/reorder rows, focus management, live announcements | know which repeater it is |
-| `FormSignature.vue` | canvas + typed alternative + date | validate the declaration |
+| `FormField.vue` | map a `FieldDef` to `UFormField` + `UInput` / `USelect` / `URadioGroup` / `UCheckboxGroup` / `UCheckbox` | contain rules |
+| `DateField.vue` | `dd/mm/yyyy` display, ISO storage, paste of either form | validate the tax-year range |
+| `CityField.vue` | lazy city autocomplete (`UInputMenu`, free text) | decide that a city is required |
+| `FormRepeat.vue` | `UCard` rows + `UEmpty`, add/remove focus management, live announcements | know which repeater it is |
+| `FormSignature.vue` | `UTabs` draw/type, canvas, date, declaration version + answers hash | validate the declaration |
 | `ErrorSummary.vue` | list of issues with anchor links, focus target | compute issues |
-| `StepNav.vue` | back/next, disabled reasons, progress text | decide validity |
-| `ProgressSteps.vue` | `aria-current="step"`, jump-to-step | navigate directly |
+| `StepRail.vue` | desktop step list, `aria-current`, error badges, skipped steps | decide validity |
+| `StepProgress.vue` | mobile progress + step slideover | navigate directly |
+| `FormActionBar.vue` | sticky back/next/download/print, keyboard-aware | decide validity |
+| `DraftMenu.vue` | export/import/delete draft, confirmations, toasts | hold form rules |
+| `SaveStatus.vue` | persistent "saved on this device" status | decide persistence |
 | `ReviewList.vue` | read-only render of every visible field + "edit" links | format values itself |
-| `PrivacyBanner.vue` | the "stays on device" message | — |
 
 **One** control implementation per kind. If a screen needs a variant, it passes a
 prop or uses a slot — it does not fork the component. Any duplicated markup in a
@@ -185,15 +188,20 @@ page is a bug.
 
 ## 4. Navigation & URL
 
-- **Single route** `/form` (see ADR-0007). Steps are state, mirrored to
-  `?step=<n>` via `history.replaceState`, so a reload keeps the user in place and
-  the PWA's offline fallback has exactly one entry point.
+- **Single route** `/form` (see ADR-0007). The form is **9 steps**:
+  employer → identity → contact → status → children → income → credits →
+  attachments (optional) → finish (review + declaration + signature + download).
+- Steps are mirrored to `?step=<id>` (`?step=identity`) via
+  `history.replaceState`; `meta.stepId` is the source of truth and `meta.step`
+  is the legacy numeric mirror. Numeric `?step=6` links are accepted and
+  resolved through the schema.
 - The employer payload stays in the fragment (`#e=…`), captured before hydration
-  by an inline script (`window.__INITIAL_HASH`).
-- Back/forward: the browser's back button must leave the form (not walk steps) —
-  we use `replaceState`, not `pushState`. Explicit "back" is the step nav.
-- Deep link `?step=6`: load draft, validate steps 1–5, and either land on 6 or
-  send the user to the first invalid step with a notice.
+  by an inline script (`window.__INITIAL_HASH`); `hashchange` is handled too.
+- Back/forward: the browser's back button leaves the form (not walk steps) — we
+  use `replaceState`, not `pushState`. Explicit "back" is the step nav.
+- Deep link: load the draft, validate earlier steps, and either land on the
+  requested step or on the first invalid step with a notice. Skipped steps are
+  disabled in the rail and explained in a notice.
 
 ## 5. Validation & errors
 
@@ -229,10 +237,13 @@ Never disable the primary action silently. If it cannot proceed, say why
 - Multi-tab: a `BroadcastChannel` "draft updated" ping; a tab that is not the
   writer shows a non-blocking "נפתח בטאב אחר — לרענן?" notice. Never silently
   overwrite.
-- Export/import: `.json` with `{ app: "tofes101", schema, exportedAt, state }`.
-  Import validates shape, refuses foreign/newer files, and previews what will be
-  replaced ("3 ילדים, טופס 2026") before applying.
-- Clear-all: one button, two-step confirm, also clears the signature.
+- Export/import: `.json` with `{ app: "tofes101", schema, savedAt, state }`.
+  Import validates shape, refuses foreign/newer files, and clears attachments
+  from the previous draft. The header "Draft" menu owns export/import/delete.
+- Clear-all: two-step confirm in the "Draft" menu; clears the draft, attachment
+  blobs and the signature. Import also clears attachment blobs.
+- Save status is persistent in the wizard header (`aria-live="polite"`), not a
+  line under the step rail. `dirty` resets after a successful flush.
 
 ## 8. PDF output
 
@@ -260,16 +271,20 @@ See `kb/eng/pdf-generation.md` + ADR-0002. Shape of the implementation:
 
 ## 10. Performance budget
 
-| metric | budget | measured (spike) |
+| metric | target | measured 2026-11-01 |
 | --- | --- | --- |
-| first-load JS gzip | ≤ 260 KB | 235 KB |
-| LCP (slow 4G, mobile) | ≤ 2.0 s | 1.8 s |
+| first-load JS gzip (home) | ≤ 260 KB | 252 KB |
+| first-load JS gzip (form) | ≤ 340 KB | 329 KB |
+| first-load JS gzip (employer) | ≤ 270 KB | 262 KB |
+| LCP (slow 4G, mobile) | ≤ 2.0 s | not re-measured |
 | CLS | 0 | 0 |
-| total page weight | ≤ 1.0 MB | 967 KB |
-| PDF path (lazy) | only on export | 516 KB gzip |
+| PDF path (lazy) | only on export | ~516 KB gzip |
 
-Anything that blows the budget must be lazy-loaded, and the budget is asserted in
-`tools/perf/budget.ts` (reads `.output/public` sizes; fails CI).
+The form budget was raised from 260 KB to 340 KB for Nuxt UI controls
+(`UFormField`, `UInputMenu`, `UTabs`, `UFileUpload`, `UModal`). The city list,
+signature, uploads and review are lazy components, but Nuxt preloads them. This
+is the main follow-up if the budget must return to 260 KB; `tools/perf/budget.ts`
+does not exist yet.
 
 ## 11. GitHub Pages
 
@@ -328,3 +343,20 @@ Canonical profiles (fixed fixtures, reused everywhere):
 | Scope creep into employer side | ADR-0004 is explicit: link builder only |
 | Storage eviction on iOS | export nudge + `navigator.storage.persist()` request + visible "last saved" |
 | "I filled it but the employer rejected it" | the review step shows exactly the printed output; the checklist lists documents; nothing is claimed that we cannot produce |
+
+
+## 15. UX refactor status (2026-11-01)
+
+Phases 0–4 of `docs/UX-REFACTOR-PLAN.md` are implemented:
+
+| phase | commit | outcome |
+| --- | --- | --- |
+| 0 | `5963c47` | step-id navigation, draft/delete/conflict/prefill fixes, signature integrity, locked fields, print CTA |
+| 1 | `818bf88` | `NuxtLayout` shell, `UHeader`/`UFooter`, Heebo loaded, home/employer rebuild, accessibility/privacy pages |
+| 2 | `f2ad4f2` | 9-step model, `?step=<id>`, desktop rail, mobile progress + slideover, sticky action bar, draft menu |
+| 3 | `bde40ee` | Nuxt UI controls, `DateField`, lazy city autocomplete, `UTabs` signature, `UFileUpload`, repeat cards |
+| 4 | `181038f` | sectioned steps, credits grouping + long-tail toggle, income descriptions, child ages, derived summary, completion panel |
+
+Still open after Phase 5: one `DocumentView` shared by review/print, PDF tagging,
+optional dark mode, and a stricter bundle split. The full `bun run verify` gate
+(kb check, unit tests, static generation, privacy, Playwright + axe) is green.

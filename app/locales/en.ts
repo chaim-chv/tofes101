@@ -80,6 +80,7 @@ export default {
   "home.draft.confirmTitle": "Delete the draft?",
   "home.draft.confirmBody": "The answers and attached documents will be deleted from this device.",
 
+  "form.whatIsThis": "What is Form 101?",
   "form.prefill.title": "Details for {name} were prefilled",
   "form.prefill.accept": "Accept and continue",
   "form.prefill.dismiss": "No, I'll fill it myself",

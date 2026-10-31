@@ -100,8 +100,8 @@ async function deleteAll() {
 
 <template>
   <UDropdownMenu :items="items">
-    <UButton variant="ghost" color="neutral" size="sm" :aria-label="t('draft.menu')">
-      {{ t("draft.menu") }}
+    <UButton variant="ghost" color="neutral" size="sm" icon="i-lucide-file-text" :aria-label="t('draft.menu')">
+      <span class="hidden sm:inline">{{ t("draft.menu") }}</span>
     </UButton>
   </UDropdownMenu>
 

@@ -74,15 +74,6 @@ const checkboxValues = computed(() =>
 
 const textValue = computed(() => (typeof props.value === "string" ? props.value : ""))
 
-const maxDate = computed(() => {
-  if (props.field.kind !== "date") return undefined
-  if (props.field.max) return props.field.max
-  const now = new Date()
-  const m = String(now.getMonth() + 1).padStart(2, "0")
-  const d = String(now.getDate()).padStart(2, "0")
-  return `${now.getFullYear()}-${m}-${d}`
-})
-
 function filterInput(raw: string): string {
   switch (props.field.inputFilter) {
     case "digits":
@@ -207,22 +198,31 @@ function onBlur(event: FocusEvent) {
         @update:model-value="(value) => emit('update:value', value)"
       />
 
-      <UInput
-        v-else
+      <DateField
+        v-else-if="field.kind === 'date'"
         :id="inputId"
         :model-value="textValue"
-        :type="field.kind === 'date' ? 'date' : field.inputMode === 'email' ? 'email' : field.inputMode === 'tel' ? 'tel' : 'text'"
-        :inputmode="field.inputMode"
-        :autocomplete="field.autoComplete ?? 'off'"
-        :maxlength="field.maxLength"
-        :pattern="field.pattern"
-        :min="field.kind === 'date' ? field.min : undefined"
-        :max="maxDate"
         :readonly="locked"
         :disabled="disabled && !locked"
         :aria-required="isRequired || undefined"
         :aria-invalid="errorText ? true : undefined"
-        :dir="field.kind === 'date' || field.inputMode ? 'ltr' : undefined"
+        @update:model-value="(value) => emit('update:value', value)"
+      />
+
+      <UInput
+        v-else
+        :id="inputId"
+        :model-value="textValue"
+        :type="field.inputMode === 'email' ? 'email' : field.inputMode === 'tel' ? 'tel' : 'text'"
+        :inputmode="field.inputMode"
+        :autocomplete="field.autoComplete ?? 'off'"
+        :maxlength="field.maxLength"
+        :pattern="field.pattern"
+        :readonly="locked"
+        :disabled="disabled && !locked"
+        :aria-required="isRequired || undefined"
+        :aria-invalid="errorText ? true : undefined"
+        :dir="field.inputMode ? 'ltr' : undefined"
         size="lg"
         class="w-full"
         @update:model-value="onText"

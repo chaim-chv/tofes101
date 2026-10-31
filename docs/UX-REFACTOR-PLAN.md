@@ -1,10 +1,17 @@
 # UX refactor plan — tofes101
 
-**Status:** proposal, awaiting confirmation.
-**Date:** 2026-10-31.
+**Status:** confirmed; phases 0–4 implemented, phase 5 in progress (2026-11-01).
+**Date:** 2026-10-31 · updated 2026-11-01.
 **Scope:** the whole user-facing product: `/`, `/employer`, `/form`, `/print`, plus the missing completion state.
 **Basis:** current working tree (which already contains uncommitted validation work), the project's own UX KB/documented contracts, the competitor teardown, and Nuxt UI 4.12 (already a dependency).
 
+> Implementation status: phases 0–4 are committed (`5963c47`, `818bf88`,
+> `f2ad4f2`, `bde40ee`, `181038f`). Phase 5 is verification and polish. See
+> `docs/IMPLEMENTATION.md` §15 for the delivered scope and the remaining
+> follow-ups (shared `DocumentView`, PDF tagging, dark mode, stricter bundle
+> split). The city picker, date field, completion panel and derived summary are
+> done; the official document wording is unchanged.
+>
 > This plan does **not** touch the legal content or the privacy model. It keeps
 > the pure schema/engine and the "no server, no account, no ads" promise. It
 > builds on the uncommitted validation work in `schema.ts`, `validators.ts`,

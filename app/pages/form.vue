@@ -532,6 +532,16 @@ function changeIdKind() {
         </h1>
         <p v-if="step?.introKey" class="mt-2 text-sm text-muted">{{ t(step.introKey) }}</p>
 
+        <UCollapsible v-if="step?.id === 'employer'" class="mt-3">
+          <UButton variant="link" color="neutral" size="sm">{{ t("form.whatIsThis") }}</UButton>
+          <template #content>
+            <div class="mt-2 space-y-2 rounded-lg border border-default bg-elevated/20 p-3 text-sm text-muted">
+              <p>{{ t("intro.what") }}</p>
+              <p>{{ t("intro.time") }}</p>
+            </div>
+          </template>
+        </UCollapsible>
+
         <ErrorSummary
           ref="summary"
           :issues="showErrors ? form.currentIssues.value : []"

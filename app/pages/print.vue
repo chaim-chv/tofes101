@@ -94,7 +94,7 @@ const dateText = computed(() => {
       :description="t('pdf.error')"
     />
 
-    <article dir="rtl" lang="he" class="document mx-auto w-full max-w-3xl bg-white px-8 py-10 text-black shadow-sm print:shadow-none">
+    <article dir="rtl" lang="he" class="document mx-auto w-full max-w-3xl break-words bg-white px-4 py-8 text-black shadow-sm sm:px-8 sm:py-10 print:shadow-none">
       <header class="mb-6 border-b border-neutral-300 pb-4 text-center">
         <h1 class="text-xl font-bold">{{ he["doc101.title"] }}</h1>
         <p class="mt-1 text-xs text-neutral-600">{{ he["doc101.subtitle"] }}</p>
@@ -109,12 +109,12 @@ const dateText = computed(() => {
         <h2 class="text-sm font-bold">{{ he["doc101.declarationTitle"] }}</h2>
         <p class="mt-2 text-[13px] leading-relaxed">{{ declaration }}</p>
 
-        <div class="mt-6 flex items-end justify-between gap-8">
-          <div class="min-w-[120px]">
+        <div class="mt-6 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+          <div class="min-w-0 sm:min-w-[120px]">
             <p class="text-[11px] text-neutral-600">{{ he["doc101.date"] }}</p>
             <p class="mt-1 border-b border-neutral-400 pb-1 text-sm" dir="ltr">{{ dateText }}</p>
           </div>
-          <div class="min-w-[220px] text-center">
+          <div class="w-full text-center sm:w-auto sm:min-w-[220px]">
             <div v-if="signatureSvg" class="mx-auto" v-html="signatureSvg" />
             <div v-else-if="signed?.typedName" class="mx-auto text-lg italic">{{ signed.typedName }}</div>
             <p class="mt-1 border-t border-neutral-400 pt-1 text-[11px] text-neutral-600">

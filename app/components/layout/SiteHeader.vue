@@ -26,10 +26,15 @@ const items = computed<NavigationMenuItem[]>(() => [
 </script>
 
 <template>
-  <UHeader :toggle="props.wizard ? false : undefined" :title="t('app.name')" :to="path('/')">
+  <UHeader
+    :toggle="props.wizard ? false : undefined"
+    :title="t('app.name')"
+    :to="path('/')"
+    :ui="{ title: 'min-w-0 shrink', right: 'min-w-0' }"
+  >
     <template #title>
       <UIcon name="i-lucide-file-text" class="size-5 text-primary" />
-      <span>{{ t("app.name") }}</span>
+      <span class="truncate">{{ t("app.name") }}</span>
     </template>
 
     <UNavigationMenu v-if="!props.wizard" :items="items" />

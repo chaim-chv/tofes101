@@ -85,6 +85,7 @@ export default {
   "home.draft.confirmBody": "התשובות והמסמכים המצורפים יימחקו מהמכשיר.",
 
   /* ------------------------------------------------------------------- form */
+  "form.whatIsThis": "מה זה טופס 101?",
   "form.prefill.title": "הפרטים של {name} הוזנו מראש",
   "form.prefill.accept": "אישור והמשך",
   "form.prefill.dismiss": "לא, אני ממלא/ת לבד",

@@ -28,12 +28,20 @@ Playwright e2e with axe on every step.
 - [x] RTL shell, design tokens, contrast fixes
 - [x] Schema runtime + engine, typed, no `eval`
 - [x] Draft persistence + versioned JSON export/import
-- [x] All 10 steps end-to-end
+- [x] All 10 steps end-to-end (now 9 after the UX refactor: intro folded into step 1, review+sign merged)
 - [x] a11y gate (axe, 0 violations) + Playwright e2e
+
+## UX refactor (2026-11-01)
+
+Phases 0–4 of `docs/UX-REFACTOR-PLAN.md` are done: one shell, Nuxt UI controls,
+9 honest steps, sticky actions, grouped credits, derived summary and completion
+state. Phase 5 (verification/polish) is in progress. Remaining follow-ups:
+shared `DocumentView` for review/print, tagged PDF, optional dark mode, stricter
+bundle splitting.
 
 ## Phase 2 — Parity
 
-- [x] All 10 steps with their conditionals (children, spouse, other income, credits, coordination)
+- [x] All 9 steps with their conditionals (children, spouse, other income, credits, coordination)
 - [x] Error summary + focus management + validate-on-touch
 - [x] A4 print output (`/print/`) — the "always works" path
 - [ ] PDF overlay on the official form (ADR-0002) — coordinates are the remaining work
