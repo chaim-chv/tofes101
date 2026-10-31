@@ -52,7 +52,7 @@ describe("schema i18n coverage", () => {
   })
 
   test("every non-static field has a label", () => {
-    const missing = schema.allFields.filter((f) => f.kind !== "static" && !f.labelKey)
+    const missing = schema.allFields.filter((f) => f.kind !== "static" && f.kind !== "section" && !f.labelKey)
     expect(missing.map((f) => f.id)).toEqual([])
   })
 

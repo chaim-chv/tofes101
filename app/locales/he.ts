@@ -27,6 +27,8 @@ export default {
   "common.next": "המשך",
   "common.back": "חזרה",
   "common.print": "הדפסה",
+  "common.showLess": "הצגת פחות",
+  "credits.showMore": "עוד סעיפים ({n})",
   "common.skipToContent": "דלג לתוכן",
   "common.copy": "העתקה",
   "common.copied": "הועתק",
@@ -180,6 +182,17 @@ export default {
   "intro.time": "כ-10 דקות. אפשר לעצור באמצע ולחזור — הטיוטה נשמרת אוטומטית.",
 
   /* -------------------------------------------------------------- employer f */
+  "contact.section.address": "כתובת",
+  "contact.section.reach": "דרכי התקשרות",
+  "status.section.personal": "פרטים אישיים",
+  "status.section.residence": "תושבות",
+  "status.section.fund": "קופת חולים",
+  "income.section.pay": "השכר מהמעסיק הזה",
+  "income.section.other": "הכנסות אחרות",
+  "credits.section.personal": "זיכויים אישיים",
+  "credits.section.family": "משפחה וילדים",
+  "credits.section.service": "שירות, לימודים ומילואים",
+
   "f.employer.name": "שם המעסיק",
   "f.employer.unknown": "אני לא יודע/ת את פרטי המעסיק",
   "f.employer.unknown.help": "אפשר להשאיר ריק — הקובץ יודפס עם מקום ריק, והמעסיק ישלים.",
@@ -205,7 +218,7 @@ export default {
   "f.employee.zip": "מיקוד",
   "f.employee.mobile": "טלפון נייד",
   "f.employee.email": "כתובת דואר אלקטרוני",
-  "f.employee.email.help": "לא חובה. משמשת רק אם תרצו לשמור עותק לעצמכם.",
+  "f.employee.email.help": "לא חובה. נשמרת בטופס בלבד; איננו שולחים אותה לשום מקום.",
   "f.employee.sex": "מין",
   "f.employee.sex.help": "נדרש לחישוב נקודות זיכוי ולהתאמת הלשון בטופס.",
   "f.employee.maritalStatus": "מצב משפחתי",
@@ -233,6 +246,8 @@ export default {
   /* --------------------------------------------------------------- children */
   "f.children": "הילדים",
   "f.children.list": "פרטי הילדים",
+  "f.children.age": "בן/בת {age} בשנת המס",
+  "f.children.age.born": "נולד/ה בשנת המס",
   "f.children.row": "ילד/ה {n}",
   "f.children.add": "הוספת ילד/ה",
   "f.children.name": "שם הילד/ה",
@@ -248,8 +263,7 @@ export default {
 
   /* ----------------------------------------------------------------- income */
   "f.income.salaryTypes": "אני מקבל/ת ממעסיק זה",
-  "f.income.salaryTypes.help":
-    "משכורת חודש = 18 יום בחודש ומעלה. משרה נוספת = יותר מ-5 שעות ביום בנוסף להכנסה אחרת. חלקית = פחות מ-5 שעות ביום. שכר יומי = פחות מ-18 יום בחודש.",
+  "f.income.salaryTypes.help": "אפשר לסמן יותר מאחד. ההגדרה מופיעה ליד כל אפשרות.",
   "f.income.startDate": "תאריך תחילת העבודה בשנת המס",
   "f.income.startDate.help": "חייב ליפול בתוך שנת המס שבחרתם.",
   "income.secondJobWarning":
@@ -358,6 +372,19 @@ export default {
   "f.coord.approved.help": "צרפו את האישור לטיוטה או מסרו אותו למעסיק.",
 
   /* --------------------------------------------------------------- review/sign */
+  "review.summary.title": "לפי התשובות שלכם",
+  "review.summary.children": "ילדים",
+  "review.summary.credits": "סעיפי זיכוי",
+  "review.summary.docs": "מסמכים נדרשים",
+  "review.summary.note": "סיכום בלבד. איננו מחשבים מס.",
+  "complete.title": "הקובץ מוכן",
+  "complete.body": "הקובץ נבנה במכשיר. אפשר להוריד שוב, להדפיס או לשלוח למעסיק.",
+  "complete.again": "הורדה חוזרת",
+  "complete.share": "שיתוף",
+  "complete.startNew": "התחלת טופס חדש",
+  "complete.confirmTitle": "להתחיל טופס חדש?",
+  "complete.confirmBody": "התשובות, החתימה והקבצים יימחקו מהמכשיר.",
+  "complete.done": "טופס חדש התחיל",
   "review.summary": "הנה כל מה שנכנס לטופס. כל שורה ניתנת לעריכה.",
   "review.editStep": "עריכה",
   "review.empty": "לא מולא",
@@ -399,6 +426,10 @@ export default {
   "opt.spouseIncome.has": "יש לבן/בת הזוג הכנסה",
   "opt.spouseIncomeType.work": "עבודה / קצבה / עסק",
   "opt.spouseIncomeType.other": "הכנסה אחרת",
+  "opt.salary.monthly.hint": "18 יום בחודש ומעלה",
+  "opt.salary.additional.hint": "יותר מ־5 שעות ביום, בנוסף להכנסה אחרת",
+  "opt.salary.partial.hint": "פחות מ־5 שעות ביום",
+  "opt.salary.daily.hint": "פחות מ־18 יום בחודש",
   "opt.salary.monthly": "משכורת חודש",
   "opt.salary.additional": "משרה נוספת",
   "opt.salary.partial": "משכורת חלקית",

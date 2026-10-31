@@ -9,6 +9,8 @@ import type { MessageKey } from "~/locales"
 import type { FieldDef, Signature } from "~/form/types"
 import { answersFingerprint, rowKey } from "~/form/values"
 import { hiddenCount } from "~/form/engine"
+import { derive } from "~/form/derive"
+import { documentChecklist } from "~/form/documents"
 
 definePageMeta({ layout: "wizard" })
 
@@ -107,6 +109,7 @@ onMounted(async () => {
   initLocale()
   await form.hydrate()
   await form.flush()
+  completion.value = Boolean(form.state.value.meta.lastExportAt)
 
   // The router may strip the fragment during hydration; the inline script in
   // nuxt.config captured it first. Same-route hash changes are handled below.
@@ -182,6 +185,7 @@ function afterNavigate() {
   // behind (which may have failed a "continue" a moment ago).
   showErrors.value = false
   touched.clear()
+  creditsExtraOpen.value = false
   nextTick(() => {
     document.getElementById("step-title")?.focus()
     const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -261,6 +265,20 @@ const pdfRowWarning = computed(() => {
   return null
 })
 
+/** Credits: keep the long tail out of the first screen. */
+const creditsExtraOpen = ref(false)
+const creditFields = computed(() => {
+  const fields = step.value ? form.visibleFields(step.value) : []
+  if (step.value?.id !== "credits" || creditsExtraOpen.value) return fields
+  const cut = fields.findIndex((f) => f.id === "credits.section.service")
+  return cut === -1 ? fields : fields.slice(0, cut)
+})
+const extraCreditCount = computed(() => {
+  const fields = step.value?.id === "credits" ? form.visibleFields(step.value) : []
+  const cut = fields.findIndex((f) => f.id === "credits.section.service")
+  return cut === -1 ? 0 : fields.slice(cut).filter((f) => f.kind !== "section").length
+})
+
 /* --------------------------------------------------------- signature integrity */
 
 const currentAnswersHash = computed(() => answersFingerprint(form.state.value))
@@ -324,6 +342,40 @@ function setValue(id: string, value: unknown) {
 const printHref = computed(() => path("/print/"))
 const pdf = usePdfExport()
 
+const derived = computed(() => derive(form.state.value))
+const documents = computed(() => documentChecklist(form.state.value))
+const requiredDocCount = computed(() => documents.value.filter((d) => d.required).length)
+
+const completion = ref(false)
+const startNewOpen = ref(false)
+const canShare = computed(
+  () => import.meta.client && typeof navigator !== "undefined" && !!navigator.canShare && !!pdf.lastBlob.value,
+)
+
+watch(currentAnswersHash, () => {
+  completion.value = false
+})
+
+async function sharePdf() {
+  const blob = pdf.lastBlob.value
+  if (!blob) return
+  const file = new File([blob], pdf.fileName.value ?? "tofes101.pdf", { type: "application/pdf" })
+  if (!navigator.canShare?.({ files: [file] })) return
+  try {
+    await navigator.share({ files: [file], title: t("app.name") })
+  } catch {
+    /* the user cancelled the share sheet */
+  }
+}
+
+async function startNew() {
+  await form.reset()
+  lockedIds.value = new Set()
+  completion.value = false
+  startNewOpen.value = false
+  toast.add({ title: t("complete.done"), color: "success", icon: "i-lucide-check-circle-2" })
+}
+
 async function downloadPdf() {
   if (signatureStale.value) {
     staleError.value = true
@@ -341,6 +393,7 @@ async function downloadPdf() {
   const ok = await pdf.download(form.state.value)
   if (!ok) return
   form.markExported()
+  completion.value = true
   toast.add({
     title: t("pdf.ready"),
     description: pdf.fileName.value ?? undefined,
@@ -495,14 +548,60 @@ function changeIdKind() {
           :description="pdfRowWarning"
         />
 
-        <!-- review step -->
-        <div v-if="step?.id === 'finish'" class="mt-5">
+        <!-- finish: result, summary, review, declaration, signature -->
+        <div v-if="step?.id === 'finish'" class="mt-5 space-y-4">
+          <UCard v-if="completion" class="border-success/40 bg-success/5">
+            <div class="flex items-start gap-3">
+              <UIcon name="i-lucide-check-circle-2" class="mt-0.5 size-5 shrink-0 text-success" />
+              <div class="min-w-0">
+                <p class="font-semibold text-highlighted">{{ t("complete.title") }}</p>
+                <p class="mt-1 text-sm text-muted">{{ t("complete.body") }}</p>
+                <p v-if="pdf.fileName.value" class="mt-1 font-mono text-xs text-highlighted" dir="ltr">
+                  {{ pdf.fileName.value }}
+                </p>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <UButton :loading="pdf.busy.value" icon="i-lucide-file-down" @click="downloadPdf">
+                    {{ t("complete.again") }}
+                  </UButton>
+                  <UButton :to="printHref" variant="outline" color="neutral" icon="i-lucide-printer">
+                    {{ t("common.print") }}
+                  </UButton>
+                  <UButton v-if="canShare" variant="outline" color="neutral" icon="i-lucide-link" @click="sharePdf">
+                    {{ t("complete.share") }}
+                  </UButton>
+                  <UButton variant="ghost" color="neutral" icon="i-lucide-plus" @click="startNewOpen = true">
+                    {{ t("complete.startNew") }}
+                  </UButton>
+                </div>
+              </div>
+            </div>
+          </UCard>
+
+          <UCard class="border-primary/20 bg-primary/5">
+            <p class="text-xs font-medium text-muted">{{ t("review.summary.title") }}</p>
+            <div class="mt-3 grid grid-cols-3 gap-3 text-center">
+              <div>
+                <p class="text-2xl font-bold text-highlighted">{{ derived.childCount }}</p>
+                <p class="text-xs text-muted">{{ t("review.summary.children") }}</p>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-highlighted">{{ derived.claimedItems.length }}</p>
+                <p class="text-xs text-muted">{{ t("review.summary.credits") }}</p>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-highlighted">{{ requiredDocCount }}</p>
+                <p class="text-xs text-muted">{{ t("review.summary.docs") }}</p>
+              </div>
+            </div>
+            <p class="mt-2 text-xs text-muted">{{ t("review.summary.note") }}</p>
+          </UCard>
+
           <LazyReviewList :schema="form.schema" :state="form.state.value" @edit="(id: string) => form.goToId(id, { force: true })" />
         </div>
 
         <!-- fields (also on finish: declaration, signature, date) -->
         <div class="mt-5 grid grid-cols-12 gap-x-4 gap-y-5">
-          <template v-for="field in step ? form.visibleFields(step) : []" :key="field.id">
+          <template v-for="field in creditFields" :key="field.id">
             <div
               :class="field.span === 6 ? 'col-span-12 sm:col-span-6' : field.span === 4 ? 'col-span-12 sm:col-span-4' : field.span === 3 ? 'col-span-6 sm:col-span-3' : 'col-span-12'"
               @focusout="markTouched(field.id, $event)"
@@ -543,6 +642,18 @@ function changeIdKind() {
             </div>
           </template>
         </div>
+
+        <div v-if="step?.id === 'credits'" class="mt-4">
+          <UButton
+            variant="outline"
+            color="neutral"
+            :aria-expanded="creditsExtraOpen"
+            @click="creditsExtraOpen = !creditsExtraOpen"
+          >
+            {{ creditsExtraOpen ? t("common.showLess") : t("credits.showMore", { n: extraCreditCount }) }}
+          </UButton>
+        </div>
+
         <LazyDocumentUploads
           v-if="step?.id === 'attach'"
           :id-kind="(form.state.value.values['employee.idKind'] as 'idNum' | 'passport' | undefined)"
@@ -588,5 +699,12 @@ function changeIdKind() {
       </p>
       </div>
     </div>
+
+    <UModal v-model:open="startNewOpen" :title="t('complete.confirmTitle')" :description="t('complete.confirmBody')">
+      <template #footer>
+        <UButton variant="ghost" color="neutral" @click="startNewOpen = false">{{ t("common.cancel") }}</UButton>
+        <UButton color="error" icon="i-lucide-plus" @click="startNew">{{ t("complete.startNew") }}</UButton>
+      </template>
+    </UModal>
   </main>
 </template>

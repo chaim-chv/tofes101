@@ -24,6 +24,7 @@ export type FieldKind =
   | "repeat"
   | "signature"
   | "static"
+  | "section"
 
 export type Option = {
   value: string | number | boolean

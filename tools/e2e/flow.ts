@@ -208,6 +208,10 @@ const { PDFDocument } = await import("pdf-lib")
 const rendered = await PDFDocument.load(new Uint8Array(pdfBytes))
 if (rendered.getPageCount() !== 3) throw new Error(`expected 3 pages (form + 1 attachment), got ${rendered.getPageCount()}`)
 console.log(`  → pdf: ${download.suggestedFilename()} (${Math.round(pdfBytes.byteLength / 1024)} KB)`)
+await page.waitForTimeout(500)
+if (!(await page.getByText("הקובץ מוכן").isVisible().catch(() => false)))
+  throw new Error("completion panel did not appear after the download")
+await a11y("complete")
 await Bun.write(`${OUT}/09-filled.pdf`, new Uint8Array(pdfBytes))
 
 /* -------------------------------------------------------------------- print */

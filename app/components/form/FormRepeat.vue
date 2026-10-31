@@ -5,6 +5,8 @@
  * button, and additions are announced.
  */
 import type { FieldDef, Issue, RepeatItem } from "~/form/types"
+import { TAX_YEAR } from "~/form/values"
+import { ageAt, parseDate } from "~/form/validators"
 
 const props = defineProps<{
   field: FieldDef
@@ -27,6 +29,15 @@ const liveMessage = ref("")
 
 function rowTitle(index: number) {
   return props.field.rowTitleKey ? t(props.field.rowTitleKey, { n: index + 1 }) : `${index + 1}`
+}
+
+function ageFor(item: RepeatItem): string {
+  if (props.field.id !== "children") return ""
+  const birth = parseDate(item["birthDate"])
+  if (!birth) return ""
+  const age = ageAt(birth, new Date(Date.UTC(TAX_YEAR, 11, 31)))
+  if (age === null) return ""
+  return age === 0 ? t("f.children.age.born") : t("f.children.age", { age })
 }
 
 function subId(id: string) {
@@ -73,7 +84,12 @@ const containerErrors = computed(() => (props.issues ?? []).filter((i) => i.seve
           <UCard :ui="{ root: 'bg-elevated/10', header: 'p-3 sm:px-4', body: 'p-4 sm:p-5' }">
             <template #header>
               <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-medium text-muted">{{ rowTitle(index) }}</span>
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-xs font-medium text-muted">{{ rowTitle(index) }}</span>
+                  <UBadge v-if="ageFor(item)" size="sm" color="neutral" variant="subtle">
+                    {{ ageFor(item) }}
+                  </UBadge>
+                </div>
                 <UButton
                   type="button"
                   variant="ghost"

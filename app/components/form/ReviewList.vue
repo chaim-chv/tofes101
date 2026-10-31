@@ -29,7 +29,7 @@ const groups = computed<Group[]>(() => {
     if (step.id === "finish") continue
     const rows: Row[] = []
     for (const field of step.fields) {
-      if (field.kind === "static") continue
+      if (field.kind === "static" || field.kind === "section") continue
       if (!isVisible(field, props.state)) continue
       const value = props.state.values[field.id]
       if (field.kind === "repeat") {

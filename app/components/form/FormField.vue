@@ -116,8 +116,13 @@ function onBlur(event: FocusEvent) {
 </script>
 
 <template>
+  <div v-if="field.kind === 'section'" class="mt-2 border-t border-default pt-4 first:border-0 first:pt-0">
+    <h2 class="text-base font-semibold text-highlighted">{{ field.contentKey ? t(field.contentKey) : "" }}</h2>
+    <p v-if="field.helpKey" class="mt-1 text-sm text-muted">{{ t(field.helpKey) }}</p>
+  </div>
+
   <!-- static content: never a control, always announced as prose -->
-  <div v-if="field.kind === 'static'" class="my-2">
+  <div v-else-if="field.kind === 'static'" class="my-2">
     <UAlert
       v-if="field.variant"
       :color="field.variant === 'success' ? 'success' : field.variant === 'warning' ? 'warning' : field.variant === 'error' ? 'error' : 'info'"

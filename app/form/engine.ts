@@ -54,7 +54,7 @@ function lengthIssue(field: FieldDef, value: unknown): Issue | null {
 }
 
 export function validateField(field: FieldDef, state: FormState): Issue[] {
-  if (field.kind === "static") return []
+  if (field.kind === "static" || field.kind === "section") return []
   if (!isVisible(field, state)) return []
 
   const value = state.values[field.id] as FieldValue | undefined
@@ -252,7 +252,7 @@ export function stepSummary(step: Step, state: FormState) {
 export function updateHidden(schema: FormSchema, state: FormState): FormState {
   const hidden: Record<FieldId, true> = {}
   for (const f of schema.allFields) {
-    if (f.kind === "static") continue
+    if (f.kind === "static" || f.kind === "section") continue
     if (!isVisible(f, state) && !isEmpty(f, state.values[f.id])) hidden[f.id] = true
   }
   const sameKeys =

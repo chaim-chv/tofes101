@@ -13,12 +13,14 @@ export function usePdfExport() {
   const busy = ref(false)
   const error = ref<string | null>(null)
   const fileName = ref<string | null>(null)
+  const lastBlob = ref<Blob | null>(null)
 
   async function download(state: FormState): Promise<boolean> {
     if (busy.value) return false
     busy.value = true
     error.value = null
     fileName.value = null
+    lastBlob.value = null
     try {
       const { renderPdf } = await import("~/pdf/overlay")
       // Attachments are optional; a failure to read them must never block the
@@ -42,6 +44,7 @@ export function usePdfExport() {
       // revoke on the next tick: Safari needs the URL alive during the click
       setTimeout(() => URL.revokeObjectURL(url), 4000)
       fileName.value = name
+      lastBlob.value = blob
       return true
     } catch (e) {
       console.warn("[pdf] render failed", e)
@@ -52,7 +55,7 @@ export function usePdfExport() {
     }
   }
 
-  return { busy, error, fileName, download }
+  return { busy, error, fileName, lastBlob, download }
 }
 
 function fileNameFor(state: FormState, locale: string): string {

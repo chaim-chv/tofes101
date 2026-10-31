@@ -223,6 +223,7 @@ const stepContact: Step = {
   titleKey: "step.contact.title",
   introKey: "step.contact.intro",
   fields: [
+    { id: "contact.section.address", kind: "section", contentKey: "contact.section.address" },
     { id: "employee.city", kind: "text", labelKey: "f.employee.city", required: true, maxLength: 60, span: 6, suggestionsSource: "cities" },
     { id: "employee.street", kind: "text", labelKey: "f.employee.street", required: true, maxLength: 80, span: 6 },
     { id: "employee.houseNum", kind: "text", labelKey: "f.employee.houseNum", required: true, maxLength: 10, span: 3 },
@@ -237,6 +238,7 @@ const stepContact: Step = {
       validate: israeliZip(),
       span: 3,
     },
+    { id: "contact.section.reach", kind: "section", contentKey: "contact.section.reach" },
     {
       id: "employee.mobile",
       kind: "text",
@@ -269,6 +271,7 @@ const stepStatus: Step = {
   titleKey: "step.status.title",
   introKey: "step.status.intro",
   fields: [
+    { id: "status.section.personal", kind: "section", contentKey: "status.section.personal" },
     {
       id: "employee.sex",
       kind: "radio",
@@ -303,6 +306,7 @@ const stepStatus: Step = {
       when: (s) => s.values["employee.maritalStatus"] === "separated",
       span: 12,
     },
+    { id: "status.section.residence", kind: "section", contentKey: "status.section.residence" },
     {
       id: "employee.ilResident",
       kind: "radio",
@@ -331,6 +335,7 @@ const stepStatus: Step = {
       options: yesNo,
       span: 6,
     },
+    { id: "status.section.fund", kind: "section", contentKey: "status.section.fund" },
     {
       id: "employee.healthFundMember",
       kind: "radio",
@@ -355,7 +360,7 @@ const stepStatus: Step = {
     },
 
     /* ---- spouse, inline in the same step (only when married) ---- */
-    { id: "spouse.divider", kind: "static", contentKey: "spouse.divider", when: isMarried },
+    { id: "spouse.divider", kind: "section", contentKey: "spouse.divider", when: isMarried },
     {
       id: "spouse.firstName",
       kind: "text",
@@ -489,6 +494,7 @@ const stepIncome: Step = {
   titleKey: "step.income.title",
   introKey: "step.income.intro",
   fields: [
+    { id: "income.section.pay", kind: "section", contentKey: "income.section.pay" },
     {
       id: "income.salaryTypes",
       kind: "checkboxGroup",
@@ -496,10 +502,10 @@ const stepIncome: Step = {
       helpKey: "f.income.salaryTypes.help",
       required: true,
       options: [
-        { value: "monthly", labelKey: "opt.salary.monthly" },
-        { value: "additional", labelKey: "opt.salary.additional" },
-        { value: "partial", labelKey: "opt.salary.partial" },
-        { value: "daily", labelKey: "opt.salary.daily" },
+        { value: "monthly", labelKey: "opt.salary.monthly", hintKey: "opt.salary.monthly.hint" },
+        { value: "additional", labelKey: "opt.salary.additional", hintKey: "opt.salary.additional.hint" },
+        { value: "partial", labelKey: "opt.salary.partial", hintKey: "opt.salary.partial.hint" },
+        { value: "daily", labelKey: "opt.salary.daily", hintKey: "opt.salary.daily.hint" },
         { value: "allowance", labelKey: "opt.salary.allowance" },
         { value: "scholarship", labelKey: "opt.salary.scholarship" },
       ],
@@ -527,6 +533,7 @@ const stepIncome: Step = {
       validate: firstOf(validDate(), notFuture(), dateInTaxYear((s) => s.meta.taxYear)),
       span: 6,
     },
+    { id: "income.section.other", kind: "section", contentKey: "income.section.other" },
     {
       id: "other.hasOther",
       kind: "radio",
@@ -547,10 +554,10 @@ const stepIncome: Step = {
       required: true,
       validate: atLeastOne(),
       options: [
-        { value: "monthly", labelKey: "opt.salary.monthly" },
-        { value: "additional", labelKey: "opt.salary.additional" },
-        { value: "partial", labelKey: "opt.salary.partial" },
-        { value: "daily", labelKey: "opt.salary.daily" },
+        { value: "monthly", labelKey: "opt.salary.monthly", hintKey: "opt.salary.monthly.hint" },
+        { value: "additional", labelKey: "opt.salary.additional", hintKey: "opt.salary.additional.hint" },
+        { value: "partial", labelKey: "opt.salary.partial", hintKey: "opt.salary.partial.hint" },
+        { value: "daily", labelKey: "opt.salary.daily", hintKey: "opt.salary.daily.hint" },
         { value: "allowance", labelKey: "opt.salary.allowance" },
         { value: "scholarship", labelKey: "opt.salary.scholarship" },
         { value: "other", labelKey: "opt.other.source" },
@@ -621,6 +628,7 @@ const stepCredits: Step = {
       variant: "warning",
       when: creditsBlocked,
     },
+    { id: "credits.section.personal", kind: "section", contentKey: "credits.section.personal" },
     creditToggle("resident", "f.credits.resident", { helpKey: "f.credits.resident.help" }),
     creditToggle("disabled", "f.credits.disabled"),
     {
@@ -680,6 +688,7 @@ const stepCredits: Step = {
       validate: firstOf(validDate(), notFuture(), dateInTaxYear((s) => s.meta.taxYear)),
       span: 6,
     },
+    { id: "credits.section.family", kind: "section", contentKey: "credits.section.family" },
     creditToggle("incomelessSpouse", "f.credits.incomelessSpouse", {
       when: (s) =>
         !creditsBlocked(s) && isMarried(s) && s.values["spouse.hasIncome"] === "no",
@@ -741,6 +750,7 @@ const stepCredits: Step = {
       span: 6,
     },
     creditToggle("alimony", "f.credits.alimony"),
+    { id: "credits.section.service", kind: "section", contentKey: "credits.section.service" },
     creditToggle("youngEmployee", "f.credits.youngEmployee", { validate: youngEmployeeEligible() }),
     creditToggle("discharged", "f.credits.discharged"),
     {
@@ -778,7 +788,7 @@ const stepCredits: Step = {
     },
 
     /* ---- tax coordination, inline ---- */
-    { id: "coord.divider", kind: "static", contentKey: "coord.divider" },
+    { id: "coord.divider", kind: "section", contentKey: "coord.divider" },
     {
       id: "coord.request",
       kind: "checkbox",
