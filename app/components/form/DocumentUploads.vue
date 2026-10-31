@@ -59,10 +59,7 @@ function fileFor(slot: SlotId) {
   return files.value.find((f) => f.slot === slot)
 }
 
-async function onPick(slot: SlotId, event: Event) {
-  const input = event.target as HTMLInputElement
-  const file = input.files?.[0]
-  input.value = ""
+async function upload(slot: SlotId, file: File | null) {
   if (!file || !store) return
   const invalid = validateFile(file)
   if (invalid) {
@@ -77,6 +74,18 @@ async function onPick(slot: SlotId, event: Event) {
   } finally {
     busy.value = null
   }
+}
+
+function onFile(slot: SlotId, file: unknown) {
+  const first = Array.isArray(file) ? file[0] : file
+  if (first instanceof File) void upload(slot, first)
+}
+
+function onInputPick(slot: SlotId, event: Event) {
+  const input = event.target as HTMLInputElement
+  const file = input.files?.[0] ?? null
+  input.value = ""
+  void upload(slot, file)
 }
 
 async function onRemove(slot: SlotId) {
@@ -95,10 +104,7 @@ const problemMessage = computed(() =>
 </script>
 
 <template>
-  <section class="mt-6" aria-labelledby="upload-title">
-    <h2 id="upload-title" class="text-sm font-semibold text-highlighted">{{ t("upload.title") }}</h2>
-    <p class="mt-1 text-sm text-muted">{{ t("upload.intro") }}</p>
-
+  <section class="mt-6" :aria-label="t('upload.title')">
     <UAlert
       v-if="problemMessage"
       class="mt-3 [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
@@ -153,19 +159,32 @@ const problemMessage = computed(() =>
         </div>
 
         <div class="mt-3">
+          <UFileUpload
+            v-if="!fileFor(slot.id)"
+            :model-value="null"
+            accept="image/jpeg,image/png,image/webp,application/pdf"
+            :multiple="false"
+            icon="i-lucide-camera"
+            :label="t('upload.choose')"
+            :description="slot.helpKey ? t(slot.helpKey) : undefined"
+            :disabled="busy === slot.id"
+            class="min-h-32"
+            @update:model-value="(file) => onFile(slot.id, file)"
+          />
           <label
+            v-else
             class="inline-flex cursor-pointer items-center gap-2 rounded-md border border-default px-3 py-1.5 text-sm text-highlighted hover:bg-elevated"
             :class="busy === slot.id ? 'opacity-60' : ''"
           >
             <UIcon name="i-lucide-camera" class="size-4" />
-            {{ fileFor(slot.id) ? t("upload.replace") : t("upload.choose") }}
+            {{ t("upload.replace") }}
             <input
               type="file"
               class="sr-only"
               :aria-label="t(slot.labelKey)"
               accept="image/jpeg,image/png,image/webp,application/pdf"
               :disabled="busy === slot.id"
-              @change="onPick(slot.id, $event)"
+              @change="onInputPick(slot.id, $event)"
             />
           </label>
         </div>

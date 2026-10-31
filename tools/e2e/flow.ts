@@ -86,7 +86,7 @@ await next() // employer step -> identity
 
 /* ----------------------------------------------------------------- identity */
 
-await page.getByRole("radio", { name: "תעודת זהות" }).check()
+await page.getByRole("radio", { name: "תעודת זהות" }).click()
 await page.fill("#f-employee\\.idNum", "123456782")
 await page.fill("#f-employee\\.firstName", "דנה")
 await page.fill("#f-employee\\.lastName", "כהן")
@@ -104,18 +104,18 @@ await next()
 
 /* ------------------------------------------------------------------- status */
 
-await page.getByRole("radio", { name: "נקבה" }).check()
-await page.getByRole("radio", { name: "נשוי/אה" }).check()
-await page.locator('input[name="employee.ilResident"][value="true"]').check()
-await page.locator('input[name="employee.kibbutzMember"][value="false"]').check()
-await page.locator('input[name="employee.healthFundMember"][value="true"]').check()
-await page.locator('input[name="employee.healthFundName"][value="clalit"]').check()
+await page.getByRole("radio", { name: "נקבה" }).click()
+await page.getByRole("radio", { name: "נשוי/אה" }).click()
+await page.locator('#f-employee\\.ilResident').getByRole("radio", { name: "כן" }).click()
+await page.locator('#f-employee\\.kibbutzMember').getByRole("radio", { name: "לא" }).click()
+await page.locator('#f-employee\\.healthFundMember').getByRole("radio", { name: "כן" }).click()
+await page.locator('#f-employee\\.healthFundName').getByRole("radio", { name: "כללית" }).click()
 await page.fill("#f-spouse\\.firstName", "יוסי")
 await page.fill("#f-spouse\\.lastName", "כהן")
 await page.fill("#f-spouse\\.idNum", "000000018")
 await page.fill("#f-spouse\\.birthDate", "1988-07-01")
-await page.getByRole("radio", { name: "יש לבן/בת הזוג הכנסה" }).check()
-await page.getByRole("checkbox", { name: "עבודה / קצבה / עסק" }).check()
+await page.getByRole("radio", { name: "יש לבן/בת הזוג הכנסה" }).click()
+await page.getByRole("checkbox", { name: "עבודה / קצבה / עסק" }).click()
 await a11y("status")
 await next()
 
@@ -125,20 +125,20 @@ await page.getByRole("button", { name: "הוספת ילד/ה" }).click()
 await page.fill('[id^="f-children.name"]', "נועה")
 await page.fill('[id^="f-children.idNum"]', "000000026")
 await page.fill('[id^="f-children.birthDate"]', "2016-05-10")
-await page.getByRole("checkbox", { name: "הילד/ה נמצא/ת בחזקתי" }).check()
+await page.getByRole("checkbox", { name: "הילד/ה נמצא/ת בחזקתי" }).click()
 await next()
 
 /* ------------------------------------------------------------------- income */
 
-await page.getByRole("checkbox", { name: "משכורת חודש" }).check()
+await page.getByRole("checkbox", { name: "משכורת חודש" }).click()
 await page.fill("#f-income\\.startDate", "2026-01-01")
-await page.getByRole("radio", { name: "אין לי הכנסות אחרות" }).check()
+await page.getByRole("radio", { name: "אין לי הכנסות אחרות" }).click()
 await a11y("income")
 await next()
 
 /* ------------------------------------------------------------------ credits */
 
-await page.getByRole("checkbox", { name: "7. בגין ילדיי שבחזקתי (מחלק ג׳)" }).check()
+await page.getByRole("checkbox", { name: "7. בגין ילדיי שבחזקתי (מחלק ג׳)" }).click()
 await a11y("credits")
 await next()
 
@@ -154,7 +154,7 @@ await Bun.write(
     (c) => c.charCodeAt(0),
   ),
 )
-await page.setInputFiles('input[type=file][aria-label="תעודת זהות — צד קדמי"]', idPng)
+await page.locator('input[type=file]').first().setInputFiles(idPng)
 await page.waitForTimeout(600)
 await a11y("attach")
 await next()
@@ -175,6 +175,7 @@ await page.getByRole("button", { name: "חתימה", exact: true }).click()
 const today = new Date()
 const iso = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
 await page.fill("#f-sign\\.date", iso)
+await page.waitForTimeout(400)
 await a11y("finish-signed")
 
 if (process.env.E2E_DEBUG_STYLES) {

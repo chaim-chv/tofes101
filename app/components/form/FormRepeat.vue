@@ -1,8 +1,8 @@
 <script setup lang="ts">
 /**
  * Repeating rows (children, other employers). One implementation for every
- * repeater: rows are `<fieldset>`s with a real legend, deletion moves focus to
- * the next sensible target, and additions are announced.
+ * repeater: each row is a named group, deletion returns focus to the add
+ * button, and additions are announced.
  */
 import type { FieldDef, Issue, RepeatItem } from "~/form/types"
 
@@ -49,6 +49,7 @@ function onRemove(key: string, index: number) {
   emit("remove", key)
   liveMessage.value = t("common.remove")
   void index
+  nextTick(() => document.getElementById(`add-${props.field.id}`)?.focus())
 }
 
 const canAdd = computed(() => !props.field.maxItems || props.items.length < props.field.maxItems)
@@ -68,43 +69,53 @@ const containerErrors = computed(() => (props.issues ?? []).filter((i) => i.seve
 
     <ol v-if="items.length" class="space-y-4">
       <li v-for="(item, index) in items" :key="item._key">
-        <fieldset class="rounded-xl border border-default bg-elevated/20 p-4">
-          <legend class="px-1 text-xs font-medium text-muted">{{ rowTitle(index) }}</legend>
-          <div class="grid gap-4 sm:grid-cols-2">
-            <template v-for="child in props.field.fields" :key="child.id">
-              <FormField
-                :field="{ ...child, id: `${props.field.id}.${subId(child.id)}` }"
-                :value="item[subId(child.id)]"
-                :issues="issuesByField(`${props.field.id}.${subId(child.id)}`)"
-                :required="child.required === true"
-                :id-suffix="item._key"
-                :disabled="props.disabled"
-                @update:value="(v) => emit('update', item._key, subId(child.id), v)"
-              />
+        <div role="group" :aria-label="rowTitle(index)">
+          <UCard :ui="{ root: 'bg-elevated/10', header: 'p-3 sm:px-4', body: 'p-4 sm:p-5' }">
+            <template #header>
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-medium text-muted">{{ rowTitle(index) }}</span>
+                <UButton
+                  type="button"
+                  variant="ghost"
+                  color="error"
+                  size="xs"
+                  icon="i-lucide-trash-2"
+                  @click="onRemove(item._key, index)"
+                >
+                  {{ t("common.remove") }}
+                </UButton>
+              </div>
             </template>
-          </div>
-          <div class="mt-3 flex justify-end">
-            <UButton
-              type="button"
-              variant="ghost"
-              color="error"
-              size="sm"
-              icon="i-lucide-trash-2"
-              @click="onRemove(item._key, index)"
-            >
-              {{ t("common.remove") }}
-            </UButton>
-          </div>
-        </fieldset>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <template v-for="child in props.field.fields" :key="child.id">
+                <FormField
+                  :field="{ ...child, id: `${props.field.id}.${subId(child.id)}` }"
+                  :value="item[subId(child.id)]"
+                  :issues="issuesByField(`${props.field.id}.${subId(child.id)}`)"
+                  :required="child.required === true"
+                  :id-suffix="item._key"
+                  :disabled="props.disabled"
+                  @update:value="(v) => emit('update', item._key, subId(child.id), v)"
+                />
+              </template>
+            </div>
+          </UCard>
+        </div>
       </li>
     </ol>
 
-    <p v-else class="rounded-lg border border-dashed border-default px-4 py-6 text-center text-sm text-muted">
-      {{ props.required ? t("common.addAtLeastOne") : t("common.optionalHint") }}
-    </p>
+    <UEmpty
+      v-else
+      icon="i-lucide-file-text"
+      :title="props.required ? t('common.addAtLeastOne') : t('common.optionalHint')"
+      :description="props.field.helpKey ? t(props.field.helpKey) : undefined"
+      class="rounded-xl border border-dashed border-default py-6"
+    />
 
     <div class="mt-3">
       <UButton
+        :id="`add-${props.field.id}`"
         type="button"
         variant="outline"
         color="neutral"

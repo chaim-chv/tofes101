@@ -497,7 +497,7 @@ function changeIdKind() {
 
         <!-- review step -->
         <div v-if="step?.id === 'finish'" class="mt-5">
-          <ReviewList :schema="form.schema" :state="form.state.value" @edit="(id: string) => form.goToId(id, { force: true })" />
+          <LazyReviewList :schema="form.schema" :state="form.state.value" @edit="(id: string) => form.goToId(id, { force: true })" />
         </div>
 
         <!-- fields (also on finish: declaration, signature, date) -->
@@ -519,7 +519,7 @@ function changeIdKind() {
                 @remove="(key) => form.removeRow(field.id, key)"
                 @update="(key, sub, value) => form.setSubValue(field.id, key, sub, value)"
               />
-              <FormSignature
+              <LazyFormSignature
                 v-else-if="field.kind === 'signature'"
                 :model-value="(form.state.value.values[field.id] as any)"
                 :declaration-version="form.schema.declarationVersion"
@@ -543,12 +543,12 @@ function changeIdKind() {
             </div>
           </template>
         </div>
-        <DocumentUploads
+        <LazyDocumentUploads
           v-if="step?.id === 'attach'"
           :id-kind="(form.state.value.values['employee.idKind'] as 'idNum' | 'passport' | undefined)"
         />
 
-        <DocumentChecklist v-if="step?.id === 'finish'" :state="form.state.value" />
+        <LazyDocumentChecklist v-if="step?.id === 'finish'" :state="form.state.value" />
 
         <div v-if="step?.id === 'finish'" class="mt-6 space-y-3">
           <UAlert

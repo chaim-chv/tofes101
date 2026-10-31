@@ -220,6 +220,7 @@ export default {
   "f.spouse.noIncomeDeclaration.help": "Used for the non-working spouse credit point.",
 
   "f.children": "Children",
+  "f.children.list": "Children details",
   "f.children.row": "Child {n}",
   "f.children.add": "Add a child",
   "f.children.name": "Child's name",

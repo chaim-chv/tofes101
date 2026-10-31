@@ -232,6 +232,7 @@ export default {
 
   /* --------------------------------------------------------------- children */
   "f.children": "הילדים",
+  "f.children.list": "פרטי הילדים",
   "f.children.row": "ילד/ה {n}",
   "f.children.add": "הוספת ילד/ה",
   "f.children.name": "שם הילד/ה",

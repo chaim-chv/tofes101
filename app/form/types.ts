@@ -129,6 +129,10 @@ export type FieldBase = {
   /** Native date bounds (ISO `yyyy-mm-dd`). */
   min?: string
   max?: string
+  /** Suggestion list for a searchable text field (free text stays allowed). */
+  suggestions?: readonly string[]
+  /** Named lazy suggestion source (kept out of the first-load chunk). */
+  suggestionsSource?: "cities"
   maxLength?: number
   /** Grid width on desktop, in twelfths. */
   span?: 12 | 6 | 4 | 3

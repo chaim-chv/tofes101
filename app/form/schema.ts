@@ -223,7 +223,7 @@ const stepContact: Step = {
   titleKey: "step.contact.title",
   introKey: "step.contact.intro",
   fields: [
-    { id: "employee.city", kind: "text", labelKey: "f.employee.city", required: true, maxLength: 60, span: 6 },
+    { id: "employee.city", kind: "text", labelKey: "f.employee.city", required: true, maxLength: 60, span: 6, suggestionsSource: "cities" },
     { id: "employee.street", kind: "text", labelKey: "f.employee.street", required: true, maxLength: 80, span: 6 },
     { id: "employee.houseNum", kind: "text", labelKey: "f.employee.houseNum", required: true, maxLength: 10, span: 3 },
     {
@@ -442,7 +442,7 @@ const stepChildren: Step = {
     {
       id: "children",
       kind: "repeat",
-      labelKey: "f.children",
+      labelKey: "f.children.list",
       rowTitleKey: "f.children.row",
       addKey: "f.children.add",
       maxItems: 12,

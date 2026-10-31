@@ -31,6 +31,8 @@ html:root {
   --ui-warning: #b45309;
   --ui-error: #b91c1c;
   --ui-text-dimmed: var(--color-slate-600);
+  /* Secondary text needs the same 7:1 contrast on the light surfaces. */
+  --ui-text-muted: var(--color-slate-600);
 }
 
 html {
@@ -87,6 +89,16 @@ input[inputmode="decimal"] {
 [data-slot="base"].bg-primary:hover,
 [data-slot="base"].bg-primary:active {
   background-color: #115e59 !important;
+}
+
+/* Active tabs sit on the primary colour; Nuxt UI's default trigger can be
+ * transparent while the label is white, which is invisible on the card. */
+[role="tab"][data-state="active"] {
+  background-color: var(--ui-primary) !important;
+  color: #fff !important;
+}
+[role="tab"][data-state="active"] [data-slot="label"] {
+  color: #fff !important;
 }
 
 /* Never remove focus outlines: WCAG 2.4.7 / 2.4.11. */

@@ -148,6 +148,11 @@ onMounted(() => {
 })
 onBeforeUnmount(() => window.removeEventListener("resize", resize))
 
+const modes = computed(() => [
+  { label: t("sign.mode.draw"), value: "draw", slot: "draw" as const },
+  { label: t("sign.mode.type"), value: "type", slot: "type" as const },
+])
+
 const signedLabel = computed(() =>
   props.modelValue
     ? new Intl.DateTimeFormat("he-IL", { dateStyle: "short", timeStyle: "short" }).format(
@@ -172,60 +177,52 @@ const signedLabel = computed(() =>
         <span v-if="props.required" class="sr-only">({{ t("common.required") }})</span>
       </legend>
 
-      <div class="mb-3 flex gap-1 rounded-lg border border-default p-1" role="tablist" :aria-label="t('f.sign.signature')">
-        <button
-          v-for="m in (['draw', 'type'] as const)"
-          :key="m"
-          type="button"
-          role="tab"
-          :aria-selected="mode === m"
-          class="flex-1 rounded-md px-3 py-1.5 text-sm transition focus-visible:ring-2 focus-visible:ring-primary"
-          :class="mode === m ? 'bg-elevated font-medium text-highlighted' : 'text-default hover:bg-elevated'"
-          @click="mode = m"
-        >
-          {{ m === "draw" ? t("sign.mode.draw") : t("sign.mode.type") }}
-        </button>
-      </div>
+      <UTabs
+        v-model="mode"
+        :items="modes"
+        :ui="{ list: 'grid w-full grid-cols-2', indicator: 'hidden', trigger: 'transition-none data-[state=active]:bg-primary data-[state=active]:text-inverted' }"
+        class="mb-3"
+      >
+        <template #draw>
+          <canvas
+            ref="canvas"
+            role="img"
+            :aria-label="t('f.sign.signature')"
+            class="h-40 w-full touch-none rounded-lg border-2 border-dashed border-default bg-white"
+            @pointerdown.prevent="start"
+            @pointermove.prevent="move"
+            @pointerup="end"
+            @pointercancel="end"
+            @pointerleave="end"
+          />
+          <div class="mt-2 flex items-center justify-between gap-3">
+            <UButton type="button" variant="ghost" color="neutral" size="xs" @click="clear">
+              {{ t("sign.clear") }}
+            </UButton>
+          </div>
+        </template>
 
-      <div v-show="mode === 'draw'">
-        <canvas
-          ref="canvas"
-          role="img"
-          :aria-label="t('f.sign.signature')"
-          class="h-40 w-full touch-none rounded-lg border-2 border-dashed border-default bg-white"
-          @pointerdown.prevent="start"
-          @pointermove.prevent="move"
-          @pointerup="end"
-          @pointercancel="end"
-          @pointerleave="end"
-        />
-        <div class="mt-2 flex items-center justify-between gap-3">
-          <UButton type="button" variant="ghost" color="neutral" size="xs" @click="clear">
-            {{ t("sign.clear") }}
-          </UButton>
-        </div>
-      </div>
-
-      <div v-show="mode === 'type'" class="space-y-2">
-        <label for="typed-signature" class="block text-sm text-highlighted">{{ t("sign.typedName") }}</label>
-        <input
-          id="typed-signature"
-          v-model="typedName"
-          type="text"
-          autocomplete="name"
-          :aria-invalid="errors.length ? true : undefined"
-          :aria-describedby="describedBy"
-          class="w-full rounded-lg border border-default bg-default px-3 py-2.5 text-base text-highlighted"
-          @keydown.enter.prevent="commitTyped"
-        />
-        <button
-          type="button"
-          class="rounded-md bg-teal-800 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-teal-900 focus-visible:ring-2 focus-visible:ring-teal-900"
-          @click="commitTyped"
-        >
-          {{ t("sign.sign") }}
-        </button>
-      </div>
+        <template #type>
+          <div class="space-y-2">
+            <UFormField :label="t('sign.typedName')" name="typed-signature">
+              <UInput
+                id="typed-signature"
+                v-model="typedName"
+                type="text"
+                autocomplete="name"
+                size="lg"
+                class="w-full"
+                :aria-invalid="errors.length ? true : undefined"
+                :aria-describedby="describedBy"
+                @keydown.enter.prevent="commitTyped"
+              />
+            </UFormField>
+            <UButton type="button" size="lg" icon="i-lucide-check" @click="commitTyped">
+              {{ t("sign.sign") }}
+            </UButton>
+          </div>
+        </template>
+      </UTabs>
 
       <p v-if="signedLabel" class="mt-3 flex items-center gap-2 text-sm text-highlighted" role="status">
         <UIcon name="i-lucide-check-circle-2" class="size-4 text-success" />
