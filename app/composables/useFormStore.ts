@@ -93,6 +93,7 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
     try {
       await store.save(state.value)
       lastSavedAt.value = new Date().toISOString()
+      dirty.value = false
       channel?.postMessage("saved")
     } catch (e) {
       console.warn("[draft] save failed", e)
@@ -206,8 +207,51 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
   async function reset() {
     state.value = emptyState(schema.taxYear)
     await store?.clear()
+    if (import.meta.client) {
+      // The privacy promise is "delete everything": a draft alone is not enough
+      // when the user attached an ID scan.
+      try {
+        const { createAttachmentStore } = await import("~/storage/files")
+        await createAttachmentStore().clear()
+      } catch (e) {
+        console.warn("[draft] attachment clear failed", e)
+      }
+    }
     lastSavedAt.value = null
+    dirty.value = false
+    saving.value = false
+    conflict.value = false
     syncUrl()
+  }
+
+  /** Multi-tab conflict: take the copy the other tab just wrote. */
+  async function reloadFromStorage() {
+    if (!store) return false
+    try {
+      const loaded = await store.load()
+      if (!loaded) return false
+      state.value = updateHidden(schema, applyInitials(schema, loaded))
+      conflict.value = false
+      dirty.value = false
+      lastSavedAt.value = new Date().toISOString()
+      syncUrl()
+      return true
+    } catch (e) {
+      console.warn("[draft] reload failed", e)
+      return false
+    }
+  }
+
+  function dismissConflict() {
+    conflict.value = false
+  }
+
+  function markExported() {
+    state.value = {
+      ...state.value,
+      meta: { ...state.value.meta, lastExportAt: new Date().toISOString() },
+    }
+    void flush()
   }
 
   async function exportDraft(): Promise<Blob | null> {
@@ -219,6 +263,15 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
     const result = await store.import(file)
     if (result.ok) {
       state.value = updateHidden(schema, result.state)
+      if (import.meta.client) {
+        // An imported draft must not inherit attachments from a previous person.
+        try {
+          const { createAttachmentStore } = await import("~/storage/files")
+          await createAttachmentStore().clear()
+        } catch (e) {
+          console.warn("[draft] attachment clear after import failed", e)
+        }
+      }
       await flush()
     }
     return result
@@ -254,6 +307,9 @@ export function useFormStore(options: { schema?: FormSchema } = {}) {
     hydrate,
     flush,
     reset,
+    reloadFromStorage,
+    dismissConflict,
+    markExported,
     exportDraft,
     importDraft,
     applyPrefill,

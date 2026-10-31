@@ -1,14 +1,20 @@
 <script setup lang="ts">
 /**
  * Print / full-document view. This is the output path that always works: the
- * browser shapes the Hebrew correctly, the user gets a real A4 PDF through the
- * print dialog, and nothing is downloaded from the network.
+ * browser shapes the Hebrew correctly, the user gets a real A4 document through
+ * the print dialog, and nothing is downloaded from the network.
+ *
+ * The document itself is always the official Hebrew wording, even when the UI
+ * is in English: an English label on a Hebrew tax form is a correctness bug.
  */
-const { t, locale, init: initLocale } = useLocale()
+import he from "~/locales/he"
+
+const { t, init: initLocale, gender } = useLocale()
 const { path } = useAppPath()
 const form = useFormStore()
+const pdf = usePdfExport()
 
-useHead({ title: () => `${t("meta.reviewAll")} — ${t("app.name")}` })
+useHead({ title: () => `${t("common.print")} — ${t("app.name")}` })
 
 onMounted(async () => {
   initLocale()
@@ -38,15 +44,16 @@ const signatureSvg = computed(() => {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"><path d="${paths}" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 })
 
-async function exportBackup() {
-  const blob = await form.exportDraft()
-  if (!blob) return
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement("a")
-  a.href = url
-  a.download = "tofes101-draft.json"
-  a.click()
-  URL.revokeObjectURL(url)
+const declaration = computed(() => {
+  const entry = he["sign.declaration"]
+  return gender.value === "f" ? entry.f : entry.m
+})
+
+const docTaxYear = he["doc101.taxYear"].replace("{year}", String(state.value.meta.taxYear))
+
+async function download() {
+  const ok = await pdf.download(state.value)
+  if (ok) form.markExported()
 }
 
 function doPrint() {
@@ -63,25 +70,33 @@ const dateText = computed(() => {
 
 <template>
   <div class="min-h-dvh bg-elevated/40">
-    <div class="no-print mx-auto flex w-full max-w-3xl items-center justify-between gap-3 px-4 py-4">
+    <div class="no-print mx-auto flex w-full max-w-3xl flex-wrap items-center justify-between gap-3 px-4 py-4">
       <UButton :to="path('/form/')" variant="ghost" color="neutral" icon="i-lucide-arrow-right">
         {{ t("common.back") }}
       </UButton>
-      <div class="flex gap-2">
-        <UButton variant="outline" color="neutral" icon="i-lucide-download" @click="exportBackup">
-          {{ t("meta.exportJson") }}
+      <div class="flex flex-wrap gap-2">
+        <UButton :loading="pdf.busy.value" icon="i-lucide-file-down" @click="download">
+          {{ pdf.busy.value ? t("pdf.generating") : t("pdf.download") }}
         </UButton>
-        <UButton icon="i-lucide-printer" @click="doPrint">{{ t("meta.reviewAll") }}</UButton>
+        <UButton variant="outline" color="neutral" icon="i-lucide-printer" @click="doPrint">
+          {{ t("common.print") }}
+        </UButton>
       </div>
     </div>
 
-    <article class="document mx-auto w-full max-w-3xl bg-white px-8 py-10 text-black shadow-sm print:shadow-none">
+    <UAlert
+      v-if="pdf.error.value"
+      class="no-print mx-auto mb-4 w-full max-w-3xl [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
+      color="error"
+      variant="subtle"
+      :description="t('pdf.error')"
+    />
+
+    <article dir="rtl" lang="he" class="document mx-auto w-full max-w-3xl bg-white px-8 py-10 text-black shadow-sm print:shadow-none">
       <header class="mb-6 border-b border-neutral-300 pb-4 text-center">
-        <h1 class="text-xl font-bold">טופס 101 — כרטיס עובד</h1>
-        <p class="mt-1 text-xs text-neutral-600">
-          ובקשה להקלה ולתיאום מס על ידי המעסיק · לפי תקנות מס הכנסה (ניכוי ממשכורת ומשכר עבודה), התשנ״ג-1993
-        </p>
-        <p class="mt-1 text-xs text-neutral-600">שנת מס {{ state.meta.taxYear }}</p>
+        <h1 class="text-xl font-bold">{{ he["doc101.title"] }}</h1>
+        <p class="mt-1 text-xs text-neutral-600">{{ he["doc101.subtitle"] }}</p>
+        <p class="mt-1 text-xs text-neutral-600">{{ docTaxYear }}</p>
       </header>
 
       <ReviewList :schema="form.schema" :state="state" readonly />
@@ -89,24 +104,26 @@ const dateText = computed(() => {
       <DocumentChecklist :state="state" compact />
 
       <section class="mt-8 border-t border-neutral-300 pt-5">
-        <h2 class="text-sm font-bold">הצהרה</h2>
-        <p class="mt-2 text-[13px] leading-relaxed">{{ t("sign.declaration") }}</p>
+        <h2 class="text-sm font-bold">{{ he["doc101.declarationTitle"] }}</h2>
+        <p class="mt-2 text-[13px] leading-relaxed">{{ declaration }}</p>
 
         <div class="mt-6 flex items-end justify-between gap-8">
           <div class="min-w-[120px]">
-            <p class="text-[11px] text-neutral-600">תאריך</p>
+            <p class="text-[11px] text-neutral-600">{{ he["doc101.date"] }}</p>
             <p class="mt-1 border-b border-neutral-400 pb-1 text-sm" dir="ltr">{{ dateText }}</p>
           </div>
           <div class="min-w-[220px] text-center">
             <div v-if="signatureSvg" class="mx-auto" v-html="signatureSvg" />
             <div v-else-if="signed?.typedName" class="mx-auto text-lg italic">{{ signed.typedName }}</div>
-            <p class="mt-1 border-t border-neutral-400 pt-1 text-[11px] text-neutral-600">חתימת המבקש/ת</p>
+            <p class="mt-1 border-t border-neutral-400 pt-1 text-[11px] text-neutral-600">
+              {{ he["doc101.signature"] }}
+            </p>
           </div>
         </div>
       </section>
 
       <footer class="mt-8 border-t border-neutral-200 pt-3 text-[10px] text-neutral-500">
-        הופק בטופס 101 · {{ locale === "he" ? "הנתונים לא נשלחו לשום מקום" : "Your data was never sent anywhere" }}
+        {{ he["doc101.generated"] }}
       </footer>
     </article>
   </div>
@@ -117,6 +134,12 @@ const dateText = computed(() => {
   .document {
     max-width: none;
     padding: 0;
+  }
+
+  .document section,
+  .document header,
+  .document footer {
+    break-inside: avoid;
   }
 }
 </style>

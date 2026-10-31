@@ -11,6 +11,8 @@ import type { MessageKey } from "~/locales"
 const props = defineProps<{
   modelValue: Signature | undefined
   declarationVersion: string
+  /** Fingerprint of the answers this signature covers. */
+  answersHash?: string
   disabled?: boolean
   /** State-aware requiredness from the engine. */
   required?: boolean
@@ -116,6 +118,7 @@ function commit() {
     strokes: strokes.map((stroke) => stroke.map(([x, y]) => [x ?? 0, y ?? 0] as [number, number])),
     signedAt: new Date().toISOString(),
     declarationVersion: props.declarationVersion,
+    answersHash: props.answersHash,
   })
 }
 
@@ -135,6 +138,7 @@ function commitTyped() {
     typedName: name,
     signedAt: new Date().toISOString(),
     declarationVersion: props.declarationVersion,
+    answersHash: props.answersHash,
   })
 }
 

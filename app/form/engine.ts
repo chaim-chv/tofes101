@@ -188,6 +188,7 @@ export function stepViews(schema: FormSchema, state: FormState, issues: Validati
     return {
       id: step.id,
       index,
+      visibleIndex,
       titleKey: step.titleKey,
       status: skipped ? "skipped" : isCurrent ? "current" : done ? "done" : "todo",
       issueCount: issues.byStep[step.id]?.filter((i) => i.severity === "error").length ?? 0,

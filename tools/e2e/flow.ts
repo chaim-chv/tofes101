@@ -75,8 +75,11 @@ if (!link.includes("#e=v1.")) throw new Error("employer link not generated")
 await page.goto(link, { waitUntil: "networkidle" })
 await page.getByRole("button", { name: "אישור והמשך" }).click()
 await page.waitForTimeout(300)
-if (!(await page.locator('input[autocomplete="organization"]').isDisabled()))
-  throw new Error("prefilled employer name should be locked")
+const employerName = page.locator('input[autocomplete="organization"]')
+if ((await employerName.getAttribute("readonly")) === null)
+  throw new Error("prefilled employer name should be read-only")
+if (!(await page.getByText("נעול על ידי המעסיק").first().isVisible()))
+  throw new Error("prefilled field should explain that it is locked")
 
 await a11y("employer")
 await next() // employer step -> identity

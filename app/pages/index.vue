@@ -20,7 +20,7 @@ const steps = [
           <UIcon name="i-lucide-file-text" class="size-5 text-primary" />
           {{ t("app.name") }}
         </NuxtLink>
-        <nav class="flex items-center gap-1" aria-label="ניווט ראשי">
+        <nav class="flex items-center gap-1" :aria-label="t('nav.main')">
           <UButton :to="path('/form/')" variant="ghost" color="neutral" size="sm">
             {{ t("nav.form") }}
           </UButton>
@@ -37,7 +37,7 @@ const steps = [
     <main>
       <UContainer class="py-14 sm:py-20">
         <div class="max-w-2xl">
-          <UBadge color="success" variant="subtle" icon="i-lucide-lock">
+          <UBadge color="success" variant="subtle" icon="i-lucide-lock" class="text-green-900">
             {{ t("privacy.badge") }}
           </UBadge>
           <h1 class="mt-5 text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
@@ -73,7 +73,7 @@ const steps = [
 
     <footer class="border-t border-default py-6 text-center text-xs text-muted">
       <UContainer>
-        <p>טופס 101 · 2026 · הקוד פתוח, הנתונים שלך</p>
+        <p>{{ t("app.footer") }}</p>
       </UContainer>
     </footer>
   </div>

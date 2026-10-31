@@ -12,17 +12,17 @@ const props = defineProps<{ idKind: "idNum" | "passport" | undefined }>()
 const { t } = useLocale()
 const store = import.meta.client ? createAttachmentStore() : null
 
-type Slot = { id: SlotId; labelKey: MessageKey; helpKey?: MessageKey; required: boolean }
+type Slot = { id: SlotId; labelKey: MessageKey; helpKey?: MessageKey; recommended?: boolean }
 
 const slots = computed<Slot[]>(() =>
   props.idKind === "passport"
     ? [
-        { id: "passport", labelKey: "upload.passport", helpKey: "upload.passport.help", required: true },
-        { id: "residence", labelKey: "upload.residence", helpKey: "upload.residence.help", required: false },
+        { id: "passport", labelKey: "upload.passport", helpKey: "upload.passport.help", recommended: true },
+        { id: "residence", labelKey: "upload.residence", helpKey: "upload.residence.help", recommended: true },
       ]
     : [
-        { id: "id-front", labelKey: "upload.idFront", helpKey: "upload.idFront.help", required: true },
-        { id: "id-annex", labelKey: "upload.idAnnex", helpKey: "upload.idAnnex.help", required: false },
+        { id: "id-front", labelKey: "upload.idFront", helpKey: "upload.idFront.help", recommended: true },
+        { id: "id-annex", labelKey: "upload.idAnnex", helpKey: "upload.idAnnex.help", recommended: true },
       ],
 )
 
@@ -113,8 +113,10 @@ const problemMessage = computed(() =>
           <div class="min-w-0">
             <p class="text-sm font-medium text-highlighted">
               {{ t(slot.labelKey) }}
-              <span v-if="slot.required" class="text-error" aria-hidden="true">*</span>
             </p>
+            <UBadge v-if="slot.recommended" size="sm" color="neutral" variant="subtle" class="mt-1">
+              {{ t("upload.recommended") }}
+            </UBadge>
             <p v-if="slot.helpKey" class="mt-0.5 text-xs text-muted">{{ t(slot.helpKey) }}</p>
           </div>
           <span
@@ -162,7 +164,6 @@ const problemMessage = computed(() =>
               class="sr-only"
               :aria-label="t(slot.labelKey)"
               accept="image/jpeg,image/png,image/webp,application/pdf"
-              capture="environment"
               :disabled="busy === slot.id"
               @change="onPick(slot.id, $event)"
             />

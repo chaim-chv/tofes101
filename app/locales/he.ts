@@ -10,6 +10,7 @@ export default {
   "app.name": "טופס 101",
   "app.tagline": "כרטיס עובד — מילוי מקוון, בלי שרת ובלי פרסומות",
   "app.year": "שנת המס 2026",
+  "app.footer": "טופס 101 · 2026 · הקוד פתוח, הנתונים שלך",
   "nav.home": "דף הבית",
   "nav.employer": "למעסיקים",
   "nav.form": "מילוי הטופס",
@@ -22,6 +23,7 @@ export default {
     "אנחנו לא שולחים את הפרטים שלך לשום מקום. אין חשבון, אין פרסומות, ואין שרת שמקבל את הטופס.",
   "common.next": "המשך",
   "common.back": "חזרה",
+  "common.print": "הדפסה",
   "common.copy": "העתקה",
   "common.copied": "הועתק",
   "common.optional": "לא חובה",
@@ -61,8 +63,12 @@ export default {
   "form.prefill.title": "הפרטים של {name} הוזנו מראש",
   "form.prefill.accept": "אישור והמשך",
   "form.prefill.dismiss": "לא, אני ממלא/ת לבד",
+  "form.prefill.overwrite": "הקישור יחליף {n} פרטים שכבר מילאתם.",
+  "form.prefill.replace": "החלפה ואישור",
   "form.prefill.locked": "נעול על ידי המעסיק",
   "form.badPayload": "הקישור לא תקין או שהוא מגרסה לא נתמכת. אפשר להמשיך ולמלא את הפרטים ידנית.",
+  "form.skipped.change": "שינוי סוג הזיהוי",
+  "form.hidden.body": "שמרנו {n} תשובות לסעיפים שכרגע לא רלוונטיים. הן לא נמחקו.",
 
   /* --------------------------------------------------------------- employer */
   "employer.h1": "קישור מילוי לעובדים",
@@ -72,6 +78,7 @@ export default {
   "employer.field.address": "כתובת",
   "employer.field.phone": "טלפון",
   "employer.field.deductionFile": "מספר תיק ניכויים",
+  "employer.field.deductionHint": "9 ספרות, מתחיל בספרה 9",
   "employer.field.lock": "לנעול את הפרטים אצל העובד/ת",
   "employer.result.title": "הקישור שלכם",
   "employer.result.copy": "העתקת הקישור",
@@ -79,6 +86,7 @@ export default {
   "employer.result.download": "הורדת קובץ JSON",
   "employer.result.fingerprint": "טביעת אצבע של הקישור",
   "employer.warning": "הקישור מכיל את פרטי החברה שהזנתם. אל תכניסו מידע אישי של עובדים.",
+  "employer.privacyNote": "הקישור נבנה במכשיר שלכם. אין לנו שרת, ואנחנו לא יודעים מי פתח אותו.",
   "employer.how.title": "איך זה עובד",
   "employer.how.1": "אתם ממלאים את פרטי המעסיק ומקבלים קישור.",
   "employer.how.2": "העובד/ת פותח/ת את הקישור — הפרטים כבר בפנים, ואפשר לנעול אותם.",
@@ -120,6 +128,7 @@ export default {
   "upload.tooBig": "הקובץ גדול מדי (עד 12MB).",
   "upload.badType": "אפשר לצרף תמונה (JPG/PNG) או PDF.",
   "upload.privacy": "הקבצים לא נשלחים לשום מקום. הם נשמרים בדפדפן ויימצאו ב-PDF שתורידו.",
+  "upload.recommended": "מומלץ",
 
   "step.review.title": "סקירה לפני חתימה",
   "step.review.intro": "זה בדיוק מה שיודפס. אפשר לתקן כל סעיף בלחיצה.",
@@ -329,6 +338,7 @@ export default {
   "sign.sign": "חתימה",
   "sign.signed": "החתימה נרשמה",
   "sign.resign": "צריך לחתום מחדש אחרי שינוי",
+  "sign.resignAction": "חתימה מחדש",
 
   /* --------------------------------------------------------------- options */
   "opt.yes": "כן",
@@ -427,6 +437,7 @@ export default {
   "pdf.generating": "מכין את ה-PDF…",
   "pdf.hint": "הקובץ נבנה במכשיר שלך מהטופס הרשמי. אפשר להדפיס ולחתום ביד, או למסור כמו שהוא.",
   "pdf.error": "לא הצלחנו לבנות את ה-PDF. אפשר להדפיס את המסמך מהמסך במקום.",
+  "pdf.ready": "הקובץ הורד",
 
   /* -------------------------------------------------------------- documents */
   "doc.title": "מסמכים שנדרשים לפי התשובות",
@@ -463,6 +474,31 @@ export default {
   "doc.because.reserve": "סעיף 16 — מילואים",
   "doc.because.coordination": "בקשת תיאום מס",
   "doc.none": "אין מסמכים חובה לפי התשובות הנוכחיות.",
+
+  /* --------------------------------------------------------------- document */
+  "doc101.title": "טופס 101 — כרטיס עובד",
+  "doc101.subtitle":
+    "ובקשה להקלה ולתיאום מס על ידי המעסיק · לפי תקנות מס הכנסה (ניכוי ממשכורת ומשכר עבודה), התשנ״ג-1993",
+  "doc101.taxYear": "שנת מס {year}",
+  "doc101.declarationTitle": "הצהרה",
+  "doc101.date": "תאריך",
+  "doc101.signature": "חתימת המבקש/ת",
+  "doc101.generated": "הופק בטופס 101 · הנתונים לא נשלחו לשום מקום",
+
+  /* ---------------------------------------------------------------- dialog */
+  "conflict.title": "הטיוטה עודכנה בטאב אחר",
+  "conflict.body": "כנראה שהטיוטה נערכה בטאב נוסף. אפשר לטעון את הגרסה האחרונה או להמשיך כאן.",
+  "conflict.reload": "טעינת הגרסה האחרונה",
+  "conflict.dismiss": "המשך כאן",
+  "conflict.reloaded": "הטיוטה עודכנה מהטאב האחר",
+  "conflict.reloadFailed": "לא הצלחנו לטעון את הגרסה האחרונה",
+  "warn.childrenPdfRows":
+    "הטופס הרשמי כולל {max} שורות לילדים. {extra} ילדים נוספים לא יודפסו בטופס — אפשר לצרף אותם כנספח.",
+  "warn.coordPdfRows": "הטופס הרשמי כולל {max} שורות למעסיקים בתיאום מס. {extra} מעסיקים נוספים לא יודפסו.",
+  "delete.title": "למחוק את כל הנתונים?",
+  "delete.body": "הטיוטה, החתימה והמסמכים המצורפים יימחקו מהמכשיר. אי אפשר לבטל.",
+  "delete.confirm": "מחיקת הכול",
+  "delete.done": "כל הנתונים נמחקו מהמכשיר",
 
   /* ------------------------------------------------------------------- meta */
   "meta.stepOf": "שלב {n} מתוך {total}",

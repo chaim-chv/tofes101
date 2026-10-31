@@ -26,6 +26,10 @@
 html:root {
   color-scheme: light;
   --ui-primary: #0f766e;
+  /* Semantic text colours must pass AA on the light surfaces we use. */
+  --ui-success: #15803d;
+  --ui-warning: #b45309;
+  --ui-error: #b91c1c;
   --ui-text-dimmed: var(--color-slate-600);
 }
 

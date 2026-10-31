@@ -7,6 +7,26 @@ export const SCHEMA_VERSION = 1
 export const TAX_YEAR = 2026
 export const DECLARATION_VERSION = "2026-he-1"
 
+/**
+ * Stable fingerprint of every answer that is covered by the declaration.
+ * Signing-related fields are excluded so re-signing does not change it.
+ *
+ * This is not a security primitive; it exists so the UI can tell whether the
+ * document changed after it was signed.
+ */
+export function answersFingerprint(state: FormState): string {
+  const entries = Object.entries(state.values)
+    .filter(([id]) => !id.startsWith("sign."))
+    .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
+  const text = JSON.stringify(entries)
+  let hash = 2166136261
+  for (let i = 0; i < text.length; i++) {
+    hash ^= text.charCodeAt(i)
+    hash = Math.imul(hash, 16777619)
+  }
+  return (hash >>> 0).toString(36)
+}
+
 export function emptyState(taxYear = TAX_YEAR): FormState {
   const now = new Date().toISOString()
   return {

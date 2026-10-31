@@ -68,6 +68,11 @@ export type Signature = {
   typedName?: string
   signedAt: string
   declarationVersion: string
+  /**
+   * Fingerprint of the answers at signing time. When any non-signature answer
+   * changes, the signature no longer covers the document and must be renewed.
+   */
+  answersHash?: string
 }
 
 export type RepeatItem = Record<string, FieldValue> & { _key: string }
@@ -85,6 +90,8 @@ export type FormState = {
     /** steps that have been visited and were valid at least once */
     completed: Record<StepId, true>
     declarationVersion: string
+    /** Set when a PDF was generated, so a reload can show the result state. */
+    lastExportAt?: string
   }
   values: FormValues
   /** answers that are currently hidden by a condition — kept, never deleted */
@@ -163,7 +170,10 @@ export type StepStatus = "todo" | "current" | "done" | "skipped"
 
 export type StepView = {
   id: StepId
+  /** Index in `schema.steps` (may include skipped steps). */
   index: number
+  /** Index in `visibleSteps`; -1 when the step is skipped. */
+  visibleIndex: number
   titleKey: MessageKey
   status: StepStatus
   issueCount: number

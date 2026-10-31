@@ -6,12 +6,14 @@
 import type { EmployerPrefill } from "~~/shared/employer-link"
 import { decodeEmployerLink } from "~~/shared/employer-link"
 import type { MessageKey } from "~/locales"
-import type { FieldDef } from "~/form/types"
-import { rowKey } from "~/form/values"
+import type { FieldDef, Signature } from "~/form/types"
+import { answersFingerprint, rowKey } from "~/form/values"
+import { hiddenCount } from "~/form/engine"
 
 const { t, locale, init: initLocale, localeName, setGender } = useLocale()
 const { path, absolute } = useAppPath()
 const form = useFormStore()
+const toast = useToast()
 if (import.meta.dev && import.meta.client) (window as any).__form = form
 
 useHead({
@@ -22,6 +24,7 @@ useHead({
 
 const prefill = ref<EmployerPrefill | null>(null)
 const prefillDismissed = ref(false)
+const prefillError = ref(false)
 const lockedIds = ref<Set<string>>(new Set())
 
 const EMPLOYER_FIELD_BY_KEY: Record<string, string> = {
@@ -30,6 +33,18 @@ const EMPLOYER_FIELD_BY_KEY: Record<string, string> = {
   p: "employer.phone",
   d: "employer.deductionFile",
 }
+
+/** Existing answers that the link would replace. */
+const prefillConflicts = computed(() => {
+  if (!prefill.value) return [] as string[]
+  const out: string[] = []
+  for (const [key, value] of Object.entries(prefill.value.e ?? {})) {
+    const id = EMPLOYER_FIELD_BY_KEY[key]
+    const current = id ? form.state.value.values[id] : undefined
+    if (id && typeof current === "string" && current.trim() && current !== value) out.push(id)
+  }
+  return out
+})
 
 // Keep every gendered message in sync with the employee's answer.
 watch(
@@ -81,7 +96,33 @@ async function onBackupChosen(event: Event) {
   if (importResult.value.ok) {
     showErrors.value = false
     touched.clear()
+    // The imported draft knows nothing about the employer link that was open.
+    lockedIds.value = new Set()
   }
+}
+
+async function readPrefill(rawHash: string) {
+  const hash = String(rawHash ?? "").replace(/^#/, "")
+  if (!hash.startsWith("e=")) return
+  const result = await decodeEmployerLink(hash.slice(2))
+  if (!result.ok) {
+    prefillError.value = true
+    prefill.value = null
+    return
+  }
+  prefillError.value = false
+  prefill.value = result.payload
+  // The payload is only applied when accepted — a link must never silently
+  // overwrite answers the user already typed.
+}
+
+let lastHash = ""
+
+function onHashChange() {
+  if (!import.meta.client) return
+  if (location.hash === lastHash) return
+  lastHash = location.hash
+  void readPrefill(location.hash)
 }
 
 onMounted(async () => {
@@ -89,13 +130,11 @@ onMounted(async () => {
   await form.hydrate()
   await form.flush()
 
-  const hash = String((window as any).__INITIAL_HASH ?? location.hash ?? "").replace(/^#/, "")
-  if (!hash.startsWith("e=")) return
-  const result = await decodeEmployerLink(hash.slice(2))
-  if (!result.ok) return
-  prefill.value = result.payload
-  // The payload is only applied when accepted — a link must never silently
-  // overwrite answers the user already typed.
+  // The router may strip the fragment during hydration; the inline script in
+  // nuxt.config captured it first. Same-route hash changes are handled below.
+  const initial = String((window as any).__INITIAL_HASH ?? location.hash ?? "")
+  lastHash = location.hash
+  await readPrefill(initial)
 })
 
 function acceptPrefill() {
@@ -105,11 +144,15 @@ function acceptPrefill() {
     const id = EMPLOYER_FIELD_BY_KEY[key]
     if (id) values[id] = value
   }
+  // A link with a real employer name means "unknown" no longer applies; leaving
+  // it set would keep the prefilled address/phone hidden.
+  if (prefill.value.e?.n) values["employer.unknown"] = false
   form.applyPrefill(values)
   lockedIds.value = new Set(
     (prefill.value.lock ?? []).map((k) => EMPLOYER_FIELD_BY_KEY[k]).filter((v): v is string => !!v),
   )
   prefill.value = null
+  prefillError.value = false
   // Land the user on the employer step they just accepted.
   form.goToId("employer", { force: true })
   afterNavigate()
@@ -117,6 +160,7 @@ function acceptPrefill() {
 
 function dismissPrefill() {
   prefill.value = null
+  prefillError.value = false
   prefillDismissed.value = true
   if (import.meta.client) history.replaceState(null, "", location.pathname + location.search)
 }
@@ -144,9 +188,15 @@ function back() {
   afterNavigate()
 }
 
-function jump(index: number) {
-  const result = form.goTo(index)
-  if (result.ok) afterNavigate()
+function jump(id: string) {
+  const result = form.goToId(id)
+  if (result.ok) {
+    afterNavigate()
+    return
+  }
+  // A rail click must never be a dead click: show the blocking step's errors.
+  showErrors.value = true
+  nextTick(() => summary.value?.focus())
 }
 
 function afterNavigate() {
@@ -175,6 +225,7 @@ function onVisibility() {
 onMounted(() => {
   document.addEventListener("visibilitychange", onVisibility)
   window.addEventListener("pagehide", onVisibility)
+  window.addEventListener("hashchange", onHashChange)
   // Every field blur is a save point: cheap (≤1 ms) and removes the "I typed it
   // and closed the tab" data-loss window.
   document.addEventListener("focusout", onFocusOut)
@@ -185,13 +236,55 @@ function onFocusOut() {
 onBeforeUnmount(() => {
   document.removeEventListener("visibilitychange", onVisibility)
   window.removeEventListener("pagehide", onVisibility)
+  window.removeEventListener("hashchange", onHashChange)
   document.removeEventListener("focusout", onFocusOut)
 })
 
 const step = computed(() => form.currentStep.value)
 const stepTitle = computed(() => (step.value ? t(step.value.titleKey) : ""))
-const isLast = computed(() => form.currentStepIndex.value === form.steps.value.filter((s) => s.status !== "skipped").length - 1)
-const skipNote = computed(() => (step.value ? form.skipReasonKey(step.value) : undefined))
+const visibleStepCount = computed(() => form.steps.value.filter((s) => s.status !== "skipped").length)
+const isLast = computed(() => form.currentStepIndex.value === visibleStepCount.value - 1)
+
+/** The first step that is currently skipped, with its explanation (never silent). */
+const skippedStep = computed(() => {
+  const view = form.steps.value.find((s) => s.status === "skipped")
+  if (!view) return null
+  const schemaStep = form.schema.steps.find((s) => s.id === view.id)
+  if (!schemaStep?.skipReasonKey) return null
+  return { view, reasonKey: schemaStep.skipReasonKey }
+})
+
+const hiddenAnswers = computed(() => hiddenCount(form.state.value))
+const hiddenNoticeDismissed = ref(false)
+
+/** The official form has a fixed number of printed rows; warn before data is left out. */
+const pdfRowWarning = computed(() => {
+  const id = step.value?.id
+  const rows = (value: unknown) => (Array.isArray(value) ? value.length : 0)
+  if (id === "children") {
+    const n = rows(form.state.value.values["children"])
+    return n > 5 ? t("warn.childrenPdfRows", { max: 5, extra: n - 5 }) : null
+  }
+  if (id === "credits") {
+    const n = rows(form.state.value.values["coord.employers"])
+    return n > 3 ? t("warn.coordPdfRows", { max: 3, extra: n - 3 }) : null
+  }
+  return null
+})
+
+/* --------------------------------------------------------- signature integrity */
+
+const currentAnswersHash = computed(() => answersFingerprint(form.state.value))
+const signature = computed(() => form.state.value.values["sign.signature"] as Signature | undefined)
+const signatureStale = computed(
+  () => !!signature.value?.answersHash && signature.value.answersHash !== currentAnswersHash.value,
+)
+const staleError = ref(false)
+
+function resign() {
+  form.setValue("sign.signature", undefined)
+  staleError.value = false
+}
 const labels = computed<Record<string, string>>(() => {
   const out: Record<string, string> = {}
   for (const f of form.schema.allFields) {
@@ -239,8 +332,6 @@ function setValue(id: string, value: unknown) {
 
 /* ------------------------------------------------------------------ export */
 
-const exporting = ref(false)
-
 async function exportBackup() {
   const blob = await form.exportDraft()
   if (!blob) return
@@ -255,7 +346,12 @@ async function exportBackup() {
 const printHref = computed(() => path("/print/"))
 const pdf = usePdfExport()
 
-function downloadPdf() {
+async function downloadPdf() {
+  if (signatureStale.value) {
+    staleError.value = true
+    nextTick(() => document.getElementById("f-sign.signature")?.focus())
+    return
+  }
   // The sign step has no "continue": downloading is the final action, so it is
   // where the signature/date requirement must be enforced and shown.
   if (form.currentErrors.value.length) {
@@ -263,7 +359,46 @@ function downloadPdf() {
     nextTick(() => summary.value?.focus())
     return
   }
-  void pdf.download(form.state.value)
+  staleError.value = false
+  const ok = await pdf.download(form.state.value)
+  if (!ok) return
+  form.markExported()
+  toast.add({
+    title: t("pdf.ready"),
+    description: pdf.fileName.value ?? undefined,
+    color: "success",
+    icon: "i-lucide-check-circle-2",
+  })
+}
+
+const deleteOpen = ref(false)
+const deleting = ref(false)
+
+async function deleteAll() {
+  deleting.value = true
+  try {
+    await form.reset()
+    lockedIds.value = new Set()
+    deleteOpen.value = false
+    toast.add({ title: t("delete.done"), color: "success", icon: "i-lucide-trash-2" })
+    await navigateTo(path("/"))
+  } finally {
+    deleting.value = false
+  }
+}
+
+async function reloadDraft() {
+  const ok = await form.reloadFromStorage()
+  toast.add({
+    title: ok ? t("conflict.reloaded") : t("conflict.reloadFailed"),
+    color: ok ? "success" : "error",
+    icon: ok ? "i-lucide-refresh-cw" : "i-lucide-circle-alert",
+  })
+}
+
+function changeIdKind() {
+  form.goToId("identity", { force: true })
+  afterNavigate()
 }
 </script>
 
@@ -282,11 +417,32 @@ function downloadPdf() {
           <div v-if="prefill.e.p"><dt class="text-muted">{{ t("employer.field.phone") }}</dt><dd dir="ltr">{{ prefill.e.p }}</dd></div>
           <div v-if="prefill.e.d"><dt class="text-muted">{{ t("employer.field.deductionFile") }}</dt><dd dir="ltr">{{ prefill.e.d }}</dd></div>
         </dl>
+        <UAlert
+          v-if="prefillConflicts.length"
+          class="mt-3"
+          color="warning"
+          variant="subtle"
+          icon="i-lucide-triangle-alert"
+          :description="t('form.prefill.overwrite', { n: prefillConflicts.length })"
+        />
         <div class="mt-4 flex flex-wrap gap-2">
-          <UButton @click="acceptPrefill">{{ t("form.prefill.accept") }}</UButton>
+          <UButton @click="acceptPrefill">
+            {{ prefillConflicts.length ? t("form.prefill.replace") : t("form.prefill.accept") }}
+          </UButton>
           <UButton variant="ghost" color="neutral" @click="dismissPrefill">{{ t("form.prefill.dismiss") }}</UButton>
         </div>
       </UCard>
+
+      <UAlert
+        v-if="prefillError"
+        class="mb-4 [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
+        color="warning"
+        variant="subtle"
+        icon="i-lucide-circle-alert"
+        :description="t('form.badPayload')"
+        :close="true"
+        @update:open="prefillError = false"
+      />
 
       <UAlert
         v-if="importMessage"
@@ -300,42 +456,87 @@ function downloadPdf() {
       <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
         <StepProgress
           :steps="form.steps.value"
-          :current="form.currentStepIndex.value"
+          :current-id="step?.id"
           :show-counts="showErrors"
           @select="jump"
         />
-        <p class="text-xs text-muted">
+        <p class="text-xs text-muted" aria-live="polite">
           <span v-if="form.saving.value">{{ t("common.saving") }}</span>
-          <span v-else-if="form.dirty.value && form.lastSavedAt.value">{{ t("common.saved") }}</span>
+          <span v-else-if="form.lastSavedAt.value">{{ t("common.saved") }}</span>
         </p>
       </div>
 
+      <UCard v-if="form.conflict.value" class="mb-4 border-warning/40">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div class="min-w-0">
+            <p class="text-sm font-medium text-highlighted">{{ t("conflict.title") }}</p>
+            <p class="mt-1 text-sm text-muted">{{ t("conflict.body") }}</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <UButton size="sm" icon="i-lucide-refresh-cw" @click="reloadDraft">{{ t("conflict.reload") }}</UButton>
+            <UButton size="sm" variant="ghost" color="neutral" @click="form.dismissConflict()">
+              {{ t("conflict.dismiss") }}
+            </UButton>
+          </div>
+        </div>
+      </UCard>
+
       <UAlert
-        v-if="form.conflict.value"
+        v-if="skippedStep"
         class="mb-4 [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
-        color="warning"
+        color="info"
         variant="subtle"
-        icon="i-lucide-refresh-cw"
-        :description="t('common.hideAnswers')"
+        icon="i-lucide-arrow-right"
+      >
+        <template #description>
+          <span>{{ t(skippedStep.reasonKey as MessageKey) }}</span>
+          <UButton
+            v-if="skippedStep.view.id === 'children'"
+            variant="link"
+            size="xs"
+            class="ms-2"
+            @click="changeIdKind"
+          >
+            {{ t("form.skipped.change") }}
+          </UButton>
+        </template>
+      </UAlert>
+
+      <UAlert
+        v-if="hiddenAnswers && !hiddenNoticeDismissed"
+        class="mb-4 [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
+        color="info"
+        variant="subtle"
+        icon="i-lucide-lock"
+        :description="t('form.hidden.body', { n: hiddenAnswers })"
+        :close="true"
+        @update:open="hiddenNoticeDismissed = true"
       />
 
       <!-- step -->
       <section class="rounded-2xl border border-default bg-default p-5 sm:p-7">
         <p class="text-xs font-medium text-muted">
-          {{ t("meta.stepOf", { n: form.currentStepIndex.value + 1, total: form.steps.value.filter((s) => s.status !== 'skipped').length }) }}
+          {{ t("meta.stepOf", { n: form.currentStepIndex.value + 1, total: visibleStepCount }) }}
         </p>
         <h1 id="step-title" tabindex="-1" class="mt-1 text-2xl font-bold tracking-tight text-highlighted focus:outline-none">
           {{ stepTitle }}
         </h1>
         <p v-if="step?.introKey" class="mt-2 text-sm text-muted">{{ t(step.introKey) }}</p>
 
-        <UAlert v-if="skipNote" class="mt-4" color="info" variant="subtle" :description="t(skipNote as MessageKey)" />
-
         <ErrorSummary
           ref="summary"
           :issues="showErrors ? form.currentIssues.value : []"
           :labels="labels"
           class="mt-5"
+        />
+
+        <UAlert
+          v-if="pdfRowWarning"
+          class="mt-5 [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
+          color="warning"
+          variant="subtle"
+          icon="i-lucide-triangle-alert"
+          :description="pdfRowWarning"
         />
 
         <!-- review step -->
@@ -366,6 +567,7 @@ function downloadPdf() {
                 v-else-if="field.kind === 'signature'"
                 :model-value="(form.state.value.values[field.id] as any)"
                 :declaration-version="form.schema.declarationVersion"
+                :answers-hash="currentAnswersHash"
                 :issues="issuesOf(field.id)"
                 :required="isRequiredFor(field)"
                 :field-id="field.id"
@@ -378,6 +580,7 @@ function downloadPdf() {
                 :value="valueOf(field.id)"
                 :issues="issuesOf(field.id)"
                 :required="isRequiredFor(field)"
+                :locked="isLocked(field.id)"
                 :disabled="isLocked(field.id)"
                 @update:value="(v) => setValue(field.id, v)"
               />
@@ -391,19 +594,22 @@ function downloadPdf() {
 
         <DocumentChecklist v-if="step?.id === 'sign'" :state="form.state.value" />
 
-        <div v-if="step?.id === 'sign'" class="mt-6 rounded-xl border border-default bg-elevated/30 p-4">
-          <div class="flex flex-wrap items-center gap-3">
-            <UButton :loading="pdf.busy.value" icon="i-lucide-file-down" size="lg" @click="downloadPdf">
-              {{ pdf.busy.value ? t("pdf.generating") : t("pdf.download") }}
-            </UButton>
-            <UButton :to="printHref" variant="outline" color="neutral" icon="i-lucide-printer">
-              {{ t("meta.reviewAll") }}
-            </UButton>
-          </div>
-          <p class="mt-2 text-xs text-muted">{{ t("pdf.hint") }}</p>
+        <div v-if="step?.id === 'sign'" class="mt-6 space-y-3">
+          <UAlert
+            v-if="signatureStale || staleError"
+            color="warning"
+            variant="subtle"
+            icon="i-lucide-triangle-alert"
+          >
+            <template #description>
+              <span>{{ t("sign.resign") }}</span>
+              <UButton variant="link" size="xs" class="ms-2" @click="resign">{{ t("sign.resignAction") }}</UButton>
+            </template>
+          </UAlert>
+          <p class="text-xs text-muted">{{ t("pdf.hint") }}</p>
           <UAlert
             v-if="pdf.error.value"
-            class="mt-3 [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
+            class="[&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
             color="error"
             variant="subtle"
             :description="t('pdf.error')"
@@ -432,18 +638,35 @@ function downloadPdf() {
             :aria-label="t('meta.importJson')"
             @change="onBackupChosen"
           />
-          <UButton v-if="isLast" :to="printHref" icon="i-lucide-printer">
-            {{ t("meta.reviewAll") }}
+          <UButton v-if="isLast" :loading="pdf.busy.value" icon="i-lucide-file-down" @click="downloadPdf">
+            {{ pdf.busy.value ? t("pdf.generating") : t("pdf.download") }}
           </UButton>
-          <UButton v-else icon="i-lucide-arrow-left" @click="advance">
+          <UButton v-if="isLast" :to="printHref" variant="outline" color="neutral" icon="i-lucide-printer">
+            {{ t("common.print") }}
+          </UButton>
+          <UButton v-if="!isLast" icon="i-lucide-arrow-left" @click="advance">
             {{ t("common.next") }}
           </UButton>
         </div>
       </div>
 
-      <p class="mt-8 text-center text-xs text-muted">
-        {{ t("privacy.line") }}
-      </p>
+      <div class="mt-8 flex flex-col items-center gap-2">
+        <p class="text-center text-xs text-muted">
+          {{ t("privacy.line") }}
+        </p>
+        <UButton variant="link" color="error" size="xs" icon="i-lucide-trash-2" @click="deleteOpen = true">
+          {{ t("meta.clearAll") }}
+        </UButton>
+      </div>
     </main>
+
+    <UModal v-model:open="deleteOpen" :title="t('delete.title')" :description="t('delete.body')">
+      <template #footer>
+        <UButton variant="ghost" color="neutral" @click="deleteOpen = false">{{ t("common.cancel") }}</UButton>
+        <UButton color="error" icon="i-lucide-trash-2" :loading="deleting" @click="deleteAll">
+          {{ t("delete.confirm") }}
+        </UButton>
+      </template>
+    </UModal>
   </div>
 </template>

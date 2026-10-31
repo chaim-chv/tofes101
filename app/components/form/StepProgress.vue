@@ -2,18 +2,20 @@
 /**
  * Step rail. Keyboard: it is a list of buttons (not links) because steps are
  * state inside one route; arrow keys move between them, Enter activates.
+ *
+ * Selection is by step **id**, never by array index: a skipped step removes an
+ * entry from the visible list, so schema indexes and visible indexes diverge.
  */
 import type { StepView } from "~/form/types"
 
 const props = defineProps<{
   steps: StepView[]
-  current: number
-  disabled?: boolean
+  currentId?: string
   /** Badges only after the user has attempted to move on — no wall of red on arrival. */
   showCounts?: boolean
 }>()
 
-const emit = defineEmits<{ select: [index: number] }>()
+const emit = defineEmits<{ select: [id: string] }>()
 
 const { t } = useLocale()
 const refs = ref<HTMLButtonElement[]>([])
@@ -36,6 +38,11 @@ function onKeydown(event: KeyboardEvent, index: number) {
     refs.value[props.steps.length - 1]?.focus()
   }
 }
+
+function select(step: StepView) {
+  if (step.status === "skipped") return
+  emit("select", step.id)
+}
 </script>
 
 <template>
@@ -45,25 +52,26 @@ function onKeydown(event: KeyboardEvent, index: number) {
         <button
           :ref="(el) => { if (el) refs[index] = el as HTMLButtonElement }"
           type="button"
-          :aria-current="index === props.current ? 'step' : undefined"
-          :aria-disabled="step.status === 'skipped' || props.disabled || undefined"
+          :aria-current="step.id === props.currentId ? 'step' : undefined"
+          :aria-disabled="step.status === 'skipped' || undefined"
           :title="t(step.titleKey)"
-          class="flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition disabled:opacity-50"
+          :disabled="step.status === 'skipped'"
+          class="flex min-h-11 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition disabled:opacity-50"
           :class="[
-            index === props.current
-              ? 'border-primary bg-primary text-inverted font-medium'
+            step.id === props.currentId
+              ? 'border-primary bg-primary font-medium text-inverted'
               : step.status === 'done'
                 ? 'border-success/60 bg-success/10 text-highlighted'
                 : step.status === 'skipped'
                   ? 'border-default bg-default text-muted line-through'
                   : 'border-default bg-default text-highlighted hover:bg-elevated',
           ]"
-          :tabindex="index === props.current ? 0 : -1"
-          @click="emit('select', index)"
+          :tabindex="step.id === props.currentId ? 0 : -1"
+          @click="select(step)"
           @keydown="onKeydown($event, index)"
         >
-          <span class="sr-only">{{ t("common.step", { n: index + 1, total: props.steps.length }) }}:</span>
-          <span aria-hidden="true" class="font-mono">{{ index + 1 }}</span>
+          <span class="sr-only">{{ t("common.step", { n: step.visibleIndex + 1, total: props.steps.filter((s) => s.status !== 'skipped').length }) }}:</span>
+          <span aria-hidden="true" class="font-mono">{{ step.visibleIndex >= 0 ? step.visibleIndex + 1 : "–" }}</span>
           <span class="hidden sm:inline">{{ t(step.titleKey) }}</span>
           <span
             v-if="props.showCounts && step.issueCount"

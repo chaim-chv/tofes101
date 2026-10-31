@@ -135,7 +135,7 @@ function slug(s: string) {
       <p class="mt-3 max-w-2xl text-muted">{{ t("employer.lead") }}</p>
 
       <UAlert
-        class="mt-6"
+        class="mt-6 [&_[data-slot=description]]:!text-highlighted [&_[data-slot=description]]:!opacity-100"
         color="warning"
         variant="subtle"
         icon="i-lucide-shield-alert"
@@ -163,7 +163,7 @@ function slug(s: string) {
               @update:model-value="onPhoneInput"
             />
           </UFormField>
-          <UFormField :label="t('employer.field.deductionFile')" hint="9 ספרות" :error="deductionError">
+          <UFormField :label="t('employer.field.deductionFile')" :hint="t('employer.field.deductionHint')" :error="deductionError">
             <UInput
               :model-value="form.deductionFile"
               size="lg"
@@ -206,16 +206,16 @@ function slug(s: string) {
           </div>
         </dl>
         <p class="mt-4 text-xs text-muted">
-          הקישור נבנה במכשיר שלכם. אין לנו שרת, ואנחנו לא יודעים מי פתח אותו.
+          {{ t("employer.privacyNote") }}
         </p>
       </UCard>
 
       <aside class="mt-10 rounded-lg border border-default bg-default p-4 text-sm text-muted">
-        <h2 class="font-medium text-highlighted">איך זה עובד</h2>
+        <h2 class="font-medium text-highlighted">{{ t("employer.how.title") }}</h2>
         <ol class="mt-2 list-decimal space-y-1 ps-5">
-          <li>אתם ממלאים את פרטי המעסיק ומקבלים קישור.</li>
-          <li>העובד/ת פותח/ת את הקישור — הפרטים כבר בפנים, ואפשר לנעול אותם.</li>
-          <li>העובד/ת מוריד/ה PDF ומוסר/ת לכם. שום דבר לא עובר דרכנו.</li>
+          <li>{{ t("employer.how.1") }}</li>
+          <li>{{ t("employer.how.2") }}</li>
+          <li>{{ t("employer.how.3") }}</li>
         </ol>
       </aside>
     </UContainer>

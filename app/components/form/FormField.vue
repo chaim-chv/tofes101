@@ -19,6 +19,8 @@ const props = defineProps<{
   required?: boolean
   /** Unique suffix so repeating rows never share a DOM id or radio group. */
   idSuffix?: string
+  /** Prefilled by the employer link: readable, but not editable. */
+  locked?: boolean
 }>()
 
 const emit = defineEmits<{ "update:value": [value: unknown] }>()
@@ -70,14 +72,19 @@ const commonAttrs = computed(() => ({
   inputmode: props.field.inputMode,
   maxlength: props.field.maxLength,
   pattern: props.field.pattern,
-  disabled: props.disabled,
+  // A locked value must stay readable and copyable, so use readonly for text
+  // inputs and disabled only where the HTML control cannot be readonly.
+  disabled: props.locked ? undefined : props.disabled,
+  readonly: props.locked || undefined,
   "data-field-id": props.field.id,
+  "aria-readonly": props.locked || undefined,
   "aria-invalid": error.value ? true : undefined,
   "aria-describedby": describedBy.value,
   "aria-required": isRequired.value || undefined,
   class: [
     "w-full rounded-lg border bg-default px-3 py-2.5 text-base text-highlighted transition",
     "placeholder:text-dimmed focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+    props.locked ? "bg-elevated/40 text-muted" : "",
     error.value ? "border-error" : "border-default",
   ],
 }))
@@ -166,10 +173,15 @@ function onBlur(event: Event) {
     class="min-w-0 focus:outline-none"
     :aria-describedby="describedBy"
   >
-    <legend class="mb-2 block text-sm font-medium text-highlighted">
-      {{ field.labelKey ? t(field.labelKey) : "" }}
-      <span v-if="isRequired" class="text-error" aria-hidden="true">*</span>
-      <span v-if="isRequired" class="sr-only">({{ t("common.required") }})</span>
+    <legend class="mb-2 flex flex-wrap items-center gap-x-2 text-sm font-medium text-highlighted">
+      <span>
+        {{ field.labelKey ? t(field.labelKey) : "" }}
+        <span v-if="isRequired" class="text-error" aria-hidden="true">*</span>
+        <span v-if="isRequired" class="sr-only">({{ t("common.required") }})</span>
+      </span>
+      <UBadge v-if="locked" size="sm" color="neutral" variant="subtle" icon="i-lucide-lock">
+        {{ t("form.prefill.locked") }}
+      </UBadge>
     </legend>
     <div class="grid gap-2 sm:grid-cols-2">
       <label
@@ -185,7 +197,7 @@ function onBlur(event: Event) {
           :name="controlName"
           :value="String(option.value)"
           :checked="isChecked(option)"
-          :disabled="disabled"
+          :disabled="disabled || locked"
           :data-field-id="field.id"
           :aria-invalid="error ? true : undefined"
           :aria-describedby="describedBy"
@@ -226,10 +238,15 @@ function onBlur(event: Event) {
     class="min-w-0 focus:outline-none"
     :aria-describedby="describedBy"
   >
-    <legend class="mb-2 block text-sm font-medium text-highlighted">
-      {{ field.labelKey ? t(field.labelKey) : "" }}
-      <span v-if="isRequired" class="text-error" aria-hidden="true">*</span>
-      <span v-if="isRequired" class="sr-only">({{ t("common.required") }})</span>
+    <legend class="mb-2 flex flex-wrap items-center gap-x-2 text-sm font-medium text-highlighted">
+      <span>
+        {{ field.labelKey ? t(field.labelKey) : "" }}
+        <span v-if="isRequired" class="text-error" aria-hidden="true">*</span>
+        <span v-if="isRequired" class="sr-only">({{ t("common.required") }})</span>
+      </span>
+      <UBadge v-if="locked" size="sm" color="neutral" variant="subtle" icon="i-lucide-lock">
+        {{ t("form.prefill.locked") }}
+      </UBadge>
     </legend>
     <div class="grid gap-2 sm:grid-cols-2">
       <label
@@ -245,7 +262,7 @@ function onBlur(event: Event) {
           :name="`${controlName}[]`"
           :value="String(option.value)"
           :checked="isChecked(option)"
-          :disabled="disabled"
+          :disabled="disabled || locked"
           :data-field-id="field.id"
           :aria-invalid="error ? true : undefined"
           :aria-describedby="describedBy"
@@ -287,7 +304,7 @@ function onBlur(event: Event) {
         class="mt-1 size-4 shrink-0 rounded accent-[var(--ui-primary)]"
         :name="controlName"
         :checked="value === true"
-        :disabled="disabled"
+        :disabled="disabled || locked"
         :data-field-id="field.id"
         :aria-invalid="error ? true : undefined"
         :aria-describedby="describedBy"
@@ -295,10 +312,15 @@ function onBlur(event: Event) {
         @change="emit('update:value', ($event.target as HTMLInputElement).checked)"
       />
       <span class="min-w-0">
-        <span class="block text-sm font-medium text-highlighted">
-          {{ field.labelKey ? t(field.labelKey) : "" }}
-          <span v-if="isRequired" class="text-error" aria-hidden="true">*</span>
-          <span v-if="isRequired" class="sr-only">({{ t("common.required") }})</span>
+        <span class="flex flex-wrap items-center gap-x-2 text-sm font-medium text-highlighted">
+          <span>
+            {{ field.labelKey ? t(field.labelKey) : "" }}
+            <span v-if="isRequired" class="text-error" aria-hidden="true">*</span>
+            <span v-if="isRequired" class="sr-only">({{ t("common.required") }})</span>
+          </span>
+          <UBadge v-if="locked" size="sm" color="neutral" variant="subtle" icon="i-lucide-lock">
+            {{ t("form.prefill.locked") }}
+          </UBadge>
         </span>
         <span v-if="field.helpKey" :id="helpId" class="mt-0.5 block text-xs text-muted">
           {{ t(field.helpKey) }}
@@ -327,15 +349,21 @@ function onBlur(event: Event) {
 
   <!-- text / date / select -->
   <div v-else class="min-w-0">
-    <label :for="inputId" class="mb-1.5 block text-sm font-medium text-highlighted">
-      {{ field.labelKey ? t(field.labelKey) : "" }}
-      <span v-if="isRequired" class="text-error" aria-hidden="true">*</span>
-      <span v-if="isRequired" class="sr-only">({{ t("common.required") }})</span>
+    <label :for="inputId" class="mb-1.5 flex flex-wrap items-center gap-x-2 text-sm font-medium text-highlighted">
+      <span>
+        {{ field.labelKey ? t(field.labelKey) : "" }}
+        <span v-if="isRequired" class="text-error" aria-hidden="true">*</span>
+        <span v-if="isRequired" class="sr-only">({{ t("common.required") }})</span>
+      </span>
+      <UBadge v-if="locked" size="sm" color="neutral" variant="subtle" icon="i-lucide-lock">
+        {{ t("form.prefill.locked") }}
+      </UBadge>
     </label>
 
     <select
       v-if="field.kind === 'select'"
       v-bind="commonAttrs"
+      :disabled="disabled || locked"
       :value="textValue()"
       @change="emit('update:value', ($event.target as HTMLSelectElement).value)"
     >
