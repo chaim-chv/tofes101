@@ -41,6 +41,7 @@ export default {
   "common.warning": "שימו לב",
   "common.hideAnswers": "יש תשובות מוסתרות",
   "common.optionalHint": "אפשר להשאיר ריק",
+  "common.addAtLeastOne": "יש להוסיף לפחות רשומה אחת",
 
   /* ------------------------------------------------------------------- home */
   "home.h1": "טופס 101 — ממלאים פעם אחת, מורידים קובץ.",
@@ -138,7 +139,7 @@ export default {
   "f.employer.address": "כתובת המעסיק",
   "f.employer.phone": "טלפון המעסיק",
   "f.employer.deductionFile": "מספר תיק ניכויים",
-  "f.employer.deductionFile.help": "ספרות בלבד, עד 9 ספרות. את המספר נותן המעסיק.",
+  "f.employer.deductionFile.help": "9 ספרות, מתחיל בספרה 9. את המספר נותן המעסיק.",
 
   /* -------------------------------------------------------------- employee f */
   "f.employee.idKind": "זיהוי לפי",
@@ -402,6 +403,24 @@ export default {
   "err.digitsOnly": "ספרות בלבד",
   "err.id.duplicate": "מספר הזהות הזה כבר מופיע בטופס — לכל אדם צריך מספר שונה",
   "err.id.duplicateRow": "אותו מספר זהות מופיע גם ברשומה {first} — לכל ילד/ה מספר שונה",
+  "err.deductionFile.length": "מספר תיק הניכויים חייב להיות 9 ספרות",
+  "err.deductionFile.prefix": "מספר תיק הניכויים חייב להתחיל בספרה 9",
+  "err.deductionFile.invalid": "מספר תיק הניכויים אינו תקין — בדקו את 9 הספרות",
+  "err.zip.invalid": "מיקוד חייב להכיל 5 או 7 ספרות",
+  "err.date.invalid": "תאריך לא תקין",
+  "err.date.afterOther": "התאריך חייב להיות לפני תאריך הסיום",
+  "err.date.beforeBirth": "התאריך לא יכול להיות לפני תאריך הלידה",
+  "err.child.notBorn": "לפי תאריך הלידה הילד/ה טרם נולד/ה בשנת המס",
+  "err.child.tooOld": "לפי תאריך הלידה הילד/ה יהיה/תהיה בן/בת {age} בשנת המס — אפשר לרשום רק ילדים מתחת לגיל 19",
+  "err.selectAtMostOne": "אפשר לבחור עד {max} אפשרויות",
+  "err.number.invalid": "יש להזין מספר תקין",
+  "err.number.range": "המספר חייב להיות בין {min} ל-{max}",
+  "err.signature.invalid": "נדרשת חתימה",
+  "err.credits.youngEmployeeAge": "לא ניתן לבקש נקודת זיכוי זו: לפי תאריכי הלידה הגיל בשנת המס אינו 16–17",
+  "err.credits.singleParentEligibility": "סעיף זה מיועד להורה שאינו נשוי, שיש לו ילד/ה שהוא מקבל בגינו/ה קצבת ילדים",
+  "err.credits.soleParentNeedsChildren": "סימון הורה יחיד מחייב סימון סעיף 7 או 8",
+  "err.credits.childrenEligibility": "סעיף 7 מיועד להורה שאינו נשוי עם ילד/ה בחזקתו שהוא מקבל בגינו/ה קצבת ילדים, לאישה נשואה, או למי שסימן הורה יחיד",
+  "err.credits.toddlersEligibility": "סעיף 8 אינו מתאים לנתונים שמסרתם — בדקו את הסעיפים 7 ו-9",
 
   /* ------------------------------------------------------------------- pdf */
   "pdf.download": "הורדת PDF מלא",

@@ -6,6 +6,8 @@
 import type { EmployerPrefill } from "~~/shared/employer-link"
 import { decodeEmployerLink } from "~~/shared/employer-link"
 import type { MessageKey } from "~/locales"
+import type { FieldDef } from "~/form/types"
+import { rowKey } from "~/form/values"
 
 const { t, locale, init: initLocale, localeName, setGender } = useLocale()
 const { path, absolute } = useAppPath()
@@ -76,6 +78,10 @@ async function onBackupChosen(event: Event) {
   if (!file) return
   if (form.dirty.value && !confirm(t("import.confirm"))) return
   importResult.value = await form.importDraft(file)
+  if (importResult.value.ok) {
+    showErrors.value = false
+    touched.clear()
+  }
 }
 
 onMounted(async () => {
@@ -106,6 +112,7 @@ function acceptPrefill() {
   prefill.value = null
   // Land the user on the employer step they just accepted.
   form.goToId("employer", { force: true })
+  afterNavigate()
 }
 
 function dismissPrefill() {
@@ -143,10 +150,21 @@ function jump(index: number) {
 }
 
 function afterNavigate() {
+  // A new step starts clean: no red fields or old summary from the step left
+  // behind (which may have failed a "continue" a moment ago).
+  showErrors.value = false
+  touched.clear()
   nextTick(() => {
     document.getElementById("step-title")?.focus()
     window.scrollTo({ top: 0, behavior: "smooth" })
   })
+}
+
+/** Mark the field the user actually blurred as touched, including repeat rows. */
+function markTouched(fallbackId: string, event: FocusEvent) {
+  const target = event.target as HTMLElement | null
+  const owner = target?.closest?.("[data-field-id]") as HTMLElement | null
+  touched.add(owner?.dataset.fieldId ?? fallbackId)
 }
 
 /* --------------------------------------------------------------- lifecycle */
@@ -176,9 +194,24 @@ const isLast = computed(() => form.currentStepIndex.value === form.steps.value.f
 const skipNote = computed(() => (step.value ? form.skipReasonKey(step.value) : undefined))
 const labels = computed<Record<string, string>>(() => {
   const out: Record<string, string> = {}
-  for (const f of form.schema.allFields) if (f.labelKey) out[f.id] = t(f.labelKey)
+  for (const f of form.schema.allFields) {
+    if (f.labelKey) out[f.id] = t(f.labelKey)
+    // Repeat rows report issues as "children.idNum"; the summary must show a
+    // human label for them, not the raw field id.
+    for (const sub of f.fields ?? []) {
+      if (!sub.labelKey) continue
+      const id = `${f.id}.${rowKey(sub.id)}`
+      out[id] = f.labelKey ? `${t(f.labelKey)} — ${t(sub.labelKey)}` : t(sub.labelKey)
+    }
+  }
   return out
 })
+
+function isRequiredFor(field: FieldDef): boolean {
+  return typeof field.required === "function"
+    ? field.required(form.state.value)
+    : field.required === true
+}
 
 function valueOf(id: string): unknown {
   return form.state.value.values[id]
@@ -188,7 +221,12 @@ function issuesOf(id: string) {
   // Errors are shown only after the field was touched or the user tried to move
   // on — never a wall of red on arrival (kb/ux/validation-and-errors.md).
   if (!showErrors.value && !touched.has(id)) return []
-  return form.fieldIssues(id)
+  const issues = form.fieldIssues(id)
+  if (showErrors.value) return issues
+  // On blur show format errors only: "required" waits for Continue. This is the
+  // documented rule, and it also avoids a layout shift while the user tabs from
+  // an empty field to the next control.
+  return issues.filter((issue) => issue.code !== "required")
 }
 
 function isLocked(id: string) {
@@ -218,6 +256,13 @@ const printHref = computed(() => path("/print/"))
 const pdf = usePdfExport()
 
 function downloadPdf() {
+  // The sign step has no "continue": downloading is the final action, so it is
+  // where the signature/date requirement must be enforced and shown.
+  if (form.currentErrors.value.length) {
+    showErrors.value = true
+    nextTick(() => summary.value?.focus())
+    return
+  }
   void pdf.download(form.state.value)
 }
 </script>
@@ -303,13 +348,15 @@ function downloadPdf() {
           <template v-for="field in step ? form.visibleFields(step) : []" :key="field.id">
             <div
               :class="field.span === 6 ? 'col-span-12 sm:col-span-6' : field.span === 4 ? 'col-span-12 sm:col-span-4' : field.span === 3 ? 'col-span-6 sm:col-span-3' : 'col-span-12'"
-              @focusout="touched.add(field.id)"
+              @focusout="markTouched(field.id, $event)"
             >
               <FormRepeat
                 v-if="field.kind === 'repeat'"
                 :field="field"
                 :items="(form.state.value.values[field.id] as any) ?? []"
                 :issues-by-field="issuesOf"
+                :issues="issuesOf(field.id)"
+                :required="isRequiredFor(field)"
                 :disabled="isLocked(field.id)"
                 @add="form.addRow(field)"
                 @remove="(key) => form.removeRow(field.id, key)"
@@ -319,6 +366,10 @@ function downloadPdf() {
                 v-else-if="field.kind === 'signature'"
                 :model-value="(form.state.value.values[field.id] as any)"
                 :declaration-version="form.schema.declarationVersion"
+                :issues="issuesOf(field.id)"
+                :required="isRequiredFor(field)"
+                :field-id="field.id"
+                :help-key="field.helpKey"
                 @update:model-value="(v) => setValue(field.id, v)"
               />
               <FormField
@@ -326,6 +377,7 @@ function downloadPdf() {
                 :field="field"
                 :value="valueOf(field.id)"
                 :issues="issuesOf(field.id)"
+                :required="isRequiredFor(field)"
                 :disabled="isLocked(field.id)"
                 @update:value="(v) => setValue(field.id, v)"
               />

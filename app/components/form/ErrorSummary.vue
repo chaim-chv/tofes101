@@ -13,8 +13,17 @@ const el = ref<HTMLElement | null>(null)
 
 const errors = computed(() => props.issues.filter((i) => i.severity === "error"))
 
-function focusField(fieldId: string) {
-  const target = document.getElementById(`f-${fieldId}`) ?? document.getElementById(fieldId)
+function focusField(issue: Issue) {
+  const fieldId = issue.field
+  // Exact id first (single fields, repeat containers, radio groups). Repeating
+  // rows carry their `_key` on the issue, so focus lands on the failing row.
+  const target =
+    (issue.rowKey ? document.getElementById(`f-${fieldId}-${issue.rowKey}`) : null) ??
+    document.getElementById(`f-${fieldId}`) ??
+    document.getElementById(fieldId) ??
+    Array.from(document.querySelectorAll<HTMLElement>("[id]")).find((el) =>
+      el.id.startsWith(`f-${fieldId}`),
+    )
   target?.focus()
   target?.scrollIntoView({ behavior: "smooth", block: "center" })
 }
@@ -37,11 +46,11 @@ defineExpose({
       {{ t("meta.errorsInStep", { n: errors.length }) }}
     </h2>
     <ul class="mt-2 space-y-1 ps-5">
-      <li v-for="issue in errors" :key="`${issue.field}-${issue.code}`" class="list-disc text-sm">
+      <li v-for="(issue, index) in errors" :key="`${issue.field}-${issue.code}-${index}`" class="list-disc text-sm">
         <a
           href="#"
           class="text-error underline decoration-error/40 underline-offset-2 hover:decoration-error"
-          @click.prevent="focusField(issue.field)"
+          @click.prevent="focusField(issue)"
         >
           {{ labels[issue.field] ?? issue.field }} — {{ t(issue.messageKey as MessageKey, issue.params) }}
         </a>

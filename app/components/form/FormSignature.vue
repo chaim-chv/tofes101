@@ -5,17 +5,35 @@
  * with the declaration version attached so an old file can be traced to the
  * exact wording that was signed.
  */
-import type { Signature } from "~/form/types"
+import type { Signature, Issue } from "~/form/types"
+import type { MessageKey } from "~/locales"
 
 const props = defineProps<{
   modelValue: Signature | undefined
   declarationVersion: string
   disabled?: boolean
+  /** State-aware requiredness from the engine. */
+  required?: boolean
+  fieldId?: string
+  helpKey?: MessageKey
+  issues?: Issue[]
 }>()
 
 const emit = defineEmits<{ "update:modelValue": [value: Signature | undefined] }>()
 
 const { t } = useLocale()
+
+const errors = computed(() => props.issues?.filter((i) => i.severity === "error") ?? [])
+const warning = computed(() => props.issues?.find((i) => i.severity === "warning"))
+const fieldId = computed(() => props.fieldId ?? "sign.signature")
+const errorId = (index = 0) => `err-${fieldId.value}-${index}`
+const describedBy = computed(() => {
+  const ids: string[] = []
+  if (props.helpKey) ids.push(`help-${fieldId.value}`)
+  if (errors.value.length) ids.push(...errors.value.map((_, i) => errorId(i)))
+  else if (warning.value) ids.push(`warn-${fieldId.value}`)
+  return ids.join(" ") || undefined
+})
 
 const mode = ref<"draw" | "type">("draw")
 const typedName = ref(props.modelValue?.typedName ?? "")
@@ -137,9 +155,17 @@ const signedLabel = computed(() =>
 
 <template>
   <div class="min-w-0">
-    <fieldset :disabled="props.disabled">
+    <fieldset
+      :id="`f-${fieldId}`"
+      tabindex="-1"
+      :disabled="props.disabled"
+      class="min-w-0 focus:outline-none"
+      :aria-describedby="describedBy"
+    >
       <legend class="mb-2 block text-sm font-medium text-highlighted">
         {{ t("f.sign.signature") }}
+        <span v-if="props.required" class="text-error" aria-hidden="true">*</span>
+        <span v-if="props.required" class="sr-only">({{ t("common.required") }})</span>
       </legend>
 
       <div class="mb-3 flex gap-1 rounded-lg border border-default p-1" role="tablist" :aria-label="t('f.sign.signature')">
@@ -184,6 +210,8 @@ const signedLabel = computed(() =>
           v-model="typedName"
           type="text"
           autocomplete="name"
+          :aria-invalid="errors.length ? true : undefined"
+          :aria-describedby="describedBy"
           class="w-full rounded-lg border border-default bg-default px-3 py-2.5 text-base text-highlighted"
           @keydown.enter.prevent="commitTyped"
         />
@@ -199,6 +227,22 @@ const signedLabel = computed(() =>
       <p v-if="signedLabel" class="mt-3 flex items-center gap-2 text-sm text-highlighted" role="status">
         <UIcon name="i-lucide-check-circle-2" class="size-4 text-success" />
         {{ t("sign.signed") }} · <span dir="ltr">{{ signedLabel }}</span>
+      </p>
+      <p v-if="props.helpKey" :id="`help-${fieldId}`" class="mt-2 text-xs text-muted">
+        {{ t(props.helpKey) }}
+      </p>
+      <p
+        v-for="(issue, issueIndex) in errors"
+        :id="errorId(issueIndex)"
+        :key="`${issue.code}-${issueIndex}`"
+        class="mt-2 flex items-center gap-1 text-sm text-error"
+      >
+        <UIcon name="i-lucide-circle-alert" class="size-4 shrink-0" />
+        {{ t(issue.messageKey, issue.params) }}
+      </p>
+      <p v-if="!errors.length && warning" :id="`warn-${fieldId}`" class="mt-2 flex items-center gap-1 text-sm text-warning">
+        <UIcon name="i-lucide-triangle-alert" class="size-4 shrink-0" />
+        {{ t(warning.messageKey, warning.params) }}
       </p>
     </fieldset>
   </div>

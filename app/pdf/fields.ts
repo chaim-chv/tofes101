@@ -28,6 +28,16 @@ const asText: Formatter = (value) => {
 const asDate: Formatter = (value) => (typeof value === "string" && value ? formatDate(value) : "")
 
 /**
+ * The official form pre-prints the leading 9 of a deductions-file number. Print
+ * only the 8 trailing digits into the writing cells (the validator guarantees
+ * the 9-prefix); legacy drafts with another shape print as-is.
+ */
+const asDeductionTail: Formatter = (value) => {
+  const text = asText(value)
+  return /^9\d{8}$/.test(text) ? text.slice(1) : text
+}
+
+/**
  * Print the label the form expects, not the stored enum. The official 101 shows
  * "כללית", never "clalit", and a truncated English enum is exactly the kind of
  * detail an employer rejects.
@@ -63,7 +73,7 @@ const TEXT_RULES: TextRule[] = [
   { field: "employer.name", anchor: "employer.name", when: employerKnown },
   { field: "employer.address", anchor: "employer.address", when: employerKnown },
   { field: "employer.phone", anchor: "employer.phone", when: employerKnown },
-  { field: "employer.deductionFile", anchor: "employer.deductionFile", when: employerKnown },
+  { field: "employer.deductionFile", anchor: "employer.deductionFile", format: asDeductionTail, when: employerKnown },
 
   // page 1 · identity + address
   { field: "employee.firstName", anchor: "employee.firstName" },
@@ -235,7 +245,7 @@ function buildCoordination(items: PdfItem[], state: FormState) {
   repeat(state, "coord.employers").slice(0, COORD_ROWS).forEach((employer, row) => {
     pushText(items, `coord.${row}.name`, employer["name"])
     pushText(items, `coord.${row}.address`, employer["address"])
-    pushText(items, `coord.${row}.fileNum`, employer["fileNum"])
+    pushText(items, `coord.${row}.fileNum`, employer["fileNum"], asDeductionTail)
     const type = asText(employer["incomeType"])
     pushText(items, `coord.${row}.incomeType`, coordIncomeTypeLabel[type] ?? type)
     pushText(items, `coord.${row}.monthlyIncome`, employer["monthlyIncome"])

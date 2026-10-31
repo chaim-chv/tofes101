@@ -5,6 +5,7 @@
  */
 import type { FieldValue, FormState, Issue, Validator } from "./types"
 import type { MessageKey } from "~/locales"
+import { isSigned } from "./values"
 
 export function issue(
   field: string,
@@ -49,6 +50,18 @@ export function endOfTaxYear(taxYear: number): Date {
 
 /* ---------------------------------------------------------------- validators */
 
+/* ---------------------------------------------------------------- identifiers */
+
+/** Luhn (mod 10) check over a digits-only string. */
+function luhnOk(raw: string): boolean {
+  let sum = 0
+  for (let i = 0; i < raw.length; i++) {
+    const d = Number(raw[i]) * (i % 2 === 0 ? 1 : 2)
+    sum += d < 10 ? d : d - 9
+  }
+  return sum % 10 === 0
+}
+
 export function israeliId(): Validator {
   return (value, _state) => {
     const typed = typeof value === "string" ? value.trim() : ""
@@ -59,12 +72,31 @@ export function israeliId(): Validator {
     const raw = typed
     if (raw.length !== 9) return [issue("", "err.id.length", "id.length")]
     if (/^0+$/.test(raw)) return [issue("", "err.id.invalid", "id.zero")]
-    let sum = 0
-    for (let i = 0; i < 9; i++) {
-      const d = Number(raw[i]) * (i % 2 === 0 ? 1 : 2)
-      sum += d < 10 ? d : d - 9
-    }
-    return sum % 10 === 0 ? [] : [issue("", "err.id.invalid", "id.checksum")]
+    return luhnOk(raw) ? [] : [issue("", "err.id.invalid", "id.checksum")]
+  }
+}
+
+/**
+ * Deduction-file number ("מספר תיק ניכויים"): exactly 9 digits, starts with 9,
+ * and carries the same Luhn check digit as an Israeli ID.
+ */
+export function deductionFileNumber(): Validator {
+  return (value) => {
+    const raw = typeof value === "string" ? value.trim() : ""
+    if (!raw) return []
+    if (/[^0-9]/.test(raw)) return [issue("", "err.digitsOnly", "deduction.digits")]
+    if (raw.length !== 9) return [issue("", "err.deductionFile.length", "deduction.length")]
+    if (raw[0] !== "9") return [issue("", "err.deductionFile.prefix", "deduction.prefix")]
+    return luhnOk(raw) ? [] : [issue("", "err.deductionFile.invalid", "deduction.checksum")]
+  }
+}
+
+/** Israeli postal code: 5 digits (legacy) or 7 digits. */
+export function israeliZip(): Validator {
+  return (value) => {
+    const raw = typeof value === "string" ? value.trim() : ""
+    if (!raw) return []
+    return /^\d{5}(\d{2})?$/.test(raw) ? [] : [issue("", "err.zip.invalid", "zip")]
   }
 }
 
@@ -90,8 +122,19 @@ export function notFuture(): Validator {
   return (value) => {
     const d = parseDate(value)
     if (!d) return []
+    // Compare calendar days, not instants: at 01:00 in Israel, today's UTC
+    // midnight is still in the "future" and would be rejected.
     const today = new Date()
-    return d.getTime() > today.getTime() ? [issue("", "err.date.future", "date.future")] : []
+    const todayUtc = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
+    return d.getTime() > todayUtc ? [issue("", "err.date.future", "date.future")] : []
+  }
+}
+
+/** A date that is present but not a real ISO calendar date. */
+export function validDate(): Validator {
+  return (value) => {
+    if (typeof value !== "string" || value.trim() === "") return []
+    return parseDate(value) ? [] : [issue("", "err.date.invalid", "date.invalid")]
   }
 }
 
@@ -117,13 +160,64 @@ export function ageBetween(min: number, max: number, birthFieldId: string): Vali
   }
 }
 
-/** For date fields that must be on/after another date field. */
+/** For date fields that must be strictly after another date field. */
 export function afterField(otherId: string): Validator {
   return (value, state) => {
     const a = parseDate(value)
     const b = parseDate(state.values[otherId])
     if (!a || !b) return []
-    return a.getTime() < b.getTime() ? [issue("", "err.date.beforeOther", "date.order")] : []
+    return a.getTime() <= b.getTime() ? [issue("", "err.date.beforeOther", "date.order")] : []
+  }
+}
+
+/** For date fields that must be strictly before another date field. */
+export function beforeField(otherId: string): Validator {
+  return (value, state) => {
+    const a = parseDate(value)
+    const b = parseDate(state.values[otherId])
+    if (!a || !b) return []
+    return a.getTime() >= b.getTime() ? [issue("", "err.date.afterOther", "date.order")] : []
+  }
+}
+
+/** For date fields that may be equal to, but not earlier than, another field. */
+export function notBeforeField(
+  otherId: string,
+  messageKey: MessageKey = "err.date.beforeOther",
+): Validator {
+  return (value, state) => {
+    const a = parseDate(value)
+    const b = parseDate(state.values[otherId])
+    if (!a || !b) return []
+    return a.getTime() < b.getTime() ? [issue("", messageKey, "date.order")] : []
+  }
+}
+
+/** Age on 31 December of the form's tax year — the age the form asks about. */
+export function ageAtTaxYearEnd(value: unknown, state: FormState): number | null {
+  const d = parseDate(value)
+  return d ? ageAt(d, endOfTaxYear(state.meta.taxYear)) : null
+}
+
+export function ageAtTaxYearEndBetween(min: number, max: number): Validator {
+  return (value, state) => {
+    const age = ageAtTaxYearEnd(value, state)
+    if (age === null) return []
+    if (age < min)
+      return [issue("", "err.age.tooYoung", "age.min", "error", { age, min })]
+    if (age > max) return [issue("", "err.age.tooOld", "age.max", "error", { age, max })]
+    return []
+  }
+}
+
+/** Children are listed on the form only until the tax year they turn 19. */
+export function childAgeAtTaxYearEnd(): Validator {
+  return (value, state) => {
+    const age = ageAtTaxYearEnd(value, state)
+    if (age === null) return []
+    if (age < 0) return [issue("", "err.child.notBorn", "child.notBorn", "error", { age })]
+    if (age > 18) return [issue("", "err.child.tooOld", "child.tooOld", "error", { age })]
+    return []
   }
 }
 
@@ -136,6 +230,9 @@ export function distinctFrom(others: readonly string[], labelKeys: Record<string
     const raw = typeof value === "string" ? value.trim() : ""
     if (!raw) return []
     for (const other of others) {
+      // A value kept in a closed branch must not block a visible answer: the
+      // user cannot see or edit it (answers are never deleted, see ADR).
+      if (state.hidden[other]) continue
       const theirs = typeof state.values[other] === "string" ? String(state.values[other]).trim() : ""
       if (theirs && theirs === raw) {
         void labelKeys
@@ -156,6 +253,64 @@ export function oneOf(values: readonly (string | number | boolean)[]): Validator
 export function atLeastOne(): Validator {
   return (value) =>
     Array.isArray(value) && value.length > 0 ? [] : [issue("", "err.selectAtLeastOne", "select.one")]
+}
+
+/** For checkbox groups where only one of `values` may be picked. */
+export function atMostOneOf(values: readonly string[]): Validator {
+  return (value) => {
+    if (!Array.isArray(value)) return []
+    const picked = value.filter((v) => values.includes(String(v)))
+    return picked.length > 1
+      ? [issue("", "err.selectAtMostOne", "select.max", "error", { max: 1 })]
+      : []
+  }
+}
+
+/** Whole number in a closed range (counts, days). */
+export function integerRange(min: number, max: number): Validator {
+  return (value) => {
+    const s = typeof value === "string" ? value.trim() : typeof value === "number" ? String(value) : ""
+    if (!s) return []
+    if (!/^\d+$/.test(s)) return [issue("", "err.digitsOnly", "digits")]
+    const n = Number(s)
+    return n < min || n > max
+      ? [issue("", "err.number.range", "range", "error", { min, max })]
+      : []
+  }
+}
+
+/** Positive/zero money amount with up to two decimal places. */
+export function decimalRange(min: number, max: number): Validator {
+  return (value) => {
+    const s = typeof value === "string" ? value.trim() : typeof value === "number" ? String(value) : ""
+    if (!s) return []
+    if (!/^\d+(?:[.,]\d{1,2})?$/.test(s)) return [issue("", "err.number.invalid", "number")]
+    const n = Number(s.replace(",", "."))
+    return n < min || n > max
+      ? [issue("", "err.number.range", "range", "error", { min, max })]
+      : []
+  }
+}
+
+/** A signature must be a real drawn/typed signature object, not any truthy value. */
+export function signature(): Validator {
+  return (value) => (isSigned(value) ? [] : [issue("", "err.signature.invalid", "signature")])
+}
+
+/** The 16–17 credit can only be claimed when the employee or spouse is that age in the tax year. */
+export function youngEmployeeEligible(): Validator {
+  return (value, state) => {
+    if (value !== true) return []
+    const employeeAge = ageAtTaxYearEnd(state.values["employee.birthDate"], state)
+    const spouseAge =
+      state.values["employee.maritalStatus"] === "married"
+        ? ageAtTaxYearEnd(state.values["spouse.birthDate"], state)
+        : null
+    const employeeEligible = employeeAge !== null && employeeAge >= 16 && employeeAge < 18
+    const spouseEligible = spouseAge !== null && spouseAge >= 16 && spouseAge < 18
+    if (employeeEligible || spouseEligible) return []
+    return [issue("", "err.credits.youngEmployeeAge", "credits.youngEmployeeAge")]
+  }
 }
 
 export function maxLength(n: number): Validator {

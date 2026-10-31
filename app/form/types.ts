@@ -57,6 +57,8 @@ export type Issue = {
   severity: IssueSeverity
   messageKey: MessageKey
   params?: Record<string, string | number>
+  /** For a repeat row: the row's stable `_key`, so focus can target that row. */
+  rowKey?: string
 }
 
 export type Signature = {
@@ -110,6 +112,13 @@ export type FieldBase = {
   placeholderKey?: MessageKey
   autoComplete?: string
   inputMode?: "text" | "numeric" | "tel" | "email" | "decimal"
+  /** Keep the typed value inside the field's alphabet as the user types. */
+  inputFilter?: "digits" | "decimal" | "phone"
+  /** HTML `pattern` for browsers that support native constraint hints. */
+  pattern?: string
+  /** Native date bounds (ISO `yyyy-mm-dd`). */
+  min?: string
+  max?: string
   maxLength?: number
   /** Grid width on desktop, in twelfths. */
   span?: 12 | 6 | 4 | 3

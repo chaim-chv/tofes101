@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { encodeEmployerLink, fingerprint as hashPayload } from "~~/shared/employer-link"
+import { deductionFileNumber, israeliPhone } from "~/form/validators"
+import { emptyState } from "~/form/values"
 
 /**
  * The employer prefill-link builder (v1 replacement for the reference's
@@ -26,7 +28,49 @@ const link = ref("")
 const fingerprintCode = ref("")
 const copied = ref(false)
 
-const canBuild = computed(() => form.name.trim().length > 1)
+const validationState = emptyState(2026)
+const phoneIssues = computed(() => israeliPhone()(form.phone, validationState))
+const deductionIssues = computed(() => deductionFileNumber()(form.deductionFile, validationState))
+const phoneError = computed(() => {
+  const issue = phoneIssues.value[0]
+  return issue ? t(issue.messageKey, issue.params) : ""
+})
+const deductionError = computed(() => {
+  const issue = deductionIssues.value[0]
+  return issue ? t(issue.messageKey, issue.params) : ""
+})
+
+const canBuild = computed(
+  () =>
+    form.name.trim().length > 1 &&
+    phoneIssues.value.length === 0 &&
+    deductionIssues.value.length === 0,
+)
+
+function onPhoneInput(value: string | number) {
+  form.phone = String(value).replace(/[^\d+\s-]/g, "")
+}
+
+function onDeductionInput(value: string | number) {
+  form.deductionFile = String(value).replace(/\D/g, "").slice(0, 9)
+}
+
+// UInput keeps its own text node; a watcher makes the sanitised value win even
+// when the control did not re-render from the handler's update.
+watch(
+  () => form.phone,
+  (value) => {
+    const next = value.replace(/[^\d+\s-]/g, "")
+    if (next !== value) form.phone = next
+  },
+)
+watch(
+  () => form.deductionFile,
+  (value) => {
+    const next = value.replace(/\D/g, "").slice(0, 9)
+    if (next !== value) form.deductionFile = next
+  },
+)
 
 async function build() {
   const payload = await encodeEmployerLink({
@@ -106,11 +150,30 @@ function slug(s: string) {
           <UFormField :label="t('employer.field.address')" class="sm:col-span-2">
             <UInput v-model="form.address" size="lg" autocomplete="street-address" class="w-full" />
           </UFormField>
-          <UFormField :label="t('employer.field.phone')">
-            <UInput v-model="form.phone" size="lg" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" class="w-full" />
+          <UFormField :label="t('employer.field.phone')" :error="phoneError">
+            <UInput
+              :model-value="form.phone"
+              size="lg"
+              type="tel"
+              inputmode="tel"
+              pattern="[0-9+\-\s]*"
+              autocomplete="tel"
+              dir="ltr"
+              class="w-full"
+              @update:model-value="onPhoneInput"
+            />
           </UFormField>
-          <UFormField :label="t('employer.field.deductionFile')" hint="9 ספרות">
-            <UInput v-model="form.deductionFile" size="lg" inputmode="numeric" maxlength="9" dir="ltr" class="w-full" />
+          <UFormField :label="t('employer.field.deductionFile')" hint="9 ספרות" :error="deductionError">
+            <UInput
+              :model-value="form.deductionFile"
+              size="lg"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              maxlength="9"
+              dir="ltr"
+              class="w-full"
+              @update:model-value="onDeductionInput"
+            />
           </UFormField>
 
           <UCheckbox v-model="form.lock" :label="t('employer.field.lock')" class="sm:col-span-2" />

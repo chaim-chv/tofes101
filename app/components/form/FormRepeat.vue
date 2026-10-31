@@ -10,6 +10,9 @@ const props = defineProps<{
   field: FieldDef
   items: RepeatItem[]
   issuesByField: (id: string) => Issue[]
+  /** Container-level issues (e.g. "add at least one row"). */
+  issues?: Issue[]
+  required?: boolean
   disabled?: boolean
 }>()
 
@@ -49,13 +52,16 @@ function onRemove(key: string, index: number) {
 }
 
 const canAdd = computed(() => !props.field.maxItems || props.items.length < props.field.maxItems)
+const containerErrors = computed(() => (props.issues ?? []).filter((i) => i.severity === "error"))
 </script>
 
 <template>
-  <div class="min-w-0">
+  <div :id="`f-${props.field.id}`" tabindex="-1" class="min-w-0 focus:outline-none">
     <div class="mb-3 flex items-baseline justify-between gap-3">
       <h3 class="text-sm font-medium text-highlighted">
         {{ props.field.labelKey ? t(props.field.labelKey) : "" }}
+        <span v-if="props.required" class="text-error" aria-hidden="true">*</span>
+        <span v-if="props.required" class="sr-only">({{ t("common.required") }})</span>
       </h3>
       <span v-if="props.field.helpKey" class="text-xs text-muted">{{ t(props.field.helpKey) }}</span>
     </div>
@@ -70,6 +76,8 @@ const canAdd = computed(() => !props.field.maxItems || props.items.length < prop
                 :field="{ ...child, id: `${props.field.id}.${subId(child.id)}` }"
                 :value="item[subId(child.id)]"
                 :issues="issuesByField(`${props.field.id}.${subId(child.id)}`)"
+                :required="child.required === true"
+                :id-suffix="item._key"
                 :disabled="props.disabled"
                 @update:value="(v) => emit('update', item._key, subId(child.id), v)"
               />
@@ -92,7 +100,7 @@ const canAdd = computed(() => !props.field.maxItems || props.items.length < prop
     </ol>
 
     <p v-else class="rounded-lg border border-dashed border-default px-4 py-6 text-center text-sm text-muted">
-      {{ t("common.optionalHint") }}
+      {{ props.required ? t("common.addAtLeastOne") : t("common.optionalHint") }}
     </p>
 
     <div class="mt-3">
@@ -107,6 +115,16 @@ const canAdd = computed(() => !props.field.maxItems || props.items.length < prop
         {{ props.field.addKey ? t(props.field.addKey) : t("common.add") }}
       </UButton>
     </div>
+
+    <p
+      v-for="(issue, issueIndex) in containerErrors"
+      :id="`err-${props.field.id}`"
+      :key="`${issue.code}-${issueIndex}`"
+      class="mt-2 flex items-center gap-1 text-sm text-error"
+    >
+      <UIcon name="i-lucide-circle-alert" class="size-4 shrink-0" />
+      {{ t(issue.messageKey, issue.params) }}
+    </p>
 
     <p class="sr-only" aria-live="polite">{{ liveMessage }}</p>
   </div>

@@ -41,10 +41,10 @@ export function derive(state: FormState): Derived {
   const employeeAgeAtYearEnd = birth ? ageAt(birth, taxYearEnd) : null
 
   const children = repeatItems(state, "children").map((child) => {
-    const age = ageAt(parseDate(child["children.birthDate"]), taxYearEnd)
+    const age = ageAt(parseDate(child["birthDate"]), taxYearEnd)
     return {
       key: String(child._key),
-      name: asString(child["children.name"]),
+      name: asString(child["name"]),
       ageAtYearEnd: age,
       band: age === null ? ("outOfRange" as const) : bandFor(age, taxYear),
     }

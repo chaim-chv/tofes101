@@ -13,18 +13,30 @@ import type { FieldDef, FormSchema, FormState, Step } from "./types"
 import type { MessageKey } from "~/locales"
 import {
   afterField,
+  ageAtTaxYearEndBetween,
   ageBetween,
   atLeastOne,
+  atMostOneOf,
+  beforeField,
+  childAgeAtTaxYearEnd,
   dateInTaxYear,
+  decimalRange,
+  deductionFileNumber,
   distinctFrom,
-  digitsOnly,
   email,
   firstOf,
+  integerRange,
   israeliId,
   israeliPhone,
+  israeliZip,
+  issue,
+  notBeforeField,
   notFuture,
+  signature,
+  validDate,
+  youngEmployeeEligible,
 } from "./validators"
-import { asBool } from "./values"
+import { asBool, TAX_YEAR } from "./values"
 import { hasOtherIncome, spousePresent } from "./derive"
 
 const yesNo = [
@@ -36,6 +48,21 @@ const isId = (s: FormState) => s.values["employee.idKind"] !== "passport"
 const isPassport = (s: FormState) => s.values["employee.idKind"] === "passport"
 const isMarried = (s: FormState) => spousePresent(s)
 const creditsBlocked = (s: FormState) => hasOtherIncome(s) && s.values["other.creditsElsewhere"] === "yes"
+
+/** Does the children repeater contain a child for whom the employee gets child allowance? */
+const hasChildWithAllowance = (s: FormState): boolean => {
+  const rows = s.values["children"]
+  return Array.isArray(rows) && (rows as Array<Record<string, unknown>>).some((row) => row?.["allowance"] === true)
+}
+
+const childRowsOf = (s: FormState): Array<Record<string, unknown>> => {
+  const rows = s.values["children"]
+  return Array.isArray(rows) ? (rows as Array<Record<string, unknown>>) : []
+}
+
+const hasChildInCustody = (s: FormState): boolean => childRowsOf(s).some((row) => row?.["custody"] === true)
+const hasChildOutsideCustody = (s: FormState): boolean =>
+  childRowsOf(s).some((row) => row?.["custody"] === false)
 
 /* ------------------------------------------------------------------ steps */
 
@@ -86,7 +113,10 @@ const stepEmployer: Step = {
       labelKey: "f.employer.phone",
       when: (s) => !asBool(s.values["employer.unknown"]),
       inputMode: "tel",
+      inputFilter: "phone",
+      pattern: "[0-9+\\-\\s]*",
       autoComplete: "tel",
+      maxLength: 15,
       validate: israeliPhone(),
       span: 6,
     },
@@ -97,8 +127,10 @@ const stepEmployer: Step = {
       helpKey: "f.employer.deductionFile.help",
       when: (s) => !asBool(s.values["employer.unknown"]),
       inputMode: "numeric",
+      inputFilter: "digits",
+      pattern: "[0-9]*",
       maxLength: 9,
-      validate: firstOf(digitsOnly()),
+      validate: deductionFileNumber(),
       span: 6,
     },
   ],
@@ -129,6 +161,8 @@ const stepIdentity: Step = {
       when: isId,
       required: true,
       inputMode: "numeric",
+      inputFilter: "digits",
+      pattern: "[0-9]*",
       maxLength: 9,
       autoComplete: "off",
       validate: firstOf(israeliId(), distinctFrom(["spouse.idNum"], { "spouse.idNum": "spouse.idNum" })),
@@ -176,7 +210,7 @@ const stepIdentity: Step = {
       labelKey: "f.employee.birthDate",
       required: true,
       autoComplete: "bday",
-      validate: firstOf(notFuture(), ageBetween(14, 120, "employee.birthDate")),
+      validate: firstOf(validDate(), notFuture(), ageBetween(14, 120, "employee.birthDate")),
       span: 6,
     },
     {
@@ -185,7 +219,11 @@ const stepIdentity: Step = {
       labelKey: "f.employee.aliyahDate",
       helpKey: "f.employee.aliyahDate.help",
       when: isId,
-      validate: firstOf(notFuture()),
+      validate: firstOf(
+        validDate(),
+        notFuture(),
+        notBeforeField("employee.birthDate", "err.date.beforeBirth"),
+      ),
       span: 6,
     },
   ],
@@ -199,15 +237,27 @@ const stepContact: Step = {
     { id: "employee.city", kind: "text", labelKey: "f.employee.city", required: true, maxLength: 60, span: 6 },
     { id: "employee.street", kind: "text", labelKey: "f.employee.street", required: true, maxLength: 80, span: 6 },
     { id: "employee.houseNum", kind: "text", labelKey: "f.employee.houseNum", required: true, maxLength: 10, span: 3 },
-    { id: "employee.zip", kind: "text", labelKey: "f.employee.zip", inputMode: "numeric", maxLength: 7, validate: digitsOnly(), span: 3 },
+    {
+      id: "employee.zip",
+      kind: "text",
+      labelKey: "f.employee.zip",
+      inputMode: "numeric",
+      inputFilter: "digits",
+      pattern: "[0-9]*",
+      maxLength: 7,
+      validate: israeliZip(),
+      span: 3,
+    },
     {
       id: "employee.mobile",
       kind: "text",
       labelKey: "f.employee.mobile",
       required: true,
       inputMode: "tel",
+      inputFilter: "phone",
+      pattern: "[0-9+\\-\\s]*",
       autoComplete: "tel",
-      maxLength: 12,
+      maxLength: 15,
       validate: israeliPhone({ mobile: true }),
       span: 6,
     },
@@ -218,6 +268,7 @@ const stepContact: Step = {
       helpKey: "f.employee.email.help",
       inputMode: "email",
       autoComplete: "email",
+      maxLength: 254,
       validate: email(),
       span: 6,
     },
@@ -341,6 +392,8 @@ const stepStatus: Step = {
       when: isMarried,
       required: true,
       inputMode: "numeric",
+      inputFilter: "digits",
+      pattern: "[0-9]*",
       maxLength: 9,
       validate: firstOf(israeliId(), distinctFrom(["employee.idNum"], { "employee.idNum": "employee.idNum" })),
       span: 6,
@@ -351,7 +404,7 @@ const stepStatus: Step = {
       labelKey: "f.spouse.birthDate",
       when: isMarried,
       required: true,
-      validate: firstOf(notFuture()),
+      validate: firstOf(validDate(), notFuture(), ageAtTaxYearEndBetween(14, 120)),
       span: 6,
     },
     {
@@ -412,6 +465,8 @@ const stepChildren: Step = {
           labelKey: "f.children.idNum",
           required: true,
           inputMode: "numeric",
+          inputFilter: "digits",
+          pattern: "[0-9]*",
           maxLength: 9,
           validate: firstOf(israeliId(), distinctFrom(["employee.idNum", "spouse.idNum"])),
         },
@@ -420,7 +475,7 @@ const stepChildren: Step = {
           kind: "date",
           labelKey: "f.children.birthDate",
           required: true,
-          validate: firstOf(notFuture()),
+          validate: firstOf(validDate(), notFuture(), childAgeAtTaxYearEnd()),
         },
         {
           id: "children.custody",
@@ -459,7 +514,7 @@ const stepIncome: Step = {
         { value: "allowance", labelKey: "opt.salary.allowance" },
         { value: "scholarship", labelKey: "opt.salary.scholarship" },
       ],
-      validate: atLeastOne(),
+      validate: firstOf(atLeastOne(), atMostOneOf(["monthly", "additional", "partial", "daily"])),
       span: 12,
     },
     {
@@ -467,7 +522,10 @@ const stepIncome: Step = {
       kind: "static",
       contentKey: "income.secondJobWarning",
       variant: "warning",
-      when: (s) => Array.isArray(s.values["income.salaryTypes"]) && (s.values["income.salaryTypes"] as string[]).includes("additional"),
+      when: (s) =>
+        !asBool(s.values["coord.request"]) &&
+        Array.isArray(s.values["income.salaryTypes"]) &&
+        (s.values["income.salaryTypes"] as string[]).includes("additional"),
     },
     {
       id: "income.startDate",
@@ -475,7 +533,9 @@ const stepIncome: Step = {
       labelKey: "f.income.startDate",
       helpKey: "f.income.startDate.help",
       required: true,
-      validate: firstOf(notFuture(), dateInTaxYear((s) => s.meta.taxYear)),
+      min: `${TAX_YEAR}-01-01`,
+      max: `${TAX_YEAR}-12-31`,
+      validate: firstOf(validDate(), notFuture(), dateInTaxYear((s) => s.meta.taxYear)),
       span: 6,
     },
     {
@@ -597,7 +657,7 @@ const stepCredits: Step = {
       labelKey: "f.credits.localityFrom",
       when: (s) => !creditsBlocked(s) && asBool(s.values["credits.locality"]),
       required: true,
-      validate: firstOf(notFuture()),
+      validate: firstOf(validDate(), notFuture()),
       span: 6,
     },
     creditToggle("immigrant", "f.credits.immigrant", { helpKey: "f.credits.immigrant.help" }),
@@ -619,7 +679,7 @@ const stepCredits: Step = {
       labelKey: "f.credits.immigrantFrom",
       when: (s) => !creditsBlocked(s) && asBool(s.values["credits.immigrant"]),
       required: true,
-      validate: firstOf(notFuture()),
+      validate: firstOf(validDate(), notFuture()),
       span: 6,
     },
     {
@@ -628,19 +688,54 @@ const stepCredits: Step = {
       labelKey: "f.credits.immigrantNoIncomeUntil",
       helpKey: "f.credits.immigrantNoIncomeUntil.help",
       when: (s) => !creditsBlocked(s) && asBool(s.values["credits.immigrant"]),
+      validate: firstOf(validDate(), notFuture(), dateInTaxYear((s) => s.meta.taxYear)),
       span: 6,
     },
-    creditToggle("incomelessSpouse", "f.credits.incomelessSpouse"),
-    creditToggle("singleParentSeparate", "f.credits.singleParentSeparate"),
+    creditToggle("incomelessSpouse", "f.credits.incomelessSpouse", {
+      when: (s) =>
+        !creditsBlocked(s) && isMarried(s) && s.values["spouse.hasIncome"] === "no",
+    }),
+    creditToggle("singleParentSeparate", "f.credits.singleParentSeparate", {
+      validate: (value, s) => {
+        if (value !== true) return []
+        if (!isMarried(s) && hasChildWithAllowance(s)) return []
+        return [issue("", "err.credits.singleParentEligibility", "credits.singleParentEligibility", "warning")]
+      },
+    }),
     creditToggle("childrenCustody", "f.credits.childrenCustody", {
       helpKey: "f.credits.childrenCustody.help",
       when: (s) => !creditsBlocked(s) && isId(s),
+      validate: (value, s) => {
+        if (value !== true) return []
+        const eligible =
+          (!isMarried(s) && hasChildWithAllowance(s) && hasChildInCustody(s)) ||
+          (s.values["employee.sex"] === "female" && isMarried(s)) ||
+          asBool(s.values["credits.soleParent"])
+        return eligible ? [] : [issue("", "err.credits.childrenEligibility", "credits.childrenEligibility", "warning")]
+      },
     }),
     creditToggle("toddlers", "f.credits.toddlers", {
       helpKey: "f.credits.toddlers.help",
       when: (s) => !creditsBlocked(s) && isId(s),
+      validate: (value, s) => {
+        if (value !== true) return []
+        const sex = s.values["employee.sex"]
+        const marital = s.values["employee.maritalStatus"]
+        const eligible =
+          (sex === "male" && marital === "married") ||
+          (!!sex && !!marital && marital !== "married" && !asBool(s.values["credits.childrenCustody"])) ||
+          (sex === "female" && !!marital && marital !== "married" && hasChildOutsideCustody(s)) ||
+          asBool(s.values["credits.soleParent"])
+        return eligible ? [] : [issue("", "err.credits.toddlersEligibility", "credits.toddlersEligibility", "warning")]
+      },
     }),
-    creditToggle("soleParent", "f.credits.soleParent"),
+    creditToggle("soleParent", "f.credits.soleParent", {
+      validate: (value, s) => {
+        if (value !== true) return []
+        if (asBool(s.values["credits.childrenCustody"]) || asBool(s.values["credits.toddlers"])) return []
+        return [issue("", "err.credits.soleParentNeedsChildren", "credits.soleParentNeedsChildren", "warning")]
+      },
+    }),
     creditToggle("nonCustodySupport", "f.credits.nonCustodySupport"),
     creditToggle("disabledChild", "f.credits.disabledChild"),
     {
@@ -650,12 +745,14 @@ const stepCredits: Step = {
       when: (s) => !creditsBlocked(s) && asBool(s.values["credits.disabledChild"]),
       required: true,
       inputMode: "numeric",
+      inputFilter: "digits",
+      pattern: "[0-9]*",
       maxLength: 2,
-      validate: digitsOnly(),
+      validate: integerRange(1, 20),
       span: 6,
     },
     creditToggle("alimony", "f.credits.alimony"),
-    creditToggle("youngEmployee", "f.credits.youngEmployee"),
+    creditToggle("youngEmployee", "f.credits.youngEmployee", { validate: youngEmployeeEligible() }),
     creditToggle("discharged", "f.credits.discharged"),
     {
       id: "credits.serviceStart",
@@ -663,7 +760,7 @@ const stepCredits: Step = {
       labelKey: "f.credits.serviceStart",
       when: (s) => !creditsBlocked(s) && asBool(s.values["credits.discharged"]),
       required: true,
-      validate: firstOf(notFuture()),
+      validate: firstOf(validDate(), notFuture(), beforeField("credits.serviceEnd")),
       span: 6,
     },
     {
@@ -672,7 +769,7 @@ const stepCredits: Step = {
       labelKey: "f.credits.serviceEnd",
       when: (s) => !creditsBlocked(s) && asBool(s.values["credits.discharged"]),
       required: true,
-      validate: firstOf(afterField("credits.serviceStart")),
+      validate: firstOf(validDate(), notFuture(), afterField("credits.serviceStart")),
       span: 6,
     },
     creditToggle("studies", "f.credits.studies"),
@@ -684,8 +781,10 @@ const stepCredits: Step = {
       when: (s) => !creditsBlocked(s) && asBool(s.values["credits.reserve"]),
       required: true,
       inputMode: "numeric",
+      inputFilter: "digits",
+      pattern: "[0-9]*",
       maxLength: 3,
-      validate: digitsOnly(),
+      validate: integerRange(1, 366),
       span: 6,
     },
 
@@ -717,7 +816,9 @@ const stepCredits: Step = {
       labelKey: "f.coord.noIncomeUntil",
       when: (s) => asBool(s.values["coord.request"]) && s.values["coord.reason"] === "no-previous-income",
       required: true,
-      validate: firstOf(notFuture()),
+      min: `${TAX_YEAR}-01-01`,
+      max: `${TAX_YEAR}-12-31`,
+      validate: firstOf(validDate(), notFuture(), dateInTaxYear((s) => s.meta.taxYear)),
       span: 6,
     },
     {
@@ -727,17 +828,22 @@ const stepCredits: Step = {
       rowTitleKey: "f.coord.row",
       addKey: "f.coord.add",
       when: (s) => asBool(s.values["coord.request"]) && s.values["coord.reason"] === "other-incomes",
+      required: true,
+      minItems: 1,
       maxItems: 6,
       fields: [
         { id: "coord.name", kind: "text", labelKey: "f.coord.name", required: true, maxLength: 80 },
-        { id: "coord.address", kind: "text", labelKey: "f.coord.address", maxLength: 120 },
+        { id: "coord.address", kind: "text", labelKey: "f.coord.address", required: true, maxLength: 120 },
         {
           id: "coord.fileNum",
           kind: "text",
           labelKey: "f.coord.fileNum",
+          required: true,
           inputMode: "numeric",
+          inputFilter: "digits",
+          pattern: "[0-9]*",
           maxLength: 9,
-          validate: digitsOnly(),
+          validate: deductionFileNumber(),
         },
         {
           id: "coord.incomeType",
@@ -751,8 +857,28 @@ const stepCredits: Step = {
             { value: "other", labelKey: "opt.coordType.other" },
           ],
         },
-        { id: "coord.monthlyIncome", kind: "text", labelKey: "f.coord.monthlyIncome", inputMode: "decimal", maxLength: 12 },
-        { id: "coord.monthlyTax", kind: "text", labelKey: "f.coord.monthlyTax", inputMode: "decimal", maxLength: 12 },
+        {
+          id: "coord.monthlyIncome",
+          kind: "text",
+          labelKey: "f.coord.monthlyIncome",
+          required: true,
+          inputMode: "decimal",
+          inputFilter: "decimal",
+          pattern: "[0-9]*[.,]?[0-9]{0,2}",
+          maxLength: 12,
+          validate: decimalRange(1, 10_000_000),
+        },
+        {
+          id: "coord.monthlyTax",
+          kind: "text",
+          labelKey: "f.coord.monthlyTax",
+          required: true,
+          inputMode: "decimal",
+          inputFilter: "decimal",
+          pattern: "[0-9]*[.,]?[0-9]{0,2}",
+          maxLength: 12,
+          validate: decimalRange(0, 10_000_000),
+        },
       ],
     },
     {
@@ -798,6 +924,7 @@ const stepSign: Step = {
       labelKey: "f.sign.signature",
       helpKey: "f.sign.signature.help",
       required: true,
+      validate: signature(),
       span: 12,
     },
     {
@@ -806,7 +933,7 @@ const stepSign: Step = {
       labelKey: "f.sign.date",
       required: true,
       when: (s) => Boolean(s.values["sign.signature"]),
-      validate: firstOf(notFuture()),
+      validate: firstOf(validDate(), notFuture()),
       span: 6,
     },
   ],

@@ -37,6 +37,22 @@ export function isRequired(field: FieldDef, state: FormState): boolean {
 
 /* ----------------------------------------------------------------- validation */
 
+/**
+ * `maxLength` is enforced here as well as in the input's HTML attribute: pasted,
+ * imported and restored drafts never pass through the control.
+ */
+function lengthIssue(field: FieldDef, value: unknown): Issue | null {
+  if (!field.maxLength || typeof value !== "string") return null
+  if (value.length <= field.maxLength) return null
+  return {
+    field: field.id,
+    code: "length",
+    severity: "error",
+    messageKey: "err.tooLong",
+    params: { max: field.maxLength },
+  }
+}
+
 export function validateField(field: FieldDef, state: FormState): Issue[] {
   if (field.kind === "static") return []
   if (!isVisible(field, state)) return []
@@ -67,6 +83,7 @@ export function validateField(field: FieldDef, state: FormState): Issue[] {
           severity: "error",
           messageKey: "err.id.duplicateRow",
           params: { first: previous + 1, second: index + 1 },
+          rowKey: String(item._key),
         })
       } else {
         seen.set(value, index)
@@ -74,17 +91,25 @@ export function validateField(field: FieldDef, state: FormState): Issue[] {
     })
 
     for (const item of items) {
+      const itemKey = String(item._key)
       for (const sub of field.fields ?? []) {
         const key = rowKey(sub.id)
         const id = `${field.id}.${key}`
         const subValue = item[key]
         const subRequired = typeof sub.required === "function" ? sub.required(state) : sub.required === true
         if (subRequired && isEmpty(sub, subValue)) {
-          out.push({ field: id, code: "required", severity: "error", messageKey: "err.required" })
+          out.push({ field: id, code: "required", severity: "error", messageKey: "err.required", rowKey: itemKey })
           continue
         }
         if (isEmpty(sub, subValue)) continue
-        if (sub.validate) out.push(...stamp(id, sub.validate(subValue as FieldValue, state)))
+        const tooLong = lengthIssue({ ...sub, id }, subValue)
+        if (tooLong) {
+          out.push({ ...tooLong, rowKey: itemKey })
+          continue
+        }
+        if (sub.validate) {
+          out.push(...stamp(id, sub.validate(subValue as FieldValue, state)).map((i) => ({ ...i, rowKey: itemKey })))
+        }
       }
     }
     return out
@@ -96,6 +121,9 @@ export function validateField(field: FieldDef, state: FormState): Issue[] {
 
   // an empty optional field has nothing else to prove
   if (isEmpty(field, value)) return []
+
+  const tooLong = lengthIssue(field, value)
+  if (tooLong) return [tooLong]
 
   return stamp(field.id, field.validate ? field.validate(value, state) : [])
 }
