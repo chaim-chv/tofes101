@@ -909,12 +909,6 @@ const stepFinish: Step = {
   fields: [
     { id: "sign.declaration", kind: "static", contentKey: "sign.declaration", variant: "warning" },
     {
-      id: "sign.itemsChecklist",
-      kind: "static",
-      contentKey: "sign.documents",
-      variant: "info",
-    },
-    {
       id: "sign.signature",
       kind: "signature",
       labelKey: "f.sign.signature",

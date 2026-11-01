@@ -344,7 +344,8 @@ const pdf = usePdfExport()
 
 const derived = computed(() => derive(form.state.value))
 const documents = computed(() => documentChecklist(form.state.value))
-const requiredDocCount = computed(() => documents.value.filter((d) => d.required).length)
+// Every row in the list is needed by an answer (there is no "recommended" tier).
+const requiredDocCount = computed(() => documents.value.length)
 
 const completion = ref(false)
 const startNewOpen = ref(false)
@@ -413,6 +414,11 @@ async function reloadDraft() {
 
 function changeIdKind() {
   form.goToId("identity", { force: true })
+  afterNavigate()
+}
+
+function goAttach() {
+  form.goToId("attach", { force: true })
   afterNavigate()
 }
 </script>
@@ -607,6 +613,8 @@ function changeIdKind() {
           </UCard>
 
           <LazyReviewList :schema="form.schema" :state="form.state.value" @edit="(id: string) => form.goToId(id, { force: true })" />
+
+          <LazyDocumentsSection :state="form.state.value" @attach="goAttach" />
         </div>
 
         <!-- fields (also on finish: declaration, signature, date) -->
@@ -668,8 +676,6 @@ function changeIdKind() {
           v-if="step?.id === 'attach'"
           :id-kind="(form.state.value.values['employee.idKind'] as 'idNum' | 'passport' | undefined)"
         />
-
-        <LazyDocumentChecklist v-if="step?.id === 'finish'" :state="form.state.value" />
 
         <div v-if="step?.id === 'finish'" class="mt-6 space-y-3">
           <UAlert

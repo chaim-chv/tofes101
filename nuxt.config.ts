@@ -39,7 +39,10 @@ export default defineNuxtConfig({
           "http-equiv": "Content-Security-Policy",
           content:
             "default-src 'self'; connect-src 'self'; img-src 'self' data: blob:; " +
-            "font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; " +
+            // `frame-src blob:` lets the sign screen embed the user's own PDF
+            // attachment in the browser's viewer. Nothing leaves the device.
+            "frame-src 'self' blob:; font-src 'self'; style-src 'self' 'unsafe-inline'; " +
+            "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; " +
             "object-src 'none'; base-uri 'none'; form-action 'none'",
         },
         { name: "viewport", content: "width=device-width, initial-scale=1" },

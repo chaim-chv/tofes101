@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test"
-import { documentChecklist, requiredDocuments } from "../app/form/documents"
+import { documentChecklist, documentStatus, documentsSummary } from "../app/form/documents"
+import type { DocumentRequirement } from "../app/form/documents"
 import { emptyState, setField } from "../app/form/values"
 import type { FormState } from "../app/form/types"
 
@@ -11,19 +12,34 @@ function stateWith(values: Record<string, unknown>): FormState {
 
 const ids = (s: FormState) => documentChecklist(s).map((d) => d.id)
 
+function need(s: FormState, id: string): DocumentRequirement {
+  const found = documentChecklist(s).find((d) => d.id === id)
+  if (!found) throw new Error(`missing document need ${id}`)
+  return found
+}
+
+const idHolder = () => stateWith({ "employee.idKind": "idNum" })
+
 describe("document checklist", () => {
   test("an ID holder is asked only for the ID copy", () => {
-    expect(ids(stateWith({ "employee.idKind": "idNum" }))).toEqual(["id"])
+    expect(ids(idHolder())).toEqual(["id"])
+  })
+
+  test("the ID copy is a required identity document, not 'recommended'", () => {
+    const doc = need(idHolder(), "id")
+    expect(doc.level).toBe("identity")
+    expect(doc.noteKey).toBe("doc.note.id")
   })
 
   test("a passport holder is asked for passport + residence permit", () => {
     expect(ids(stateWith({ "employee.idKind": "passport" }))).toEqual(["passport", "residence"])
   })
 
-  test("being separated adds the assessor certificate, as required", () => {
+  test("being separated adds the assessor certificate as a claim document", () => {
     const s = stateWith({ "employee.idKind": "idNum", "employee.maritalStatus": "separated" })
-    const docs = documentChecklist(s)
-    expect(docs.find((d) => d.id === "assessor")?.required).toBe(true)
+    const doc = need(s, "assessor")
+    expect(doc.level).toBe("credit")
+    expect(doc.handover).toBe(true)
   })
 
   test("the disabled item pulls its monthly stipend proof too", () => {
@@ -50,6 +66,7 @@ describe("document checklist", () => {
     expect(ids(none)).toContain("noIncome")
     expect(ids(others)).toContain("payslips")
     expect(ids(approved)).toContain("approval")
+    expect(need(approved, "approval").level).toBe("coordination")
   })
 
   test("turning an answer off removes its document again", () => {
@@ -58,12 +75,42 @@ describe("document checklist", () => {
     expect(ids(on)).toContain("form119")
     expect(ids(off)).not.toContain("form119")
   })
+})
 
-  test("requiredDocuments is a subset", () => {
-    const s = stateWith({ "employee.idKind": "passport", "credits.locality": true })
+describe("document status", () => {
+  test("one multi-page ID file satisfies the ID + annex requirement", () => {
+    const id = need(idHolder(), "id")
+    expect(documentStatus(id, new Set())).toBe("missing")
+    expect(documentStatus(id, new Set(["id-front"]))).toBe("attached")
+    expect(documentStatus(id, new Set(["id-annex"]))).toBe("attached")
+  })
+
+  test("passport and residence each need their own slot", () => {
+    const s = stateWith({ "employee.idKind": "passport" })
+    expect(documentStatus(need(s, "passport"), new Set())).toBe("missing")
+    expect(documentStatus(need(s, "passport"), new Set(["passport"]))).toBe("attached")
+    expect(documentStatus(need(s, "residence"), new Set(["passport"]))).toBe("missing")
+  })
+
+  test("documents the app cannot carry are marked for hand-over", () => {
+    const s = stateWith({ "employee.idKind": "idNum", "credits.studies": true })
+    expect(documentStatus(need(s, "form119"), new Set(["id-front"]))).toBe("handover")
+  })
+
+  test("summary counts uploadable documents separately from hand-over ones", () => {
+    const s = stateWith({ "employee.idKind": "idNum", "credits.studies": true })
     const all = documentChecklist(s)
-    const req = requiredDocuments(s)
-    expect(req.length).toBeLessThanOrEqual(all.length)
-    expect(req.every((r) => r.required)).toBe(true)
+    expect(documentsSummary(all, new Set(["id-front"]))).toEqual({
+      needed: 2,
+      uploadable: 1,
+      attached: 1,
+      missing: 0,
+    })
+    expect(documentsSummary(all, new Set())).toEqual({
+      needed: 2,
+      uploadable: 1,
+      attached: 0,
+      missing: 1,
+    })
   })
 })

@@ -103,7 +103,7 @@ const dateText = computed(() => {
 
       <ReviewList :schema="form.schema" :state="state" readonly />
 
-      <DocumentChecklist :state="state" compact />
+      <DocumentsSection :state="state" readonly class="mt-8" />
 
       <section class="mt-8 border-t border-neutral-300 pt-5">
         <h2 class="text-sm font-bold">{{ he["doc101.declarationTitle"] }}</h2>

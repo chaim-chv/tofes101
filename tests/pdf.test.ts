@@ -256,4 +256,30 @@ describe("attachments and labels", () => {
     expect(a.getPageCount()).toBe(b.getPageCount() + 2)
     expect(a.getPageCount()).toBe(4)
   })
+
+  test("every page of a multi-page PDF attachment is appended", async () => {
+    // The realistic case: one "ID" file with front, back and ספח scanned into
+    // three pages. Dropping pages 2–3 would lose half the document.
+    const source = await PDFDocument.create()
+    for (let i = 0; i < 3; i++) {
+      const page = source.addPage([400, 600])
+      page.drawText(`scan ${i + 1}`, { x: 24, y: 24, size: 12 })
+    }
+    const scan = await source.save()
+
+    const state = emptyState(2026)
+    const options = {
+      pdf: readFileSync(asset("assets/tofes-101-official.pdf")),
+      font: readFileSync(asset("fonts/Heebo-Variable.ttf")),
+    }
+    const withScan = await renderPdf(state, {
+      ...options,
+      attachments: [{ slot: "id-front", name: "id.pdf", type: "application/pdf", bytes: scan }],
+    })
+    const plain = await renderPdf(state, options)
+
+    const a = await PDFDocument.load(withScan)
+    const b = await PDFDocument.load(plain)
+    expect(a.getPageCount()).toBe(b.getPageCount() + 3)
+  })
 })

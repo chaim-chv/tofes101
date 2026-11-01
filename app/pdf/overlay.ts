@@ -10,7 +10,7 @@
  *    bytes directly (tests in Bun).
  */
 import type { FormState, Signature } from "../form/types"
-import type { Color, PDFFont, PDFPage } from "pdf-lib"
+import type { Color, PDFEmbeddedPage, PDFFont, PDFPage } from "pdf-lib"
 import { ANCHORS, SIGNATURE_BOX, isTextAnchor, type Anchor } from "./anchors"
 import { buildItems } from "./fields"
 import { drawRtl, measureRtl } from "./rtl"
@@ -173,59 +173,121 @@ export async function renderPdf(state: FormState, options: RenderPdfOptions = {}
   }
 
   if (options.attachments?.length) {
-    await appendAttachments(doc, font, ink, options.attachments)
+    await appendAttachments(doc, font, ink, options.attachments, PDFDocument)
   }
 
   return doc.save()
 }
 
 /**
- * Append each upload as its own A4 page: caption on top, image fitted and
- * centred below. A PDF upload contributes its first page.
+ * Embed every page of a source PDF.
+ *
+ * `pdf-lib`'s `embedPdf(bytes)` **defaults to `[0]`**, so the page list must be
+ * passed explicitly — otherwise a 3-page scan (front/back/ספח) contributes only
+ * its first page. The bulk call is the fast path; if one page has no content
+ * stream (a blank scan page) pdf-lib rejects the whole document, so we retry
+ * page by page and keep everything that can be embedded.
+ */
+async function embedPdfPages(
+  doc: Awaited<ReturnType<typeof import("pdf-lib").PDFDocument.load>>,
+  PDFDocument: typeof import("pdf-lib").PDFDocument,
+  bytes: Uint8Array,
+): Promise<Array<{ page: PDFEmbeddedPage; sourceIndex: number; sourceCount: number }>> {
+  const source = await PDFDocument.load(bytes, { updateMetadata: false })
+  const sourceCount = source.getPageCount()
+  if (!sourceCount) return []
+  const indices = Array.from({ length: sourceCount }, (_, i) => i)
+
+  try {
+    const pages = await doc.embedPdf(bytes, indices)
+    return pages.map((page, i) => ({ page, sourceIndex: indices[i]!, sourceCount }))
+  } catch (bulkError) {
+    const out: Array<{ page: PDFEmbeddedPage; sourceIndex: number; sourceCount: number }> = []
+    for (const sourceIndex of indices) {
+      try {
+        const [page] = await doc.embedPdf(bytes, [sourceIndex])
+        if (page) out.push({ page, sourceIndex, sourceCount })
+      } catch {
+        // Truly blank page: nothing to show, but the rest must survive.
+      }
+    }
+    if (!out.length) throw bulkError
+    return out
+  }
+}
+
+/**
+ * Append each upload as its own A4 page(s): caption on top, content fitted and
+ * centred below. An image is one page; a PDF contributes **every** page — one
+ * file often holds the ID card's front, back and ספח, and keeping only page 1
+ * would silently drop part of the document.
  */
 async function appendAttachments(
   doc: Awaited<ReturnType<typeof import("pdf-lib").PDFDocument.load>>,
   font: PDFFont,
   ink: Color,
   attachments: NonNullable<RenderPdfOptions["attachments"]>,
+  PDFDocument: typeof import("pdf-lib").PDFDocument,
 ): Promise<void> {
   const A4 = [595.275, 841.89] as const
   const margin = 36
   const captionHeight = 28
+  const boxWidth = A4[0] - margin * 2
+  const boxTop = A4[1] - margin - captionHeight
+  const boxHeight = boxTop - margin
 
-  let index = 0
-  for (const file of attachments) {
-    index += 1
+  /** Scale a page/image to the content box without distorting it. */
+  function fit(source: { width: number; height: number }) {
+    const scale = Math.min(boxWidth / source.width, boxHeight / source.height)
+    return { width: source.width * scale, height: source.height * scale }
+  }
+
+  function addPage(caption: string) {
     const page = doc.addPage([A4[0], A4[1]])
-    const label = `${index}. ${ATTACHMENT_LABEL[file.slot] ?? file.name}`
-    drawRtl(page, font, label, {
+    drawRtl(page, font, caption, {
       xRight: A4[0] - margin,
       y: A4[1] - margin,
       size: 11,
       color: ink,
     })
+    return page
+  }
 
-    const boxWidth = A4[0] - margin * 2
-    const boxTop = A4[1] - margin - captionHeight
-    const boxHeight = boxTop - margin
+  let index = 0
+  for (const file of attachments) {
+    index += 1
+    const caption = `${index}. ${ATTACHMENT_LABEL[file.slot] ?? file.name}`
 
     try {
       if (file.type === "application/pdf") {
-        const [embedded] = await doc.embedPdf(file.bytes, [0])
-        if (!embedded) continue
-        const scale = Math.min(boxWidth / embedded.width, boxHeight / embedded.height)
-        const w = embedded.width * scale
-        const h = embedded.height * scale
-        page.drawPage(embedded, { x: (A4[0] - w) / 2, y: boxTop - h, width: w, height: h })
+        const embeddedPages = await embedPdfPages(doc, PDFDocument, file.bytes)
+        for (const { page: source, sourceIndex, sourceCount } of embeddedPages) {
+          const page = addPage(caption)
+          if (sourceCount > 1) {
+            // LTR "1 / 3" in the opposite corner: plain digits, no bidi
+            // ambiguity, and the reader can tell the pages apart.
+            page.drawText(`${sourceIndex + 1} / ${sourceCount}`, {
+              x: margin,
+              y: A4[1] - margin,
+              size: 9,
+              font,
+              color: ink,
+            })
+          }
+          const { width, height } = fit(source)
+          page.drawPage(source, { x: (A4[0] - width) / 2, y: boxTop - height, width, height })
+        }
       } else {
         const image =
           file.type === "image/png"
             ? await doc.embedPng(file.bytes)
-            : await doc.embedJpg(file.bytes)
-        const scale = Math.min(boxWidth / image.width, boxHeight / image.height)
-        const w = image.width * scale
-        const h = image.height * scale
-        page.drawImage(image, { x: (A4[0] - w) / 2, y: boxTop - h, width: w, height: h })
+            : file.type === "image/jpeg"
+              ? await doc.embedJpg(file.bytes)
+              : null
+        if (!image) throw new Error(`unsupported image type ${file.type || "unknown"}`)
+        const page = addPage(caption)
+        const { width, height } = fit(image)
+        page.drawImage(image, { x: (A4[0] - width) / 2, y: boxTop - height, width, height })
       }
     } catch (error) {
       console.warn(`[pdf] attachment ${file.name} could not be embedded`, error)

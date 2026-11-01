@@ -51,6 +51,10 @@ Format: `- **YYYY-MM-DD** — claim. → evidence/link`
   here; prefix with `NODE_TLS_REJECT_UNAUTHORIZED=0` (or use `npm i`). `curl`
   works normally.
 - **2026-10-29** — No `pdftotext`/`qpdf`; `python3 -c "import pypdf"` works.
+- **2026-11-01** — Two agent sessions running `bun run e2e` fight over port 4173:
+  one session's kill/cleanup loop kills the other's server *and browser* mid-run
+  (“Target page, context or browser has been closed”). `E2E_PORT` now overrides
+  the port — run parallel suites as `E2E_PORT=4199 bun run e2e`.
 
 ## App scaffold (verified 2026-10-29)
 
@@ -102,4 +106,32 @@ Format: `- **YYYY-MM-DD** — claim. → evidence/link`
   `app/storage/idb.ts` (one `DB_VERSION`, both stores created in one upgrade).
 - **2026-10-30** — Attachments (ID/annex/passport/permit) are blobs in IndexedDB,
   never in the JSON draft; the PDF renderer appends them as A4 pages with a
-  Hebrew caption. A PDF upload contributes its first page.
+  Hebrew caption. A PDF upload contributed only its first page (fixed
+  2026-11-01 — see below).
+
+## Attachments on the sign screen (2026-11-01)
+
+- **2026-11-01** — **`pdf-lib`'s `embedPdf(bytes)` defaults to `[0]`.** The
+  renderer relied on that default, so a multi-page "ID" scan (front + back +
+  ספח in one file) silently contributed only page 1. The renderer now reads the
+  source page count and passes every index; a bulk-embed failure (blank page
+  without a content stream) falls back to per-page embedding so one bad page
+  cannot take the whole document with it. The sign screen shows the attached
+  documents themselves (image inline, PDF in a blob iframe) plus an
+  "all N pages included" badge.
+- **2026-11-01** — `<iframe src="blob:…">` needs `frame-src blob:` in the CSP;
+  `object-src 'none'` still blocks `<object>` embeds. The browser's PDF viewer is
+  a `chrome-extension://` page, so the e2e external-request guard must ignore
+  non-network schemes (`chrome`, `chrome-extension`, `moz-extension`, …).
+- **2026-11-01** — The finish screen had three document blocks with three names
+  and the checklist sat *after* the signature. It is now one derived
+  `DocumentsSection`: level (`חובה` identity / `נדרש לזיכוי` / `נדרש לתיאום`),
+  reason, attachment status (`מצורף` / `חסר` / `למסור למעסיק`) and previews on the
+  same row, placed before the declaration. The print view renders the same
+  component in `readonly` mode, so paper and screen agree.
+- **2026-11-01** — The ID copy is **required** for ID holders (official notes:
+  “יש לצרף צילום תעודת זהות כולל ספח”; the first-filing exception is shown as a
+  note, not as a “recommended” badge). `doc.id` no longer has `required: false` —
+  that flag made the summary say “0 documents required” while the list showed
+  one. `id-front` + `id-annex` are alternatives (`match: "any"`): one multi-page
+  PDF satisfies the whole requirement.

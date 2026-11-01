@@ -13,11 +13,14 @@ import { mkdirSync } from "node:fs"
 import { startStaticServer } from "../serve"
 
 const BASE = (process.env.BASE ?? "").replace(/\/$/, "")
-const ROOT = `http://localhost:4173${BASE}`
+// A configurable port lets two agents run the suite in parallel without one
+// killing the other's server/host process on 4173.
+const PORT = Number(process.env.E2E_PORT ?? 4173)
+const ROOT = `http://localhost:${PORT}${BASE}`
 const OUT = "research/spikes/screens"
 mkdirSync(OUT, { recursive: true })
 
-const server = startStaticServer(4173)
+const server = startStaticServer(PORT)
 // Local dev has only the system Chrome; CI runners ship Chrome too, but fall
 // back to Playwright's bundled Chromium when neither channel is available.
 const browser = await chromium.launch({ channel: "chrome" }).catch(() => chromium.launch())
@@ -33,8 +36,11 @@ page.on("console", (m) => {
 })
 page.on("request", (r) => {
   const url = r.url()
-  // blob:/data: are in-memory previews and downloads, not network traffic
+  // blob:/data: are in-memory previews and downloads, not network traffic.
   if (url.startsWith("blob:") || url.startsWith("data:")) return
+  // The browser's own PDF viewer is an extension loading local resources
+  // (triggered by the PDF attachment preview) — not app traffic either.
+  if (/^(chrome|chrome-extension|devtools|edge|moz-extension|safari-web-extension):/.test(url)) return
   const host = new URL(url).hostname
   if (!["localhost", "127.0.0.1"].includes(host)) external.push(url)
 })
@@ -50,6 +56,22 @@ async function a11y(step: string) {
 }
 
 const t = (name: string) => page.getByRole("button", { name })
+
+/** Fill a Nuxt UI date field through its visible day/month/year segments. */
+async function fillDate(fieldId: string, iso: string) {
+  const [year, month, day] = iso.split("-")
+  const group = page.locator(`[data-field-id="${fieldId}"]`)
+  for (const [name, value] of [
+    ["יום", day],
+    ["חודש", month],
+    ["שנה", year],
+  ] as const) {
+    const segment = group.getByRole("spinbutton", { name })
+    await segment.click()
+    await segment.pressSequentially(value)
+    await page.waitForTimeout(80)
+  }
+}
 
 async function next() {
   await t("המשך").click()
@@ -90,7 +112,7 @@ await page.getByRole("radio", { name: "תעודת זהות" }).click()
 await page.fill("#f-employee\\.idNum", "123456782")
 await page.fill("#f-employee\\.firstName", "דנה")
 await page.fill("#f-employee\\.lastName", "כהן")
-await page.fill("#f-employee\\.birthDate", "1990-03-04")
+await fillDate("employee.birthDate", "1990-03-04")
 await a11y("identity")
 await next()
 
@@ -113,7 +135,7 @@ await page.locator('#f-employee\\.healthFundName').getByRole("radio", { name: "�
 await page.fill("#f-spouse\\.firstName", "יוסי")
 await page.fill("#f-spouse\\.lastName", "כהן")
 await page.fill("#f-spouse\\.idNum", "000000018")
-await page.fill("#f-spouse\\.birthDate", "1988-07-01")
+await fillDate("spouse.birthDate", "1988-07-01")
 await page.getByRole("radio", { name: "יש לבן/בת הזוג הכנסה" }).click()
 await page.getByRole("checkbox", { name: "עבודה / קצבה / עסק" }).click()
 await a11y("status")
@@ -124,14 +146,14 @@ await next()
 await page.getByRole("button", { name: "הוספת ילד/ה" }).click()
 await page.fill('[id^="f-children.name"]', "נועה")
 await page.fill('[id^="f-children.idNum"]', "000000026")
-await page.fill('[id^="f-children.birthDate"]', "2016-05-10")
+await fillDate("children.birthDate", "2016-05-10")
 await page.getByRole("checkbox", { name: "הילד/ה נמצא/ת בחזקתי" }).click()
 await next()
 
 /* ------------------------------------------------------------------- income */
 
 await page.getByRole("checkbox", { name: "משכורת חודש" }).click()
-await page.fill("#f-income\\.startDate", "2026-01-01")
+await fillDate("income.startDate", "2026-01-01")
 await page.getByRole("radio", { name: "אין לי הכנסות אחרות" }).click()
 await a11y("income")
 await next()
@@ -139,6 +161,10 @@ await next()
 /* ------------------------------------------------------------------ credits */
 
 await page.getByRole("checkbox", { name: "7. בגין ילדיי שבחזקתי (מחלק ג׳)" }).click()
+// A credit whose proof the app cannot carry: the documents block must mark it
+// "hand to employer", not pretend it is attached.
+await page.getByRole("button", { name: /עוד סעיפים/ }).click()
+await page.getByRole("checkbox", { name: "15. סיום תואר אקדמי, התמחות או לימודי מקצוע" }).click()
 await a11y("credits")
 await next()
 
@@ -156,11 +182,43 @@ await Bun.write(
 )
 await page.locator('input[type=file]').first().setInputFiles(idPng)
 await page.waitForTimeout(600)
+
+// The realistic second document: front, back and ספח scanned into ONE PDF.
+// All three pages must reach the downloaded PDF, not just the first.
+const { PDFDocument } = await import("pdf-lib")
+const scan = await PDFDocument.create()
+for (let i = 0; i < 3; i++) {
+  const sheet = scan.addPage([400, 600])
+  sheet.drawText(`annex page ${i + 1}`, { x: 24, y: 24, size: 12 })
+}
+const annexPdf = ".data/e2e-upload-annex.pdf"
+mkdirSync(".data", { recursive: true })
+await Bun.write(annexPdf, await scan.save())
+await page.locator('input[type=file]').nth(1).setInputFiles(annexPdf)
+await page.waitForTimeout(600)
 await a11y("attach")
 await next()
 
 /* ------------------------------------------------------- finish (review+sign) */
 
+// Both scans must be visible (and previewable) on the signing screen, not only
+// in the PDF download — and the multi-page PDF must report all its pages.
+await page.getByText("_upload-id.png").first().waitFor({ timeout: 5000 })
+await page.getByText("e2e-upload-annex.pdf").first().waitFor({ timeout: 5000 })
+await page.getByText("כל 3 העמודים ייכללו ב-PDF").first().waitFor({ timeout: 5000 })
+if (!(await page.getByText("מצורף", { exact: true }).first().isVisible()))
+  throw new Error("the attached ID should be reported as attached")
+await page.getByText("למסור למעסיק").first().waitFor({ timeout: 5000 })
+if (!(await page.getByText("מצורפים: 1 מתוך 2").isVisible()))
+  throw new Error("documents summary should count the attached ID and the hand-over proof")
+// The documents block must sit before the declaration/signature, not after it.
+const docsBeforeSignature = await page.evaluate(() => {
+  const docs = document.querySelector("#docs-title")
+  const signature = document.querySelector("#f-sign\\.signature")
+  if (!docs || !signature) return false
+  return (docs.compareDocumentPosition(signature) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0
+})
+if (!docsBeforeSignature) throw new Error("documents section should come before the signature")
 const reviewText = await page.locator("main").innerText()
 if (!reviewText.includes("דנה")) throw new Error("finish missing the employee name")
 if (!reviewText.includes("נועה")) throw new Error("finish missing the child")
@@ -172,10 +230,9 @@ await page.screenshot({ path: `${OUT}/06-review.png`, fullPage: true })
 await page.getByRole("tab", { name: "הקלדת שם" }).click()
 await page.fill("#typed-signature", "דנה כהן")
 await page.getByRole("button", { name: "חתימה", exact: true }).click()
-const today = new Date()
-const iso = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
-await page.fill("#f-sign\\.date", iso)
-await page.waitForTimeout(400)
+// The form fills the signing date as soon as a signature exists; typing into
+// the date segments on top of it would clear the field.
+await page.waitForTimeout(600)
 await a11y("finish-signed")
 
 if (process.env.E2E_DEBUG_STYLES) {
@@ -204,9 +261,9 @@ const head = new TextDecoder().decode(new Uint8Array(pdfBytes.slice(0, 5)))
 if (head !== "%PDF-") throw new Error(`downloaded file is not a PDF (head=${head})`)
 if (pdfBytes.byteLength < 200_000) throw new Error(`PDF too small: ${pdfBytes.byteLength}`)
 
-const { PDFDocument } = await import("pdf-lib")
 const rendered = await PDFDocument.load(new Uint8Array(pdfBytes))
-if (rendered.getPageCount() !== 3) throw new Error(`expected 3 pages (form + 1 attachment), got ${rendered.getPageCount()}`)
+if (rendered.getPageCount() !== 6)
+  throw new Error(`expected 6 pages (2 form + 1 image + 3 PDF pages), got ${rendered.getPageCount()}`)
 console.log(`  → pdf: ${download.suggestedFilename()} (${Math.round(pdfBytes.byteLength / 1024)} KB)`)
 await page.waitForTimeout(500)
 if (!(await page.getByText("הקובץ מוכן").isVisible().catch(() => false)))

@@ -19,6 +19,19 @@ export type Attachment = {
 
 export type AttachmentWithBytes = Attachment & { bytes: Uint8Array }
 
+/** UI-ready attachment: an object URL plus which viewer it needs. */
+export type AttachmentView = {
+  slot: SlotId
+  name: string
+  type: string
+  size: number
+  url: string
+  isPdf: boolean
+  isImage: boolean
+  /** Null until (or unless) pdf-lib reads the page count. */
+  pages: number | null
+}
+
 type Record_ = { blob: Blob; name: string; type: string; size: number; addedAt: string }
 
 async function put(slot: SlotId, record: Record_): Promise<void> {
