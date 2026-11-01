@@ -32,7 +32,11 @@ const external: string[] = []
 
 page.on("pageerror", (e) => problems.push(`pageerror ${page.url()} :: ${e.message}`))
 page.on("console", (m) => {
-  if (m.type() === "error") problems.push(`console ${page.url()} :: ${m.text().slice(0, 200)}`)
+  if (m.type() !== "error") return
+  // The analytics script is the one allowed third-party request (ADR-0008).
+  // It may fail here (offline CI, host blocked) — that must not fail the flow.
+  if (/um\.csp-monitor\.com/.test(m.location()?.url ?? "")) return
+  problems.push(`console ${page.url()} :: ${m.text().slice(0, 200)}`)
 })
 page.on("request", (r) => {
   const url = r.url()
@@ -42,6 +46,8 @@ page.on("request", (r) => {
   // (triggered by the PDF attachment preview) — not app traffic either.
   if (/^(chrome|chrome-extension|devtools|edge|moz-extension|safari-web-extension):/.test(url)) return
   const host = new URL(url).hostname
+  // Reviewed page-view analytics host (ADR-0008). Any other host is a leak.
+  if (host === "um.csp-monitor.com") return
   if (!["localhost", "127.0.0.1"].includes(host)) external.push(url)
 })
 

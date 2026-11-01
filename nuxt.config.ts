@@ -35,14 +35,18 @@ export default defineNuxtConfig({
           // default endpoint, the browser refuses to talk to it.
           // 'unsafe-inline' for script-src is needed by Nuxt's hydration
           // bootstrap; everything that could exfiltrate data (connect/img/font/
-          // form-action/frame) is locked to 'self'. See kb/eng/privacy-enforcement.md.
+          // form-action/frame) is locked to 'self'.
+          // The single deliberate exception is the Umami analytics host, which is
+          // allowlisted for script + connect only. See ADR-0008 and
+          // kb/eng/privacy-enforcement.md.
           "http-equiv": "Content-Security-Policy",
           content:
-            "default-src 'self'; connect-src 'self'; img-src 'self' data: blob:; " +
+            "default-src 'self'; " +
+            "connect-src 'self' https://um.csp-monitor.com; img-src 'self' data: blob:; " +
             // `frame-src blob:` lets the sign screen embed the user's own PDF
             // attachment in the browser's viewer. Nothing leaves the device.
             "frame-src 'self' blob:; font-src 'self'; style-src 'self' 'unsafe-inline'; " +
-            "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; " +
+            "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://um.csp-monitor.com; " +
             "object-src 'none'; base-uri 'none'; form-action 'none'",
         },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -57,6 +61,24 @@ export default defineNuxtConfig({
           // must survive hydration.
           tagPosition: "head",
           innerHTML: "window.__INITIAL_HASH=location.hash;",
+        },
+        {
+          // Umami page-view analytics (ADR-0008). Privacy constraints that must
+          // survive any future edit:
+          // - `exclude-hash` / `exclude-search`: the employer prefill payload
+          //   lives in `#e=…` and must never reach the analytics server. Without
+          //   these the tracker sends `location.href` verbatim.
+          // - `do-not-track`: honour the browser's DNT signal.
+          // - No cookies: the tracker posts with `credentials: omit`.
+          // Only page views are collected. Form answers, attachments and the
+          // draft never leave the device — nothing here reads them.
+          src: "https://um.csp-monitor.com/script.js",
+          defer: true,
+          "data-website-id": "ecbed3f5-beb5-4174-b0c4-3d5fc42af892",
+          "data-exclude-search": "true",
+          "data-exclude-hash": "true",
+          "data-do-not-track": "true",
+          tagPosition: "head",
         },
       ],
     },

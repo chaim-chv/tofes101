@@ -1,11 +1,13 @@
 #!/usr/bin/env bun
 /**
- * Privacy gate: proves the built app makes no third-party requests.
+ * Privacy gate: proves the built app makes no third-party requests, with one
+ * reviewed exception — the Umami page-view tracker (ADR-0008).
  *
  *   bun run check:privacy
  *
- * Fails if the static output references any external host, inline analytics,
- * or the payload reader would leak the URL (Referer policy).
+ * Fails if the static output references any external host outside the reviewed
+ * allow-list, loads an external <script> from an unvetted origin, or ships a
+ * page without a Content-Security-Policy meta tag.
  */
 import { readdirSync, readFileSync, statSync } from "node:fs"
 import { join, extname } from "node:path"
@@ -23,7 +25,15 @@ const ALLOW_HOSTS = new Set<string>([
   // License/error-message URLs inside vendored libraries (pdf-lib, iconv-lite).
   // They are string literals, never fetched.
   "github.com",
+  // Umami analytics endpoint (ADR-0008). The only host the app is allowed to
+  // contact at runtime. Loaded with `exclude-hash` + `exclude-search` so the
+  // employer payload in `#e=…` is never sent, and it sets no cookies.
+  "um.csp-monitor.com",
 ])
+
+// External scripts are only permitted from hosts vetted for privacy. Anything
+// else would turn a page view into a third-party request.
+const ALLOW_SCRIPT_HOSTS = new Set<string>(["um.csp-monitor.com"])
 const TEXT_EXT = new Set([".html", ".js", ".css", ".json", ".svg", ".webmanifest"])
 
 function walk(dir: string, files: string[] = []): string[] {
@@ -58,12 +68,16 @@ for (const file of files) {
   }
 }
 
-// The app never wants an inline <script> injected by a third party.
+// The app never wants an inline <script> injected by a third party — the only
+// external script allowed is the reviewed analytics tag.
 const htmlWithInline = files
   .filter((f) => f.endsWith(".html"))
   .filter((f) => {
     const html = readFileSync(f, "utf8")
-    return /<script[^>]+src=["']https?:/i.test(html)
+    for (const m of html.matchAll(/<script[^>]+src=["'](?:https?:)?\/\/([^/"']+)/gi)) {
+      if (!ALLOW_SCRIPT_HOSTS.has(m[1].toLowerCase())) return true
+    }
+    return false
   })
 
 if (hits.length || htmlWithInline.length) {

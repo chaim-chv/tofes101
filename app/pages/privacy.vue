@@ -1,7 +1,17 @@
 <script setup lang="ts">
 const { t, init } = useLocale()
+const { enabled: analyticsEnabled, init: initAnalyticsOptOut, set: setAnalyticsEnabled } =
+  useAnalyticsOptOut()
 
-onMounted(() => init())
+onMounted(() => {
+  init()
+  initAnalyticsOptOut()
+})
+
+function onAnalyticsToggle(value: boolean | "indeterminate") {
+  setAnalyticsEnabled(value === true)
+}
+
 useHead({ title: () => `${t("privacyPage.title")} — ${t("app.name")}` })
 </script>
 
@@ -25,6 +35,17 @@ useHead({ title: () => `${t("privacyPage.title")} — ${t("app.name")}` })
       <section class="space-y-2">
         <h2 class="text-lg font-semibold text-highlighted">{{ t("privacyPage.server.title") }}</h2>
         <p class="text-sm leading-relaxed text-muted">{{ t("privacyPage.server.body") }}</p>
+      </section>
+      <section class="space-y-2">
+        <h2 class="text-lg font-semibold text-highlighted">{{ t("privacyPage.analytics.title") }}</h2>
+        <p class="text-sm leading-relaxed text-muted">{{ t("privacyPage.analytics.body") }}</p>
+        <UCheckbox
+          :model-value="analyticsEnabled"
+          :label="t('privacyPage.analytics.toggle')"
+          :description="t('privacyPage.analytics.toggle.hint')"
+          class="mt-2"
+          @update:model-value="onAnalyticsToggle"
+        />
       </section>
       <section class="space-y-2">
         <h2 class="text-lg font-semibold text-highlighted">{{ t("privacyPage.delete.title") }}</h2>
