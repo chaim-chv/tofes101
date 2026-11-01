@@ -174,3 +174,44 @@ Format: `- **YYYY-MM-DD** — claim. → evidence/link`
   blanks (`immigrantFrom`, `reserveDays`) moved to their measured rules. Tests:
   cell-map sync, split values, rendered glyph centres (<1.5 pt), no duplicated
   9. Samples: `sample-passport.*` added.
+
+## Validation, input types and error display (2026-10-31)
+
+- **2026-10-31** — `maxLength` was UI-only. It is now enforced by
+  `validateField()` as well, so pasted/imported/restored drafts cannot carry
+  over-long values past the engine.
+- **2026-10-31** — Repeat rows store **bare keys** (`birthDate`, not
+  `children.birthDate`). `derive()` was reading the dotted form and therefore
+  always saw a `null` child age; `pdf/fields.ts` already used bare keys.
+- **2026-10-31** — Repeat rows need row-scoped DOM ids/names (`FormField`
+  `idSuffix`). Without this, every row's `coord.incomeType` radio shared one
+  `name` and selecting a value in row 2 unchecked row 1.
+- **2026-10-31** — Per the UX rule in `kb/ux/validation-and-errors.md`, blur
+  shows **format** errors only; `required` waits for Continue. This also avoids
+  a layout shift that could swallow a click on the "add row" button.
+- **2026-10-31** — Numeric intent is carried by `inputFilter` (`digits`,
+  `decimal`, `phone`) plus `pattern`/`inputmode` on the control, and by a
+  validator in the engine. The filter is not a substitute for validation:
+  drafts and pasted values bypass keystroke filtering.
+- **2026-10-31** — Error-summary focus must handle radio/checkbox fieldsets,
+  repeat containers and row-suffixed ids: exact `f-<id>` first, then the first
+  element whose id starts with `f-<id>`.
+
+## Agent tooling (2026-11-01)
+
+- **2026-11-01** — `bun run typecheck` prints a full
+  `ERR_PACKAGE_PATH_NOT_EXPORTED` stack trace from
+  `vue-router/volar/sfc-route-blocks` and still **exits 0**. It is a plugin
+  resolution warning, not a type error. Only lines containing `error TS` matter —
+  do not chase this trace or "fix" it by downgrading vue-router.
+- **2026-11-01** — Measured gate costs on this repo: `kb:check` 0.05 s ·
+  `bun test` 0.6 s (113 tests) · `typecheck` ~5 s · `generate` ~9 s ·
+  `e2e` **4 m 17 s** · `verify` ~4.5 min. `bun run check:fast` (kb:check +
+  unit) exists for the inner loop and is < 1 s. The ladder that says which gate
+  belongs to which change is `AGENTS.md` §6.
+- **2026-11-01** — `bun run e2e` serves `.output/public` with `tools/serve.ts`,
+  so it needs a **prior** `bun run generate`; it does not build. `bun run serve`
+  is now a script (the docstring referenced it before it existed).
+- **2026-11-01** — `AGENTS.md` is the canonical AI working agreement and
+  `CLAUDE.md` is a symlink to it. Treat a stale line there as a bug: agents read
+  it on every session, so wrong instructions are paid for repeatedly.
