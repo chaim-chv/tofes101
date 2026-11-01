@@ -288,10 +288,13 @@ does not exist yet.
 
 ## 11. GitHub Pages
 
-- `NUXT_APP_BASE_URL=/tofes101/` at build time → all assets and links are
-  relative to the project site.
+- Custom domain `101.chv.ovh` is served from the **domain root**: the build sets
+  `NUXT_APP_BASE_URL=/` and `public/CNAME` names the domain. A project-site
+  prefix (`/tofes101/`) must **not** be used with a custom domain — it makes
+  every `/_nuxt/` asset 404 and the page renders unstyled and dead.
 - `app.baseURL` is the single source for building the employer link
-  (`useRuntimeConfig().app.baseURL`).
+  (`useRuntimeConfig().app.baseURL`), so the prefix stays configurable in
+  `app/composables/useAppPath.ts` even though production uses `/`.
 - No client-side routing beyond `/` and `/form` → no 404 fallback tricks needed.
 - Deploy: `.github/workflows/deploy.yml` (verify → artifact → deploy-pages).
 - The privacy gate runs **before** deploy, so a leaked CDN host can never ship.

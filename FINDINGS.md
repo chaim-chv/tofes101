@@ -237,3 +237,15 @@ Format: `- **YYYY-MM-DD** — claim. → evidence/link`
   privacy page checkbox writes it via `app/composables/useAnalyticsOptOut.ts`.
   Do not "improve" this by storing the choice in IndexedDB — the tracker only
   reads localStorage.
+
+## Deployment (2026-11-01)
+
+- **2026-11-01** — Adding a GitHub Pages custom domain breaks the deploy if
+  `NUXT_APP_BASE_URL` still carries the project-site prefix. Symptom: the domain
+  responds `200` but the HTML points at `/tofes101/_nuxt/…`, every asset 404s,
+  and the app shows unstyled static markup with no hydration. Fix: build with
+  `NUXT_APP_BASE_URL=/`, ship `public/CNAME` with the domain, and run e2e without
+  `BASE`. Verify with `rg -o 'src="/[^"]*_nuxt' .output/public/index.html` after
+  `bun run generate` — it must read `src="/_nuxt`.
+- **2026-11-01** — GitHub redirects `chaim-chv.github.io/tofes101/*` to the
+  custom domain, so old shared links keep working without a second build.

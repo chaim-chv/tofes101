@@ -1,6 +1,8 @@
 /**
- * Base path for links. In production the app lives under `/tofes101/` on GitHub
- * Pages; in dev it is `/`. One helper so no component hard-codes a URL.
+ * Base path for links. Production serves the app from the root of the custom
+ * domain (`public/CNAME`) so the base is `/`; a project-site prefix such as
+ * `/tofes101/` is still supported through `NUXT_APP_BASE_URL`. One helper so no
+ * component hard-codes a URL.
  */
 export function useAppPath() {
   const config = useRuntimeConfig()

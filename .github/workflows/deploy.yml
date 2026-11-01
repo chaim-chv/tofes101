@@ -34,16 +34,16 @@ jobs:
         run: bun run typecheck
       - name: Generate static site
         env:
-          NUXT_APP_BASE_URL: /tofes101/
-          NUXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/tofes101/
+          # Served from the root of the custom domain (public/CNAME). The old
+          # `/tofes101/` project-site prefix 404s every asset here.
+          NUXT_APP_BASE_URL: /
+          NUXT_PUBLIC_SITE_URL: https://101.chv.ovh/
         run: bun run generate
       - name: Privacy gate (no external hosts, CSP present)
         run: bun run check:privacy
       - name: Install Chromium for Playwright
         run: bunx playwright install --with-deps chromium
-      - name: E2E smoke (headless Chromium, under the Pages base path)
-        env:
-          BASE: /tofes101
+      - name: E2E smoke (headless Chromium, served from the domain root)
         run: bun run e2e:ci
       - uses: actions/upload-artifact@v4
         with:
