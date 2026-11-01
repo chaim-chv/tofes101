@@ -52,6 +52,25 @@ Body rules:
 - `FINDINGS.md` (repo root) — durable implementation discoveries, append-mostly.
 - `PLAN.md` — roadmap/decisions that are not yet code.
 
+## Agent edits
+
+The working agreement for AI sessions is `AGENTS.md` at the repo root — read it
+first; this section only covers how it interacts with the graph.
+
+- **Search before writing.** `rg -l "<topic>" kb` — extend the existing node
+  instead of adding a near-duplicate. Two nodes answering one question is a bug.
+- **One node answers one question.** If a draft needs two unrelated sections,
+  split it and link the halves.
+- **Bump `updated:`** on every substantive edit.
+- **Link it from a hub** (`index.md` or the domain hub) in the same change, or
+  the node lands in `.generated/ORPHANS.md`.
+- **Fast lane vs library:** an implementation trap with a date and an evidence
+  link goes to `FINDINGS.md`; an explanation longer than a paragraph goes here.
+- **Generated files are read-only** — `kb/.generated/**`,
+  `kb/flow/form-101-field-spec.md`, `kb/flow/form-101-schema.json`. Regenerate
+  with `bun run kb`, `bun run kb:check` or `bun run extract:form`.
+- **Run `bun run kb:check`** before committing; it is the only gate for the graph.
+
 ## Attribution & confidence
 
 Never silently upgrade confidence. `verified` = you saw it at the primary source

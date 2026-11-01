@@ -26,6 +26,7 @@ Open **`kb/.generated/graph.html`** in a browser for the interactive graph.
 
 | you want to… | read, in this order |
 | --- | --- |
+| **start an agent task (human or AI)** | `AGENTS.md` at the repo root — task router, test ladder, delegation rules → `FINDINGS.md` for known traps |
 | understand the domain in 20 min | [flow/form-101-service](flow/form-101-service.md) → [law/form-101](law/form-101.md) → [flow/form-101-field-spec](flow/form-101-field-spec.md) |
 | implement a field / validation | [flow/form-101-field-spec](flow/form-101-field-spec.md) → the matching `law/` node → the matching `field/` node |
 | know *why* a rule exists | [law/form-101](law/form-101.md) and its children; every rule cites a `source/` |
@@ -244,6 +245,7 @@ the PDF is produced, and what we can prove about privacy and performance. Hub:
 | [eng/architecture](eng/architecture.md) | **hub** — layers, module map, data flow, schema location, static deploy, threat-model diagram |
 | [eng/toolchain-versions](eng/toolchain-versions.md) | exact verified versions (bun 1.4.3, Nuxt 4.6.3, UI 4.12.0, Pinia 4.1.0, pdf-lib 1.17.1…) and the warnings we saw |
 | [eng/repo-layout](eng/repo-layout.md) | `app/` tree, naming, import boundaries, scripts, CI order |
+| [eng/agent-workflow](eng/agent-workflow.md) | how AI agents work here: context budget, task router, test ladder, subagents, where knowledge goes |
 | [eng/form-schema-model](eng/form-schema-model.md) | the 160-field runtime model: kinds, conditions, validators, computed values, repeat groups |
 
 **State and storage**
@@ -268,7 +270,7 @@ the PDF is produced, and what we can prove about privacy and performance. Hub:
 | --- | --- |
 | [eng/privacy-enforcement](eng/privacy-enforcement.md) | CSP, self-hosted fonts/icons, `check-privacy` gate, runtime network assertion |
 | [eng/i18n-rtl](eng/i18n-rtl.md) | Nuxt UI locale, `dir`, logical CSS, Intl formats, bidi in inputs |
-| [eng/testing](eng/testing.md) | Vitest/Playwright/axe results, PDF golden tests, GitHub Actions with bun |
+| [eng/testing](eng/testing.md) | `bun test` suites, Playwright + axe flow, PDF tests, privacy gate, CI order |
 | [eng/performance](eng/performance.md) | measured Lighthouse 98/100, bundle accounting, 3G budget, per-step splitting |
 
 **Decisions**

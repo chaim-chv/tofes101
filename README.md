@@ -30,6 +30,7 @@ tools/
 scripts/kb.ts       graph builder / link checker
 research/raw/       raw evidence: extracted form JSON, official PDFs, HTML
 agent-workspace/    multi-agent working notes (SHARED.md + per-agent logs)
+AGENTS.md           how AI agents work here (CLAUDE.md is a symlink to it)
 FINDINGS.md         fast-lane implementation discoveries
 PLAN.md             roadmap + open questions
 ```
@@ -51,6 +52,11 @@ bun run extract:form                          # re-extract the reference form
 3. `kb/law/form-101.md` — why each answer exists.
 4. `kb/ux/ux-principles.md` + `kb/eng/architecture.md` — how we build it.
 5. `FINDINGS.md` — the traps we already know about.
+
+**If you are an AI agent**, stop here and read `AGENTS.md` instead: it routes each
+task to the two or three files that matter, lists the test to run (and the ones
+not to), and defines when to delegate exploration to a subagent. `CLAUDE.md` is a
+symlink to the same file.
 
 ## Non-negotiables
 
@@ -88,12 +94,25 @@ shared/        employer-link codec (deflate-raw + base64url, fragment only)
 
 ## Verify
 
+Run the narrowest level that can fail for your change — not the whole list.
+
 ```bash
-bun run kb:check      # knowledge graph: no broken links
-bun test              # 56 unit tests (engine, validators, i18n, draft)
-bun run typecheck     # vue-tsc, strict
-bun run generate      # static site
-bun run check:privacy # fails on ANY external host or missing CSP
-bun run e2e           # Playwright: employer link → full fill → review → print, axe on every step
-bun run verify        # all of the above in order
+bun run check:fast    # kb:check + all unit tests            (< 1 s)
+bun run kb:check      # knowledge graph: no broken links     (0.05 s)
+bun test              # 113 unit tests                       (0.6 s)
+bun run typecheck     # vue-tsc, strict                      (~5 s, see note)
+bun run generate      # static site                          (~9 s)
+bun run check:privacy # fails on ANY external host/missing CSP (needs generate)
+bun run e2e           # Playwright: employer link → full fill → review → print,
+                      # axe on every step                   (~4 min, needs generate)
+bun run verify        # all of the above in order            (~4.5 min, release gate only)
 ```
+
+Notes:
+
+- `typecheck` prints an `ERR_PACKAGE_PATH_NOT_EXPORTED` stack trace from
+  `vue-router/volar` and still exits 0. Only `error TS` lines matter.
+- `e2e` serves `.output/public`, so run `bun run generate` first. Parallel agents
+  must use their own port: `E2E_PORT=4199 bun run e2e`.
+- CI runs the full order in `.github/workflows/ci.yml`; `bun run verify` is the
+  local equivalent. Don't use it as an inner loop.
