@@ -155,8 +155,7 @@ const family = state((set) => {
   set("sign.signature", drawnSignature)
 })
 
-const immigrant = state((set) => {
-  set("employer.name", 'גליל תעשיות בע"מ')
+const immigrant = state((set) => {  set("employer.name", 'גליל תעשיות בע"מ')
   set("employer.address", "המלאכה 7, נהריה")
   set("employer.phone", "04-5551234")
   set("employer.deductionFile", "987654321")
@@ -239,12 +238,52 @@ const immigrant = state((set) => {
   set("sign.signature", drawnSignature)
 })
 
+/**
+ * Passport holder: no Israeli ID, so the 13-cell passport grid is the identity
+ * slot and the page-2 header repeats the passport number.
+ */
+const passport = state((set) => {
+  set("employer.name", 'חברת חוף בע"מ')
+  set("employer.address", "הנמל 2, חיפה")
+  set("employer.phone", "04-1112233")
+  set("employer.deductionFile", "955443322")
+
+  set("employee.idKind", "passport")
+  set("employee.passportCountry", 'ארה"ב')
+  set("employee.passportNum", "AB1234567")
+  set("employee.firstName", "ג'ון")
+  set("employee.lastName", "סמית'")
+  set("employee.birthDate", "1990-01-01")
+  set("employee.city", "תל אביב")
+  set("employee.street", "דיזנגוף")
+  set("employee.houseNum", "1")
+  set("employee.zip", "6120101")
+  set("employee.mobile", "050-1234567")
+  set("employee.email", "john@example.com")
+
+  set("employee.sex", "male")
+  set("employee.maritalStatus", "single")
+  set("employee.ilResident", true)
+  set("employee.kibbutzMember", false)
+  set("employee.healthFundMember", true)
+  set("employee.healthFundName", "כללית")
+
+  set("income.salaryTypes", ["monthly"])
+  set("income.startDate", "2026-01-01")
+  set("other.hasOther", false)
+  set("credits.resident", true)
+  set("coord.request", false)
+  set("sign.date", "2026-02-01")
+  set("sign.signature", typedSignature)
+})
+
 /* ------------------------------------------------------------------ render */
 
 const profiles: Array<[string, FormState]> = [
   ["single", single],
   ["family", family],
   ["immigrant", immigrant],
+  ["passport", passport],
 ]
 
 mkdirSync(OUT, { recursive: true })

@@ -193,10 +193,13 @@ download from the deployed site:
 | field mapping | `app/pdf/fields.ts` | declarative `state → items`; the single place that knows a value's printed form |
 | renderer | `app/pdf/overlay.ts` | `renderPdf(state, {pdfUrl, fontUrl})`, no top-level side effects |
 
-Known approximations (documented in `app/pdf/README.md`): 9-digit fields print as
-one right-aligned string rather than one digit per printed cell; the locality name
-uses the neighbouring rule because the printed gap is ~14 pt. Nothing is mirrored,
-nothing overlaps a label, and no value leaves the page.
+Numeric fields are now printed **cell-by-cell** on the official grids (tax year,
+deduction file, IDs, dates, ZIP, passport): `anchors.json` carries a generated
+`cells` map and `overlay.ts` centres one glyph per cell. The measured geometry,
+the pre-printed deduction-file `9`, the page-2 header ID and the two prose blanks
+are documented in [eng/pdf-slot-map](pdf-slot-map.md). The locality name uses the
+neighbouring rule because the printed gap is ~14 pt. Nothing is mirrored, nothing
+overlaps a label, and no value leaves the page.
 
 Budget: the renderer is **not** in the first load (largest preload chunk is 123 KB);
 pdf-lib + fontkit land in a separate chunk loaded on click. Assets (553 KB PDF,

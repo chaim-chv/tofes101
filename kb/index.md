@@ -258,6 +258,7 @@ the PDF is produced, and what we can prove about privacy and performance. Hub:
 | Node | What it answers |
 | --- | --- |
 | [eng/pdf-generation](eng/pdf-generation.md) | official PDF has 0 AcroForm fields → coordinate overlay; print fallback; decision matrix |
+| [eng/pdf-slot-map](eng/pdf-slot-map.md) | every value's printed cell/blank on the 101 PDF; measured geometry + the cell-placement fix plan |
 | [eng/pdf-hebrew-rtl](eng/pdf-hebrew-rtl.md) | fontkit's RTL reversal vs UAX #9; the token algorithm verified against Chrome |
 | [eng/signature](eng/signature.md) | canvas → PNG → PDF, accessibility, and the legal question handed to the law track |
 

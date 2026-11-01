@@ -11,7 +11,7 @@
  */
 import type { FormState, Signature } from "../form/types"
 import type { Color, PDFEmbeddedPage, PDFFont, PDFPage } from "pdf-lib"
-import { ANCHORS, SIGNATURE_BOX, isTextAnchor, type Anchor } from "./anchors"
+import { ANCHORS, CELLS, SIGNATURE_BOX, isTextAnchor, type Anchor, type CellAnchor, type TextAnchor } from "./anchors"
 import { buildItems } from "./fields"
 import { drawRtl, measureRtl } from "./rtl"
 
@@ -79,15 +79,72 @@ function fitText(font: PDFFont, text: string, size: number, maxWidth?: number) {
   return { text: `${next}…`, size: scaled }
 }
 
-function drawText(page: PDFPage, font: PDFFont, anchor: Extract<Anchor, { xRight: number }>, value: string, ink: Color) {
+function drawText(page: PDFPage, font: PDFFont, anchor: TextAnchor, value: string, ink: Color) {
   const fitted = fitText(font, value, anchor.size ?? 9, anchor.maxWidth)
+  if (anchor.xLeft !== undefined) {
+    // Fixed-left LTR run: the deduction-file tail follows the printed 9.
+    page.drawText(fitted.text, {
+      x: anchor.xLeft,
+      y: page.getHeight() - anchor.yTop,
+      size: fitted.size,
+      font,
+      color: ink,
+    })
+    return
+  }
   drawRtl(page, font, fitted.text, {
-    xRight: anchor.xRight,
+    xRight: anchor.xRight ?? 0,
     // anchors are measured from the top; pdf-lib's origin is bottom-left
     y: page.getHeight() - anchor.yTop,
     size: fitted.size,
     color: ink,
   })
+}
+
+/**
+ * Draw one character per printed cell, centred. The paper already carries the
+ * cell ticks (and sometimes the leading `9`), so this never draws separators.
+ * Values longer than the grid fall back to a fitted string so a foreign
+ * passport number cannot spill into the neighbouring field.
+ */
+function drawCells(page: PDFPage, font: PDFFont, grid: CellAnchor, chars: string[], ink: Color) {
+  const width = grid.x1 - grid.x0
+  const step = width / grid.cells
+  const baseSize = grid.size ?? 9
+
+  if (chars.length > grid.cells) {
+    const fitted = fitText(font, chars.join(""), baseSize, width)
+    drawRtl(page, font, fitted.text, {
+      xRight: grid.x1,
+      y: page.getHeight() - grid.yTop,
+      size: fitted.size,
+      color: ink,
+    })
+    return
+  }
+
+  // Never let a wide glyph leave its cell; digits are narrower than this.
+  const zero = font.widthOfTextAtSize("0", 1) || 0.55
+  const size = Math.max(MIN_FONT_SIZE, Math.min(baseSize, (step - 2) / zero))
+  const offset =
+    grid.fill === "end"
+      ? grid.cells - chars.length
+      : grid.fill === "center"
+        ? Math.floor((grid.cells - chars.length) / 2)
+        : 0
+
+  for (let i = 0; i < chars.length; i++) {
+    const char = chars[i]!
+    const centre = grid.x0 + (offset + i + 0.5) * step
+    const charWidth = font.widthOfTextAtSize(char, size)
+    page.drawText(char, {
+      x: centre - charWidth / 2,
+      y: page.getHeight() - grid.yTop,
+      size,
+      font,
+      color: ink,
+    })
+  }
 }
 
 function drawMark(page: PDFPage, font: PDFFont, anchor: Extract<Anchor, { mark: true }>, ink: Color) {
@@ -155,7 +212,16 @@ export async function renderPdf(state: FormState, options: RenderPdfOptions = {}
   const ink = rgb(INK[0], INK[1], INK[2])
 
   for (const item of buildItems(state)) {
-    const anchor = ANCHORS[item.anchor]
+    if ("cell" in item) {
+      const grid = CELLS[item.cell]
+      if (!grid) throw new Error(`Unknown PDF cell: ${item.cell}`)
+      const page = pages[grid.page - 1]
+      if (!page) throw new Error(`Cell ${item.cell} points to missing page ${grid.page}`)
+      drawCells(page, font, grid, item.chars, ink)
+      continue
+    }
+
+    const anchor: Anchor | undefined = ANCHORS[item.anchor]
     if (!anchor) throw new Error(`Unknown PDF anchor: ${item.anchor}`)
     const page = pages[anchor.page - 1]
     if (!page) throw new Error(`Anchor ${item.anchor} points to missing page ${anchor.page}`)

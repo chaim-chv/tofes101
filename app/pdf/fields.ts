@@ -18,6 +18,7 @@ export type PdfItem =
   | { anchor: string; text: string }
   | { anchor: string; mark: true }
   | { anchor: string; signature: Signature }
+  | { cell: string; chars: string[] }
 
 type Formatter = (value: unknown) => string
 
@@ -26,16 +27,6 @@ const asText: Formatter = (value) => {
   return typeof value === "string" ? value.trim() : String(value)
 }
 const asDate: Formatter = (value) => (typeof value === "string" && value ? formatDate(value) : "")
-
-/**
- * The official form pre-prints the leading 9 of a deductions-file number. Print
- * only the 8 trailing digits into the writing cells (the validator guarantees
- * the 9-prefix); legacy drafts with another shape print as-is.
- */
-const asDeductionTail: Formatter = (value) => {
-  const text = asText(value)
-  return /^9\d{8}$/.test(text) ? text.slice(1) : text
-}
 
 /**
  * Print the label the form expects, not the stored enum. The official 101 shows
@@ -61,6 +52,36 @@ type TextRule = {
   when?: (state: FormState) => boolean
 }
 
+/** Characters for one printed cell grid, in left-to-right order. */
+type CellRule = {
+  field: string
+  cell: string
+  when?: (state: FormState) => boolean
+  chars: (value: unknown) => string[]
+}
+
+const charsOf = (value: unknown): string[] => [...asText(value)]
+
+/** Passport numbers are read character by character; spaces are not digits. */
+const passportChars = (value: unknown): string[] => [...asText(value).replace(/\s+/g, "")]
+
+/**
+ * `yyyy-mm-dd` → `ddmmyyyy`. The printed day/month separators are ticks on the
+ * paper, so the grid receives digits only. A value that is not an ISO date
+ * yields nothing rather than a half-filled grid.
+ */
+const dateDigits = (value: unknown): string[] => {
+  const iso = asText(value)
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso)
+  return match ? [...`${match[3]}${match[2]}${match[1]}`] : []
+}
+
+/** The paper prints the leading 9 of a deduction-file number; draw the other 8. */
+const deductionTailChars = (value: unknown): string[] => {
+  const text = asText(value)
+  return /^9\d{8}$/.test(text) ? [...text.slice(1)] : [...text]
+}
+
 const isPassport = (state: FormState) => state.values["employee.idKind"] === "passport"
 const isId = (state: FormState) => !isPassport(state)
 const isMarried = (state: FormState) => state.values["employee.maritalStatus"] === "married"
@@ -73,19 +94,13 @@ const TEXT_RULES: TextRule[] = [
   { field: "employer.name", anchor: "employer.name", when: employerKnown },
   { field: "employer.address", anchor: "employer.address", when: employerKnown },
   { field: "employer.phone", anchor: "employer.phone", when: employerKnown },
-  { field: "employer.deductionFile", anchor: "employer.deductionFile", format: asDeductionTail, when: employerKnown },
 
   // page 1 · identity + address
   { field: "employee.firstName", anchor: "employee.firstName" },
   { field: "employee.lastName", anchor: "employee.lastName" },
-  { field: "employee.idNum", anchor: "employee.idNum", when: isId },
-  { field: "employee.passportNum", anchor: "employee.passportNum", when: isPassport },
-  { field: "employee.birthDate", anchor: "employee.birthDate", format: asDate },
-  { field: "employee.aliyahDate", anchor: "employee.aliyahDate", format: asDate, when: isId },
   { field: "employee.street", anchor: "employee.street" },
   { field: "employee.city", anchor: "employee.city" },
   { field: "employee.houseNum", anchor: "employee.houseNum" },
-  { field: "employee.zip", anchor: "employee.zip" },
   { field: "employee.mobile", anchor: "employee.mobile" },
   { field: "employee.email", anchor: "employee.email" },
   {
@@ -98,11 +113,10 @@ const TEXT_RULES: TextRule[] = [
   // page 1 · spouse
   { field: "spouse.firstName", anchor: "spouse.firstName", when: isMarried },
   { field: "spouse.lastName", anchor: "spouse.lastName", when: isMarried },
-  { field: "spouse.idNum", anchor: "spouse.idNum", when: isMarried },
-  { field: "spouse.birthDate", anchor: "spouse.birthDate", format: asDate, when: isMarried },
 
-  // page 1 · income
-  { field: "income.startDate", anchor: "income.startDate", format: asDate },
+  // page 2 · header repeats the employee identity (ID, or passport when no ID)
+  { field: "employee.idNum", anchor: "header.idNum", when: isId },
+  { field: "employee.passportNum", anchor: "header.idNum", when: isPassport },
 
   // page 2 · credit sub-values (the boxes themselves are MARK_RULES)
   { field: "credits.localityName", anchor: "credits.localityName", when: (s) => isTrue(s, "credits.locality") },
@@ -125,6 +139,20 @@ const TEXT_RULES: TextRule[] = [
 
   // page 2 · declaration
   { field: "sign.date", anchor: "sign.date", format: asDate, when: (s) => Boolean(s.values["sign.signature"]) },
+]
+
+/* --------------------------------------------------------------- cell grids */
+
+const CELL_RULES: CellRule[] = [
+  { field: "employer.deductionFile", cell: "employer.deductionFile", when: employerKnown, chars: deductionTailChars },
+  { field: "employee.idNum", cell: "employee.idNum", when: isId, chars: charsOf },
+  { field: "employee.passportNum", cell: "employee.passportNum", when: isPassport, chars: passportChars },
+  { field: "employee.birthDate", cell: "employee.birthDate", chars: dateDigits },
+  { field: "employee.aliyahDate", cell: "employee.aliyahDate", when: isId, chars: dateDigits },
+  { field: "employee.zip", cell: "employee.zip", chars: charsOf },
+  { field: "spouse.idNum", cell: "spouse.idNum", when: isMarried, chars: charsOf },
+  { field: "spouse.birthDate", cell: "spouse.birthDate", when: isMarried, chars: dateDigits },
+  { field: "income.startDate", cell: "income.startDate", chars: dateDigits },
 ]
 
 /* ---------------------------------------------------------- checkbox groups */
@@ -230,11 +258,15 @@ function pushText(items: PdfItem[], anchor: string, value: unknown, format: Form
   if (text) items.push({ anchor, text })
 }
 
+function pushCell(items: PdfItem[], cell: string, chars: string[]) {
+  if (chars.length) items.push({ cell, chars })
+}
+
 function buildChildren(items: PdfItem[], state: FormState) {
   repeat(state, "children").slice(0, CHILD_ROWS).forEach((child, row) => {
     pushText(items, `children.${row}.name`, child["name"])
-    pushText(items, `children.${row}.idNum`, child["idNum"])
-    pushText(items, `children.${row}.birthDate`, child["birthDate"], asDate)
+    pushCell(items, `children.${row}.idNum`, charsOf(child["idNum"]))
+    pushCell(items, `children.${row}.birthDate`, dateDigits(child["birthDate"]))
     if (child["custody"] === true) items.push({ anchor: `children.${row}.custody`, mark: true })
     if (child["allowance"] === true) items.push({ anchor: `children.${row}.allowance`, mark: true })
   })
@@ -245,7 +277,14 @@ function buildCoordination(items: PdfItem[], state: FormState) {
   repeat(state, "coord.employers").slice(0, COORD_ROWS).forEach((employer, row) => {
     pushText(items, `coord.${row}.name`, employer["name"])
     pushText(items, `coord.${row}.address`, employer["address"])
-    pushText(items, `coord.${row}.fileNum`, employer["fileNum"], asDeductionTail)
+    // The cell pre-prints the leading 9. Draw the other 8 immediately after it;
+    // a legacy number with another shape uses the right-aligned full anchor.
+    const fileNum = asText(employer["fileNum"])
+    if (/^9\d{8}$/.test(fileNum)) {
+      pushText(items, `coord.${row}.fileNumTail`, fileNum.slice(1))
+    } else {
+      pushText(items, `coord.${row}.fileNum`, fileNum)
+    }
     const type = asText(employer["incomeType"])
     pushText(items, `coord.${row}.incomeType`, coordIncomeTypeLabel[type] ?? type)
     pushText(items, `coord.${row}.monthlyIncome`, employer["monthlyIncome"])
@@ -262,7 +301,6 @@ function buildCoordination(items: PdfItem[], state: FormState) {
  */
 export const ANCHOR_REFS: readonly string[] = Array.from(
   new Set([
-    "taxYear",
     ...TEXT_RULES.map((rule) => rule.anchor),
     ...MARK_RULES.map((rule) => rule.anchor),
     "employee.kibbutzMember.no",
@@ -271,8 +309,6 @@ export const ANCHOR_REFS: readonly string[] = Array.from(
     "sign.signature",
     ...Array.from({ length: CHILD_ROWS }, (_, row) => [
       `children.${row}.name`,
-      `children.${row}.idNum`,
-      `children.${row}.birthDate`,
       `children.${row}.custody`,
       `children.${row}.allowance`,
     ]).flat(),
@@ -280,6 +316,7 @@ export const ANCHOR_REFS: readonly string[] = Array.from(
       `coord.${row}.name`,
       `coord.${row}.address`,
       `coord.${row}.fileNum`,
+      `coord.${row}.fileNumTail`,
       `coord.${row}.incomeType`,
       `coord.${row}.monthlyIncome`,
       `coord.${row}.monthlyTax`,
@@ -287,14 +324,31 @@ export const ANCHOR_REFS: readonly string[] = Array.from(
   ]),
 )
 
+/** Every cell grid this module can emit (compared with anchors.json). */
+export const CELL_REFS: readonly string[] = Array.from(
+  new Set([
+    "taxYear",
+    ...CELL_RULES.map((rule) => rule.cell),
+    ...Array.from({ length: CHILD_ROWS }, (_, row) => [
+      `children.${row}.idNum`,
+      `children.${row}.birthDate`,
+    ]).flat(),
+  ]),
+)
+
 /** Build the ordered overlay list for a complete form state. */
 export function buildItems(state: FormState): PdfItem[] {
   const items: PdfItem[] = []
-  items.push({ anchor: "taxYear", text: String(state.meta.taxYear) })
+  pushCell(items, "taxYear", charsOf(state.meta.taxYear))
 
   for (const rule of TEXT_RULES) {
     if (rule.when && !rule.when(state)) continue
     pushText(items, rule.anchor, state.values[rule.field], rule.format ?? asText)
+  }
+
+  for (const rule of CELL_RULES) {
+    if (rule.when && !rule.when(state)) continue
+    pushCell(items, rule.cell, rule.chars(state.values[rule.field]))
   }
 
   // Kibbutz membership is printed as a yes/no box plus a second question about
@@ -320,7 +374,9 @@ export function buildItems(state: FormState): PdfItem[] {
   // via the reason radio AND the confirmation checkbox.
   const seen = new Set<string>()
   return items.filter((item) => {
-    const key = `${item.anchor}:${"mark" in item ? "mark" : "text"}`
+    const key = "cell" in item
+      ? `cell:${item.cell}`
+      : `${item.anchor}:${"mark" in item ? "mark" : "text"}`
     if (seen.has(key)) return false
     seen.add(key)
     return true

@@ -11,8 +11,8 @@ import { PDFDocument } from "pdf-lib"
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs"
 import { emptyState, setField } from "../app/form/values"
 import type { FormState } from "../app/form/types"
-import { ANCHORS } from "../app/pdf/anchors"
-import { ANCHOR_REFS } from "../app/pdf/fields"
+import { ANCHORS, CELLS } from "../app/pdf/anchors"
+import { ANCHOR_REFS, CELL_REFS, buildItems } from "../app/pdf/fields"
 import { renderPdf } from "../app/pdf/overlay"
 import { rtlTokens } from "../app/pdf/rtl"
 
@@ -27,7 +27,7 @@ function fullState(): FormState {
   set("employer.name", 'חברת דוגמה בע"מ')
   set("employer.address", "רחוב הרצל 1, תל אביב")
   set("employer.phone", "03-1234567")
-  set("employer.deductionFile", "123456789")
+  set("employer.deductionFile", "912345678")
 
   set("employee.idKind", "idNum")
   set("employee.idNum", "123456789")
@@ -59,19 +59,19 @@ function fullState(): FormState {
   set("children", [
     {
       _key: "c1",
-      "children.name": "יונתן כהן",
-      "children.idNum": "111222333",
-      "children.birthDate": "2015-06-01",
-      "children.custody": true,
-      "children.allowance": true,
+      "name": "יונתן כהן",
+      "idNum": "111222333",
+      "birthDate": "2015-06-01",
+      "custody": true,
+      "allowance": true,
     },
     {
       _key: "c2",
-      "children.name": "מאיה כהן",
-      "children.idNum": "444555666",
-      "children.birthDate": "2019-11-20",
-      "children.custody": true,
-      "children.allowance": false,
+      "name": "מאיה כהן",
+      "idNum": "444555666",
+      "birthDate": "2019-11-20",
+      "custody": true,
+      "allowance": false,
     },
   ])
 
@@ -143,12 +143,18 @@ describe("anchors", () => {
     expect(missing).toEqual([])
   })
 
+  test("every cell referenced by fields.ts exists in the generated map", () => {
+    const missing = CELL_REFS.filter((id) => !CELLS[id])
+    expect(missing).toEqual([])
+  })
+
   test("all anchors carry a valid page and stay inside the A4 page", () => {
     for (const [id, anchor] of Object.entries(ANCHORS)) {
       expect([1, 2]).toContain(anchor.page)
-      if ("xRight" in anchor) {
-        expect(anchor.xRight).toBeGreaterThan(0)
-        expect(anchor.xRight).toBeLessThan(595.275)
+      if ("xRight" in anchor || "xLeft" in anchor) {
+        const x = "xRight" in anchor ? anchor.xRight : anchor.xLeft
+        expect(x).toBeGreaterThan(0)
+        expect(x).toBeLessThan(595.275)
         expect(anchor.yTop).toBeGreaterThan(0)
         expect(anchor.yTop).toBeLessThan(841.89)
       } else {
@@ -161,6 +167,75 @@ describe("anchors", () => {
       // Guard against the generator silently mapping two ids to the same slot.
       expect(id.length).toBeGreaterThan(0)
     }
+  })
+
+  test("all cell grids are inside the page and have sane dimensions", () => {
+    for (const [id, grid] of Object.entries(CELLS)) {
+      expect([1, 2]).toContain(grid.page)
+      expect(grid.cells).toBeGreaterThan(0)
+      expect(grid.x0).toBeGreaterThan(0)
+      expect(grid.x1).toBeLessThan(595.275)
+      expect(grid.x1 - grid.x0).toBeGreaterThan(grid.cells * 4)
+      expect(grid.yTop).toBeGreaterThan(0)
+      expect(grid.yTop).toBeLessThan(841.89)
+      expect(id.length).toBeGreaterThan(0)
+    }
+  })
+})
+
+describe("cell items", () => {
+  const items = buildItems(fullState())
+  const cell = (id: string) => {
+    const found = items.find((item) => "cell" in item && item.cell === id)
+    if (!found || !("cell" in found)) throw new Error(`no cell item ${id}`)
+    return found
+  }
+
+  test("dates are split into ddmmyyyy digits", () => {
+    expect(cell("employee.birthDate").chars.join("")).toBe("12041985")
+    expect(cell("children.0.birthDate").chars.join("")).toBe("01062015")
+    expect(cell("income.startDate").chars.join("")).toBe("05012026")
+  })
+
+  test("IDs and the tax year fill their whole grid", () => {
+    expect(cell("employee.idNum").chars.join("")).toBe("123456789")
+    expect(cell("spouse.idNum").chars.join("")).toBe("987654321")
+    expect(cell("children.0.idNum").chars.join("")).toBe("111222333")
+    expect(cell("taxYear").chars.join("")).toBe("2026")
+  })
+
+  test("the deduction file draws only the 8 digits after the printed 9", () => {
+    expect(cell("employer.deductionFile").chars.join("")).toBe("12345678")
+  })
+
+  test("the ZIP occupies 7 cells", () => {
+    expect(cell("employee.zip").chars.join("")).toBe("6120101")
+  })
+
+  test("the prose blanks that are not vector rules keep their measured x", () => {
+    expect(ANCHORS["credits.immigrantFrom"]).toMatchObject({ xRight: 318.6 })
+    expect(ANCHORS["credits.reserveDays"]).toMatchObject({ xRight: 364 })
+  })
+
+  test("coordination file number continues after the printed 9", () => {
+    let state = fullState()
+    state = setField(state, "coord.request", true)
+    state = setField(state, "coord.reason", "other-incomes")
+    state = setField(state, "coord.employers", [
+      {
+        _key: "e1",
+        name: "סטודיו",
+        address: "הרצל 4",
+        fileNum: "901234567",
+        incomeType: "work",
+        monthlyIncome: "1",
+        monthlyTax: "0",
+      },
+    ])
+    const tail = buildItems(state).find(
+      (item) => "anchor" in item && item.anchor === "coord.0.fileNumTail",
+    )
+    expect(tail).toMatchObject({ text: "01234567" })
   })
 })
 
@@ -204,9 +279,84 @@ describe("renderPdf", () => {
     expect(has("כהן", "ןהכ")).toBe(true)
   })
 
-  test("text layer contains the LTR ID and the employer phone", () => {
-    expect(text).toContain("123456789")
+  test("text layer contains the LTR ID digits and the employer phone", () => {
+    // The ID is now drawn one glyph per printed cell, so the extractor may
+    // separate the digits. Normalise whitespace before checking content.
+    expect(text.replace(/\s+/g, "")).toContain("123456789")
     expect(text).toContain("03-1234567")
+  })
+})
+
+describe("cell geometry", () => {
+  type Item = { str: string; x: number; y: number; width: number }
+  const pageItems: Record<1 | 2, Item[]> = { 1: [], 2: [] }
+
+  beforeAll(async () => {
+    const bytes = await renderPdf(fullState(), {
+      pdf: new Uint8Array(readFileSync(asset("assets/tofes-101-official.pdf"))),
+      font: new Uint8Array(readFileSync(asset("fonts/Heebo-Variable.ttf"))),
+    })
+    const doc = await getDocument({ data: bytes.slice(), useSystemFonts: false }).promise
+    for (const pageNo of [1, 2] as const) {
+      const page = await doc.getPage(pageNo)
+      const viewport = page.getViewport({ scale: 1 })
+      const content = await page.getTextContent({ disableCombineTextItems: true })
+      pageItems[pageNo] = content.items
+        .filter((item): item is typeof item & { str: string } => "str" in item && Boolean(item.str))
+        .map((item) => {
+          const [, , , , e, f] = item.transform
+          return { str: item.str, x: e, y: viewport.height - f, width: item.width ?? 0 }
+        })
+    }
+  })
+
+  function digitsIn(pageNo: 1 | 2, cellId: string): Item[] {
+    const grid = CELLS[cellId]
+    if (!grid) throw new Error(`no grid ${cellId}`)
+    return pageItems[pageNo]
+      .filter((item) => /^\d$/.test(item.str))
+      .filter((item) => item.x + item.width > grid.x0 - 1 && item.x < grid.x1 + 1)
+      .filter((item) => Math.abs(item.y - grid.yTop) < 1.5)
+      .sort((a, b) => a.x - b.x)
+  }
+
+  function expectCentred(pageNo: 1 | 2, cellId: string, expected: string) {
+    const grid = CELLS[cellId]!
+    const digits = digitsIn(pageNo, cellId)
+    expect(digits.map((d) => d.str).join("")).toBe(expected)
+    const step = (grid.x1 - grid.x0) / grid.cells
+    digits.forEach((digit, index) => {
+      const centre = digit.x + digit.width / 2
+      const wanted = grid.x0 + (index + 0.5) * step
+      expect(Math.abs(centre - wanted)).toBeLessThan(1.5)
+    })
+  }
+
+  test("employee ID: 9 separate glyphs, one per cell", () => {
+    expectCentred(1, "employee.idNum", "123456789")
+  })
+
+  test("tax year: 4 glyphs inside the printed box", () => {
+    expectCentred(1, "taxYear", "2026")
+  })
+
+  test("birth date: 8 glyphs, slashes are not drawn", () => {
+    expectCentred(1, "employee.birthDate", "12041985")
+  })
+
+  test("deduction file: the printed 9 is not duplicated", () => {
+    expectCentred(1, "employer.deductionFile", "12345678")
+  })
+
+  test("ZIP: 7 glyphs", () => {
+    expectCentred(1, "employee.zip", "6120101")
+  })
+
+  test("page 2 header repeats the employee ID", () => {
+    const header = pageItems[2].filter(
+      (item) => /^\d+$/.test(item.str) && item.y > 24 && item.y < 30 && item.x > 90 && item.x < 175,
+    )
+    expect(header.map((d) => d.str).join("")).toBe("123456789")
   })
 })
 

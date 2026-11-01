@@ -9,10 +9,15 @@ import raw from "./anchors.json"
 
 export type PageNumber = 1 | 2
 
-/** A line of text, right-aligned to `xRight`, baseline `yTop` from the page top. */
+/**
+ * A line of text, baseline `yTop` from the page top. `xRight` anchors an RTL
+ * (right-aligned) line; `xLeft` anchors an LTR line that must start at a fixed
+ * left edge — used for the tail that follows the pre-printed deduction-file 9.
+ */
 export type TextAnchor = {
   page: PageNumber
-  xRight: number
+  xRight?: number
+  xLeft?: number
   yTop: number
   size?: number
   maxWidth?: number
@@ -27,9 +32,28 @@ export type MarkAnchor = {
   size?: number
 }
 
+/**
+ * A printed cell grid: `cells` equal slots between `x0` and `x1`, writing
+ * baseline `yTop`. `groups` documents the taller day/month separators; it is
+ * informational because those ticks are already on the paper. `preprinted`
+ * names characters the paper already carries (the deduction-file leading 9).
+ */
+export type CellAnchor = {
+  page: PageNumber
+  x0: number
+  x1: number
+  yTop: number
+  cells: number
+  size?: number
+  groups?: number[]
+  preprinted?: string
+  fill?: "start" | "end" | "center"
+}
+
 export type Anchor = TextAnchor | MarkAnchor
 
 export const ANCHORS = raw.anchors as Record<string, Anchor>
+export const CELLS = (raw.cells ?? {}) as Record<string, CellAnchor>
 
 export const ANCHOR_META = raw.source
 
@@ -53,7 +77,13 @@ export function anchor(id: string): Anchor {
   return found
 }
 
+export function cell(id: string): CellAnchor {
+  const found = CELLS[id]
+  if (!found) throw new Error(`Unknown PDF cell: ${id}`)
+  return found
+}
+
 /** Narrows an anchor to a text slot (used by the overlay renderer). */
 export function isTextAnchor(value: Anchor): value is TextAnchor {
-  return "xRight" in value
+  return "xRight" in value || "xLeft" in value
 }

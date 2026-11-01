@@ -135,3 +135,42 @@ Format: `- **YYYY-MM-DD** — claim. → evidence/link`
   that flag made the summary say “0 documents required” while the list showed
   one. `id-front` + `id-annex` are alternatives (`match: "any"`): one multi-page
   PDF satisfies the whole requirement.
+
+## PDF slot geometry (2026-10-31)
+
+- **2026-10-31** — The official 101 does **not** put numbers on free lines: it
+  prints cell grids (4.1 pt tick separators that look like commas). The grids
+  are: tax year 4 cells (220.41–285.31), deduction file 8 writing cells after a
+  pre-printed `9` (39.89–130.29), employee ID 9 (438.11–540.21), aliyah date 8
+  (28.69–119.01), birth date 8 (119.01–210.00), ZIP 7 (29.23–108.44), passport
+  13 (392.50–540.21), work-start date 8 (30.75–121.39), each child's ID 9 /
+  birth date 8, spouse ID 9 / birth date 8 / aliyah date 8 / passport 13.
+  Full table + audit images in `kb/eng/pdf-slot-map.md`.
+- **2026-10-31** — The deduction-file field pre-prints its leading `9`: the glyph
+  is at x 30.50–38.42 (size 18) and the first writing cell starts at 39.89. The
+  section ט table repeats it at 12 pt in every row. Print only the trailing 8
+  digits (the validator already requires `^9\d{8}$`).
+- **2026-10-31** — Page 2 repeats the employee ID on a rule at
+  x 95.66–170.66 / y 27.89; the overlay never printed it.
+- **2026-10-31** — Cell bounds must be **tick-derived** (first tick − step, last
+  tick + step), not box-derived: the spouse row and children table have inset
+  double borders that shift the first/last cell by 1–3 pt.
+- **2026-10-31** — `pdfjs` merges an entire RTL prose line into one text item,
+  so blanks drawn as `005F` underscores inside the line (e.g. reserve days in
+  section ח item 16) cannot be found from text items. Use the content stream or
+  a raster pass. Two anchors were wrong because of this: `credits.immigrantFrom`
+  (+87 pt) and `credits.reserveDays` (+44 pt).
+- **2026-10-31** — `employee.passportNum` was drawn 7.3 pt above its tick row;
+  the coordination table's `incomeType`/`monthlyIncome` anchors cross 4–7 pt
+  into the next cell. All recorded with fixes in `kb/eng/pdf-slot-map.md`.
+- **2026-10-31** — Diagnostic tools added: `tools/pdf/dump-text.ts`,
+  `tools/pdf/extract-cells.py`, `tools/pdf/audit-slots.py` (writes
+  `research/pdf-slots/page{1,2}-audit.png`).
+- **2026-10-31** — Cell renderer shipped: the generator now derives 22 `cells`
+  from the vector ticks (CTM-aware) and pins them in `anchors.json`;
+  `fields.ts` emits `{ cell, chars }`; `overlay.ts` draws one centred glyph per
+  cell with a string fallback on overflow. Page 2 now prints the header ID, the
+  coordination file number continues after its printed 9, and the two prose
+  blanks (`immigrantFrom`, `reserveDays`) moved to their measured rules. Tests:
+  cell-map sync, split values, rendered glyph centres (<1.5 pt), no duplicated
+  9. Samples: `sample-passport.*` added.

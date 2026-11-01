@@ -1,5 +1,5 @@
 {
-  "$comment": "GENERATED — do not hand-edit. Regenerate with `bun run tools/pdf/build-anchors.ts`. Coordinates are PDF points from the top-left: text = { xRight, yTop(baseline) }, mark = centre of the printed box. Source PDF sha256: bf4f11b0228c30bf73b0c132475c0b8fb6b1e908ef70411c0fec5474f9d7d633.",
+  "$comment": "GENERATED — do not hand-edit. Regenerate with `bun run tools/pdf/build-anchors.ts`. Coordinates are PDF points from the top-left: text = { xRight|xLeft, yTop(baseline) }, mark = centre of the printed box, cells = x0..x1 / count / yTop(baseline). Source PDF sha256: bf4f11b0228c30bf73b0c132475c0b8fb6b1e908ef70411c0fec5474f9d7d633.",
   "source": {
     "file": "public/assets/tofes-101-official.pdf",
     "sha256": "bf4f11b0228c30bf73b0c132475c0b8fb6b1e908ef70411c0fec5474f9d7d633",
@@ -17,13 +17,6 @@
       "mark": true,
       "size": 8
     },
-    "children.0.birthDate": {
-      "page": 1,
-      "xRight": 342,
-      "yTop": 396.2,
-      "size": 9,
-      "maxWidth": 84
-    },
     "children.0.custody": {
       "page": 1,
       "x": 535.4,
@@ -31,19 +24,12 @@
       "mark": true,
       "size": 8
     },
-    "children.0.idNum": {
-      "page": 1,
-      "xRight": 444,
-      "yTop": 396.2,
-      "size": 9,
-      "maxWidth": 93
-    },
     "children.0.name": {
       "page": 1,
-      "xRight": 514,
       "yTop": 396.2,
       "size": 9,
-      "maxWidth": 62
+      "maxWidth": 62,
+      "xRight": 514
     },
     "children.1.allowance": {
       "page": 1,
@@ -52,13 +38,6 @@
       "mark": true,
       "size": 8
     },
-    "children.1.birthDate": {
-      "page": 1,
-      "xRight": 342,
-      "yTop": 418.1,
-      "size": 9,
-      "maxWidth": 84
-    },
     "children.1.custody": {
       "page": 1,
       "x": 535.4,
@@ -66,19 +45,12 @@
       "mark": true,
       "size": 8
     },
-    "children.1.idNum": {
-      "page": 1,
-      "xRight": 444,
-      "yTop": 418.1,
-      "size": 9,
-      "maxWidth": 93
-    },
     "children.1.name": {
       "page": 1,
-      "xRight": 514,
       "yTop": 418.1,
       "size": 9,
-      "maxWidth": 62
+      "maxWidth": 62,
+      "xRight": 514
     },
     "children.2.allowance": {
       "page": 1,
@@ -87,13 +59,6 @@
       "mark": true,
       "size": 8
     },
-    "children.2.birthDate": {
-      "page": 1,
-      "xRight": 342,
-      "yTop": 440,
-      "size": 9,
-      "maxWidth": 84
-    },
     "children.2.custody": {
       "page": 1,
       "x": 535.4,
@@ -101,19 +66,12 @@
       "mark": true,
       "size": 8
     },
-    "children.2.idNum": {
-      "page": 1,
-      "xRight": 444,
-      "yTop": 440,
-      "size": 9,
-      "maxWidth": 93
-    },
     "children.2.name": {
       "page": 1,
-      "xRight": 514,
       "yTop": 440,
       "size": 9,
-      "maxWidth": 62
+      "maxWidth": 62,
+      "xRight": 514
     },
     "children.3.allowance": {
       "page": 1,
@@ -122,13 +80,6 @@
       "mark": true,
       "size": 8
     },
-    "children.3.birthDate": {
-      "page": 1,
-      "xRight": 342,
-      "yTop": 461.9,
-      "size": 9,
-      "maxWidth": 84
-    },
     "children.3.custody": {
       "page": 1,
       "x": 535.4,
@@ -136,19 +87,12 @@
       "mark": true,
       "size": 8
     },
-    "children.3.idNum": {
-      "page": 1,
-      "xRight": 444,
-      "yTop": 461.9,
-      "size": 9,
-      "maxWidth": 93
-    },
     "children.3.name": {
       "page": 1,
-      "xRight": 514,
       "yTop": 461.9,
       "size": 9,
-      "maxWidth": 62
+      "maxWidth": 62,
+      "xRight": 514
     },
     "children.4.allowance": {
       "page": 1,
@@ -157,13 +101,6 @@
       "mark": true,
       "size": 8
     },
-    "children.4.birthDate": {
-      "page": 1,
-      "xRight": 342,
-      "yTop": 483.8,
-      "size": 9,
-      "maxWidth": 84
-    },
     "children.4.custody": {
       "page": 1,
       "x": 535.4,
@@ -171,145 +108,159 @@
       "mark": true,
       "size": 8
     },
-    "children.4.idNum": {
-      "page": 1,
-      "xRight": 444,
-      "yTop": 483.8,
-      "size": 9,
-      "maxWidth": 93
-    },
     "children.4.name": {
       "page": 1,
-      "xRight": 514,
       "yTop": 483.8,
       "size": 9,
-      "maxWidth": 62
+      "maxWidth": 62,
+      "xRight": 514
     },
     "coord.0.address": {
       "page": 2,
-      "xRight": 441,
       "yTop": 557,
       "size": 8,
-      "maxWidth": 126
+      "maxWidth": 126,
+      "xRight": 441
     },
     "coord.0.fileNum": {
       "page": 2,
-      "xRight": 307,
       "yTop": 557,
       "size": 8,
-      "maxWidth": 64
+      "maxWidth": 64,
+      "xRight": 307
+    },
+    "coord.0.fileNumTail": {
+      "page": 2,
+      "yTop": 557,
+      "size": 8,
+      "maxWidth": 64,
+      "xLeft": 242
     },
     "coord.0.incomeType": {
       "page": 2,
-      "xRight": 238,
       "yTop": 557.2,
       "size": 8,
-      "maxWidth": 56
+      "maxWidth": 56,
+      "xRight": 228
     },
     "coord.0.monthlyIncome": {
       "page": 2,
-      "xRight": 177,
       "yTop": 558.2,
       "size": 8,
-      "maxWidth": 74
+      "maxWidth": 74,
+      "xRight": 170
     },
     "coord.0.monthlyTax": {
       "page": 2,
-      "xRight": 97,
       "yTop": 558.3,
       "size": 8,
-      "maxWidth": 66
+      "maxWidth": 66,
+      "xRight": 97
     },
     "coord.0.name": {
       "page": 2,
-      "xRight": 534,
       "yTop": 557,
       "size": 8,
-      "maxWidth": 88
+      "maxWidth": 88,
+      "xRight": 534
     },
     "coord.1.address": {
       "page": 2,
-      "xRight": 441,
       "yTop": 571.2,
       "size": 8,
-      "maxWidth": 126
+      "maxWidth": 126,
+      "xRight": 441
     },
     "coord.1.fileNum": {
       "page": 2,
-      "xRight": 307,
       "yTop": 571.2,
       "size": 8,
-      "maxWidth": 64
+      "maxWidth": 64,
+      "xRight": 307
+    },
+    "coord.1.fileNumTail": {
+      "page": 2,
+      "yTop": 571.2,
+      "size": 8,
+      "maxWidth": 64,
+      "xLeft": 242
     },
     "coord.1.incomeType": {
       "page": 2,
-      "xRight": 238,
       "yTop": 571.4,
       "size": 8,
-      "maxWidth": 56
+      "maxWidth": 56,
+      "xRight": 228
     },
     "coord.1.monthlyIncome": {
       "page": 2,
-      "xRight": 177,
       "yTop": 572.4,
       "size": 8,
-      "maxWidth": 74
+      "maxWidth": 74,
+      "xRight": 170
     },
     "coord.1.monthlyTax": {
       "page": 2,
-      "xRight": 97,
       "yTop": 572.5,
       "size": 8,
-      "maxWidth": 66
+      "maxWidth": 66,
+      "xRight": 97
     },
     "coord.1.name": {
       "page": 2,
-      "xRight": 534,
       "yTop": 571.2,
       "size": 8,
-      "maxWidth": 88
+      "maxWidth": 88,
+      "xRight": 534
     },
     "coord.2.address": {
       "page": 2,
-      "xRight": 441,
       "yTop": 585.4,
       "size": 8,
-      "maxWidth": 126
+      "maxWidth": 126,
+      "xRight": 441
     },
     "coord.2.fileNum": {
       "page": 2,
-      "xRight": 307,
       "yTop": 585.4,
       "size": 8,
-      "maxWidth": 64
+      "maxWidth": 64,
+      "xRight": 307
+    },
+    "coord.2.fileNumTail": {
+      "page": 2,
+      "yTop": 585.4,
+      "size": 8,
+      "maxWidth": 64,
+      "xLeft": 242
     },
     "coord.2.incomeType": {
       "page": 2,
-      "xRight": 238,
       "yTop": 585.6,
       "size": 8,
-      "maxWidth": 56
+      "maxWidth": 56,
+      "xRight": 228
     },
     "coord.2.monthlyIncome": {
       "page": 2,
-      "xRight": 177,
       "yTop": 586.6,
       "size": 8,
-      "maxWidth": 74
+      "maxWidth": 74,
+      "xRight": 170
     },
     "coord.2.monthlyTax": {
       "page": 2,
-      "xRight": 97,
       "yTop": 586.7,
       "size": 8,
-      "maxWidth": 66
+      "maxWidth": 66,
+      "xRight": 97
     },
     "coord.2.name": {
       "page": 2,
-      "xRight": 534,
       "yTop": 585.4,
       "size": 8,
-      "maxWidth": 88
+      "maxWidth": 88,
+      "xRight": 534
     },
     "coord.approved": {
       "page": 2,
@@ -460,94 +411,80 @@
     },
     "credits.disabledChildCount": {
       "page": 2,
-      "xRight": 465.2,
       "yTop": 367.3,
       "size": 8,
-      "maxWidth": 18
+      "maxWidth": 18,
+      "xRight": 465.2
     },
     "credits.immigrantFrom": {
       "page": 2,
-      "xRight": 405.6,
-      "yTop": 133.9,
+      "yTop": 131.8,
       "size": 8,
-      "maxWidth": 74
+      "maxWidth": 74,
+      "xRight": 318.6
     },
     "credits.immigrantNoIncomeUntil": {
       "page": 2,
-      "xRight": 248.6,
       "yTop": 147.9,
       "size": 8,
-      "maxWidth": 56
+      "maxWidth": 56,
+      "xRight": 248.6
     },
     "credits.localityFrom": {
       "page": 2,
-      "xRight": 329.6,
       "yTop": 106.5,
       "size": 8,
-      "maxWidth": 74
+      "maxWidth": 74,
+      "xRight": 329.6
     },
     "credits.localityName": {
       "page": 2,
-      "xRight": 438,
       "yTop": 119.9,
       "size": 8,
-      "maxWidth": 140
+      "maxWidth": 140,
+      "xRight": 438
     },
     "credits.reserveDays": {
       "page": 2,
-      "xRight": 408,
-      "yTop": 459.2,
+      "yTop": 459.8,
       "size": 8,
-      "maxWidth": 44
+      "maxWidth": 44,
+      "xRight": 364
     },
     "credits.serviceEnd": {
       "page": 2,
-      "xRight": 116.9,
       "yTop": 424.2,
       "size": 8,
-      "maxWidth": 57
+      "maxWidth": 57,
+      "xRight": 116.9
     },
     "credits.serviceStart": {
       "page": 2,
-      "xRight": 247.9,
       "yTop": 423.2,
       "size": 8,
-      "maxWidth": 54
-    },
-    "employee.aliyahDate": {
-      "page": 1,
-      "xRight": 113,
-      "yTop": 231.8,
-      "size": 9,
-      "maxWidth": 62
-    },
-    "employee.birthDate": {
-      "page": 1,
-      "xRight": 204,
-      "yTop": 231,
-      "size": 9,
-      "maxWidth": 62
+      "maxWidth": 54,
+      "xRight": 247.9
     },
     "employee.city": {
       "page": 1,
-      "xRight": 199,
       "yTop": 254,
       "size": 9,
-      "maxWidth": 88
+      "maxWidth": 88,
+      "xRight": 199
     },
     "employee.email": {
       "page": 1,
-      "xRight": 537,
       "yTop": 323.4,
       "size": 9,
-      "maxWidth": 170
+      "maxWidth": 170,
+      "xRight": 537
     },
     "employee.firstName": {
       "page": 1,
-      "xRight": 308.9,
       "yTop": 231,
       "size": 10,
-      "maxWidth": 100
+      "maxWidth": 100,
+      "xRight": 308.9
     },
     "employee.healthFundMember.no": {
       "page": 1,
@@ -565,24 +502,17 @@
     },
     "employee.healthFundName": {
       "page": 1,
-      "xRight": 62,
       "yTop": 300.6,
       "size": 8,
-      "maxWidth": 32
+      "maxWidth": 32,
+      "xRight": 62
     },
     "employee.houseNum": {
       "page": 1,
-      "xRight": 225.5,
       "yTop": 254.4,
       "size": 9,
-      "maxWidth": 20
-    },
-    "employee.idNum": {
-      "page": 1,
-      "xRight": 537.1,
-      "yTop": 231,
-      "size": 10,
-      "maxWidth": 100
+      "maxWidth": 20,
+      "xRight": 225.5
     },
     "employee.ilResident.no": {
       "page": 1,
@@ -621,10 +551,10 @@
     },
     "employee.lastName": {
       "page": 1,
-      "xRight": 434,
       "yTop": 231,
       "size": 10,
-      "maxWidth": 120
+      "maxWidth": 120,
+      "xRight": 434
     },
     "employee.maritalStatus.divorced": {
       "page": 1,
@@ -663,17 +593,10 @@
     },
     "employee.mobile": {
       "page": 1,
-      "xRight": 202,
       "yTop": 324.4,
       "size": 9,
-      "maxWidth": 120
-    },
-    "employee.passportNum": {
-      "page": 1,
-      "xRight": 537.1,
-      "yTop": 254,
-      "size": 9,
-      "maxWidth": 140
+      "maxWidth": 120,
+      "xRight": 202
     },
     "employee.sex.female": {
       "page": 1,
@@ -691,45 +614,38 @@
     },
     "employee.street": {
       "page": 1,
-      "xRight": 388,
       "yTop": 254,
       "size": 9,
-      "maxWidth": 152
-    },
-    "employee.zip": {
-      "page": 1,
-      "xRight": 105,
-      "yTop": 254,
-      "size": 9,
-      "maxWidth": 72
+      "maxWidth": 152,
+      "xRight": 388
     },
     "employer.address": {
       "page": 1,
-      "xRight": 410,
       "yTop": 178.3,
       "size": 9,
-      "maxWidth": 198
-    },
-    "employer.deductionFile": {
-      "page": 1,
-      "xRight": 125,
-      "yTop": 178.3,
-      "size": 9,
-      "maxWidth": 96
+      "maxWidth": 198,
+      "xRight": 410
     },
     "employer.name": {
       "page": 1,
-      "xRight": 534,
       "yTop": 178.3,
       "size": 9,
-      "maxWidth": 118
+      "maxWidth": 118,
+      "xRight": 534
     },
     "employer.phone": {
       "page": 1,
-      "xRight": 204,
       "yTop": 178.3,
       "size": 9,
-      "maxWidth": 72
+      "maxWidth": 72,
+      "xRight": 204
+    },
+    "header.idNum": {
+      "page": 2,
+      "yTop": 27,
+      "size": 9,
+      "maxWidth": 75,
+      "xRight": 170.7
     },
     "income.salaryTypes.additional": {
       "page": 1,
@@ -772,13 +688,6 @@
       "y": 421.7,
       "mark": true,
       "size": 8
-    },
-    "income.startDate": {
-      "page": 1,
-      "xRight": 115,
-      "yTop": 387,
-      "size": 9,
-      "maxWidth": 72
     },
     "other.creditsElsewhere.elsewhere": {
       "page": 1,
@@ -866,31 +775,24 @@
     },
     "sign.date": {
       "page": 2,
-      "xRight": 226,
       "yTop": 655.9,
       "size": 9,
-      "maxWidth": 84
+      "maxWidth": 84,
+      "xRight": 226
     },
     "sign.signature": {
       "page": 2,
-      "xRight": 121,
       "yTop": 654,
       "size": 10,
-      "maxWidth": 82
-    },
-    "spouse.birthDate": {
-      "page": 1,
-      "xRight": 203.7,
-      "yTop": 706,
-      "size": 9,
-      "maxWidth": 62
+      "maxWidth": 82,
+      "xRight": 121
     },
     "spouse.firstName": {
       "page": 1,
-      "xRight": 310,
       "yTop": 706,
       "size": 10,
-      "maxWidth": 100
+      "maxWidth": 100,
+      "xRight": 310
     },
     "spouse.hasIncome.no": {
       "page": 1,
@@ -905,13 +807,6 @@
       "y": 721.1,
       "mark": true,
       "size": 8
-    },
-    "spouse.idNum": {
-      "page": 1,
-      "xRight": 536,
-      "yTop": 706,
-      "size": 10,
-      "maxWidth": 96
     },
     "spouse.incomeTypes.other": {
       "page": 1,
@@ -929,10 +824,10 @@
     },
     "spouse.lastName": {
       "page": 1,
-      "xRight": 433,
       "yTop": 706,
       "size": 10,
-      "maxWidth": 120
+      "maxWidth": 120,
+      "xRight": 433
     },
     "spouse.noIncomeDeclaration": {
       "page": 1,
@@ -940,13 +835,235 @@
       "y": 721.1,
       "mark": true,
       "size": 8
+    }
+  },
+  "cells": {
+    "children.0.birthDate": {
+      "page": 1,
+      "x0": 256.4,
+      "x1": 347,
+      "yTop": 396.2,
+      "cells": 8,
+      "size": 9,
+      "groups": [
+        2,
+        2,
+        4
+      ]
+    },
+    "children.0.idNum": {
+      "page": 1,
+      "x0": 347,
+      "x1": 448.9,
+      "yTop": 396.2,
+      "cells": 9,
+      "size": 9
+    },
+    "children.1.birthDate": {
+      "page": 1,
+      "x0": 256.4,
+      "x1": 347,
+      "yTop": 418.1,
+      "cells": 8,
+      "size": 9,
+      "groups": [
+        2,
+        2,
+        4
+      ]
+    },
+    "children.1.idNum": {
+      "page": 1,
+      "x0": 347,
+      "x1": 448.9,
+      "yTop": 418.1,
+      "cells": 9,
+      "size": 9
+    },
+    "children.2.birthDate": {
+      "page": 1,
+      "x0": 256.4,
+      "x1": 347,
+      "yTop": 440,
+      "cells": 8,
+      "size": 9,
+      "groups": [
+        2,
+        2,
+        4
+      ]
+    },
+    "children.2.idNum": {
+      "page": 1,
+      "x0": 347,
+      "x1": 448.9,
+      "yTop": 440,
+      "cells": 9,
+      "size": 9
+    },
+    "children.3.birthDate": {
+      "page": 1,
+      "x0": 256.4,
+      "x1": 347,
+      "yTop": 461.9,
+      "cells": 8,
+      "size": 9,
+      "groups": [
+        2,
+        2,
+        4
+      ]
+    },
+    "children.3.idNum": {
+      "page": 1,
+      "x0": 347,
+      "x1": 448.9,
+      "yTop": 461.9,
+      "cells": 9,
+      "size": 9
+    },
+    "children.4.birthDate": {
+      "page": 1,
+      "x0": 256.4,
+      "x1": 347,
+      "yTop": 483.8,
+      "cells": 8,
+      "size": 9,
+      "groups": [
+        2,
+        2,
+        4
+      ]
+    },
+    "children.4.idNum": {
+      "page": 1,
+      "x0": 347,
+      "x1": 448.9,
+      "yTop": 483.8,
+      "cells": 9,
+      "size": 9
+    },
+    "employee.aliyahDate": {
+      "page": 1,
+      "x0": 28.4,
+      "x1": 119.2,
+      "yTop": 231,
+      "cells": 8,
+      "size": 9,
+      "groups": [
+        2,
+        2,
+        4
+      ]
+    },
+    "employee.birthDate": {
+      "page": 1,
+      "x0": 119.3,
+      "x1": 210.2,
+      "yTop": 231,
+      "cells": 8,
+      "size": 9,
+      "groups": [
+        2,
+        2,
+        4
+      ]
+    },
+    "employee.idNum": {
+      "page": 1,
+      "x0": 438,
+      "x1": 540.2,
+      "yTop": 231,
+      "cells": 9,
+      "size": 9
+    },
+    "employee.passportNum": {
+      "page": 1,
+      "x0": 392.5,
+      "x1": 540.2,
+      "yTop": 259.8,
+      "cells": 13,
+      "size": 9
+    },
+    "employee.zip": {
+      "page": 1,
+      "x0": 28.9,
+      "x1": 108.5,
+      "yTop": 254,
+      "cells": 7,
+      "size": 9
+    },
+    "employer.deductionFile": {
+      "page": 1,
+      "x0": 39.9,
+      "x1": 130.3,
+      "yTop": 180.3,
+      "cells": 8,
+      "size": 9,
+      "preprinted": "9"
+    },
+    "income.startDate": {
+      "page": 1,
+      "x0": 30.8,
+      "x1": 121.6,
+      "yTop": 387,
+      "cells": 8,
+      "size": 9,
+      "groups": [
+        2,
+        2,
+        4
+      ]
+    },
+    "spouse.aliyahDate": {
+      "page": 1,
+      "x0": 28.7,
+      "x1": 119.5,
+      "yTop": 706,
+      "cells": 8,
+      "size": 9,
+      "groups": [
+        2,
+        2,
+        4
+      ]
+    },
+    "spouse.birthDate": {
+      "page": 1,
+      "x0": 119.3,
+      "x1": 210.2,
+      "yTop": 706,
+      "cells": 8,
+      "size": 9,
+      "groups": [
+        2,
+        2,
+        4
+      ]
+    },
+    "spouse.idNum": {
+      "page": 1,
+      "x0": 437.7,
+      "x1": 539.9,
+      "yTop": 706,
+      "cells": 9,
+      "size": 9
+    },
+    "spouse.passportNum": {
+      "page": 1,
+      "x0": 421.7,
+      "x1": 539,
+      "yTop": 731.9,
+      "cells": 13,
+      "size": 9
     },
     "taxYear": {
       "page": 1,
-      "xRight": 289,
-      "yTop": 100,
-      "size": 10,
-      "maxWidth": 34
+      "x0": 220.4,
+      "x1": 285.3,
+      "yTop": 98.2,
+      "cells": 4,
+      "size": 9
     }
   }
 }

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-30T14:10:52.918Z",
+  "generatedAt": "2026-11-01T08:28:43.247Z",
   "counts": {
-    "nodes": 184,
-    "edges": 1261,
+    "nodes": 185,
+    "edges": 1271,
     "errors": 0,
     "warnings": 0
   },
@@ -68,6 +68,36 @@
       "words": 1058
     },
     {
+      "id": "eng/pdf-slot-map",
+      "file": "eng/pdf-slot-map.md",
+      "title": "PDF 101 slot map — every value's printed space",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-10-31",
+      "tags": [
+        "pdf",
+        "geometry",
+        "overlay",
+        "cells",
+        "form-101"
+      ],
+      "sources": [
+        "source/tofes101-official-pdf"
+      ],
+      "related": [
+        "eng/pdf-generation",
+        "eng/pdf-hebrew-rtl",
+        "decision/adr-0002-pdf-strategy",
+        "field/101-employee-identity",
+        "field/101-employer-block",
+        "field/101-children-block"
+      ],
+      "up": "eng/pdf-generation",
+      "dir": "eng",
+      "words": 3861
+    },
+    {
       "id": "eng/pdf-generation",
       "file": "eng/pdf-generation.md",
       "title": "PDF generation — overlay the official flat PDF, with a print fallback",
@@ -95,7 +125,7 @@
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 1484
+      "words": 1516
     },
     {
       "id": "eng/architecture",
@@ -3080,7 +3110,7 @@
       "sources": [],
       "related": [],
       "dir": ".",
-      "words": 1995
+      "words": 2014
     },
     {
       "id": "source/govil-website-accessibility-guide",
@@ -4634,6 +4664,46 @@
       "kind": "up"
     },
     {
+      "from": "eng/pdf-slot-map",
+      "to": "eng/pdf-generation",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-slot-map",
+      "to": "eng/pdf-hebrew-rtl",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-slot-map",
+      "to": "decision/adr-0002-pdf-strategy",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-slot-map",
+      "to": "field/101-employee-identity",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-slot-map",
+      "to": "field/101-employer-block",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-slot-map",
+      "to": "field/101-children-block",
+      "kind": "related"
+    },
+    {
+      "from": "eng/pdf-slot-map",
+      "to": "source/tofes101-official-pdf",
+      "kind": "source"
+    },
+    {
+      "from": "eng/pdf-slot-map",
+      "to": "eng/pdf-generation",
+      "kind": "up"
+    },
+    {
       "from": "eng/pdf-generation",
       "to": "decision/adr-0002-pdf-strategy",
       "kind": "related"
@@ -4696,6 +4766,11 @@
     {
       "from": "eng/pdf-generation",
       "to": "law/declaration-and-signature",
+      "kind": "link"
+    },
+    {
+      "from": "eng/pdf-generation",
+      "to": "eng/pdf-slot-map",
       "kind": "link"
     },
     {
@@ -10351,6 +10426,11 @@
     {
       "from": "index",
       "to": "eng/pdf-generation",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/pdf-slot-map",
       "kind": "link"
     },
     {

@@ -19,6 +19,7 @@
     - Offline / PWA — service worker, precache, updates, verified gotchas  `eng/offline-pwa`
     - PDF generation — overlay the official flat PDF, with a print fallback  `eng/pdf-generation`
       - Hebrew/RTL text in generated PDFs — what actually happens  `eng/pdf-hebrew-rtl`
+      - PDF 101 slot map — every value's printed space  `eng/pdf-slot-map`
     - Performance — measured budget, 3G plan, per-step splitting  `eng/performance`
     - Privacy enforcement — CSP, self-hosting, and the build-time gate  `eng/privacy-enforcement`
     - Repo layout — directories, naming, boundaries, scripts  `eng/repo-layout`
