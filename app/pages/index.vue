@@ -64,10 +64,12 @@ async function resetDraft() {
       :description="t('home.lead')"
       :links="links"
       :ui="{
-        container: 'py-10 sm:py-16 lg:py-20 gap-8',
-        title: 'text-3xl sm:text-5xl text-pretty tracking-tight font-bold text-highlighted',
-        description: 'text-lg text-muted max-w-2xl',
-        links: 'mt-2',
+        container: 'flex flex-col items-center py-10 sm:py-16 lg:flex lg:flex-col lg:items-center lg:py-20 gap-8',
+        wrapper: 'mx-auto w-full max-w-3xl text-center',
+        header: 'flex flex-col items-center text-center',
+        title: 'mx-auto text-center text-3xl sm:text-5xl text-pretty tracking-tight font-bold text-highlighted',
+        description: 'mx-auto max-w-2xl text-center text-lg text-muted',
+        links: 'mt-2 justify-center',
       }"
     >
       <template #headline>
@@ -81,10 +83,14 @@ async function resetDraft() {
       <div v-if="summary" class="mx-auto -mt-2 mb-8 w-full max-w-3xl px-4">
         <UPageCard
           variant="subtle"
-          icon="i-lucide-refresh-cw"
-          :title="t('home.draft.title')"
           :description="t('home.draft.body', { date: savedAt, step: summary.stepNumber, total: summary.total, title: t(summary.titleKey) })"
         >
+          <template #title>
+            <span class="flex items-center gap-2">
+              <UIcon name="i-lucide-refresh-cw" class="size-5 shrink-0 text-primary" />
+              <span>{{ t("home.draft.title") }}</span>
+            </span>
+          </template>
           <template #footer>
             <div class="flex flex-wrap gap-2">
               <UButton :to="path(`/form/?step=${summary.stepIndex}`)" icon="i-lucide-arrow-left">
@@ -108,11 +114,16 @@ async function resetDraft() {
         <UPageCard
           v-for="item in need"
           :key="item.title"
-          :icon="item.icon"
-          :title="item.title"
           :description="item.description"
           variant="subtle"
-        />
+        >
+          <template #title>
+            <span class="flex items-center gap-2">
+              <UIcon :name="item.icon" class="size-5 shrink-0 text-primary" />
+              <span>{{ item.title }}</span>
+            </span>
+          </template>
+        </UPageCard>
       </UPageGrid>
     </UPageSection>
 
@@ -124,10 +135,15 @@ async function resetDraft() {
         <UPageCard
           v-for="item in points"
           :key="item.title"
-          :icon="item.icon"
-          :title="item.title"
           :description="item.description"
-        />
+        >
+          <template #title>
+            <span class="flex items-center gap-2">
+              <UIcon :name="item.icon" class="size-5 shrink-0 text-primary" />
+              <span>{{ item.title }}</span>
+            </span>
+          </template>
+        </UPageCard>
       </UPageGrid>
     </UPageSection>
 

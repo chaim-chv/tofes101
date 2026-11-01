@@ -49,6 +49,12 @@ html[data-keyboard] .actionbar {
   display: none;
 }
 
+/* UInputDate renders a hidden native date input for form semantics; its native
+ * calendar indicator must not appear next to the Nuxt UI calendar button. */
+input[type="date"][aria-hidden="true"] {
+  display: none;
+}
+
 input,
 select,
 textarea {

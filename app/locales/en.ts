@@ -23,6 +23,7 @@ export default {
     "We never send your details anywhere. No account, no ads, and no server that receives the form.",
   "common.next": "Continue",
   "common.back": "Back",
+  "common.chooseDate": "Choose a date",
   "common.print": "Print",
   "common.showLess": "Show less",
   "credits.showMore": "More sections ({n})",

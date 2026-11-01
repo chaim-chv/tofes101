@@ -26,6 +26,7 @@ export default {
     "אנחנו לא שולחים את הפרטים שלך לשום מקום. אין חשבון, אין פרסומות, ואין שרת שמקבל את הטופס.",
   "common.next": "המשך",
   "common.back": "חזרה",
+  "common.chooseDate": "בחירת תאריך",
   "common.print": "הדפסה",
   "common.showLess": "הצגת פחות",
   "credits.showMore": "עוד סעיפים ({n})",

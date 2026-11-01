@@ -134,6 +134,8 @@ export type FieldBase = {
   suggestions?: readonly string[]
   /** Named lazy suggestion source (kept out of the first-load chunk). */
   suggestionsSource?: "cities"
+  /** Month/year the calendar opens at when a date is empty (birth dates). */
+  calendarStartYear?: number
   maxLength?: number
   /** Grid width on desktop, in twelfths. */
   span?: 12 | 6 | 4 | 3

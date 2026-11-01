@@ -130,7 +130,7 @@ function onBlur(event: FocusEvent) {
     v-else
     :name="field.id"
     :label="field.kind === 'checkbox' ? undefined : label"
-    :description="field.kind === 'checkbox' ? undefined : help"
+    :help="field.kind === 'checkbox' ? undefined : help"
     :error="errorText"
     :required="isRequired"
     :hint="locked && field.kind !== 'checkbox' ? t('form.prefill.locked') : undefined"
@@ -201,6 +201,8 @@ function onBlur(event: FocusEvent) {
       <DateField
         v-else-if="field.kind === 'date'"
         :id="inputId"
+        :label="label"
+        :default-year="field.calendarStartYear"
         :model-value="textValue"
         :readonly="locked"
         :disabled="disabled && !locked"

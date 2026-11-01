@@ -198,6 +198,7 @@ const stepIdentity: Step = {
       kind: "date",
       labelKey: "f.employee.birthDate",
       required: true,
+      calendarStartYear: 1990,
       autoComplete: "bday",
       validate: firstOf(validDate(), notFuture(), ageBetween(14, 120, "employee.birthDate")),
       span: 6,
@@ -207,6 +208,7 @@ const stepIdentity: Step = {
       kind: "date",
       labelKey: "f.employee.aliyahDate",
       helpKey: "f.employee.aliyahDate.help",
+      calendarStartYear: 2020,
       when: isId,
       validate: firstOf(
         validDate(),
@@ -398,6 +400,7 @@ const stepStatus: Step = {
       labelKey: "f.spouse.birthDate",
       when: isMarried,
       required: true,
+      calendarStartYear: 1990,
       validate: firstOf(validDate(), notFuture(), ageAtTaxYearEndBetween(14, 120)),
       span: 6,
     },
@@ -469,6 +472,7 @@ const stepChildren: Step = {
           kind: "date",
           labelKey: "f.children.birthDate",
           required: true,
+          calendarStartYear: 2015,
           validate: firstOf(validDate(), notFuture(), childAgeAtTaxYearEnd()),
         },
         {

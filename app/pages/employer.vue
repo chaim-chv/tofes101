@@ -265,8 +265,18 @@ const how = computed(() => [
 
     <UPageSection
       :title="t('employer.how.title')"
-      :features="how"
-      :ui="{ container: 'py-8 sm:py-10 lg:py-12' }"
-    />
+      :ui="{ container: 'py-8 sm:py-10 lg:py-12', title: 'text-2xl sm:text-3xl' }"
+    >
+      <UPageGrid>
+        <UPageCard v-for="item in how" :key="item.title" :description="item.description">
+          <template #title>
+            <span class="flex items-center gap-2">
+              <UIcon :name="item.icon" class="size-5 shrink-0 text-primary" />
+              <span>{{ item.title }}</span>
+            </span>
+          </template>
+        </UPageCard>
+      </UPageGrid>
+    </UPageSection>
   </UContainer>
 </template>

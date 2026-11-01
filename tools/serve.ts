@@ -60,7 +60,7 @@ export function startStaticServer(port = PORT) {
   })
 }
 
-if (import.meta.main) {
+if (import.meta.main && /serve\.ts$/.test(process.argv[1] ?? "")) {
   const server = startStaticServer()
   console.log(`serving ${ROOT} on http://localhost:${server.port}`)
 }

@@ -16,13 +16,15 @@ const { t } = useLocale()
 
 <template>
   <div
-    class="actionbar sticky bottom-0 z-30 -mx-4 mt-6 border-t border-default bg-default/95 px-4 py-3 backdrop-blur sm:static sm:mx-0 sm:mt-5 sm:border-0 sm:bg-transparent sm:p-0"
+    class="actionbar fixed inset-x-0 bottom-0 z-30 border-t border-default bg-default/95 px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur lg:static lg:mx-0 lg:mt-5 lg:border-0 lg:bg-transparent lg:p-0"
   >
     <div class="flex items-center justify-between gap-3">
       <UButton
         variant="ghost"
         color="neutral"
+        size="lg"
         icon="i-lucide-arrow-right"
+        class="min-h-[52px]"
         :disabled="props.isFirst"
         @click="emit('back')"
       >
@@ -55,7 +57,9 @@ const { t } = useLocale()
           :to="props.printHref"
           variant="outline"
           color="neutral"
+          size="lg"
           icon="i-lucide-printer"
+          class="min-h-[52px]"
         >
           {{ t("common.print") }}
         </UButton>

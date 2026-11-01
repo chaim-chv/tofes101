@@ -30,7 +30,7 @@ const items = computed<NavigationMenuItem[]>(() => [
     :toggle="props.wizard ? false : undefined"
     :title="t('app.name')"
     :to="path('/')"
-    :ui="{ title: 'min-w-0 shrink', right: 'min-w-0' }"
+    :ui="{ title: 'flex min-w-0 shrink items-center gap-1.5 font-bold text-xl text-highlighted', right: 'min-w-0' }"
   >
     <template #title>
       <UIcon name="i-lucide-file-text" class="size-5 text-primary" />
