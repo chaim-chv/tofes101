@@ -18,6 +18,7 @@ export default {
   "nav.jumpTo": "Go to step",
   "nav.accessibility": "Accessibility",
   "nav.privacy": "Privacy",
+  "nav.source": "Source code",
   "privacy.badge": "Your data stays on this device",
   "privacy.line":
     "We never send your details anywhere. No account, no ads, and no server that receives the form.",

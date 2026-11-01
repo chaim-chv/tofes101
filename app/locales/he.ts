@@ -21,6 +21,7 @@ export default {
   "nav.jumpTo": "מעבר לשלב",
   "nav.accessibility": "נגישות",
   "nav.privacy": "פרטיות",
+  "nav.source": "קוד המקור",
   "privacy.badge": "הנתונים נשארים במכשיר שלך",
   "privacy.line":
     "אנחנו לא שולחים את הפרטים שלך לשום מקום. אין חשבון, אין פרסומות, ואין שרת שמקבל את הטופס.",

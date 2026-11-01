@@ -1,4 +1,4 @@
-# tofes101 — private, browser-only טופס 101
+# tofes101 — privacy-first, browser-only טופס 101
 
 A rebuild of the *good parts* of [tofes101.co.il](https://tofes101.co.il/forms/itc-101/submit/):
 fill Israeli ITC form 101 (כרטיס עובד) online, get a filled PDF — but with **no
