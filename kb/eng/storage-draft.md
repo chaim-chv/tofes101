@@ -4,7 +4,7 @@ title: Draft storage — versioned IndexedDB envelope, autosave, export/import
 type: concept
 status: verified
 confidence: verified
-updated: 2026-10-29
+updated: 2026-11-01
 tags: [storage, draft, indexeddb, autosave, migrations, offline]
 sources: [source/mdn-storage-quotas, source/mdn-storage-persist, source/webkit-itp-7day-storage, source/mdn-opfs]
 related: [decision/adr-0003-draft-storage, eng/architecture, ux/progress-save-resume, ux/trust-local-privacy, eng/offline-pwa]
@@ -13,14 +13,26 @@ up: eng/architecture
 
 # Draft storage
 
-**Decision:** a Pinia store owns in-memory state; a single module
-(`app/utils/draft.ts`) persists a **versioned envelope** to IndexedDB via
-`idb-keyval` 6.3.0. Autosave is debounced, with explicit flush points. Export /
-import is JSON with the same envelope. See
-[ADR-0003](../decisions/adr-0003-draft-storage.md).
+**Decision:** one reactive store (`app/composables/useFormStore.ts`) owns the
+in-memory state; `app/storage/draft.ts` persists a **versioned envelope** to
+IndexedDB through a tiny local wrapper (`app/storage/idb.ts`). Autosave is
+debounced, with explicit flush points. Export/import is JSON with the same
+envelope. See [ADR-0003](../decisions/adr-0003-draft-storage.md).
 
-Working code: `research/spikes/scaffold/app/utils/draft.ts` (8 Vitest tests pass)
-and `research/spikes/scaffold/app/pages/draft-test.vue` (real-browser probe).
+**Shipped code (2026-11-01):** `app/storage/{idb,draft,files}.ts` +
+`app/composables/useFormStore.ts`. **Not** `app/utils/draft.ts`, **no** Pinia and
+**no** `idb-keyval` — those were the spike's choices and are analysed below for
+context only; do not follow them when editing the real layer. Attachments live in
+`app/storage/files.ts` as blobs, never inside the JSON draft.
+
+> Historical: `research/spikes/scaffold/app/utils/draft.ts` (the Pinia/idb-keyval
+> prototype with 8 Vitest tests). Read it only to understand a rejected option.
+
+## 0. The rule that actually bit us
+
+All stores open through `app/storage/idb.ts` with **one** `DB_VERSION`: two
+modules opening the same database at different versions hang forever on
+`onblocked`. Any new store is added in that one upgrade function.
 
 ## 1. Options considered
 

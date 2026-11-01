@@ -1,8 +1,9 @@
 # PLAN
 
-Status: **research phase complete-ish, build not started.** This file holds the
-things that are not yet code and not yet a durable ADR. Once an item is decided,
-it becomes `kb/decisions/adr-*.md` and gets removed from here.
+Status: **v1 shipped** (updated 2026-11-01). The skeleton, all 9 steps, the PDF
+overlay, privacy gate and e2e are live; the unchecked items below are the real
+backlog. Anything decided here becomes `kb/decisions/adr-*.md` and leaves this
+file. Agents: `AGENTS.md` routes tasks; this file answers *what next*.
 
 ## Phase 0 — Knowledge (current)
 

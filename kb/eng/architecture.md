@@ -4,7 +4,7 @@ title: Architecture — client-only Nuxt app, layers, data flow, threat model
 type: concept
 status: verified
 confidence: verified
-updated: 2026-10-29
+updated: 2026-11-01
 tags: [architecture, nuxt, offline, privacy, pdf]
 sources: [source/nuxt-4-installation, source/nuxt-ui-4-installation, source/vite-pwa-nuxt]
 related: [decision/adr-0001-stack, decision/adr-0002-pdf-strategy, decision/adr-0003-draft-storage, eng/repo-layout, eng/storage-draft, eng/pdf-generation, eng/privacy-enforcement, eng/offline-pwa, eng/form-schema-model, flow/form-101-service, ux/print-export]
@@ -29,69 +29,64 @@ Stack is fixed by the product owner: **bun + Nuxt + Nuxt UI**. See
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
 │ Presentation (Vue 3.5 / Nuxt 4.6 / Nuxt UI 4.12)                     │
-│  app/pages/index.vue        landing / trust copy                      │
-│  app/pages/form/index.vue   the form; 8 steps are state, not URLs     │
-│  app/pages/employer.vue     employer prefill-link generator           │
-│  app/components/steps/*     one lazily-loaded component per step      │
-│  app/components/fields/*    field renderer (text/date/select/…)       │
-│  app/components/review/*    review + error summary                    │
-│  app/components/output/*    print sheet + PDF download                │
+│  app/pages/{index,employer,form,print,privacy,accessibility}.vue      │
+│  app/components/form/*      one component per control kind           │
+│  app/components/layout/*    header, footer, draft menu, save status  │
+│  app/layouts/{default,wizard}.vue   marketing shell / form shell     │
 └───────────────▲──────────────────────────────────────┬───────────────┘
-                │ answers / errors                     │ render
+                │ state / errors                       │ render
 ┌───────────────┴──────────────────────────────────────▼───────────────┐
-│ Domain (pure TS, no Vue, no DOM)                                     │
-│  app/domain/form/schema.ts      sections, fields, steps, rules        │
-│  app/domain/form/validate.ts    field + cross-field validators        │
-│  app/domain/form/compute.ts     derived values (age, totals)          │
-│  app/domain/form/conditions.ts  visibleWhen / requiredWhen evaluator  │
-│  app/domain/pdf/field-map.ts    field path -> PDF box (page,x,y,w)    │
-│  app/domain/pdf/render.ts       pdf-lib overlay + bidi text           │
+│ Domain — pure TS, no Vue, no DOM, no network   (app/form/)            │
+│  schema.ts      the 160 fields as data, step by step                 │
+│  engine.ts      visibility, requiredness, gating, full validation    │
+│  validators.ts  ID Luhn, dates, phones, ranges, distinctFrom…        │
+│  derive.ts      spousePresent, hasOtherIncome, child ages…           │
+│  documents.ts   required-document checklist from answers             │
+│  values.ts / format.ts   TAX_YEAR, asBool, Intl formatting           │
 └───────────────▲──────────────────────────────────────┬───────────────┘
-                │ Draft envelope                       │ bytes
+                │ draft envelope                       │ bytes
 ┌───────────────┴──────────────────────────────────────▼───────────────┐
 │ Infrastructure                                                       │
-│  app/stores/draft.ts      Pinia 4 store (answers, ui, dirty)  [new]  │
-│  app/utils/draft.ts       IndexedDB (idb-keyval), migrations, export  │
-│  app/plugins/autosave.ts  debounce + flush hooks + BroadcastChannel  │
-│  app/composables/useLocale.ts  lightweight he/en dictionaries        │
-│  app/locales/{he,en}.ts   typed message objects (current)             │
-│  app/utils/format.ts      Intl he-IL / en-IL, bidi-safe formatting   │
-│  public/fonts/Heebo-Variable.ttf  source TTF for PDF (UI uses woff2)   │
-│  public/forms/tofes-101-2026.pdf  official blank artifact            │
+│  app/composables/useFormStore.ts   the only stateful object          │
+│  app/storage/{idb,draft,files}.ts  IndexedDB: one DB, one version    │
+│  app/pdf/{anchors,fields,overlay,rtl}.ts  lazy overlay chunk         │
+│  app/composables/useLocale.ts + app/locales/{he,en}.ts               │
+│  public/assets/tofes-101-official.pdf   official blank artifact      │
+│  public/fonts/Heebo-Variable.ttf        TTF for fontkit/pdf-lib      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
 Rules:
 
-- **Domain never imports Vue or Nuxt.** It can be unit-tested in Node and reused
-  by the PDF renderer and the review screen.
-- **The store never owns validation.** It holds answers + UI state; validators
-  read the store snapshot.
-- **Only `app/domain/pdf` touches `pdf-lib`.** It is dynamically imported on the
-  output step, so the ~516 KB gzip library is not on the first-paint path.
-- **Only `app/utils/draft.ts` touches IndexedDB.** One module owns the schema
-  version and migrations.
+- **Domain never imports Vue or Nuxt.** It is unit-testable in Node and reused by
+  the PDF renderer, the review screen and the print sheet.
+- **The store never owns a rule.** `useFormStore` holds answers + UI state, runs
+  the engine, and delegates persistence; it must not branch on marital status,
+  income type or any other domain condition.
+- **Only `app/pdf/**` imports `pdf-lib`/`fontkit`.** It is dynamically imported on
+  the output step, so the ~500 KB gzip library stays off the first-paint path.
+- **Only `app/storage/idb.ts` opens IndexedDB.** One database, one version, one
+  upgrade function — two modules opening it with different versions hang on
+  `onblocked`.
 
 ## 2. Module map
 
-| Area | Path (planned, v1) | Status |
+| Area | Path | Status |
 | --- | --- | --- |
-| App shell | `app/app.vue` (`UApp :locale`, htmlAttrs) | live at repo root |
+| App shell | `app/app.vue` (`UApp :locale`, htmlAttrs) | live |
 | Landing | `app/pages/index.vue` | live |
-| Form | `app/pages/form/index.vue` (8 steps as state) | live skeleton |
-| Employer link | `app/pages/employer.vue` + `shared/employer-link.ts` | live skeleton |
+| Form | `app/pages/form.vue` (9 steps as state, one route) | live |
+| Employer link | `app/pages/employer.vue` + `shared/employer-link.ts` | live |
+| Print sheet | `app/pages/print.vue` + `@page` CSS | live |
 | Locale | `app/composables/useLocale.ts` + `app/locales/{he,en}.ts` | live (no i18n module) |
-| Steps | `app/components/steps/Step*.vue` | planned |
-| Field renderer | `app/components/fields/Field*.vue` | planned |
-| Schema | `app/domain/form/schema.ts` | model defined in [eng/form-schema-model](form-schema-model.md) |
-| Validation | `app/domain/form/validate.ts` | validators sourced from [flow/form-101-field-spec](../flow/form-101-field-spec.md) |
-| Draft store | `app/stores/draft.ts` + `app/utils/draft.ts` | working spike (`research/spikes/scaffold/app/utils/draft.ts`) |
-| Autosave | `app/plugins/autosave.client.ts` | working spike |
-| PDF | `app/domain/pdf/*` | working spike (`research/spikes/pdf/`) |
-| Print sheet | `app/components/output/PrintSheet.vue` + `@page` CSS | print path verified via Chrome |
-| i18n | lightweight `app/locales/{he,en}.ts` | live; @nuxtjs/i18n 10 verified as alternative |
-| PWA | `nuxt.config.ts` `pwa` block + `public/` icons | verified offline |
-| Privacy gate | `scripts/check-privacy.ts` (already in repo) | verified concept |
+| Field renderer | `app/components/form/FormField.vue` (+ `FormRepeat`, `DateField`, `CityField`, `FormSignature`) | live |
+| Schema | `app/form/schema.ts` | live; model in [eng/form-schema-model](form-schema-model.md) |
+| Validation | `app/form/{engine,validators}.ts` | live; sourced from [flow/form-101-field-spec](../flow/form-101-field-spec.md) |
+| Draft store | `app/composables/useFormStore.ts` | live |
+| Persistence | `app/storage/{idb,draft,files}.ts` | live (no Pinia, no idb-keyval) |
+| PDF | `app/pdf/{anchors,fields,overlay,rtl}.ts` | live; coordinates generated, see [eng/pdf-slot-map](pdf-slot-map.md) |
+| PWA | service worker + manifest | **not shipped** (`PLAN.md` Phase 2) |
+| Privacy gate | `scripts/check-privacy.ts` | live in CI |
 
 ## 3. Data flow
 
@@ -99,21 +94,21 @@ Rules:
 user types
   │
   ▼
-Field component ── v-model ──► Pinia draft store (answers[path])
+Field component ── v-model ──► useFormStore (answers[path])
   │                                   │
   │ blur / step change / 800 ms       │ watch
   ▼                                   ▼
-validateField(path)             autosave.schedule()
+validateField(path)             draft.save(state)
   │                                   │
   │ errors[path]                      ▼
   └────────────► UI              saveDraft(envelope) ──► IndexedDB
                                       │
-                                      ├─ BroadcastChannel('tofes101-draft')
-                                      └─ on conflict: banner "another tab saved"
+                                      └─ multi-tab: revision check + banner
+                                         "another tab saved"
 
 Output step:
-  answers ──► compute ──► render PDF (pdf-lib overlay) ──► Blob download
-                   └────► PrintSheet HTML ──► window.print() (fallback)
+  answers ──► app/form/derive ──► renderPdf (pdf-lib overlay) ──► Blob download
+                    └────► print sheet HTML ──► window.print() (fallback)
 ```
 
 The official PDF has **no AcroForm fields**, so output is an overlay onto the
@@ -123,18 +118,19 @@ official 2-page artifact, not a form fill. Full reasoning:
 
 ## 4. Where the schema lives
 
-- **Code is the schema.** `app/domain/form/schema.ts` exports a typed
-  `defineFormSchema()` result; conditions and computations are TypeScript
-  functions (no `eval`, no runtime-parsed strings). This is a deliberate change
-  from the competitor's JS-string expressions.
+- **Code is the schema.** `app/form/schema.ts` exports the typed `Step[]` tree;
+  conditions and computations are TypeScript predicates (no `eval`, no runtime-
+  parsed strings). This is a deliberate change from the competitor's JS-string
+  expressions.
 - **Generated reference stays generated.** `kb/flow/form-101-schema.json` and the
   field spec are extracted from the competitor and used as the field inventory;
   they are *input to review*, not imported at runtime.
-- **Tax-year data is separate.** `app/data/rules/2026.json` holds numbers
-  (credit point value, thresholds, age limits). Schema references rule keys, not
-  literals, so 2027 is a data addition.
-- **PDF boxes are separate.** `app/domain/pdf/field-map.ts` maps
-  `answers` paths to page/coordinates; it is versioned with the official PDF hash.
+- **Tax-year constants live in code.** `app/form/values.ts` holds `TAX_YEAR` and
+  the year-stamped numbers; there is no `app/data/rules/2026.json`. Adding 2027
+  means a data pass over `values.ts` + schema, not a fork of the app.
+- **PDF boxes are generated, not hand-mapped.** `app/pdf/anchors.json` maps
+  anchors to page/coordinates and is rebuilt from the official PDF
+  (`tools/pdf/build-anchors.ts`), pinned by the PDF's SHA-256.
 
 See [eng/form-schema-model](form-schema-model.md) for the exact field object,
 repeat groups (children, other incomes), validators and migration rules.
@@ -205,3 +201,9 @@ can read the DOM, and the recipient's handling of the PDF after download. See
 | Draft = Pinia + versioned IndexedDB envelope via idb-keyval | [ADR-0003](../decisions/adr-0003-draft-storage.md) |
 | One route, steps as state | this node + [eng/offline-pwa](offline-pwa.md) |
 | No server, no accounts, no email | [decision/adr-0004-v1-scope](../decisions/adr-0004-v1-scope.md) |
+
+**Drift note (2026-11-01):** ADR-0001/0003 name Pinia 4 and `idb-keyval`. The
+shipped app uses a plain composable (`useFormStore`) and a local ~100-line
+IndexedDB wrapper (`app/storage/idb.ts`) instead — fewer moving parts, same
+envelope/migration properties. Treat the ADRs as rationale, this node and
+[eng/storage-draft](storage-draft.md) as the current truth.

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T08:28:43.247Z",
+  "generatedAt": "2026-11-01T09:27:33.354Z",
   "counts": {
-    "nodes": 185,
-    "edges": 1271,
+    "nodes": 186,
+    "edges": 1284,
     "errors": 0,
     "warnings": 0
   },
@@ -134,7 +134,7 @@
       "type": "concept",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "architecture",
         "nuxt",
@@ -162,7 +162,7 @@
       ],
       "up": "index",
       "dir": "eng",
-      "words": 1225
+      "words": 1244
     },
     {
       "id": "eng/repo-layout",
@@ -171,7 +171,7 @@
       "type": "concept",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "repo",
         "structure",
@@ -185,27 +185,29 @@
         "eng/architecture",
         "eng/toolchain-versions",
         "eng/form-schema-model",
+        "eng/agent-workflow",
         "decision/adr-0001-stack"
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 921
+      "words": 1049
     },
     {
       "id": "eng/testing",
       "file": "eng/testing.md",
-      "title": "Testing and quality gates — Vitest, Playwright, axe, CI",
+      "title": "Testing and quality gates — bun test, Playwright + axe, privacy gate, CI",
       "type": "concept",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "testing",
-        "vitest",
+        "bun",
         "playwright",
         "axe",
         "ci",
-        "accessibility"
+        "accessibility",
+        "pdf"
       ],
       "sources": [
         "source/nuxt-4-installation"
@@ -215,11 +217,12 @@
         "eng/storage-draft",
         "eng/pdf-generation",
         "eng/performance",
+        "eng/agent-workflow",
         "ux/checklists/a11y-pr-checklist"
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 1069
+      "words": 803
     },
     {
       "id": "eng/signature",
@@ -343,7 +346,7 @@
       "type": "concept",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "storage",
         "draft",
@@ -367,7 +370,34 @@
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 1373
+      "words": 1466
+    },
+    {
+      "id": "eng/agent-workflow",
+      "file": "eng/agent-workflow.md",
+      "title": "AI agent workflow — context budget, task router, test ladder, delegation",
+      "type": "concept",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-11-01",
+      "tags": [
+        "agents",
+        "workflow",
+        "testing",
+        "delegation",
+        "context",
+        "tooling"
+      ],
+      "sources": [],
+      "related": [
+        "eng/repo-layout",
+        "eng/testing",
+        "eng/architecture",
+        "eng/privacy-enforcement"
+      ],
+      "up": "eng/architecture",
+      "dir": "eng",
+      "words": 565
     },
     {
       "id": "eng/i18n-rtl",
@@ -3110,7 +3140,7 @@
       "sources": [],
       "related": [],
       "dir": ".",
-      "words": 2014
+      "words": 2064
     },
     {
       "id": "source/govil-website-accessibility-guide",
@@ -4870,6 +4900,11 @@
     },
     {
       "from": "eng/architecture",
+      "to": "eng/pdf-slot-map",
+      "kind": "link"
+    },
+    {
+      "from": "eng/architecture",
       "to": "eng/pdf-generation",
       "kind": "link"
     },
@@ -4899,6 +4934,11 @@
       "kind": "link"
     },
     {
+      "from": "eng/architecture",
+      "to": "eng/storage-draft",
+      "kind": "link"
+    },
+    {
       "from": "eng/repo-layout",
       "to": "eng/architecture",
       "kind": "related"
@@ -4911,6 +4951,11 @@
     {
       "from": "eng/repo-layout",
       "to": "eng/form-schema-model",
+      "kind": "related"
+    },
+    {
+      "from": "eng/repo-layout",
+      "to": "eng/agent-workflow",
       "kind": "related"
     },
     {
@@ -4950,6 +4995,11 @@
     },
     {
       "from": "eng/testing",
+      "to": "eng/agent-workflow",
+      "kind": "related"
+    },
+    {
+      "from": "eng/testing",
       "to": "ux/checklists/a11y-pr-checklist",
       "kind": "related"
     },
@@ -4962,6 +5012,11 @@
       "from": "eng/testing",
       "to": "eng/architecture",
       "kind": "up"
+    },
+    {
+      "from": "eng/testing",
+      "to": "eng/agent-workflow",
+      "kind": "link"
     },
     {
       "from": "eng/signature",
@@ -5181,6 +5236,41 @@
     {
       "from": "eng/storage-draft",
       "to": "source/webkit-itp-7day-storage",
+      "kind": "link"
+    },
+    {
+      "from": "eng/agent-workflow",
+      "to": "eng/repo-layout",
+      "kind": "related"
+    },
+    {
+      "from": "eng/agent-workflow",
+      "to": "eng/testing",
+      "kind": "related"
+    },
+    {
+      "from": "eng/agent-workflow",
+      "to": "eng/architecture",
+      "kind": "related"
+    },
+    {
+      "from": "eng/agent-workflow",
+      "to": "eng/privacy-enforcement",
+      "kind": "related"
+    },
+    {
+      "from": "eng/agent-workflow",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "eng/agent-workflow",
+      "to": "eng/testing",
+      "kind": "link"
+    },
+    {
+      "from": "eng/agent-workflow",
+      "to": "eng/repo-layout",
       "kind": "link"
     },
     {
@@ -10406,6 +10496,11 @@
     {
       "from": "index",
       "to": "eng/repo-layout",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "eng/agent-workflow",
       "kind": "link"
     },
     {
