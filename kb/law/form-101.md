@@ -4,7 +4,7 @@ title: טופס 101 — כרטיס עובד: הסגל המשפטי
 type: concept
 status: verified
 confidence: verified
-updated: 2026-10-29
+updated: 2026-11-01
 tags: [law, form-101, income-tax, payroll, israel]
 sources: [source/tofes101-official-pdf, source/taxes-electronic-101-rules-2026, source/wikisource-payroll-withholding-regulations, source/nevo-income-tax-ordinance]
 related: [law/form-101-section-map, law/credit-points, law/tax-coordination, law/employer-obligations, law/privacy-consent]
@@ -144,7 +144,8 @@ The form contains an ID number, children’s IDs and birth dates, marital status
 health-fund membership and income. The employer is the data controller; the legal
 basis is the statutory withholding duty, **not consent**. The employee’s signature
 is a truth declaration, not a privacy consent. For a browser-only tool this means:
-no server, no analytics, no third-party calls, explicit local-storage warnings.
+no server, no analytics of answers, no third-party calls beyond the reviewed
+page-view counter (ADR-0008), explicit local-storage warnings.
 See [[law/privacy-consent]] and [[law/declaration-and-signature]].
 
 ## 10. Year stamping rule

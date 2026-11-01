@@ -12,13 +12,16 @@ you found it. That second job is why the rules below are short and mandatory.
 ## 1. What this project is
 
 A **browser-only** filler for Israeli form 101 (כרטיס עובד): no server, no
-account, no network after first load. The form is **data + a pure engine +
+account, and no network after first load except a single page-view analytics
+request (ADR-0008). The form is **data + a pure engine +
 adapters**; the PDF is an overlay on the official flat PDF. Map of the domain:
 `kb/index.md`.
 
 Non-negotiables, in priority order:
 
-1. **Privacy** — nothing leaves the device. Enforced by `scripts/check-privacy.ts`.
+1. **Privacy** — no answers leave the device. The only outbound request is
+   page-view analytics, and it must never carry form data, files, the URL
+   fragment or the query. Enforced by `scripts/check-privacy.ts`.
 2. **Accessibility** — WCAG 2.2 AA + ת"י 5568, keyboard-complete, RTL-first.
 3. **Legal correctness** — every load-bearing rule cites a `kb/sources/` node.
 4. **Speed of use** — a returning user finishes in minutes, keyboard-only.
@@ -27,7 +30,7 @@ Non-negotiables, in priority order:
 
 | # | Rule |
 | - | ---- |
-| 1 | **Nothing leaves the browser.** Any new dependency, URL, font, icon, or `nuxt.config.ts` change ends with `bun run generate && bun run check:privacy`. |
+| 1 | **No answers leave the browser.** The single external request allowed is the Umami page-view tracker (`um.csp-monitor.com`, ADR-0008) — it must never receive form data, files, `#fragment` or `?query`. Any new dependency, URL, font, icon, or `nuxt.config.ts` change ends with `bun run generate && bun run check:privacy`. |
 | 2 | **The form is data.** Conditions, requiredness, validators and computed values live in `app/form/{schema,engine,validators,derive}.ts`. A `.vue` file renders; it never decides. Fixing a rule in a component is always the wrong fix. |
 | 3 | **Never hand-edit generated files:** `kb/.generated/**`, `kb/flow/form-101-field-spec.md`, `kb/flow/form-101-schema.json`, `app/pdf/anchors.json`, `.output/**`, `.nuxt/**`, `research/raw/**`. Regenerate with the script named in §4. |
 | 4 | **No user-facing text in components.** Every string is a key in `app/locales/he.ts` **and** `en.ts` (parity is tested). Hebrew gender variants are `{ m, f }` objects, not `מצהיר/ה`. |

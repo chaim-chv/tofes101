@@ -4,7 +4,7 @@ title: Competitor monetisation, ads and tracking (what we refuse to do)
 type: finding
 status: verified
 confidence: verified
-updated: 2026-10-29
+updated: 2026-11-01
 tags: [competitor, monetization, privacy, tracking, trust]
 sources: [source/tofes101-form-runner-api, source/tofes101-docs-faq, source/tofes101-legal-pages, source/tofes101-site-home]
 related: [competitor/flow-employee, competitor/content-strategy, product/scope-v1, product/personas]
@@ -135,7 +135,7 @@ footer of every page (also disallowed in robots.txt); `keywords` meta on every p
 
 | Dimension | Them | Us (v1) |
 | --- | --- | --- |
-| Third-party scripts | GTM ×2, GA4, DoubleClick, AdSense, Meta, Sentry | **zero** — no analytics, no error reporting, no fonts/CDN |
+| Third-party scripts | GTM ×2, GA4, DoubleClick, AdSense, Meta, Sentry | **one** deferred page-view tag (Umami); no ads, no error reporting, no fonts/CDN |
 | Cookies | 12+ first/third-party | **zero**; drafts in IndexedDB/localStorage, never sent |
 | Ads | 4 AdSense units + a lead-gen panel inside the form | none, ever |
 | Data reaching a server | answers, attachments, email, employer address | **none** — the app is static files; the only request is fetching the app itself |

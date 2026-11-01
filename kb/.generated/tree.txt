@@ -14,6 +14,7 @@
     - ADR-0001 — Stack: bun + Nuxt 4.6 + Nuxt UI 4.12, static generate  `decision/adr-0001-stack`
     - ADR-0002 — PDF strategy: overlay the official flat PDF, print as fallback  `decision/adr-0002-pdf-strategy`
     - ADR-0003 — Draft storage: Pinia + versioned IndexedDB envelope  `decision/adr-0003-draft-storage`
+    - ADR-0008 — Page-view analytics with Umami  `decision/adr-0008-analytics-umami`
     - AI agent workflow — context budget, task router, test ladder, delegation  `eng/agent-workflow`
     - Form schema model — sections, fields, conditions, validation, calculation  `eng/form-schema-model`
     - i18n and RTL — Hebrew first, English from day one  `eng/i18n-rtl`

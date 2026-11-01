@@ -4,7 +4,7 @@ title: עקרונות UX — 12 כללים שמחייבים כל מסך
 type: concept
 status: verified
 confidence: verified
-updated: 2026-10-29
+updated: 2026-11-01
 tags: [ux, principles, hub, a11y, rtl]
 sources: [source/govuk-question-pages, source/w3c-wcag22, source/govil-is5568-standard, source/nng-web-form-design]
 related: [flow/form-101-service, ux/keyboard-model, ux/checklists/a11y-pr-checklist]
@@ -23,8 +23,9 @@ up: index
    → [[ux/wizard-vs-long-page]]
 2. **RTL הוא ברירת המחדל, לא תרגום.** `dir="rtl"` על `<html>`, נכסי CSS
    לוגיים, ואין `left/right` בקוד. → [[ux/rtl-foundations]]
-3. **הנתונים לא עוזבים את המכשיר — וגם אומרים את זה.** אין שרת, אין העלאה,
-   אין אנליטיקס כברירת מחדל; ומסבירים מה זה אומר על שמירת טיוטה.
+3. **הנתונים לא עוזבים את המכשיר — וגם אומרים את זה.** אין שרת ואין העלאה של
+   תשובות או קבצים. אנחנו סופרים צפיות בעמודים בלבד (Umami, בלי עוגיות ובלי
+   פרטים מזהים), ומסבירים בדיוק מה נשלח ומה לא.
    → [[ux/trust-local-privacy]]
 4. **מקלדת היא קלט ראשי.** כל פעולה אפשרית בלי עכבר, כולל חתימה.
    → [[ux/keyboard-model]], [[ux/signature-accessibility]]

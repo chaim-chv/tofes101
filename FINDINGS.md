@@ -215,3 +215,25 @@ Format: `- **YYYY-MM-DD** — claim. → evidence/link`
 - **2026-11-01** — `AGENTS.md` is the canonical AI working agreement and
   `CLAUDE.md` is a symlink to it. Treat a stale line there as a bug: agents read
   it on every session, so wrong instructions are paid for repeatedly.
+
+## Analytics (2026-11-01)
+
+- **2026-11-01** — Umami's `script.js` builds the tracked `url` from
+  `location.href`, **fragment included**. This app's employer prefill payload
+  lives in `#e=…` (ADR-0005), so `data-exclude-hash="true"` is mandatory — drop it
+  and company details are POSTed to the analytics server. `data-exclude-search`
+  does the same for the query. → `kb/decisions/adr-0008-analytics-umami.md`
+- **2026-11-01** — Unhead passes unknown hyphenated keys on a `head.script` entry
+  straight through as attributes, so `"data-website-id"` etc. work verbatim in
+  `nuxt.config.ts`. Verify with
+  `rg -o '<script[^>]*um\.csp-monitor[^>]*>' .output/public/index.html` after
+  `generate`, not by trusting the docs.
+- **2026-11-01** — `check:privacy` used to reject **any** external
+  `<script src>`; it now validates script hosts against `ALLOW_SCRIPT_HOSTS`
+  (currently only `um.csp-monitor.com`). Hosts in `ALLOW_HOSTS` are still needed
+  for the plain-URL scan. Both lists live in `scripts/check-privacy.ts`.
+- **2026-11-01** — Umami's opt-out is `localStorage["umami.disabled"]`; it is
+  re-read before **every** send, so no reload and no library API is needed. The
+  privacy page checkbox writes it via `app/composables/useAnalyticsOptOut.ts`.
+  Do not "improve" this by storing the choice in IndexedDB — the tracker only
+  reads localStorage.

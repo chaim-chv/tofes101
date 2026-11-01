@@ -1,6 +1,6 @@
 # Backlinks (generated)
 
-_186 nodes · 1284 edges · generated 2026-11-01 09:27Z_
+_187 nodes · 1291 edges · generated 2026-11-01 20:19Z_
 
 ## ./
 
@@ -50,7 +50,7 @@ _186 nodes · 1284 edges · generated 2026-11-01 09:27Z_
 
 ### Competitor monetisation, ads and tracking (what we refuse to do)  `competitor/monetization-and-tracking`
 
-- type: **finding** · status: verified · confidence: verified · 1386 words
+- type: **finding** · status: verified · confidence: verified · 1389 words
 - tags: competitor, monetization, privacy, tracking, trust
 - out (10): `competitor/flow-employee` (related), `competitor/content-strategy` (related), `product/scope-v1` (related), `product/personas` (related), `source/tofes101-form-runner-api` (source), `source/tofes101-docs-faq` (source), `source/tofes101-legal-pages` (source), `source/tofes101-site-home` (source), `index` (up), `source/tofes101-form-runner-api` (link)
 - **in (6)**: `competitor/tech-recon` (link), `competitor/flow-employee` (link), `competitor/flow-employer` (link), `index` (link), `source/tofes101-legal-pages` (link), `source/tofes101-docs-faq` (link)
@@ -104,7 +104,7 @@ _186 nodes · 1284 edges · generated 2026-11-01 09:27Z_
 - type: **decision** · status: draft · confidence: likely · 633 words
 - tags: adr, employer, url, privacy
 - out (4): `decision/adr-0004-v1-scope` (related), `field/101-employer-block` (related), `eng/architecture` (related), `product/scope-v1` (up)
-- **in (2)**: `decision/adr-0006-navigation` (link), `index` (link)
+- **in (4)**: `decision/adr-0006-navigation` (link), `decision/adr-0008-analytics-umami` (related), `decision/adr-0008-analytics-umami` (link), `index` (link)
 
 ### ADR-0006 — Navigation model (8 steps, not one page, not 160 pages)  `decision/adr-0006-navigation`
 
@@ -120,6 +120,13 @@ _186 nodes · 1284 edges · generated 2026-11-01 09:27Z_
 - out (5): `decision/adr-0006-navigation` (related), `eng/offline-pwa` (related), `decision/adr-0004-v1-scope` (related), `product/scope-v1` (up), `decision/adr-0006-navigation` (link)
 - **in (1)**: `index` (link)
 
+### ADR-0008 — Page-view analytics with Umami  `decision/adr-0008-analytics-umami`
+
+- type: **decision** · status: verified · confidence: verified · 455 words
+- tags: adr, privacy, analytics, csp
+- out (5): `eng/privacy-enforcement` (related), `decision/adr-0005-employer-prefill-link` (related), `ux/trust-local-privacy` (related), `eng/architecture` (up), `decision/adr-0005-employer-prefill-link` (link)
+- **in (2)**: `eng/privacy-enforcement` (related), `ux/trust-local-privacy` (wikilink)
+
 ## eng/
 
 ### AI agent workflow — context budget, task router, test ladder, delegation  `eng/agent-workflow`
@@ -131,10 +138,10 @@ _186 nodes · 1284 edges · generated 2026-11-01 09:27Z_
 
 ### Architecture — client-only Nuxt app, layers, data flow, threat model  `eng/architecture`
 
-- type: **concept** · status: verified · confidence: verified · 1244 words
+- type: **concept** · status: verified · confidence: verified · 1254 words
 - tags: architecture, nuxt, offline, privacy, pdf
 - out (27): `decision/adr-0001-stack` (related), `decision/adr-0002-pdf-strategy` (related), `decision/adr-0003-draft-storage` (related), `eng/repo-layout` (related), `eng/storage-draft` (related), `eng/pdf-generation` (related), `eng/privacy-enforcement` (related), `eng/offline-pwa` (related), `eng/form-schema-model` (related), `flow/form-101-service` (related), `ux/print-export` (related), `source/nuxt-4-installation` (source), `source/nuxt-ui-4-installation` (source), `source/vite-pwa-nuxt` (source), `index` (up), `decision/adr-0001-stack` (link), `eng/toolchain-versions` (link), `eng/form-schema-model` (link), `flow/form-101-field-spec` (link), `eng/pdf-slot-map` (link), `eng/pdf-generation` (link), `decision/adr-0002-pdf-strategy` (link), `eng/privacy-enforcement` (link), `decision/adr-0003-draft-storage` (link), `eng/offline-pwa` (link), `decision/adr-0004-v1-scope` (link), `eng/storage-draft` (link)
-- **in (30)**: `eng/privacy-enforcement` (related), `eng/privacy-enforcement` (up), `eng/pdf-generation` (up), `eng/repo-layout` (related), `eng/repo-layout` (up), `eng/testing` (related), `eng/testing` (up), `eng/signature` (up), `eng/performance` (related), `eng/performance` (up), `eng/form-schema-model` (related), `eng/form-schema-model` (up), `eng/offline-pwa` (related), `eng/offline-pwa` (up), `eng/storage-draft` (related), `eng/storage-draft` (up), `eng/agent-workflow` (related), `eng/agent-workflow` (up), `eng/i18n-rtl` (related), `eng/i18n-rtl` (up), `eng/toolchain-versions` (related), `eng/toolchain-versions` (up), `decision/adr-0005-employer-prefill-link` (related), `decision/adr-0004-v1-scope` (link), `decision/adr-0002-pdf-strategy` (up), `decision/adr-0001-stack` (related), `decision/adr-0001-stack` (up), `decision/adr-0003-draft-storage` (related), `decision/adr-0003-draft-storage` (up), `index` (link)
+- **in (31)**: `eng/privacy-enforcement` (related), `eng/privacy-enforcement` (up), `eng/pdf-generation` (up), `eng/repo-layout` (related), `eng/repo-layout` (up), `eng/testing` (related), `eng/testing` (up), `eng/signature` (up), `eng/performance` (related), `eng/performance` (up), `eng/form-schema-model` (related), `eng/form-schema-model` (up), `eng/offline-pwa` (related), `eng/offline-pwa` (up), `eng/storage-draft` (related), `eng/storage-draft` (up), `eng/agent-workflow` (related), `eng/agent-workflow` (up), `eng/i18n-rtl` (related), `eng/i18n-rtl` (up), `eng/toolchain-versions` (related), `eng/toolchain-versions` (up), `decision/adr-0005-employer-prefill-link` (related), `decision/adr-0008-analytics-umami` (up), `decision/adr-0004-v1-scope` (link), `decision/adr-0002-pdf-strategy` (up), `decision/adr-0001-stack` (related), `decision/adr-0001-stack` (up), `decision/adr-0003-draft-storage` (related), `decision/adr-0003-draft-storage` (up), `index` (link)
 
 ### Form schema model — sections, fields, conditions, validation, calculation  `eng/form-schema-model`
 
@@ -180,21 +187,21 @@ _186 nodes · 1284 edges · generated 2026-11-01 09:27Z_
 
 ### Performance — measured budget, 3G plan, per-step splitting  `eng/performance`
 
-- type: **concept** · status: verified · confidence: verified · 1019 words
+- type: **concept** · status: verified · confidence: verified · 1036 words
 - tags: performance, bundle, lighthouse, 3g, code-splitting
 - out (7): `eng/architecture` (related), `eng/pdf-generation` (related), `eng/offline-pwa` (related), `eng/testing` (related), `source/nuxt-4-installation` (source), `source/nuxt-ui-4-installation` (source), `eng/architecture` (up)
 - **in (4)**: `eng/testing` (related), `eng/toolchain-versions` (link), `decision/adr-0001-stack` (link), `index` (link)
 
 ### Privacy enforcement — CSP, self-hosting, and the build-time gate  `eng/privacy-enforcement`
 
-- type: **concept** · status: verified · confidence: verified · 1058 words
-- tags: privacy, csp, security, ci, no-analytics
-- out (8): `eng/architecture` (related), `eng/offline-pwa` (related), `law/privacy-consent` (related), `ux/trust-local-privacy` (related), `decision/adr-0001-stack` (related), `source/nuxt-ui-4-installation` (source), `source/vite-pwa-nuxt` (source), `eng/architecture` (up)
-- **in (5)**: `eng/architecture` (related), `eng/architecture` (link), `eng/offline-pwa` (related), `eng/agent-workflow` (related), `index` (link)
+- type: **concept** · status: verified · confidence: verified · 1266 words
+- tags: privacy, csp, security, ci, analytics
+- out (9): `eng/architecture` (related), `eng/offline-pwa` (related), `law/privacy-consent` (related), `ux/trust-local-privacy` (related), `decision/adr-0001-stack` (related), `decision/adr-0008-analytics-umami` (related), `source/nuxt-ui-4-installation` (source), `source/vite-pwa-nuxt` (source), `eng/architecture` (up)
+- **in (6)**: `eng/architecture` (related), `eng/architecture` (link), `eng/offline-pwa` (related), `eng/agent-workflow` (related), `decision/adr-0008-analytics-umami` (related), `index` (link)
 
 ### Repo layout — directories, naming, boundaries, scripts  `eng/repo-layout`
 
-- type: **concept** · status: verified · confidence: verified · 1049 words
+- type: **concept** · status: verified · confidence: verified · 1051 words
 - tags: repo, structure, conventions, nuxt
 - out (7): `eng/architecture` (related), `eng/toolchain-versions` (related), `eng/form-schema-model` (related), `eng/agent-workflow` (related), `decision/adr-0001-stack` (related), `source/nuxt-4-installation` (source), `eng/architecture` (up)
 - **in (6)**: `eng/architecture` (related), `eng/agent-workflow` (related), `eng/agent-workflow` (link), `eng/toolchain-versions` (related), `decision/adr-0001-stack` (related), `index` (link)
@@ -421,7 +428,7 @@ _186 nodes · 1284 edges · generated 2026-11-01 09:27Z_
 
 ### טופס 101 — כרטיס עובד: הסגל המשפטי  `law/form-101`
 
-- type: **concept** · status: verified · confidence: verified · 1877 words
+- type: **concept** · status: verified · confidence: verified · 1885 words
 - tags: law, form-101, income-tax, payroll, israel
 - out (47): `law/form-101-section-map` (related), `law/credit-points` (related), `law/tax-coordination` (related), `law/employer-obligations` (related), `law/privacy-consent` (related), `source/tofes101-official-pdf` (source), `source/taxes-electronic-101-rules-2026` (source), `source/wikisource-payroll-withholding-regulations` (source), `source/nevo-income-tax-ordinance` (source), `law/form-101-section-map` (wikilink), `law/form-101-official-pdf` (wikilink), `source/wikisource-payroll-withholding-regulations` (wikilink), `source/nevo-income-tax-ordinance` (wikilink), `source/taxes-electronic-101-rules-2026` (wikilink), `law/submission-deadlines` (wikilink), `law/edge-cases` (wikilink), `law/withholding-mechanics` (wikilink), `law/employer-obligations` (wikilink), `law/tax-brackets-2026` (wikilink), `law/credit-point-value` (wikilink), `law/marital-status` (wikilink), `law/id-number-validation` (wikilink), `law/children-details` (wikilink), `law/tax-coordination` (wikilink), `law/spouse-not-working` (wikilink), `law/credit-points` (wikilink), `law/declaration-and-signature` (wikilink), `law/credit-points-2026` (wikilink), `law/privacy-consent` (wikilink), `law/personal-details` (wikilink), `law/who-must-file` (wikilink), `law/tax-brackets-2025` (wikilink), `law/children-credit-points` (wikilink), `law/single-parent-credit` (wikilink), `law/new-immigrant` (wikilink), `law/returning-resident` (wikilink), `law/soldier-credit` (wikilink), `law/reserve-credit` (wikilink), `law/credit-points-studies` (wikilink), `law/alimony-credit` (wikilink), `law/disabled-child-credit` (wikilink), `law/youth-credit` (wikilink), `law/disability-exemption` (wikilink), `law/residency-and-foreign-workers` (wikilink), `law/retention` (wikilink), `law/glossary` (wikilink), `source/tofes101-official-pdf` (wikilink)
 - **in (46)**: `law/retention` (up), `law/id-number-validation` (related), `law/id-number-validation` (up), `law/credit-points` (related), `law/credit-points` (up), `law/form-101-official-pdf` (related), `law/form-101-official-pdf` (up), `law/edge-cases` (related), `law/edge-cases` (up), `law/submission-deadlines` (related), `law/submission-deadlines` (up), `law/tax-coordination` (related), `law/tax-coordination` (up), `law/marital-status` (related), `law/marital-status` (up), `law/children-details` (up), `law/glossary` (related), `law/glossary` (up), `law/glossary` (wikilink), `law/withholding-mechanics` (related), `law/withholding-mechanics` (up), `law/form-101-section-map` (related), `law/form-101-section-map` (up), `law/personal-details` (related), `law/personal-details` (up), `law/employer-obligations` (related), `law/employer-obligations` (up), `law/disability-exemption` (related), `law/disability-exemption` (up), `law/residency-and-foreign-workers` (up), `law/declaration-and-signature` (related), `law/declaration-and-signature` (up), `law/privacy-consent` (related), `law/privacy-consent` (up), `law/who-must-file` (related), `law/who-must-file` (up), `field/101-tax-year` (related), `field/101-tax-year` (link), `field/101-signature` (related), `field/101-employee-tax-status` (related), `field/101-employee-tax-status` (link), `index` (link), `source/tofes101-form-runner-api` (link), `glossary/terms` (related), `flow/form-101-service` (related), `flow/form-101-service` (link)
@@ -477,7 +484,7 @@ _186 nodes · 1284 edges · generated 2026-11-01 09:27Z_
 
 ### פרטיות והסכמה — Privacy law for a browser-only 101 tool  `law/privacy-consent`
 
-- type: **concept** · status: verified · confidence: verified · 973 words
+- type: **concept** · status: verified · confidence: verified · 977 words
 - tags: law, privacy, consent, amendment-13, browser-only
 - out (9): `law/form-101` (related), `law/declaration-and-signature` (related), `law/retention` (related), `law/employer-obligations` (related), `source/govil-privacy-amendment-13` (source), `source/taxes-electronic-101-rules-2026` (source), `law/form-101` (up), `source/govil-privacy-amendment-13` (wikilink), `source/taxes-electronic-101-rules-2026` (wikilink)
 - **in (11)**: `eng/privacy-enforcement` (related), `law/retention` (related), `law/form-101` (related), `law/form-101` (wikilink), `law/edge-cases` (related), `law/children-details` (wikilink), `law/personal-details` (wikilink), `law/employer-obligations` (related), `law/employer-obligations` (wikilink), `law/declaration-and-signature` (related), `index` (link)
@@ -1281,14 +1288,14 @@ _186 nodes · 1284 edges · generated 2026-11-01 09:27Z_
 
 ### אמון ופרטיות — "הנתונים לא עוזבים את המכשיר"  `ux/trust-local-privacy`
 
-- type: **pattern** · status: verified · confidence: likely · 478 words
+- type: **pattern** · status: verified · confidence: likely · 488 words
 - tags: privacy, trust, local-only, storage, security
-- out (5): `ux/progress-save-resume` (related), `ux/print-export` (related), `ux/a11y-statement` (related), `source/w3c-wcag22` (source), `ux/ux-principles` (up)
-- **in (9)**: `eng/privacy-enforcement` (related), `eng/storage-draft` (related), `decision/adr-0003-draft-storage` (related), `ux/ux-principles` (wikilink), `ux/progress-save-resume` (related), `ux/a11y-statement` (related), `ux/speed-patterns` (wikilink), `ux/print-export` (related), `index` (link)
+- out (6): `ux/progress-save-resume` (related), `ux/print-export` (related), `ux/a11y-statement` (related), `source/w3c-wcag22` (source), `ux/ux-principles` (up), `decision/adr-0008-analytics-umami` (wikilink)
+- **in (10)**: `eng/privacy-enforcement` (related), `eng/storage-draft` (related), `decision/adr-0008-analytics-umami` (related), `decision/adr-0003-draft-storage` (related), `ux/ux-principles` (wikilink), `ux/progress-save-resume` (related), `ux/a11y-statement` (related), `ux/speed-patterns` (wikilink), `ux/print-export` (related), `index` (link)
 
 ### עקרונות UX — 12 כללים שמחייבים כל מסך  `ux/ux-principles`
 
-- type: **concept** · status: verified · confidence: verified · 488 words
+- type: **concept** · status: verified · confidence: verified · 498 words
 - tags: ux, principles, hub, a11y, rtl
 - out (28): `flow/form-101-service` (related), `ux/keyboard-model` (related), `ux/checklists/a11y-pr-checklist` (related), `source/govuk-question-pages` (source), `source/w3c-wcag22` (source), `source/govil-is5568-standard` (source), `source/nng-web-form-design` (source), `index` (up), `ux/wizard-vs-long-page` (wikilink), `ux/rtl-foundations` (wikilink), `ux/trust-local-privacy` (wikilink), `ux/keyboard-model` (wikilink), `ux/signature-accessibility` (wikilink), `ux/validation-and-errors` (wikilink), `ux/speed-patterns` (wikilink), `ux/progress-save-resume` (wikilink), `ux/help-and-glossary` (wikilink), `ux/mobile-layout` (wikilink), `ux/hebrew-microcopy` (wikilink), `ux/checklists/a11y-pr-checklist` (wikilink), `ux/print-export` (wikilink), `ux/autofill-tokens` (wikilink), `ux/israeli-input-masking` (wikilink), `ux/choice-controls` (wikilink), `source/govil-is5568-standard` (link), `source/w3c-wcag22` (link), `source/govuk-question-pages` (link), `source/nng-web-form-design` (link)
 - **in (25)**: `field/101-employee-identity` (link), `decision/adr-0006-navigation` (up), `ux/signature-accessibility` (up), `ux/a11y-israeli-law` (up), `ux/focus-management` (up), `ux/choice-controls` (up), `ux/keyboard-model` (up), `ux/wizard-vs-long-page` (up), `ux/help-and-glossary` (up), `ux/testing` (up), `ux/required-optional-conditional` (up), `ux/rtl-foundations` (up), `ux/hebrew-microcopy` (up), `ux/hebrew-typography` (up), `ux/israeli-input-masking` (up), `ux/validation-and-errors` (up), `ux/speed-patterns` (up), `ux/mobile-layout` (up), `ux/hebrew-input` (up), `ux/print-export` (up), `ux/trust-local-privacy` (up), `ux/live-announcements` (up), `ux/autofill-tokens` (up), `index` (link), `flow/form-101-service` (link)

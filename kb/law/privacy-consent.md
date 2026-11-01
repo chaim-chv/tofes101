@@ -4,7 +4,7 @@ title: פרטיות והסכמה — Privacy law for a browser-only 101 tool
 type: concept
 status: verified
 confidence: verified
-updated: 2026-10-29
+updated: 2026-11-01
 tags: [law, privacy, consent, amendment-13, browser-only]
 sources: [source/govil-privacy-amendment-13, source/taxes-electronic-101-rules-2026]
 related: [law/form-101, law/declaration-and-signature, law/retention, law/employer-obligations]
@@ -92,7 +92,8 @@ especially sensitive.
 ## 6. Browser-only implementation checklist
 
 - No backend, no database, no account, no email sending.
-- No analytics, no GTM, no Meta pixel, no Sentry, no session replay, no hotjar.
+- One deferred page-view counter (Umami, ADR-0008); no GTM, no Meta pixel, no
+  Sentry, no session replay, no hotjar.
 - Self-host fonts and assets; no Google Fonts/CDN; no third-party scripts.
 - Store drafts in `sessionStorage` by default; use `localStorage`/IndexedDB only
   with an explicit “save on this device” choice.

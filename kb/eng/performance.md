@@ -4,7 +4,7 @@ title: Performance — measured budget, 3G plan, per-step splitting
 type: concept
 status: verified
 confidence: verified
-updated: 2026-10-29
+updated: 2026-11-01
 tags: [performance, bundle, lighthouse, 3g, code-splitting]
 sources: [source/nuxt-4-installation, source/nuxt-ui-4-installation]
 related: [eng/architecture, eng/pdf-generation, eng/offline-pwa, eng/testing]
@@ -75,7 +75,8 @@ from the budget.
 ## 3. Why it is already fast
 
 - **One route.** No router payload, no per-route waterfall, no layout shift.
-- **No images, no icon font, no Google Fonts, no analytics.**
+- **No images, no icon font, no Google Fonts, no analytics SDK.** One deferred
+  ~2.7 KB Umami tag counts page views; it is not on the critical path.
 - **Nuxt UI is CSS-first**: Tailwind emits only the classes used; the CSS is a
   single 26 KB gzip file.
 - **Static prerender** (`nuxt generate`): the HTML ships with the rendered form,

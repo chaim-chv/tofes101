@@ -141,7 +141,7 @@ runs after `generate`. Cost of each gate: `AGENTS.md` §6.
 ## 5. Environment
 
 - No `.env` is required. If one appears it must carry no secrets (there is no
-  server) and must not enable analytics.
+  server) and must not change the analytics configuration.
 - `NUXT_PUBLIC_*` values are public by definition; never put PII there.
 - Builds must be reproducible from `bun.lock`; CI pins bun 1.4.3.
 - Local NetFree CA workaround (`NODE_TLS_REJECT_UNAUTHORIZED=0` for `bun install`)

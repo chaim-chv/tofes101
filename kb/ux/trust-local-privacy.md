@@ -4,7 +4,7 @@ title: אמון ופרטיות — "הנתונים לא עוזבים את המכ
 type: pattern
 status: verified
 confidence: likely
-updated: 2026-10-29
+updated: 2026-11-01
 tags: [privacy, trust, local-only, storage, security]
 sources: [source/w3c-wcag22]
 related: [ux/progress-save-resume, ux/print-export, ux/a11y-statement]
@@ -30,9 +30,10 @@ up: ux/ux-principles
 
 1. **אפס בקשות עם נתוני טופס.** בדקו ב-DevTools → Network בכל שלב.
 2. **פונטים, אייקונים ו-JS self-hosted.** CDN רואה IP; פונט של Google
-   רואה IP ובקשות. אין תלות חיצונית.
-3. **אנליטיקס כבוי כברירת מחדל.** אם מוסיפים — בלי ערכי שדות, בלי
-   session replay, עם הסכמה, ובלי לשלוח URL params.
+   רואה IP ובקשות. היוצא מן הכלל היחיד הוא תג אנליטיקס אחד.
+3. **אנליטיקס = צפיות בעמודים בלבד** (Umami): בלי ערכי שדות, בלי
+   session replay, בלי fragment או query params, בלי עוגיות, ו-DNT מכובד.
+   → [[decision/adr-0008-analytics-umami]]
 4. **אין PII ב-URL.** לא `?id=123456789`, לא בשם קובץ ה-PDF.
 5. **CSP** ללא `unsafe-inline`; `Referrer-Policy: no-referrer`.
 6. **Service worker** — אם יש, לא לקאש תשובות; רק נכסים סטטיים.
@@ -89,7 +90,7 @@ up: ux/ux-principles
 | Do | Don't |
 | --- | --- |
 | self-host הכול | Google Fonts / CDN |
-| אנליטיקס opt-in | session replay |
+| צפיות-עמוד בלבד (Umami) | session replay |
 | מצב מכשיר משותף | שמירה שקטה תמיד |
 | אזהרה לפני הורדה | קובץ עם ת"ז בשם |
 | כפתור מחיקה אמיתי | "ננקה בשבילך" בלי לומר מתי |

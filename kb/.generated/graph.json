@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T09:27:33.354Z",
+  "generatedAt": "2026-11-01T20:19:29.676Z",
   "counts": {
-    "nodes": 186,
-    "edges": 1284,
+    "nodes": 187,
+    "edges": 1291,
     "errors": 0,
     "warnings": 0
   },
@@ -44,13 +44,13 @@
       "type": "concept",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "privacy",
         "csp",
         "security",
         "ci",
-        "no-analytics"
+        "analytics"
       ],
       "sources": [
         "source/nuxt-ui-4-installation",
@@ -61,11 +61,12 @@
         "eng/offline-pwa",
         "law/privacy-consent",
         "ux/trust-local-privacy",
-        "decision/adr-0001-stack"
+        "decision/adr-0001-stack",
+        "decision/adr-0008-analytics-umami"
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 1058
+      "words": 1266
     },
     {
       "id": "eng/pdf-slot-map",
@@ -162,7 +163,7 @@
       ],
       "up": "index",
       "dir": "eng",
-      "words": 1244
+      "words": 1254
     },
     {
       "id": "eng/repo-layout",
@@ -190,7 +191,7 @@
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 1049
+      "words": 1051
     },
     {
       "id": "eng/testing",
@@ -260,7 +261,7 @@
       "type": "concept",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "performance",
         "bundle",
@@ -280,7 +281,7 @@
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 1019
+      "words": 1036
     },
     {
       "id": "eng/form-schema-model",
@@ -589,7 +590,7 @@
       "type": "finding",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "competitor",
         "monetization",
@@ -611,7 +612,7 @@
       ],
       "up": "index",
       "dir": "competitor",
-      "words": 1386
+      "words": 1389
     },
     {
       "id": "competitor/flow-calculators",
@@ -855,7 +856,7 @@
       "type": "concept",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "law",
         "form-101",
@@ -877,7 +878,7 @@
         "law/privacy-consent"
       ],
       "dir": "law",
-      "words": 1877
+      "words": 1885
     },
     {
       "id": "law/soldier-credit",
@@ -1636,7 +1637,7 @@
       "type": "concept",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "law",
         "privacy",
@@ -1656,7 +1657,7 @@
       ],
       "up": "law/form-101",
       "dir": "law",
-      "words": 973
+      "words": 977
     },
     {
       "id": "law/who-must-file",
@@ -2124,6 +2125,30 @@
       "words": 382
     },
     {
+      "id": "decision/adr-0008-analytics-umami",
+      "file": "decisions/adr-0008-analytics-umami.md",
+      "title": "ADR-0008 — Page-view analytics with Umami",
+      "type": "decision",
+      "status": "verified",
+      "confidence": "verified",
+      "updated": "2026-11-01",
+      "tags": [
+        "adr",
+        "privacy",
+        "analytics",
+        "csp"
+      ],
+      "sources": [],
+      "related": [
+        "eng/privacy-enforcement",
+        "decision/adr-0005-employer-prefill-link",
+        "ux/trust-local-privacy"
+      ],
+      "up": "eng/architecture",
+      "dir": "decisions",
+      "words": 455
+    },
+    {
       "id": "decision/adr-0004-v1-scope",
       "file": "decisions/adr-0004-v1-scope.md",
       "title": "ADR-0004 — v1 scope, tax year, languages, delivery",
@@ -2301,7 +2326,7 @@
       "type": "concept",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "ux",
         "principles",
@@ -2322,7 +2347,7 @@
       ],
       "up": "index",
       "dir": "ux",
-      "words": 488
+      "words": 498
     },
     {
       "id": "ux/a11y-israeli-law",
@@ -3047,7 +3072,7 @@
       "type": "pattern",
       "status": "verified",
       "confidence": "likely",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "privacy",
         "trust",
@@ -3065,7 +3090,7 @@
       ],
       "up": "ux/ux-principles",
       "dir": "ux",
-      "words": 478
+      "words": 488
     },
     {
       "id": "ux/live-announcements",
@@ -4676,6 +4701,11 @@
     {
       "from": "eng/privacy-enforcement",
       "to": "decision/adr-0001-stack",
+      "kind": "related"
+    },
+    {
+      "from": "eng/privacy-enforcement",
+      "to": "decision/adr-0008-analytics-umami",
       "kind": "related"
     },
     {
@@ -8509,6 +8539,31 @@
       "kind": "link"
     },
     {
+      "from": "decision/adr-0008-analytics-umami",
+      "to": "eng/privacy-enforcement",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0008-analytics-umami",
+      "to": "decision/adr-0005-employer-prefill-link",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0008-analytics-umami",
+      "to": "ux/trust-local-privacy",
+      "kind": "related"
+    },
+    {
+      "from": "decision/adr-0008-analytics-umami",
+      "to": "eng/architecture",
+      "kind": "up"
+    },
+    {
+      "from": "decision/adr-0008-analytics-umami",
+      "to": "decision/adr-0005-employer-prefill-link",
+      "kind": "link"
+    },
+    {
       "from": "decision/adr-0004-v1-scope",
       "to": "product/scope-v1",
       "kind": "related"
@@ -9852,6 +9907,11 @@
       "from": "ux/trust-local-privacy",
       "to": "ux/ux-principles",
       "kind": "up"
+    },
+    {
+      "from": "ux/trust-local-privacy",
+      "to": "decision/adr-0008-analytics-umami",
+      "kind": "wikilink"
     },
     {
       "from": "ux/live-announcements",

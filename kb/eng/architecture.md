@@ -163,7 +163,7 @@ Assets: answers (name, ID, salary, children, health fund, signature)
 │ User's device │        │ Static host / CDN            │
 │               │        │  serves HTML/JS/CSS/font/PDF │
 │ IndexedDB ◄───┼────────┤  never receives answers      │
-│ ServiceWorker │  HTTPS │  no cookies, no analytics    │
+│ ServiceWorker │  HTTPS │  no cookies, no answers     │
 └──────▲────────┘        └──────────────────────────────┘
        │
        │ clipboard / file download / print dialog
@@ -174,8 +174,9 @@ Assets: answers (name, ID, salary, children, health fund, signature)
 └───────────────────────┘
 
 Threats and controls
-T1  network exfiltration      → CSP connect-src 'self'; privacy gate greps build;
-                                no third-party scripts/fonts/analytics
+T1  network exfiltration      → CSP connect-src 'self' + the one analytics host;
+                                privacy gate greps build; no form data in the
+                                page-view payload (ADR-0008)
 T2  XSS via imported JSON     → parse + schema-validate; never v-html; no eval
 T3  another tab overwrites    → revision counter + BroadcastChannel + conflict UI
 T4  shared/lost device        → device-only warning; TTL; "delete draft" button;

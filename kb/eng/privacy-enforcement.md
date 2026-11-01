@@ -4,10 +4,10 @@ title: Privacy enforcement — CSP, self-hosting, and the build-time gate
 type: concept
 status: verified
 confidence: verified
-updated: 2026-10-29
-tags: [privacy, csp, security, ci, no-analytics]
+updated: 2026-11-01
+tags: [privacy, csp, security, ci, analytics]
 sources: [source/nuxt-ui-4-installation, source/vite-pwa-nuxt]
-related: [eng/architecture, eng/offline-pwa, law/privacy-consent, ux/trust-local-privacy, decision/adr-0001-stack]
+related: [eng/architecture, eng/offline-pwa, law/privacy-consent, ux/trust-local-privacy, decision/adr-0001-stack, decision/adr-0008-analytics-umami]
 up: eng/architecture
 ---
 
@@ -24,11 +24,11 @@ Working meta tag (verified: 0 console errors, page fully interactive):
 ```html
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval';
+  script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://um.csp-monitor.com;
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self';
-  connect-src 'self';
+  connect-src 'self' https://um.csp-monitor.com;
   worker-src 'self';
   object-src 'none';
   base-uri 'none';
@@ -42,7 +42,7 @@ Why `connect-src 'self'` and **not** `'none'`:
   `_nuxt/builds/meta/<id>.json` after hydration. With `'none'` we measured a dozen
   CSP console errors (blocked fetches) while the page still rendered — broken payload
   loading and an error console.
-- `'self'` still blocks every third-party origin, which is the privacy goal.
+- `'self'` still blocks every third-party origin.
 - If we later remove Nuxt payload extraction/i18n runtime fetches, tighten to
   `'none'`. Do not tighten blindly.
 
@@ -60,6 +60,33 @@ Other directives:
 - `'wasm-unsafe-eval'` is currently in the root `script-src`; v1 needs no WASM.
   Remove it unless a reviewed library requires it.
 
+### The one outbound request: Umami (ADR-0008)
+
+`nuxt.config.ts` loads one third-party script, the Umami tracker. It is the
+**only** host in `script-src` / `connect-src` beyond `'self'`, and the privacy
+gate allow-lists exactly that host in `ALLOW_HOSTS` and `ALLOW_SCRIPT_HOSTS`.
+
+What it sends on a page view is `{ website, screen, language, title, hostname,
+url, referrer }` — read from the shipped `script.js`, not from the vendor's
+marketing page. What it must **never** send:
+
+- the employer prefill payload in `#e=…` (ADR-0005). The tracker builds its
+  `url` from `location.href`; `data-exclude-hash="true"` clears the hash before
+  sending, and `data-exclude-search="true"` clears the query. Removing either
+  attribute is a privacy regression, not a config tweak.
+- cookies or a persistent client ID: the request is a `POST` with
+  `credentials: "omit"`.
+- form answers, attachments, signature: the tracker never touches `app/storage/`.
+
+`data-do-not-track="true"` disables the tracker when the browser sends DNT. Each
+`<script>` tag is emitted on every prerendered page, so `check:privacy` is the
+guard that the allow-list did not grow silently.
+
+`/privacy` also carries an opt-out checkbox ("send anonymous usage statistics").
+It writes Umami's own `umami.disabled` flag through
+`app/composables/useAnalyticsOptOut.ts`; Umami reads that key before every send,
+so the change applies without a reload.
+
 ## 2. Self-hosted everything
 
 | Asset | Source | Verified |
@@ -68,7 +95,7 @@ Other directives:
 | Icons | `@nuxt/icon` with `serverBundle: false` + `clientBundle: { scan: true }` + `@iconify-json/lucide` (root config) | no `api.iconify.design` request in the network log |
 | CSS/JS | `_nuxt/*` from our build | no CDN |
 | Official PDF | `public/forms/tofes-101-2026.pdf` | local |
-| Analytics | none | — |
+| Analytics | Umami, `https://um.csp-monitor.com/script.js` | page views only; no cookies, no cross-site ID; `#fragment` + `?query` stripped; DNT honoured (ADR-0008) |
 | Error reporting | none | — |
 | Images | inline SVG / local | — |
 
