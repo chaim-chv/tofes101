@@ -13,8 +13,9 @@ up: eng/architecture
 
 # Performance
 
-Measured on the production build of the scaffold (`bun run generate`, served from
-a local static server), Lighthouse 13, mobile profile, 2026-10-29.
+Lighthouse figures: production scaffold (`bun run generate`, local static server),
+Lighthouse 13, mobile profile, **2026-10-29** — not re-measured since the UX
+refactor. Bundle figures re-measured **2026-11-01**.
 
 ## 1. Measured results
 
@@ -30,24 +31,26 @@ a local static server), Lighthouse 13, mobile profile, 2026-10-29.
 | Cumulative layout shift | **0** |
 | Lighthouse "total size" | 967 KiB (raw, incl. font) |
 
-Build output: **32 files, 1.2 MB on disk, 999 KB raw, 333 KB gzip** for the whole
-app (all routes + chunks + font).
+Build output: **93 files, 3.6 MB on disk, 983 KB gzip** for the whole site. The
+540 KB official PDF and the 119 KB PDF font are on-demand assets, not first paint.
 
-Initial HTML preloads (what a phone actually needs for first paint):
-**25 assets, 816.7 KB raw, 234.8 KB gzip** — 20 JS chunks, 3 CSS files, the
-payload, plus the font on demand.
+Everything `index.html` references (module preloads, entry JS/CSS, error-page
+chunks): **46 assets, 1,011 KB raw, 285 KB gzip**. That includes assets a phone
+never fetches on a successful load — treat it as an upper bound.
 
-Largest pieces:
+Largest pieces (gzip at `-9`):
 
 | File | Raw | Gzip |
 | --- | --- | --- |
-| entry JS chunk | 203.5 KB | 71.7 KB |
-| entry CSS (Nuxt UI + Tailwind) | 194.6 KB | 26.0 KB |
-| Heebo variable TTF | 119.2 KB | 76.3 KB |
-| second JS chunk | 118.9 KB | 32.2 KB |
+| PDF path: pdf-lib chunk | 710.7 KB | 329.1 KB |
+| PDF path: fontkit + overlay chunk | 382.2 KB | 163.5 KB |
+| largest non-PDF lazy chunk | 299.0 KB | 67.0 KB |
+| entry CSS (Nuxt UI + Tailwind) | 212.3 KB | 29.0 KB |
+| entry JS chunk | 129.2 KB | 45.9 KB |
+| Heebo variable TTF (on demand) | 122.0 KB | 76.7 KB |
 
 The PDF library is **not** in that number: pdf-lib + fontkit + bidi-js bundles to
-**1.19 MB raw / 516 KB gzip**. It must be lazy-loaded and kept out of the
+**1.09 MB raw / 493 KB gzip**. It must be lazy-loaded and kept out of the
 precache, or first install becomes > 1.5 MB.
 
 > The root build self-hosts **two Heebo WOFF2 subsets** via `@nuxt/fonts`
@@ -60,14 +63,14 @@ precache, or first install becomes > 1.5 MB.
 
 | Budget | Target | Current | Gate |
 | --- | --- | --- | --- |
-| Initial JS+CSS, gzip | ≤ 200 KB | ~235 KB | investigate before launch |
-| Initial total incl. font, gzip | ≤ 280 KB | ~311 KB | font subsetting |
-| LCP (mobile, simulated 4G) | ≤ 2.0 s | 1.8 s | Lighthouse CI |
-| TBT | ≤ 200 ms | 30 ms | Lighthouse CI |
-| CLS | ≤ 0.05 | 0 | Lighthouse CI |
-| Per-step lazy chunk, gzip | ≤ 30 KB | — | bundle report |
-| PDF chunk, gzip | ≤ 550 KB | 516 KB | lazy + runtime cache |
-| Total precache | ≤ 1.2 MB | 968 KB | Workbox log |
+| Initial JS+CSS, gzip | ≤ 200 KB | ~285 KB (upper bound) | investigate before launch |
+| Initial total incl. font, gzip | ≤ 280 KB | not re-measured | font subsetting |
+| LCP (mobile, simulated 4G) | ≤ 2.0 s | 1.8 s (2026-10-29) | Lighthouse CI |
+| TBT | ≤ 200 ms | 30 ms (2026-10-29) | Lighthouse CI |
+| CLS | ≤ 0.05 | 0 (2026-10-29) | Lighthouse CI |
+| Per-step lazy chunk, gzip | ≤ 30 KB | — (not split per step yet) | bundle report |
+| PDF chunk, gzip | ≤ 550 KB | 493 KB | lazy + runtime cache |
+| Total precache | ≤ 1.2 MB | — (no service worker yet) | Workbox log |
 
 Do not chase SEO (54): the app must not be indexed. Keep `noindex`; exclude SEO
 from the budget.
@@ -75,14 +78,16 @@ from the budget.
 ## 3. Why it is already fast
 
 - **One route.** No router payload, no per-route waterfall, no layout shift.
-- **No images, no icon font, no Google Fonts, no analytics SDK.** One deferred
-  ~2.7 KB Umami tag counts page views; it is not on the critical path.
+- **No images, no icon font, no Google Fonts, no analytics SDK** beyond the
+  2.7 KB Umami tag (page views only, ADR-0008); it is deferred and off the
+  critical path.
 - **Nuxt UI is CSS-first**: Tailwind emits only the classes used; the CSS is a
-  single 26 KB gzip file.
+  single 29 KB gzip file.
 - **Static prerender** (`nuxt generate`): the HTML ships with the rendered form,
   so first paint does not wait for hydration.
 - **Local font** with `font-display: swap`, one family, variable weights.
-- **Service worker** makes repeat visits instant and offline.
+- **Service worker** (planned, `PLAN.md` Phase 2) will make repeat visits instant
+  and offline; today only HTTP caching applies.
 
 ## 4. The 3G plan
 

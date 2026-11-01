@@ -103,6 +103,7 @@ minutes and 40 000 tokens of build logs.
 | `app/pdf/` | overlay pipeline: `anchors.json` → `fields.ts` → `overlay.ts` (+ `rtl.ts` for bidi). Lazy chunk. | anything printed |
 | `app/storage/` | `idb.ts` (single DB/version), `draft.ts` (envelope + migrations), `files.ts` (attachment blobs) | persistence |
 | `app/locales/` | `he.ts`, `en.ts`, typed keys, gender-aware messages | any copy change |
+| `public/` | `CNAME` (custom domain), fonts, official PDF, favicon — copied verbatim into `.output/public` | deployment or asset questions |
 | `shared/employer-link.ts` | `#e=` payload codec (deflate-raw + base64url) | prefill link |
 | `tests/` | bun tests: engine, content (key parity), documents, employer-link, navigation, pdf | before and after a change |
 | `tools/e2e/flow.ts` | the full Playwright + axe run (4 min) | UI-flow changes only |
@@ -125,6 +126,7 @@ minutes and 40 000 tokens of build logs.
 | Tax/law fact | `kb/law/form-101.md` → specific node → its `kb/sources/` | `kb/` only | `bun run kb:check` |
 | Storage / draft | `kb/eng/storage-draft.md`, `app/storage/draft.ts` | storage layer | `bun test` + a manual reload (no dedicated storage test yet — add one if you touch migrations) |
 | Privacy / CSP / icons / fonts | `kb/eng/privacy-enforcement.md` | `nuxt.config.ts`, `scripts/check-privacy.ts` | `generate` + `check:privacy` |
+| Deploy / custom domain | `docs/IMPLEMENTATION.md` §11 | `.github/workflows/deploy.yml`, `public/CNAME` | `generate` + `check:privacy` (index must reference `/_nuxt/`, not a `/repo/` prefix) |
 | Accessibility bug | `kb/ux/checklists/a11y-pr-checklist.md` | the component | `generate` + `e2e` (axe runs on every step) |
 | "How does X work?" / "where is X used?" | nothing | nothing | a written answer with `file:line` — delegate it (§7) |
 

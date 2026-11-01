@@ -4,9 +4,10 @@ A rebuild of the *good parts* of [tofes101.co.il](https://tofes101.co.il/forms/i
 fill Israeli ITC form 101 (כרטיס עובד) online, get a filled PDF — but with **no
 server, no account, no ads, no data leaving the browser**.
 
-> Status: **working v1** — the full form, employer prefill links, local drafts and
-> an A4 print/PDF output, deployed to GitHub Pages. PDF-perfect overlay on the
-> official form and PWA offline are next (`PLAN.md`).
+> Status: **working v1** — the full form, employer prefill links, local drafts,
+> a PDF overlay on the official form and an A4 print path, live at
+> **https://101.chv.ovh/** via GitHub Pages. Coordinate polish and PWA offline
+> are next (`PLAN.md`).
 
 ## What is in here
 
@@ -27,6 +28,9 @@ kb/                 the knowledge graph (start at kb/index.md)
 tools/
   crawl/            recon scripts against the reference implementation
   kb/               spec generators
+  e2e/              full Playwright + axe flow (the 4-minute gate)
+  pdf/              anchor builder, cell extractor, slot audits
+  serve.ts          static server for .output/public
 scripts/kb.ts       graph builder / link checker
 research/raw/       raw evidence: extracted form JSON, official PDFs, HTML
 agent-workspace/    multi-agent working notes (SHARED.md + per-agent logs)
@@ -38,7 +42,7 @@ PLAN.md             roadmap + open questions
 ## Quickstart
 
 ```bash
-bun install                                   # needs NODE_TLS_REJECT_UNAUTHORIZED=0 here
+bun install                                   # Node 22+ / bun 1.4.3
 bun run kb                                    # build the graph + backlinks
 bun run kb:check                              # fail on broken links
 open kb/.generated/graph.html                 # interactive graph (offline)
@@ -60,8 +64,10 @@ symlink to the same file.
 
 ## Non-negotiables
 
-- **Privacy**: nothing leaves the device. No analytics, no fonts from a CDN, no
-  network calls after first load. Enforced, not promised (see `kb/eng/privacy-enforcement.md`).
+- **Privacy**: no answers leave the device. The only outbound request is a
+  cookieless Umami page view with the URL fragment and query stripped — never
+  form data, attachments or files. No CDN fonts, no other third parties.
+  Enforced, not promised (`kb/eng/privacy-enforcement.md`, ADR-0008).
 - **Accessibility**: WCAG 2.2 AA + ת"י 5568, keyboard-complete, RTL-first.
 - **Correctness**: every legally load-bearing rule cites a primary source in `kb/law/`.
 - **Speed of use**: a returning user should be able to fill the form in minutes,
@@ -71,8 +77,10 @@ symlink to the same file.
 
 ## Live
 
-**https://chaim-chv.github.io/tofes101/** — deployed from `main` by
-`.github/workflows/deploy.yml` (verify → artifact → GitHub Pages).
+**https://101.chv.ovh/** — deployed from `main` by
+`.github/workflows/deploy.yml` (verify → artifact → GitHub Pages). The custom
+domain serves the site from `/` (`public/CNAME`); the old
+`chaim-chv.github.io/tofes101/` URL redirects there.
 
 ## How it is built
 
@@ -102,7 +110,7 @@ bun run kb:check      # knowledge graph: no broken links     (0.05 s)
 bun test              # 113 unit tests                       (0.6 s)
 bun run typecheck     # vue-tsc, strict                      (~5 s, see note)
 bun run generate      # static site                          (~9 s)
-bun run check:privacy # fails on ANY external host/missing CSP (needs generate)
+bun run check:privacy # fails on any external host outside the allowlist (needs generate)
 bun run e2e           # Playwright: employer link → full fill → review → print,
                       # axe on every step                   (~4 min, needs generate)
 bun run verify        # all of the above in order            (~4.5 min, release gate only)

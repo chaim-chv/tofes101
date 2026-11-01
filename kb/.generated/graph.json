@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T20:19:29.676Z",
+  "generatedAt": "2026-11-01T20:36:15.562Z",
   "counts": {
     "nodes": 187,
-    "edges": 1291,
+    "edges": 1292,
     "errors": 0,
     "warnings": 0
   },
@@ -66,7 +66,7 @@
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 1266
+      "words": 1290
     },
     {
       "id": "eng/pdf-slot-map",
@@ -163,7 +163,7 @@
       ],
       "up": "index",
       "dir": "eng",
-      "words": 1254
+      "words": 1320
     },
     {
       "id": "eng/repo-layout",
@@ -191,7 +191,7 @@
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 1051
+      "words": 1076
     },
     {
       "id": "eng/testing",
@@ -223,7 +223,7 @@
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 803
+      "words": 831
     },
     {
       "id": "eng/signature",
@@ -281,7 +281,7 @@
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 1036
+      "words": 1107
     },
     {
       "id": "eng/form-schema-model",
@@ -290,7 +290,7 @@
       "type": "concept",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "schema",
         "form-model",
@@ -309,7 +309,7 @@
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 1507
+      "words": 1509
     },
     {
       "id": "eng/offline-pwa",
@@ -318,7 +318,7 @@
       "type": "concept",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "pwa",
         "service-worker",
@@ -338,7 +338,7 @@
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 890
+      "words": 940
     },
     {
       "id": "eng/storage-draft",
@@ -437,7 +437,7 @@
       "type": "concept",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "tooling",
         "versions",
@@ -459,7 +459,7 @@
       ],
       "up": "eng/architecture",
       "dir": "eng",
-      "words": 816
+      "words": 840
     },
     {
       "id": "competitor/feature-parity",
@@ -3157,7 +3157,7 @@
       "type": "glossary",
       "status": "verified",
       "confidence": "verified",
-      "updated": "2026-10-29",
+      "updated": "2026-11-01",
       "tags": [
         "index",
         "map-of-content"
@@ -3165,7 +3165,7 @@
       "sources": [],
       "related": [],
       "dir": ".",
-      "words": 2064
+      "words": 2147
     },
     {
       "id": "source/govil-website-accessibility-guide",
@@ -10096,6 +10096,11 @@
     {
       "from": "index",
       "to": "decision/adr-0007-single-route",
+      "kind": "link"
+    },
+    {
+      "from": "index",
+      "to": "decision/adr-0008-analytics-umami",
       "kind": "link"
     },
     {

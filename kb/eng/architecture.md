@@ -86,6 +86,7 @@ Rules:
 | Persistence | `app/storage/{idb,draft,files}.ts` | live (no Pinia, no idb-keyval) |
 | PDF | `app/pdf/{anchors,fields,overlay,rtl}.ts` | live; coordinates generated, see [eng/pdf-slot-map](pdf-slot-map.md) |
 | PWA | service worker + manifest | **not shipped** (`PLAN.md` Phase 2) |
+| Analytics | `nuxt.config.ts` head tag + `app/composables/useAnalyticsOptOut.ts` | live; page views only, no form data (ADR-0008) |
 | Privacy gate | `scripts/check-privacy.ts` | live in CI |
 
 ## 3. Data flow
@@ -139,19 +140,23 @@ repeat groups (children, other incomes), validators and migration rules.
 
 ```bash
 bun install
-bun run generate        # -> .output/public (verified: 1.2 MB, 32 files)
+bun run generate        # -> .output/public (93 files, ~3.6 MB, measured 2026-11-01)
 bun run preview         # local check
 ```
 
 Deploy `.output/public` to any static host (Netlify, Cloudflare Pages, GitHub
 Pages, S3+CDN). Requirements:
 
-- HTTPS (service worker + `navigator.storage` + clipboard).
-- `Cache-Control: no-cache` for `index.html` and `sw.js`; hashed `_nuxt/*`
-  assets can be `immutable`.
+- HTTPS (`navigator.storage`, clipboard access, and the future service worker).
+- Serve the site from the **domain root**: `public/CNAME` declares the domain and
+  the Pages workflow builds with `NUXT_APP_BASE_URL=/`. A project-site prefix
+  (`/tofes101/`) 404s every `/_nuxt/` asset on a custom domain.
+- `Cache-Control: no-cache` for `index.html` (and `sw.js` once the PWA ships);
+  hashed `_nuxt/*` assets can be `immutable`.
 - Set the CSP as a real HTTP header where possible; the meta tag is the
   host-agnostic fallback (the repo's privacy gate requires the meta tag).
-- Do **not** enable host analytics, font CDNs, or edge “web vitals” beacons.
+- Do **not** enable host-level analytics, font CDNs, or edge "web vitals"
+  beacons. The only analytics is the reviewed Umami page-view tag (ADR-0008).
 
 ## 6. Threat model (one diagram)
 

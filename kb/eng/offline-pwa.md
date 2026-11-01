@@ -4,7 +4,7 @@ title: Offline / PWA — service worker, precache, updates, verified gotchas
 type: concept
 status: verified
 confidence: verified
-updated: 2026-10-29
+updated: 2026-11-01
 tags: [pwa, service-worker, offline, workbox, nuxt]
 sources: [source/vite-pwa-nuxt, source/webkit-itp-7day-storage]
 related: [eng/architecture, eng/privacy-enforcement, eng/storage-draft, decision/adr-0001-stack]
@@ -12,6 +12,11 @@ up: eng/architecture
 ---
 
 # Offline / PWA
+
+> **Not shipped in v1.** This is the 2026-10-29 spike result, written against the
+> scaffold stack (`@nuxtjs/i18n`, `@pinia/nuxt`, `@vite-pwa/nuxt`). The root app
+> has no service worker or manifest yet (`PLAN.md` Phase 2) and uses a custom
+> `useLocale` instead of i18n — re-verify every config below before adopting it.
 
 **Goal:** open the app once, then fill the form on a plane / in a basement / with
 the radio off. The app shell, the font, the official PDF and all step chunks are
@@ -101,7 +106,7 @@ hypothetical. Fixes, in order of preference:
 3. If a route is still missed, add it to `workbox.additionalManifestEntries`
    explicitly, or set `navigateFallback: null` and accept a network error for
    unknown paths.
-4. The form's 8 steps stay **state**, so only `/form` needs to work offline.
+4. The form's steps stay **state**, so only `/form` needs to work offline.
 
 ## 3. Verified offline behavior
 

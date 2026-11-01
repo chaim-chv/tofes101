@@ -10,18 +10,18 @@ file. Agents: `AGENTS.md` routes tasks; this file answers *what next*.
 - [x] Reverse-engineer the reference implementation → `kb/finding/tepez-form-runtime.md`
 - [x] Exhaustive field spec (160 fields) → `kb/flow/form-101-field-spec.md`
 - [x] Official PDF + explanatory notes extracted → `research/raw/law/`
-- [ ] Law KB (`kb/law/`) — in progress, agent `law-101-a1`
-- [ ] UX/a11y KB (`kb/ux/`) — in progress, agent `ux-a11y-b2`
-- [ ] Engineering KB + spikes (`kb/eng/`) — in progress, agent `eng-stack-c3`
-- [ ] Competitor teardown (`kb/competitor/`) — in progress, agent `teardown-d4`
-- [ ] Field deep-dives (`kb/field/`) — orchestrator
+- [x] Law KB (`kb/law/`) — every rule cites a `kb/sources/` node
+- [x] UX/a11y KB (`kb/ux/`) — principles, checklists, Israeli standard
+- [x] Engineering KB (`kb/eng/`) — architecture, storage, PDF, privacy, testing
+- [x] Competitor teardown (`kb/competitor/`) — flows, monetization, tech recon
+- [x] Field deep-dives (`kb/field/`) — all 160 fields mapped to the spec
 
 ## Phase 1 — Skeleton ✅ (done 2026-10-29)
 
-Shipped: schema runtime (pure engine + predicates), 10-step flow, IndexedDB draft,
+Shipped: schema runtime (pure engine + predicates), 9-step flow, IndexedDB draft,
 he/en catalogs with completeness tests, signature (draw + typed), review, A4 print,
-employer prefill link, GitHub Pages deploy, privacy gate, 56 unit tests + full-flow
-Playwright e2e with axe on every step.
+employer prefill link, GitHub Pages deploy (custom domain), privacy gate,
+113 unit tests + full-flow Playwright e2e with axe on every step.
 
 ## Phase 1.5 — remaining
 
@@ -45,15 +45,17 @@ bundle splitting.
 - [x] All 9 steps with their conditionals (children, spouse, other income, credits, coordination)
 - [x] Error summary + focus management + validate-on-touch
 - [x] A4 print output (`/print/`) — the "always works" path
-- [ ] PDF overlay on the official form (ADR-0002) — coordinates are the remaining work
+- [x] PDF overlay on the official form (ADR-0002) — shipped and tested; the
+      locality label is still approximate (`app/pdf/README.md`)
 - [ ] Document checklist generation from the credit answers (data exists in `kb/field/101-documents.md`)
 - [ ] Mobile pass, screen-reader pass (NVDA/VoiceOver Hebrew)
-- [ ] Offline PWA + "your data is local" UX
+- [x] "Your data is local" UX (privacy page + trust copy)
+- [ ] Offline PWA (service worker + manifest)
 - [ ] Keyboard "fast mode" (kb/ux/checklists/keyboard-map.md)
 
 ## Phase 3 — Extras (not before parity)
 
-- [ ] English UI
+- [x] English UI (he/en toggle, parity-tested catalogs)
 - [ ] Multi-year (previous tax year)
 - [ ] Employer template links **without a server** (e.g. shareable config in the
       URL fragment / `.json` file the employer sends)

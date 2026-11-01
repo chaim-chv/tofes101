@@ -61,8 +61,10 @@ tofes101/
 │       └── files.ts           # attachment blobs (never inside the JSON draft)
 ├── shared/employer-link.ts    # #e= payload codec (deflate-raw + base64url)
 ├── public/
-│   ├── assets/tofes-101-official.pdf   # pinned by SHA-256
-│   └── fonts/Heebo-Variable.ttf        # TTF for fontkit; UI uses @nuxt/fonts WOFF2
+│   ├── CNAME                          # 101.chv.ovh — Pages serves the domain root
+│   ├── favicon.svg
+│   ├── assets/tofes-101-official.pdf  # pinned by SHA-256
+│   └── fonts/Heebo-Variable.ttf       # TTF for fontkit; UI uses @nuxt/fonts WOFF2
 ├── tests/                     # bun test: engine, content, documents, employer-link,
 │                              # navigation, pdf  (113 tests, ~0.6 s)
 ├── tools/
@@ -150,7 +152,9 @@ runs after `generate`. Cost of each gate: `AGENTS.md` §6.
 ## 6. Branching / release
 
 - `main` is the only long-lived branch; PRs must pass the privacy gate and tests.
-- Static site deploys from `main` via `.github/workflows/deploy.yml`; keep the
-  official PDF hash and schema version in release notes.
+- Static site deploys from `main` via `.github/workflows/deploy.yml`; it builds
+  with `NUXT_APP_BASE_URL=/` for the custom domain `101.chv.ovh`
+  (`docs/IMPLEMENTATION.md` §11). Keep the official PDF hash and schema version
+  in release notes.
 - A tax-year update is a **data** change (year-stamped rules + PDF map if the
   official form changed) — never a fork of the app.

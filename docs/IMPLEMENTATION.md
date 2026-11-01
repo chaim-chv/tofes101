@@ -104,8 +104,8 @@ type FieldDef = BaseField & {
 ```
 
 Non-negotiables:
-- `id` is stable forever — it is the storage key, the analytics-free export key,
-  and the PDF mapping key. Renaming an `id` needs a migration.
+- `id` is stable forever — it is the storage key, the export key, and the PDF
+  mapping key. Renaming an `id` needs a migration.
 - `labelKey` resolves in **both** locales; a missing key fails `bun test`
   (a test walks the schema and asserts `he` and `en` both define every key).
 - `when` is total and side-effect free.
@@ -295,7 +295,8 @@ does not exist yet.
 - `app.baseURL` is the single source for building the employer link
   (`useRuntimeConfig().app.baseURL`), so the prefix stays configurable in
   `app/composables/useAppPath.ts` even though production uses `/`.
-- No client-side routing beyond `/` and `/form` → no 404 fallback tricks needed.
+- All routes (`/`, `/employer`, `/form`, `/print`, `/privacy`, `/accessibility`)
+  are prerendered to static HTML, so no SPA fallback or rewrite rule is needed.
 - Deploy: `.github/workflows/deploy.yml` (verify → artifact → deploy-pages).
 - The privacy gate runs **before** deploy, so a leaked CDN host can never ship.
 

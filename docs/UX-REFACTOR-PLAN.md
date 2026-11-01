@@ -644,7 +644,7 @@ No telemetry is added; this stays consistent with the privacy promise.
 | Legal copy drift | Never translate/alter the declaration; version it; keep the official Hebrew document independent of UI locale. |
 | Draft migration | Schema v2 migration + fixtures; test old envelope import. |
 | Concurrent uncommitted work | Rebase/coordinate before Phase 3 (the working tree already has validation changes); no reverts. |
-| "One more feature" | Explicit non-goals: no accounts, no analytics, no tax calculation, no multi-year in this refactor. |
+| "One more feature" | Explicit non-goals: no accounts, no analytics beyond the reviewed Umami page-view tag (ADR-0008), no tax calculation, no multi-year in this refactor. |
 
 ---
 

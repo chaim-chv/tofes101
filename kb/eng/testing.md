@@ -35,12 +35,16 @@ Measured 2026-11-01: `check:fast` 0.6 s · `typecheck` 5 s · `generate` 9 s ·
 | `tests/employer-link.test.ts` (96) | `#e=` encode/decode, compression, tamper cases |
 | `tests/navigation.test.ts` (50) | step order/back-forward, signature fingerprint stability |
 | `tests/pdf.test.ts` (435) | `rtlTokens` order, anchors against the pinned PDF hash, cell items, `renderPdf`, glyph centres, attachments and option labels |
-| `tools/e2e/flow.ts` (~4 min) | employer link → prefill → 8 steps → documents → review/sign → PDF download → print, plus axe on every step and a network guard for external requests |
+| `tools/e2e/flow.ts` (~4 min) | employer link → prefill → 9 steps (8 decisions + documents) → review/sign → PDF download → print, plus axe on every step and a network guard for external requests |
 
 There is **no** dedicated storage/draft test file in the root project (the
 migration tests live in the historical spike). If you touch `app/storage/draft.ts`
 migrations, add one — `fake-indexeddb` is the pattern used in
 `research/spikes/scaffold/tests/draft.test.ts`.
+
+CI builds for the **custom-domain root** (`NUXT_APP_BASE_URL=/`, `public/CNAME`)
+and runs e2e without `BASE`. A non-empty `BASE` only reproduces the old
+project-site prefix (`/tofes101/`); see `docs/IMPLEMENTATION.md` §11.
 
 ## 2. Unit tests
 

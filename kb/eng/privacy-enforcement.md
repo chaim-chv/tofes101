@@ -158,21 +158,23 @@ be fetched.
 
 ## 5. Runtime assertion (test, not production code)
 
-`research/spikes/scaffold/scripts/screenshot.mjs` records every request and
-asserts `external.length === 0`. Extend it to a Playwright e2e:
+`tools/e2e/flow.ts` records every request and fails on any external host except
+the reviewed Umami tag. It runs on every step and through the PDF download:
 
 ```ts
 const external = []
 page.on('request', r => {
   const u = new URL(r.url())
-  if (!['localhost','127.0.0.1'].includes(u.hostname) && u.protocol !== 'data:') external.push(r.url())
+  if (['localhost', '127.0.0.1'].includes(u.hostname) || u.protocol === 'data:') return
+  if (u.hostname === 'um.csp-monitor.com') return // ADR-0008: page views only
+  external.push(r.url())
 })
 // ... fill the form, generate the PDF, print preview ...
 expect(external).toEqual([])
 ```
 
-Also assert `performance.getEntriesByType('resource')` contains only same-origin
-URLs after a full run.
+Add the same check for `performance.getEntriesByType('resource')` if the flow
+grows more lazy chunks.
 
 ## 6. Headers to set at the host
 

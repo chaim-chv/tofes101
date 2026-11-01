@@ -4,7 +4,7 @@ title: Form schema model — sections, fields, conditions, validation, calculati
 type: concept
 status: verified
 confidence: verified
-updated: 2026-10-29
+updated: 2026-11-01
 tags: [schema, form-model, validation, computation, form-101]
 sources: [source/tofes101-form-runner-api]
 related: [flow/form-101-field-spec, eng/architecture, eng/storage-draft, eng/pdf-generation]
@@ -222,8 +222,8 @@ Children and "other incomes" are repeated rows. Model:
 
 ## 8. Steps vs sections
 
-- `StepDef` groups sections/fields for the wizard (8 steps + review, per
-  [ux/form-101-screen-map](../ux/form-101-screen-map.md)).
+- `StepDef` groups sections/fields for the wizard (9 steps: 8 decisions +
+  documents, per [ux/form-101-screen-map](../ux/form-101-screen-map.md)).
 - `taxCreditRequest` (70 fields) is split across 2–3 steps by item groups
   (1–5, 6–10, 11–16 + attachments).
 - A field belongs to exactly one step; the schema build asserts this.

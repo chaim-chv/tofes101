@@ -4,7 +4,7 @@ title: מפת הידע — tofes101 knowledge base
 type: glossary
 status: verified
 confidence: verified
-updated: 2026-10-29
+updated: 2026-11-01
 tags: [index, map-of-content]
 ---
 
@@ -67,6 +67,7 @@ One node per field that needs more than a label:
 - [ADR-0005 — employer prefill link](decision/adr-0005-employer-prefill-link.md)
 - [ADR-0006 — navigation model](decision/adr-0006-navigation.md)
 - [ADR-0007 — one route, steps as state](decision/adr-0007-single-route.md)
+- [ADR-0008 — page-view analytics with Umami](decision/adr-0008-analytics-umami.md)
 - `adr-0001-*` … `adr-0003-*` — stack, PDF strategy, draft storage (engineering track)
 
 ### Reference implementation — `kb/finding/`
@@ -146,7 +147,7 @@ The UX + accessibility layer: what every screen must do, and why. The hub is
 
 | Node | What it answers |
 | --- | --- |
-| [ux/wizard-vs-long-page](ux/wizard-vs-long-page.md) | 8 steps + review; why not one page or 160 pages |
+| [ux/wizard-vs-long-page](ux/wizard-vs-long-page.md) | 9 steps (8 decisions + documents); why not one page or 160 pages |
 | [ux/form-101-screen-map](ux/form-101-screen-map.md) | per-step content, risk, a11y notes |
 | [ux/progress-save-resume](ux/progress-save-resume.md) | progress, autosave, draft file, storage warnings |
 | [ux/autofill-tokens](ux/autofill-tokens.md) | full `autocomplete`/`inputmode`/`enterkeyhint` table |
@@ -253,7 +254,7 @@ the PDF is produced, and what we can prove about privacy and performance. Hub:
 | Node | What it answers |
 | --- | --- |
 | [eng/storage-draft](eng/storage-draft.md) | versioned IndexedDB envelope, migrations, autosave, multi-tab conflicts, TTL, export/import |
-| [eng/offline-pwa](eng/offline-pwa.md) | precache, service-worker registration gotchas, update strategy, verified offline reload |
+| [eng/offline-pwa](eng/offline-pwa.md) | spike: precache, service-worker registration gotchas, update strategy — **not shipped in v1** |
 
 **Output**
 
@@ -280,6 +281,11 @@ the PDF is produced, and what we can prove about privacy and performance. Hub:
 | [ADR-0001](decisions/adr-0001-stack.md) | bun + Nuxt 4.6 + Nuxt UI 4.12 + Pinia 4, static `nuxt generate`; lightweight `useLocale` in v1 (i18n 10 verified as upgrade path) |
 | [ADR-0002](decisions/adr-0002-pdf-strategy.md) | pdf-lib overlay on the official flat PDF; HTML print as fallback/accessible path |
 | [ADR-0003](decisions/adr-0003-draft-storage.md) | Pinia + versioned IndexedDB envelope via `idb-keyval`, custom migrations |
+| [ADR-0004](decisions/adr-0004-v1-scope.md) | v1 scope: one tax year, he + en, no accounts, no server |
+| [ADR-0005](decisions/adr-0005-employer-prefill-link.md) | employer prefill in the `#e=` fragment (deflate-raw + base64url), never sent |
+| [ADR-0006](decisions/adr-0006-navigation.md) | wizard steps, not one long page and not 160 pages |
+| [ADR-0007](decisions/adr-0007-single-route.md) | one `/form` route; steps are state |
+| [ADR-0008](decisions/adr-0008-analytics-umami.md) | cookieless Umami page views only; fragment + query stripped; no form data |
 
 **Spike evidence:** `research/spikes/RESULTS.md` (commands, resolved versions,
 offline test, PDF previews) and `research/spikes/pdf/out/` (filled official PDF +

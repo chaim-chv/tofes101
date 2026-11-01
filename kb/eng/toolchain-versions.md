@@ -4,7 +4,7 @@ title: Toolchain versions — what we actually resolved (2026-10-29)
 type: concept
 status: verified
 confidence: verified
-updated: 2026-10-29
+updated: 2026-11-01
 tags: [tooling, versions, bun, nuxt, nuxt-ui, pdf]
 sources: [source/nuxt-4-installation, source/nuxt-ui-4-installation, source/vite-pwa-nuxt, source/pdf-lib-readme]
 related: [eng/architecture, decision/adr-0001-stack, eng/repo-layout]
@@ -54,9 +54,12 @@ Every version below came from `npm view`, `package.json` in
 
 ### Repo root vs spike
 
-The root app (live, 2026-10-29) resolves: `nuxt 4.6.3`, `vue 3.5.44`,
+The root app (re-checked 2026-11-01) resolves: `nuxt 4.6.3`, `vue 3.5.44`,
 `vue-router 4.6.4` (package.json `^4.5.0`), `@nuxt/ui 4.12.0`,
-`tailwindcss 4.3.3`, `typescript 5.9.3`, `@iconify-json/lucide 1.2.149`.
+`typescript 5.9.3`, `playwright 1.64.1`, `pdfjs-dist 6.4.299`, on `bun 1.4.3` /
+node 22.23.4. Playwright, `@axe-core/playwright` and pdfjs-dist are
+`devDependencies`; `pdf-lib`, `@pdf-lib/fontkit` and `bidi-js` are runtime deps
+of the lazy PDF chunk.
 
 Differences from the spike, all deliberate/known:
 
